@@ -6,6 +6,20 @@
 }: let
   cfg = config.hm.yazi;
   tomlFormat = pkgs.formats.toml {};
+
+  flavorPaths = [
+    {
+      url = "https://github.com/yazi-rs/flavors.git";
+      ref = "main";
+      rev = "1f54993b7a3f4b9c551531e019d82c7a609c6cd0";
+    }
+    {
+      url = "https://github.com/bennyyip/gruvbox-dark.yazi.git";
+      name = "gruvbox-dark.yazi";
+      ref = "main";
+      rev = "c204853de7a78bc99ea628e51857ce65506468db";
+    }
+  ];
 in {
   options.hm.yazi = {
     enable = lib.mkEnableOption "Enable Yazi, the terminal file manager.";
@@ -38,13 +52,19 @@ in {
               lib.map (
                 variant: let
                   #result = builtins.pathExists "${pkgs.yazi-flavors}/${theme}-${variant}.yazi";
-                  gitpath = builtins.fetchGit {
-                    url = "https://github.com/yazi-rs/flavors.git";
-                    ref = "main";
-                  };
-                  result = builtins.pathExists "${gitpath}/${theme}-${variant}.yazi";
+                  hasPath = lib.foldl' (acc: x: acc || x) false (lib.map (path:
+                    if (lib.hasInfix "${theme}-${variant}.yazi" path.url)
+                    then true
+                    else
+                      (
+                        if (builtins.pathExists "${builtins.fetchGit path}/${theme}-${variant}.yazi")
+                        then true
+                        else false
+                      ))
+                  flavorPaths);
+                  #result = builtins.pathExists "${gitpath}/${theme}-${variant}.yazi";
                   file =
-                    if result
+                    if hasPath
                     then (mkThemeFile theme variant)
                     else null;
                 in
@@ -83,21 +103,30 @@ in {
           enable = true;
           enableBashIntegration = true;
           flavors = lib.mkMerge [
-            (lib.listToAttrs (lib.filter (item: item != null) (lib.concatMap (theme:
+            ((lib.listToAttrs (lib.filter (item: item != null) (lib.concatMap (theme:
               lib.map (
                 variant: let
-                  result = builtins.pathExists "${pkgs.yazi-flavors}/${theme}-${variant}.yazi";
+                  path = lib.foldl' (acc: x: if (x != null) then x else acc ) {} (lib.map (path:
+                    if (lib.hasInfix "${theme}-${variant}.yazi" path.url)
+                    then "${builtins.fetchGit path}"
+                    else
+                      (
+                        if (builtins.pathExists "${builtins.fetchGit path}/${theme}-${variant}.yazi")
+                        then "${builtins.fetchGit path}/${theme}-${variant}.yazi"
+                        else null
+                      ))
+                  flavorPaths);
                   flavor =
-                    if result
+                    if (path != {})
                     then {
                       name = "${theme}-${variant}";
-                      value = "${pkgs.yazi-flavors}/${theme}-${variant}.yazi";
+                      value = path;
                     }
                     else null;
                 in
                   flavor
               ) (getVariantNames theme))
-            themeNames)))
+            themeNames))) )
           ];
 
           # "catppuccin-${cfg.variant}" = "${pkgs.yazi-flavors}/catppuccin-${cfg.variant}.yazi";
@@ -109,4 +138,4 @@ in {
         };
       }
     ];
-}
+} 

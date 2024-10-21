@@ -223,4 +223,61 @@
       green = variants.${value}.green;
     };
   };
+  gruvbox = rec {
+    variants = {
+      dark = {
+        bg = "282828"; #282828
+        darkRed = "cc241d"; #cc241d
+        red = "fb4934"; #fb4934
+        darkGreen = "98971a"; #98971a
+        green = "b8bb26"; #b8bb26
+        darkYellow = "d79921"; #d79921
+        yellow = "fabd2f"; #fabd2f
+        darkBlue = "83a598"; #83a598
+        blue = "458588"; #458588
+        darkpurple = "b16286"; #b16286
+        purple = "d3869b"; #d3869b
+        darkGray = "928374"; #928374
+        gray = "a89984"; #a89984
+        darkAqua = "689d6a"; #689d6a
+        aqua = "8ec07c"; #8ec07c
+        fg = "ebdbb2"; #ebdbb2
+        bg0_h = "1d2021"; #1d2021
+        bg0 = "282828"; #282828
+        bg1 = "3c3836"; #3c3836
+        bg2 = "504945"; #504945
+        bg3 = "665c54"; #665c54
+        bg4 = "7c6f64"; #7c6f64
+        orange = "d65d0e"; #d65d0e
+        bg0_s = "32302f"; #32302f
+        fg4 = "a89984"; #a89984
+        fg3 = "bdae93"; #bdae93
+        fg2 = "d5c4a1"; #d5c4a1
+        fg1 = "ebdbb2"; #ebdbb2
+        fg0 = "fbf1c7"; #fbf1c7
+        darkOrange = "fe8019"; #fe8019
+      };
+    };
+    cognates = value: {
+      activeBorder1 = variants.${value}.blue;
+      activeBorder2 = variants.${value}.purple;
+      inactiveBorder1 = variants.${value}.gray;
+      inactiveBorder2 = variants.${value}.darkGray;
+      text = variants.${value}.fg;
+      textField = variants.${value}.bg2;
+      bg = variants.${value}.bg;
+      btnHoverBg = variants.${value}.darkBlue;
+      btnHoverFg = variants.${value}.bg;
+      activeWorkspace = variants.${value}.darkOrange;
+      inactiveWorkspace = variants.${value}.gray;
+      failure = variants.${value}.red;
+      warning = variants.${value}.yellow;
+      blue = variants.${value}.blue;
+      red = variants.${value}.red;
+      purple = variants.${value}.purple;
+      pink = variants.${value}.aqua;
+      yellow = variants.${value}.yellow;
+      green = variants.${value}.green;
+    };
+  };
 }

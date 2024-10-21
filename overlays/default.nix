@@ -33,7 +33,6 @@
   nonFlakeSrcs = f: p: {
     inherit (inputs) neovim-config;
     inherit (inputs) firefox-gnome-theme;
-    inherit (inputs) yazi-flavors;
   };
 
   # See https://github.com/NixOS/nixpkgs/issues/310755

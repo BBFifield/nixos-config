@@ -62,8 +62,9 @@ in {
               };
             };
           };
+          themeFilesList = lib.concatMap (theme: lib.map (variant: mkThemeFile theme variant) (getVariantNames theme)) themeNames;
 
-          themeFiles = lib.mkMerge [(lib.foldl' (acc: item: {xdg.configFile = acc.xdg.configFile // item.xdg.configFile;}) {xdg.configFile = {};} (lib.concatMap (theme: lib.map (variant: mkThemeFile theme variant) (getVariantNames theme)) themeNames))];
+          themeFiles = lib.foldl' (acc: item: {xdg.configFile = acc.xdg.configFile // item.xdg.configFile;}) {xdg.configFile = {};} themeFilesList;
         in
           lib.mkMerge [
             {

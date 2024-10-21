@@ -1,4 +1,5 @@
 return {
+
 	"nvim-lualine/lualine.nvim",
 	--	enabled = false,
 	dependencies = {
@@ -52,10 +53,12 @@ return {
 		end
 
 		function custom_buffers_buffer:separator_before()
-			if self.current or self.aftercurrent then
-				return "%Z{" .. self.options.section_separators.left .. "}"
+			if self.current then
+				return string.format(" %%#lualine_b_normal#%s%%*", self.options.section_separators.right)
+			elseif self.aftercurrent then
+				return "%Z{" .. self.options.section_separators.left .. " }"
 			else
-				return string.format("%%#lualine_b_normal#%s%%*", self.options.component_separators.left)
+				return string.format("%%#lualine_b_normal#%s%%*", self.options.component_separators.right)
 			end
 		end
 
@@ -82,20 +85,80 @@ return {
 			}
 		end
 
-		require("lualine").setup(vim.tbl_deep_extend("keep", winbar, {
+		local tabline = {}
+		local barbar_enabled = NewfieVim:get_plugin_info("barbar").enabled
+		if barbar_enabled then
+			tabline = {
+				tabline = {},
+			}
+		else
+			tabline = {
+				tabline = {
+					lualine_c = {
+						{
+							custom_buffers,
+							show_filename_only = true,
+							hide_filename_extension = false,
+							show_modified_status = true,
+							mode = 0,
+							filetype_names = {
+								checkhealth = "Check Health",
+								TelescopePrompt = "Telescope",
+							},
+							buffers_color = {
+								active = "lualine_a_normal",
+								inactive = "lualine_b_normal",
+							},
+							separator = { left = "", right = "" },
+							padding = 0,
+							max_length = function()
+								return vim.o.columns * 4 / 3
+							end,
+							--fmt = trunc(300, 200, 50, false),
+							symbols = {
+								modified = "",
+							},
+
+							cond = function()
+								return vim.bo.filetype ~= "alpha"
+									and vim.bo.filetype ~= "lazy"
+									and vim.bo.filetype ~= "TelescopePrompt"
+									and vim.bo.filetype ~= "NvimTree"
+									and vim.bo.filetype ~= "tfm"
+							end,
+						},
+					},
+					lualine_x = {},
+					lualine_y = {},
+					lualine_z = {
+						{
+							"datetime",
+							separator = { left = "", right = "" },
+							--options: default, us, uk, iso, or your own format string ("%H:%M", etc..)
+							style = "%H:%M",
+						},
+					},
+				},
+			}
+		end
+
+		require("lualine").setup(vim.tbl_deep_extend("keep", winbar, tabline, {
 			options = {
 				icons_enabled = true,
-				--	theme = vim.g.colorscheme,
-				component_separators = { left = "", right = "" },
-				section_separators = { left = "", right = "" },
+				theme = vim.g.colorscheme,
+				--component_separators = { left = "", right = "" },
+				--component_separators = { left = "│", right = "│" },
+				component_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
+				--	section_separators = { left = "", right = "" },
 			},
 			sections = {
-				lualine_a = { "mode" },
+				lualine_a = { { "mode", separator = { left = "", right = "" } } },
 				lualine_b = { "branch" },
 				lualine_c = {},
-				lualine_x = { "filetype", "encoding", "fileformat" },
-				lualine_y = { "progress" },
-				lualine_z = { "location" },
+				lualine_x = {},
+				lualine_y = { "filetype", "encoding", "fileformat", "progress" },
+				lualine_z = { { "location", separator = { left = "", right = "" } } },
 			},
 			inactive_sections = {
 				lualine_a = {},
@@ -105,51 +168,7 @@ return {
 				lualine_y = {},
 				lualine_z = {},
 			},
-			tabline = {
-				lualine_c = {
-					{
-						custom_buffers,
-						show_filename_only = true,
-						hide_filename_extension = false,
-						show_modified_status = true,
-						mode = 0,
-						filetype_names = {
-							checkhealth = "Check Health",
-							TelescopePrompt = "Telescope",
-						},
-						buffers_color = {
-							active = "lualine_a_normal",
-							inactive = "lualine_b_normal",
-						},
-						separator = { left = "", right = "" },
-						padding = 0,
-						max_length = function()
-							return vim.o.columns * 4 / 3
-						end,
-						--fmt = trunc(300, 200, 50, false),
-						symbols = {
-							modified = "",
-						},
 
-						cond = function()
-							return vim.bo.filetype ~= "alpha"
-								and vim.bo.filetype ~= "lazy"
-								and vim.bo.filetype ~= "TelescopePrompt"
-								and vim.bo.filetype ~= "NvimTree"
-								and vim.bo.filetype ~= "tfm"
-						end,
-					},
-				},
-				lualine_x = {},
-				lualine_y = {},
-				lualine_z = {
-					{
-						"datetime",
-						--options: default, us, uk, iso, or your own format string ("%H:%M", etc..)
-						style = "%H:%M",
-					},
-				},
-			},
 			extensions = {},
 		}))
 	end,

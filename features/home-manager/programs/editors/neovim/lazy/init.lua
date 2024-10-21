@@ -29,6 +29,7 @@ local opts = {
 		telescope = { "nvim-telescope/telescope.nvim", enabled = true },
 		tfm = { "rolv-apneseth/tfm.nvim", enabled = true },
 		which_key = { "folke/which-key.nvim", enabled = true },
+		barbar = { "romgrk/barbar.nvim", enabled = false },
 	},
 }
 NewfieVim = NewfieVim_object:new(opts) -- Create a new NewfieVim object

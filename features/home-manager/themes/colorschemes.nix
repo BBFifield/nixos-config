@@ -4,6 +4,7 @@
   ...
 }: let
   cfg = config.hm.theme.colorscheme;
+
   colorschemes = import ./colorschemeInfo.nix;
   colorschemeEnums = lib.attrNames colorschemes;
   defaultScheme = lib.elemAt colorschemeEnums 0;

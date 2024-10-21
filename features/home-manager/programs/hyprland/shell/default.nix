@@ -122,7 +122,7 @@ in {
           themeNames = lib.attrNames attrset;
           getVariantNames = theme: lib.attrNames attrset.${theme}.variants;
 
-          mkColorPrefix = name: value: {
+          mkHyprColor = name: value: {
             name = "\$${name}";
             value = "${value}";
           };
@@ -130,39 +130,32 @@ in {
           unpacked = lib.listToAttrs (lib.concatMap (theme:
             lib.map (variant: {
               name = "${theme}_${variant}";
-              value = attrset.${theme}.cognates variant;
+              value = let
+                cognates = attrset.${theme}.cognates variant;
+              in {
+                inherit cognates;
+                colorAttrs = lib.listToAttrs (lib.map (cognateName: mkHyprColor cognateName cognates.${cognateName}) (lib.attrNames cognates));
+              };
             }) (getVariantNames theme))
           themeNames);
 
-          unpacked2 = lib.concatMap (theme:
-            lib.map (variant: {
-              name = "${theme}_${variant}";
-              value = let
-                cognates = attrset.${theme}.cognates variant;
-              in
-                lib.map (cognateName: mkColorPrefix cognateName cognates.${cognateName}) (lib.attrNames cognates);
-            }) (getVariantNames theme))
-          themeNames;
-
           mkColorFile = name: value: {
             xdg.configFile."hypr/hyprland_colorschemes/${name}.conf".text = lib.hm.generators.toHyprconf {
-              attrs = value;
+              attrs = value.colorAttrs;
             };
           };
 
-          mkSettingsFile = name: value: {
+          mkSettingsFile = name: {
             xdg.configFile."hypr/colorscheme_settings/${name}.conf".text = lib.hm.generators.toHyprconf {
               attrs = colorschemeSettings name;
-              # inherit (config.wayland.windowManager.hyprland) importantPrefixes;
             };
           };
 
-          colorFiles = mkMerge [
-            (lib.foldl' (acc: item: {xdg.configFile = acc.xdg.configFile // item.xdg.configFile;}) {xdg.configFile = {};} (lib.attrValues (lib.mapAttrs (name: value: mkColorFile name (lib.listToAttrs value)) (lib.listToAttrs unpacked2))))
-          ];
+          colorFiles =
+            lib.foldl' (acc: item: {xdg.configFile = acc.xdg.configFile // item.xdg.configFile;}) {xdg.configFile = {};} (lib.attrValues (lib.mapAttrs (name: value: mkColorFile name value) unpacked));
 
           settingsFiles = mkMerge [
-            (lib.foldl' (acc: item: {xdg.configFile = acc.xdg.configFile // item.xdg.configFile;}) {xdg.configFile = {};} (lib.attrValues (lib.mapAttrs (name: value: mkSettingsFile name value) unpacked)))
+            (lib.foldl' (acc: item: {xdg.configFile = acc.xdg.configFile // item.xdg.configFile;}) {xdg.configFile = {};} (lib.attrValues (lib.mapAttrs (name: value: mkSettingsFile name) unpacked)))
             {
               xdg.configFile."hypr/colorscheme_settings.conf".text = let
                 name = "${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}";
@@ -200,7 +193,7 @@ in {
                 name = "${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}";
               in
                 lib.hm.generators.toHyprconf {
-                  attrs = lib.listToAttrs ((lib.head (lib.filter (theme: name == theme.name) unpacked2)).value);
+                  attrs = (lib.filterAttrs (n: v: name == n) unpacked).${name};
                 };
             }
             (lib.mkIf (cfg.hotload.enable) (mkMerge [
