@@ -83,7 +83,7 @@ in {
       })
       ###### HYPRLAND CONFIG ######
       (lib.optionalAttrs (sysCfg.desktop.hyprland.enable) {
-        firefox.style = "gnome";
+        firefox.hotload.enable = true;
         dconf.enable = true;
         alacritty.hotload.enable = true;
         yazi.hotload.enable = true;

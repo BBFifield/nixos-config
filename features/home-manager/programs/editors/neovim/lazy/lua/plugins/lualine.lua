@@ -45,7 +45,7 @@ return {
 			vim.api.nvim_set_hl(0, "inactive_modified", { fg = general_fg, bg = inactive_bg })
 
 			if self:is_current() and vim.api.nvim_get_option_value("modified", { buf = self.bufnr }) then
-				name = name .. "%#active_modified# ● %*"
+				name = name .. "%#active_modified# ●%*"
 			elseif not self:is_current() and vim.api.nvim_get_option_value("modified", { buf = self.bufnr }) then
 				name = name .. "%#inactive_modified# ○ %*"
 			end
@@ -54,7 +54,7 @@ return {
 
 		function custom_buffers_buffer:separator_before()
 			if self.current then
-				return string.format(" %%#lualine_b_normal#%s%%*", self.options.section_separators.right)
+				return string.format("%%#lualine_b_normal#%s%%*", self.options.section_separators.right)
 			elseif self.aftercurrent then
 				return "%Z{" .. self.options.section_separators.left .. " }"
 			else

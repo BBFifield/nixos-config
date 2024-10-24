@@ -34,7 +34,7 @@
             current_colorscheme="$1"
             switch_config() {
           '';
-          "6" = ''
+          "7" = ''
             }
               if [ "$(ls -1 "$directory/hypr/hyprland_colorschemes" | wc -l)" -le 1 ]; then
                 exit 1

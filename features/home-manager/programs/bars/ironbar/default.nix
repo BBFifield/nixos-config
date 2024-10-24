@@ -102,7 +102,7 @@ in {
                   rm "$directory/ironbar/style.css"
                   cp -rf "$directory/ironbar/ironbar_colorschemes/$1.css" "$directory/ironbar/style.css"
                 '';
-                "8" = ''
+                "9" = ''
                   ironbar load-css "$directory/ironbar/style.css"
                 '';
               };
