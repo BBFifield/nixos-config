@@ -9,9 +9,9 @@
     ++ [./themes];
 
   options.hm = {
-    enableMutableConfigs = lib.mkEnableOption "Enable configs to be directly modifiable.";
-    hotload = lib.mkOption {
-      type = (import ./submodules {inherit lib;}).hotload;
+    enableMutableConfigs = lib.mkEnableOption "Enable live modification of configuration files.";
+    hot-reload = lib.mkOption {
+      type = (import ./submodules {inherit lib;}).hot-reload;
     };
     projectPath = lib.mkOption {
       type = lib.types.str;
@@ -24,32 +24,47 @@
     hidpi.enable = lib.mkEnableOption "Enable hidpi (which just makes the scale 2x in relevant parts of the configuration).";
   };
 
-  config = {
+  config = lib.mkIf config.hm.hot-reload.enable {
     home.packages = let
       parts =
         {
           "1" = ''
             #!/usr/bin/env bash
             directory=${config.home.homeDirectory}/.config
-            current_colorscheme="$1"
+            next_colorscheme="$1"
+            mode="$2"
             switch_config() {
           '';
           "7" = ''
             }
-              if [ "$(ls -1 "$directory/hypr/hyprland_colorschemes" | wc -l)" -le 1 ]; then
-                exit 1
-              else
-                next_colorscheme=$(ls -1 "$directory/hypr/hyprland_colorschemes" | sed -n "/$current_colorscheme/{n;p}" | sed 's/\.[^.]*$//')
-                if [[ -z "$next_colorscheme" ]]; then
-                  next_colorscheme=$(ls -1 "$directory/hypr/hyprland_colorschemes" | sed -n '1p' | sed 's/\.[^.]*$//')
-                fi
-              fi
-              switch_config "$next_colorscheme"
-          '';
-        }
-        // config.hm.hotload.scriptParts;
 
-      sortedList = lib.sort (a: b: a.name < b.name) (lib.attrsToList parts);
+            switch_config $next_colorscheme
+          '';
+          /*
+            "1" = ''
+            #!/usr/bin/env bash
+            directory=${config.home.homeDirectory}/.config
+            current_colorscheme="$1"
+            mode="$2"
+            switch_config() {
+          '';
+          "7" = ''
+            }
+            if [ "$(ls -1 "$directory/hypr/hyprland_colorschemes" | wc -l)" -le 1 ]; then
+              exit 1
+            else
+              next_colorscheme=$(ls -1 "$directory/hypr/hyprland_colorschemes" | sed -n "/$current_colorscheme/{n;p}" | sed 's/\.[^.]*$//')
+              if [[ -z "$next_colorscheme" ]]; then
+                next_colorscheme=$(ls -1 "$directory/hypr/hyprland_colorschemes" | sed -n '1p' | sed 's/\.[^.]*$//')
+              fi
+            fi
+            switch_config "$next_colorscheme"
+          '';
+          */
+        }
+        // config.hm.hot-reload.scriptParts;
+
+      sortedList = lib.sort (a: b: (lib.toInt a.name) < (lib.toInt b.name)) (lib.attrsToList parts);
 
       scriptList = lib.map (part: part.value) sortedList;
     in [

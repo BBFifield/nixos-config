@@ -34,13 +34,13 @@
   };
 in {
   options.hm.alacritty = {
-    hotload = lib.mkOption {
-      type = (import ../../../submodules {inherit lib;}).hotload;
+    hot-reload = lib.mkOption {
+      type = (import ../../../submodules {inherit lib;}).hot-reload;
     };
   };
   config = lib.mkMerge [
     (
-      lib.mkIf (cfg.hotload.enable)
+      lib.mkIf (cfg.hot-reload.enable)
       (
         let
           attrset = import ../../../themes/colorschemeInfo.nix;
@@ -68,7 +68,7 @@ in {
         in
           lib.mkMerge [
             {
-              hm.hotload.scriptParts = {
+              hm.hot-reload.scriptParts = {
                 "4" = ''
                   rm $directory/alacritty/alacritty-theme.toml
                   cp -rf $directory/alacritty/alacritty-themes/$1.toml $directory/alacritty/alacritty-theme.toml

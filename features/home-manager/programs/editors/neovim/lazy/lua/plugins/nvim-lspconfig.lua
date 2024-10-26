@@ -98,6 +98,11 @@ return {
 				css = { "prettierd" },
 				scss = { "prettierd" },
 			},
+			format_on_save = {
+				-- I recommend these options. See :help conform.format for details.
+				lsp_format = "fallback",
+				timeout_ms = 5000,
+			},
 		},
 		config = function(_, opts)
 			NewfieVim:get_plugin_info("lsp_config")

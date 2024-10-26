@@ -100,7 +100,6 @@
     "browser.tabs.inTitlebar" = lib.mkDefault 0;
     "browser.uiCustomization.state" =
       lib.mkDefault ''{"placements":{"widget-overflow-fixed-list":[],"unified-extensions-area":["_ac34afe8-3a2e-4201-b745-346c0cf6ec7d_-browser-action","addon_darkreader_org-browser-action"],"nav-bar":["back-button","forward-button","stop-reload-button","urlbar-container","downloads-button","unified-extensions-button","ublock0_raymondhill_net-browser-action","fxa-toolbar-menu-button"],"toolbar-menubar":["menubar-items"],"TabsToolbar":["tabbrowser-tabs","new-tab-button","alltabs-button"],"PersonalToolbar":["import-button","personal-bookmarks"]},"seen":["save-to-pocket-button","developer-button","_ac34afe8-3a2e-4201-b745-346c0cf6ec7d_-browser-action","ublock0_raymondhill_net-browser-action","addon_darkreader_org-browser-action"],"dirtyAreaCache":["nav-bar","unified-extensions-area","PersonalToolbar","toolbar-menubar","TabsToolbar"],"currentVersion":20,"newElementCount":5}'';
-    "extensions.activeThemeID" = lib.mkDefault "default-theme@mozilla.org";
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "widget.gtk.non-native-titlebar-buttons.enabled" = lib.mkDefault false;
     # Automatically enable extensions
@@ -110,131 +109,10 @@
     "gfx.x11-egl.force-enabled" = true;
     "widget.dmabuf.force-enabled" = true;
   };
-
-  engines = {
-    "Bing".metaData.hidden = true;
-    "eBay".metaData.hidden = true;
-    "Google".metaData.alias = "@g";
-    "Wikipedia (en)".metaData.alias = "@w";
-
-    "GitHub" = {
-      urls = [
-        {
-          template = "https://github.com/search";
-          params = [
-            {
-              name = "q";
-              value = "{searchTerms}";
-            }
-          ];
-        }
-      ];
-      icon = "${pkgs.fetchurl {
-        url = "https://github.githubassets.com/favicons/favicon-dark.svg";
-        sha256 = "1b474jhw71ppqpx9d0znsqinkh1g8pac7cavjilppckgzgsxvvxa";
-      }}";
-      definedAliases = ["@gh"];
-    };
-
-    "Nix Packages" = {
-      urls = [
-        {
-          template = "https://search.nixos.org/packages";
-          params = [
-            {
-              name = "channel";
-              value = "unstable";
-            }
-            {
-              name = "query";
-              value = "{searchTerms}";
-            }
-          ];
-        }
-      ];
-      icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-      definedAliases = ["@np"];
-    };
-
-    "NixOS Wiki" = {
-      urls = [
-        {
-          template = "https://nixos.wiki/index.php";
-          params = [
-            {
-              name = "search";
-              value = "{searchTerms}";
-            }
-          ];
-        }
-      ];
-      icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg";
-      definedAliases = ["@nw"];
-    };
-
-    "Home Manager Options" = {
-      urls = [
-        {
-          template = "https://home-manager-options.extranix.com";
-          params = [
-            {
-              name = "query";
-              value = "{searchTerms}";
-            }
-            {
-              name = "release";
-              value = "master";
-            }
-          ];
-        }
-      ];
-      icon = "${pkgs.fetchurl {
-        url = "https://home-manager-options.extranix.com/images/favicon.png";
-        sha256 = "sha256-oFp+eoTLXd0GAK/VrYRUeoXntJDfTu6VnzisEt+bW74=";
-      }}";
-      definedAliases = ["@hm"];
-    };
-
-    "Reddit" = {
-      urls = [
-        {
-          template = "https://www.reddit.com/search";
-          params = [
-            {
-              name = "q";
-              value = "{searchTerms}";
-            }
-          ];
-        }
-      ];
-      icon = "${pkgs.fetchurl {
-        url = "https://www.redditstatic.com/accountmanager/favicon/favicon-512x512.png";
-        sha256 = "0a173np89imayid67vfwi8rxp0r91rdm9cn2jc523mcbgdq96dg3";
-      }}";
-      definedAliases = ["@r"];
-    };
-
-    "Youtube" = {
-      urls = [
-        {
-          template = "https://www.youtube.com/results";
-          params = [
-            {
-              name = "search_query";
-              value = "{searchTerms}";
-            }
-          ];
-        }
-      ];
-      icon = "${pkgs.fetchurl {
-        url = "www.youtube.com/s/desktop/8498231a/img/favicon_144x144.png";
-        sha256 = "1wpnxfch3fs1rwbizh7icqff6l4ljqpp660afbxj2n58pin603lm";
-      }}";
-      definedAliases = ["@y"];
-    };
-  };
 in
   with lib; {
+    imports = [./pywalfox.nix];
+
     options.hm.firefox = {
       enable = lib.mkEnableOption "Enable home-manager firefox configuration";
       style = lib.mkOption {
@@ -242,8 +120,8 @@ in
         default = null;
         description = "Choose which settings style to use";
       };
-      hotload = lib.mkOption {
-        type = (import ../../../submodules {inherit lib;}).hotload;
+      hot-reload = lib.mkOption {
+        type = (import ../../../submodules {inherit lib;}).hot-reload;
       };
     };
 
@@ -261,46 +139,8 @@ in
       };
     in
       lib.mkIf config.hm.firefox.enable (lib.mkMerge [
-        (let
-          directory = "${config.home.homeDirectory}/${profilesPath}/test";
-          userPrefValue = pref:
-            builtins.toJSON (
-              if lib.isBool pref || lib.isInt pref || lib.isString pref
-              then pref
-              else builtins.toJSON pref
-            );
-
-          mkUserJs = prefs: ''
-            // Generated by Home Manager.
-
-            ${lib.concatStrings (lib.mapAttrsToList (name: value: ''
-                user_pref("${name}", ${userPrefValue value});
-              '')
-              prefs)}
-          '';
-
-          mkUserJsFile = name: value: {
-            home.file."${profilesPath}/test/userjs/${name}.js".text = let
-              prefs = {"extensions.activeThemeID" = value;} // wavefoxSettings;
-            in
-              mkUserJs prefs;
-          };
-
-          userJsFiles = lib.foldl' (acc: item: {home.file = acc.home.file // item.home.file;}) {home.file = {};} (lib.map (colorscheme: mkUserJsFile colorscheme.name colorscheme.uuid) colorschemes);
-        in
-          lib.mkIf (config.hm.firefox.hotload.enable) (lib.mkMerge [
-            {
-              hm.hotload.scriptParts = {
-                "6" = ''
-                  rm "${directory}/user.js"
-                  cp -rf "${directory}/userjs/$1.js" "${directory}/user.js"
-                '';
-              };
-            }
-            userJsFiles
-          ]))
         {
-          home.file."${profilesPath}/test/chrome" = lib.mkMerge [
+          home.file."${profilesPath}/default/chrome" = lib.mkMerge [
             {
               recursive = true;
               force = true;
@@ -311,7 +151,7 @@ in
             (lib.mkIf (config.hm.firefox.style == "gnome") {
               source = pkgs.firefox-gnome-theme;
             })
-            (lib.mkIf (config.hm.firefox.hotload.enable) {
+            (lib.mkIf (config.hm.firefox.hot-reload.enable) {
               source = pkgs.nur.repos.slaier.wavefox;
             })
           ];
@@ -383,30 +223,14 @@ in
                 };
               };
 
-              /*
-              package =
-              pkgs.wrapFirefox pkgs.firefox-unwrapped {
-              };
-              */
-
               profiles = {
-                test = {
+                default = {
                   id = 0; # 0 is the default profile; see also option "isDefault"
                   inherit extensions;
                   settings = lib.mkMerge [
                     settings
 
-                    (lib.mkIf (config.hm.hyprland.enable) (lib.mkMerge [
-                      {
-                        "extensions.activeThemeID" = let
-                          name = "${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}";
-                          colorscheme = lib.head (lib.filter (colorscheme': colorscheme'.name == name) colorschemes);
-                        in
-                          lib.mkForce colorscheme.uuid;
-                      }
-                      wavefoxSettings
-                    ]))
-                    #// wavefoxSettings)
+                    (lib.mkIf (config.hm.firefox.hot-reload.enable) wavefoxSettings)
 
                     (lib.mkIf (config.hm.firefox.style == "plasma") (lib.mkMerge [
                       {
@@ -434,7 +258,7 @@ in
                     force = true;
                     default = "Google";
                     order = ["DuckDuckGo" "Google"];
-                    inherit engines;
+                    engines = (import ./searchEngines.nix {inherit pkgs;}).engines;
                   };
                 };
               };

@@ -12,7 +12,6 @@ with lib; {
   config = mkIf config.hm.walker.enable {
     programs.walker = {
       enable = true;
-      # package = pkgs.walker;
       runAsService = true;
       config = {
         search.placeholder = "Example";

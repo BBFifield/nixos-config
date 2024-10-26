@@ -23,8 +23,8 @@
 in {
   options.hm.yazi = {
     enable = lib.mkEnableOption "Enable Yazi, the terminal file manager.";
-    hotload = lib.mkOption {
-      type = (import ../../submodules {inherit lib;}).hotload;
+    hot-reload = lib.mkOption {
+      type = (import ../../submodules {inherit lib;}).hot-reload;
     };
   };
 
@@ -35,7 +35,7 @@ in {
   in
     lib.mkMerge [
       (
-        lib.mkIf (cfg.hotload.enable)
+        lib.mkIf (cfg.hot-reload.enable)
         (
           let
             mkThemeFile = theme: variant: {
@@ -51,7 +51,6 @@ in {
             themeFilesList = lib.filter (item: item != null) (lib.concatMap (theme:
               lib.map (
                 variant: let
-                  #result = builtins.pathExists "${pkgs.yazi-flavors}/${theme}-${variant}.yazi";
                   hasPath = lib.foldl' (acc: x: acc || x) false (lib.map (path:
                     if (lib.hasInfix "${theme}-${variant}.yazi" path.url)
                     then true
@@ -62,7 +61,6 @@ in {
                         else false
                       ))
                   flavorPaths);
-                  #result = builtins.pathExists "${gitpath}/${theme}-${variant}.yazi";
                   file =
                     if hasPath
                     then (mkThemeFile theme variant)
@@ -76,7 +74,7 @@ in {
           in
             lib.mkMerge [
               {
-                hm.hotload.scriptParts = {
+                hm.hot-reload.scriptParts = {
                   "5" = ''
                     rm $directory/yazi/theme.toml
                     cp -rf $directory/yazi/themes/$1.toml $directory/yazi/theme.toml
@@ -87,13 +85,15 @@ in {
             ]
         )
       )
-      # This file is created regardless
       {
-        xdg.configFile."yazi/theme.toml" = {
-          source = tomlFormat.generate "theme" {
-            flavor.use = "${config.hm.theme.colorscheme.name}-${config.hm.theme.colorscheme.variant}";
-          };
-        };
+        home.activation.yazi = let
+          defaultThemeFile = "${config.home.homeDirectory}/yazi/themes/${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}.toml";
+        in
+          lib.hm.dag.entryAfter ["writeBoundary"] ''
+            if test -f ${defaultThemeFile}; then
+              cp -rf ${config.home.homeDirectory}/yazi/themes/${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}.toml ${config.home.homeDirectory}/yazi/theme.toml
+            fi
+          '';
       }
       {
         home.packages = with pkgs; [
@@ -103,10 +103,13 @@ in {
           enable = true;
           enableBashIntegration = true;
           flavors = lib.mkMerge [
-            ((lib.listToAttrs (lib.filter (item: item != null) (lib.concatMap (theme:
+            (lib.listToAttrs (lib.filter (item: item != null) (lib.concatMap (theme:
               lib.map (
                 variant: let
-                  path = lib.foldl' (acc: x: if (x != null) then x else acc ) {} (lib.map (path:
+                  path = lib.foldl' (acc: x:
+                    if (x != null)
+                    then x
+                    else acc) {} (lib.map (path:
                     if (lib.hasInfix "${theme}-${variant}.yazi" path.url)
                     then "${builtins.fetchGit path}"
                     else
@@ -126,10 +129,9 @@ in {
                 in
                   flavor
               ) (getVariantNames theme))
-            themeNames))) )
+            themeNames)))
           ];
 
-          # "catppuccin-${cfg.variant}" = "${pkgs.yazi-flavors}/catppuccin-${cfg.variant}.yazi";
           settings = {
             manager = {
               show_hidden = true;
@@ -138,4 +140,4 @@ in {
         };
       }
     ];
-} 
+}

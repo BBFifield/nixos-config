@@ -30,7 +30,7 @@ in {
           copy-command = "wl-copy";
           annotation-size-factor = 2;
           # Filename to use for saving action. Omit to disable saving to file. Might contain format specifiers: https://docs.rs/chrono/latest/chrono/format/strftime/index.html
-          output-filename = "${config.home.homeDirectory}/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png";
+          output-filename = "${config.home.homeDirectory}/Pictures/Screenshots/satty-%Y%m%d-%H:%M:%S.png";
           # After copying the screenshot, save it to a file as well
           save-after-copy = false;
           default-hide-toolbars = false;

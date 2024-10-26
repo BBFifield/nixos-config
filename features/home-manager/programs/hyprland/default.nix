@@ -260,7 +260,8 @@ in {
             categories = ["X-Preferences"];
             terminal = false;
           };
-          "org.gnome.Tweaks" = {
+          /*
+            "org.gnome.Tweaks" = {
             name = "Tweaks";
             comment = "Gnome Tweaks";
             icon = "org.gnome.tweaks";
@@ -268,6 +269,7 @@ in {
             categories = ["X-Preferences"];
             terminal = false;
           };
+          */
         };
 
         home = {
@@ -275,7 +277,6 @@ in {
             adw-gtk3
             loupe
             baobab
-            gnome-system-monitor
             wl-gammactl
           ];
           sessionVariables = {

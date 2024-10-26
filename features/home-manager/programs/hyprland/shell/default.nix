@@ -13,8 +13,8 @@ with lib; let
         default = null;
         description = "Choose a customized shell.";
       };
-      hotload = lib.mkOption {
-        type = (import ../../../submodules {inherit lib;}).hotload;
+      hot-reload = lib.mkOption {
+        type = (import ../../../submodules {inherit lib;}).hot-reload;
       };
       baseConfig = mkOption {
         type = types.attrs;
@@ -28,7 +28,7 @@ with lib; let
       [
         "${config.home.homeDirectory}/.config/hypr/hyprland_colorscheme.conf"
       ]
-      ++ (lib.optionals (config.hm.hyprland.shell.hotload.enable) ["${config.home.homeDirectory}/.config/hypr/colorscheme_settings.conf"]);
+      ++ (lib.optionals (config.hm.hyprland.shell.hot-reload.enable) ["${config.home.homeDirectory}/.config/hypr/colorscheme_settings.conf"]);
 
     exec-once =
       [
@@ -53,16 +53,18 @@ with lib; let
       "SUPER, R, exec, walker"
       "SUPER, N, exec, wpaperctl next"
       "SUPER, P, exec, hyprpicker --autocopy"
-      "SUPER CTRL, H, exec, hyprshade toggle blue-light-filter"
-      "SUPER, S, exec, grim -g \"$(slurp -o -r -c '##$activeBorder1ff')\" -t ppm - | satty --filename -"
+      "SUPER ALT, H, exec, hyprshade toggle blue-light-filter"
+      "SUPER, S, exec, grim -g \"$(slurp -o -c '##$activeBorder1ff')\" -t ppm - | satty --filename -"
     ];
   };
 
-  colorschemeSettings = theme: {
-    bind = ''SUPER, T, exec, switch-colorscheme ${theme}'';
-    env = [
+  colorschemeSettings = theme: mode: {
+    bind = ''SUPER, T, exec, switch-colorscheme ${theme} ${mode}'';
+    /*
+      env = [
       "CURRENT_COLORSCHEME,${theme}.conf"
     ];
+    */
   };
 in {
   options.hm.hyprland = {
@@ -121,6 +123,7 @@ in {
           attrset = import ../../../themes/colorschemeInfo.nix;
           themeNames = lib.attrNames attrset;
           getVariantNames = theme: lib.attrNames attrset.${theme}.variants;
+          sortedNames = lib.sort (a: b: a < b) (lib.concatMap (theme: (lib.map (variant: "${theme}_${variant}") (getVariantNames theme))) themeNames);
 
           mkHyprColor = name: value: {
             name = "\$${name}";
@@ -146,9 +149,20 @@ in {
           };
 
           mkSettingsFile = name: {
-            xdg.configFile."hypr/colorscheme_settings/${name}.conf".text = lib.hm.generators.toHyprconf {
-              attrs = colorschemeSettings name;
-            };
+            xdg.configFile."hypr/colorscheme_settings/${name}.conf".text = let
+              nextColorscheme = lib.findFirst (name': name < name') null sortedNames;
+              nextColorscheme' =
+                if nextColorscheme != null
+                then nextColorscheme
+                else lib.elemAt sortedNames 0;
+              splittedName = lib.splitString "_" nextColorscheme';
+              name' = lib.elemAt splittedName 0;
+              variant = lib.elemAt splittedName 1;
+              mode = attrset.${name'}.variants.${variant}.mode;
+            in
+              lib.hm.generators.toHyprconf {
+                attrs = colorschemeSettings nextColorscheme' mode;
+              };
           };
 
           colorFiles =
@@ -159,9 +173,18 @@ in {
             {
               xdg.configFile."hypr/colorscheme_settings.conf".text = let
                 name = "${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}";
+                nextColorscheme = lib.findFirst (name': name < name') null sortedNames;
+                nextColorscheme' =
+                  if nextColorscheme != null
+                  then nextColorscheme
+                  else lib.elemAt sortedNames 0;
+                splittedName = lib.splitString "_" nextColorscheme';
+                name' = lib.elemAt splittedName 0;
+                variant = lib.elemAt splittedName 1;
+                mode = attrset.${name'}.variants.${variant}.mode;
               in
                 lib.hm.generators.toHyprconf {
-                  attrs = colorschemeSettings name;
+                  attrs = colorschemeSettings nextColorscheme' mode;
                   inherit (config.wayland.windowManager.hyprland) importantPrefixes;
                 };
             }
@@ -175,7 +198,7 @@ in {
               hm.satty.enable = true;
               hm.ironbar = {
                 enable = true;
-                hotload.enable = true;
+                hot-reload.enable = true;
               };
               home.packages = with pkgs; [
                 hyprpicker
@@ -193,17 +216,18 @@ in {
                 name = "${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}";
               in
                 lib.hm.generators.toHyprconf {
-                  attrs = (lib.filterAttrs (n: v: name == n) unpacked).${name};
+                  attrs = (lib.filterAttrs (n: v: name == n) unpacked).${name}.colorAttrs;
                 };
             }
-            (lib.mkIf (cfg.hotload.enable) (mkMerge [
+            (lib.mkIf (cfg.hot-reload.enable) (mkMerge [
               {
-                hm.hotload.scriptParts = {
+                hm.hot-reload.scriptParts = {
                   "2" = ''
                     rm "$directory/hypr/colorscheme_settings.conf" "$directory/hypr/hyprland_colorscheme.conf"
                     cp -rf "$directory/hypr/hyprland_colorschemes/$1.conf" "$directory/hypr/hyprland_colorscheme.conf"
                     cp -rf "$directory/hypr/colorscheme_settings/$1.conf" "$directory/hypr/colorscheme_settings.conf"
                   '';
+
                   "8" = ''
                     hyprctl reload
                   '';

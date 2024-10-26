@@ -6,11 +6,47 @@
 }: let
   cfg = config.hm.ironbar;
   mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
+
+  attrset = import ../../../themes/colorschemeInfo.nix;
+
+  mkColorPrefix = name: value: {
+    name = "\$${name}";
+    value = "#${value}";
+  };
+
+  mkColorsFile = value:
+    pkgs.writeTextFile {
+      name = "_ironbar_colors.scss";
+      text = lib.concatStringsSep "\n" (lib.map (cognate: "${cognate.name}: ${cognate.value};") value);
+    };
+
+  mkCognateList = name: variant: let
+    cognates = attrset.${name}.cognates variant;
+  in
+    lib.map (cognateName: mkColorPrefix cognateName cognates.${cognateName}) (lib.attrNames cognates);
+
+  mkStyleFile = name: value: installPhase:
+    pkgs.runCommand name {nativeBuildInputs = with pkgs; [dart-sass];} ''
+      #!/usr/bin/env bash
+      mkdir -p $out
+      cp -rf "${mkColorsFile value}" "$out/_ironbar_colors.scss"
+      cp -rf "${./config/style.scss}" "$out/style.scss"
+      ${installPhase}
+    '';
+
+  initialStyleFile = let
+    name = config.hm.theme.colorscheme.name;
+    variant = config.hm.theme.colorscheme.variant;
+  in
+    mkStyleFile "${name}_${variant}" (mkCognateList name variant) ''
+      sass "$out/style.scss" "$out/.config/ironbar/style.css"
+    '';
 in {
   options.hm.ironbar = {
     enable = lib.mkEnableOption "Enable ironbar statusbar.";
-    hotload = lib.mkOption {
-      type = (import ../../../submodules {inherit lib;}).hotload;
+    enableMutableConfigs = lib.mkEnableOption "Enable live modification of ironbar configuration files.";
+    hot-reload = lib.mkOption {
+      type = (import ../../../submodules {inherit lib;}).hot-reload;
     };
   };
 
@@ -29,55 +65,31 @@ in {
           style = "";
         };
       }
-      /*
-        (
-        lib.mkIf (config.hm.enableMutableConfigs && !config.hm.hotload.enable) {
+      (
+        lib.mkIf (!config.hm.ironbar.enableMutableConfigs) {
+          home.packages = [initialStyleFile];
+          xdg.configFile."ironbar/style.css".source = "${initialStyleFile}/.config/ironbar/style.css";
+          xdg.configFile."ironbar/config.corn".source = ./config/config.corn;
+          xdg.configFile."ironbar/sys_info.sh".source = ./config/sys_info.sh;
+        }
+      )
+      (
+        lib.mkIf (config.hm.ironbar.enableMutableConfigs && !config.hm.hot-reload.enable) {
           xdg.configFile."ironbar".source = mkOutOfStoreSymlink "${config.hm.projectPath}/bars/ironbar/config";
         }
       )
-      */
+
       (
-        lib.mkIf (config.hm.ironbar.hotload.enable) (let
-          attrset = import ../../../themes/colorschemeInfo.nix;
+        lib.mkIf (config.hm.ironbar.hot-reload.enable) (let
           themeNames = lib.attrNames attrset;
           getVariantNames = theme: lib.attrNames attrset.${theme}.variants;
-
-          mkColorPrefix = name: value: {
-            name = "\$${name}";
-            value = "#${value}";
-          };
 
           unpacked = lib.concatMap (theme:
             lib.map (variant: {
               name = "${theme}_${variant}";
-              value = let
-                cognates = attrset.${theme}.cognates variant;
-              in
-                lib.map (cognateName: mkColorPrefix cognateName cognates.${cognateName}) (lib.attrNames cognates);
+              value = mkCognateList theme variant;
             }) (getVariantNames theme))
           themeNames;
-
-          mkColorsFile = value:
-            pkgs.writeTextFile {
-              name = "_ironbar_colors.scss";
-              text = lib.concatStringsSep "\n" (lib.map (cognate: "${cognate.name}: ${cognate.value};") value);
-            };
-
-          mkStyleFile = name: value: installPhase:
-            pkgs.runCommand name {nativeBuildInputs = with pkgs; [dart-sass];} ''
-              #!/usr/bin/env bash
-              mkdir -p $out
-              cp -rf "${mkColorsFile value}" "$out/_ironbar_colors.scss"
-              cp -rf "${./config/style.scss}" "$out/style.scss"
-              ${installPhase}
-            '';
-
-          initialStyleFile = let
-            name = "${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}";
-          in
-            mkStyleFile name (lib.head (lib.filter (theme: name == theme.name) unpacked)).value ''
-              sass "$out/style.scss" "$out/.config/ironbar/style.css"
-            '';
 
           styleFiles = lib.mapAttrs (name: value:
             mkStyleFile name value ''
@@ -97,7 +109,7 @@ in {
         in
           lib.mkMerge [
             {
-              hm.hotload.scriptParts = {
+              hm.hot-reload.scriptParts = {
                 "3" = ''
                   rm "$directory/ironbar/style.css"
                   cp -rf "$directory/ironbar/ironbar_colorschemes/$1.css" "$directory/ironbar/style.css"
@@ -107,13 +119,7 @@ in {
                 '';
               };
 
-              home.packages =
-                [initialStyleFile]
-                ++ lib.attrValues styleFiles;
-
-              xdg.configFile."ironbar/style.css".source = "${initialStyleFile}/.config/ironbar/style.css";
-              xdg.configFile."ironbar/config.corn".source = ./config/config.corn;
-              xdg.configFile."ironbar/sys_info.sh".source = ./config/sys_info.sh;
+              home.packages = lib.attrValues styleFiles;
             }
             linkedStyleFiles
           ])
