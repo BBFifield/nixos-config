@@ -36,7 +36,7 @@ in {
     lib.mkMerge [
       ###### BASE CONFIG ######
       {
-        hotload.enable = true;
+        hot-reload.enable = true;
         hidpi.enable = sysCfg.desktop.hidpi.enable;
 
         firefox.enable = true;
@@ -83,24 +83,28 @@ in {
       })
       ###### HYPRLAND CONFIG ######
       (lib.optionalAttrs (sysCfg.desktop.hyprland.enable) {
-        firefox.hotload.enable = true;
+        firefox.hot-reload.enable = true;
         dconf.enable = true;
-        alacritty.hotload.enable = true;
-        yazi.hotload.enable = true;
+        alacritty.hot-reload.enable = true;
+        yazi.hot-reload.enable = true;
         theme = {
           gtkTheme.name = "adw-gtk3-dark";
           iconTheme = "MoreWaita";
           colorscheme = {
             name = "dracula";
             variant = "standard";
+            disabledSchemes = [
+              "dracula_alucard"
+            ];
           };
         };
+
         hyprland = lib.mkMerge [
           {enable = true;}
           (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "vanilla") {
             shell = {
               name = "vanilla";
-              hotload.enable = true;
+              hot-reload.enable = true;
             };
           })
           (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "asztal") {shell = "asztal";})

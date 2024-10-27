@@ -68,12 +68,12 @@ in {
         in
           lib.mkMerge [
             {
-              hm.hot-reload.scriptParts = {
-                "4" = ''
+              hm.theme.hot-reload.scriptParts = [
+                (lib.mkOrder 20 ''
                   rm $directory/alacritty/alacritty-theme.toml
                   cp -rf $directory/alacritty/alacritty-themes/$1.toml $directory/alacritty/alacritty-theme.toml
-                '';
-              };
+                '')
+              ];
             }
             themeFiles
           ]

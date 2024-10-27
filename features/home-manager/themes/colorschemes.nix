@@ -28,6 +28,10 @@
           type = types.attrs;
           default = colorschemes.${defaultScheme}.cognates defaultVariant;
         };
+        disabledSchemes = mkOption {
+          type = types.listOf types.str;
+          default = [];
+        };
       };
     };
 in {

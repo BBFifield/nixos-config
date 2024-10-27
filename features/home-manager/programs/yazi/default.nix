@@ -32,39 +32,44 @@ in {
     attrset = import ../../themes/colorschemeInfo.nix;
     themeNames = lib.attrNames attrset;
     getVariantNames = theme: lib.attrNames attrset.${theme}.variants;
+
+    queryGit = theme: variant:
+      lib.foldl' (acc: x:
+        if (x != null)
+        then x
+        else acc) {} (lib.map (path:
+        if (lib.hasInfix "${theme}-${variant}.yazi" path.url)
+        then "${builtins.fetchGit path}"
+        else
+          (
+            if (builtins.pathExists "${builtins.fetchGit path}/${theme}-${variant}.yazi")
+            then "${builtins.fetchGit path}/${theme}-${variant}.yazi"
+            else null
+          ))
+      flavorPaths);
+
+    mkThemeFile = theme: variant: path:
+      if (queryGit theme variant) != {}
+      then {
+        xdg.configFile."${path}.toml" = {
+          source = tomlFormat.generate "theme" {
+            flavor = {
+              use = "${theme}-${variant}";
+            };
+          };
+        };
+      }
+      else null;
   in
     lib.mkMerge [
       (
         lib.mkIf (cfg.hot-reload.enable)
         (
           let
-            mkThemeFile = theme: variant: {
-              xdg.configFile."yazi/themes/${theme}_${variant}.toml" = {
-                source = tomlFormat.generate "theme" {
-                  flavor = {
-                    use = "${theme}-${variant}";
-                  };
-                };
-              };
-            };
-
             themeFilesList = lib.filter (item: item != null) (lib.concatMap (theme:
               lib.map (
                 variant: let
-                  hasPath = lib.foldl' (acc: x: acc || x) false (lib.map (path:
-                    if (lib.hasInfix "${theme}-${variant}.yazi" path.url)
-                    then true
-                    else
-                      (
-                        if (builtins.pathExists "${builtins.fetchGit path}/${theme}-${variant}.yazi")
-                        then true
-                        else false
-                      ))
-                  flavorPaths);
-                  file =
-                    if hasPath
-                    then (mkThemeFile theme variant)
-                    else null;
+                  file = mkThemeFile theme variant "yazi/themes/${theme}_${variant}";
                 in
                   file
               ) (getVariantNames theme))
@@ -74,27 +79,35 @@ in {
           in
             lib.mkMerge [
               {
-                hm.hot-reload.scriptParts = {
-                  "5" = ''
+                hm.theme.hot-reload.scriptParts = [
+                  (lib.mkOrder 25 ''
                     rm $directory/yazi/theme.toml
                     cp -rf $directory/yazi/themes/$1.toml $directory/yazi/theme.toml
-                  '';
-                };
+                  '')
+                ];
               }
               themeFiles
             ]
         )
       )
+      #This is the default file created regardless of hot-reloading being enabled
+      # (
+      #   mkThemeFile config.hm.theme.colorscheme.name config.hm.theme.colorscheme.variant "yazi/theme"
+      # )
+      #This ensures no theme is left over from a previous generation
       {
         home.activation.yazi = let
-          defaultThemeFile = "${config.home.homeDirectory}/yazi/themes/${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}.toml";
+          defaultThemeFile = "${config.home.homeDirectory}/.config/yazi/themes/${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}.toml";
         in
           lib.hm.dag.entryAfter ["writeBoundary"] ''
             if test -f ${defaultThemeFile}; then
-              cp -rf ${config.home.homeDirectory}/yazi/themes/${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}.toml ${config.home.homeDirectory}/yazi/theme.toml
+              cp -rf ${defaultThemeFile} ${config.home.homeDirectory}/.config/yazi/theme.toml
+            elif test -f "${config.home.homeDirectory}/.config/yazi/theme.toml"; then
+              rm "${config.home.homeDirectory}/.config/yazi/theme.toml"
             fi
           '';
       }
+
       {
         home.packages = with pkgs; [
           ueberzugpp
@@ -106,19 +119,7 @@ in {
             (lib.listToAttrs (lib.filter (item: item != null) (lib.concatMap (theme:
               lib.map (
                 variant: let
-                  path = lib.foldl' (acc: x:
-                    if (x != null)
-                    then x
-                    else acc) {} (lib.map (path:
-                    if (lib.hasInfix "${theme}-${variant}.yazi" path.url)
-                    then "${builtins.fetchGit path}"
-                    else
-                      (
-                        if (builtins.pathExists "${builtins.fetchGit path}/${theme}-${variant}.yazi")
-                        then "${builtins.fetchGit path}/${theme}-${variant}.yazi"
-                        else null
-                      ))
-                  flavorPaths);
+                  path = queryGit theme variant;
                   flavor =
                     if (path != {})
                     then {

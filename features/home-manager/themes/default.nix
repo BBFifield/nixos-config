@@ -91,6 +91,9 @@ in {
     cursorTheme = mkOption {
       type = cursorSubmodule;
     };
+    hot-reload = lib.mkOption {
+      type = (import ../submodules {inherit lib;}).hot-reload;
+    };
   };
 
   config = {
@@ -122,5 +125,22 @@ in {
         })
       ]
       ++ [cfg.cursorTheme.package]; # custom # Needs to be installed system-wide so sddm has access to it;
+
+    hm.theme.hot-reload.scriptParts = [
+      (lib.mkOrder 5
+        ''
+          #!/usr/bin/env bash
+          directory=${config.home.homeDirectory}/.config
+          next_colorscheme="$1"
+          mode="$2"
+          switch_config() {
+        '')
+      (lib.mkOrder 35
+        ''
+          }
+
+          switch_config $next_colorscheme
+        '')
+    ];
   };
 }

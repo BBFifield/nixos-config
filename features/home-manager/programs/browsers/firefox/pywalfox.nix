@@ -59,15 +59,15 @@ in {
         pywalfox-native
         python3
       ];
-      hm.hot-reload.scriptParts = {
-        "6" = ''
+      hm.theme.hot-reload.scriptParts = [
+        (lib.mkOrder 30 ''
           cp -rf "${directory}/pywalfox_colorschemes/$1.json" "${directory}/colors.json"
-        '';
-        "10" = ''
+        '')
+        (lib.mkOrder 50 ''
           pywalfox update
           pywalfox $mode
-        '';
-      };
+        '')
+      ];
 
       programs.firefox = {
         profiles.default.extensions = [pkgs.nur.repos.rycee.firefox-addons.pywalfox];

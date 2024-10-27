@@ -74,7 +74,7 @@ in {
         }
       )
       (
-        lib.mkIf (config.hm.ironbar.enableMutableConfigs && !config.hm.hot-reload.enable) {
+        lib.mkIf (config.hm.ironbar.enableMutableConfigs && config.hm.enableMutableConfigs && !config.hm.hot-reload.enable) {
           xdg.configFile."ironbar".source = mkOutOfStoreSymlink "${config.hm.projectPath}/bars/ironbar/config";
         }
       )
@@ -109,15 +109,15 @@ in {
         in
           lib.mkMerge [
             {
-              hm.hot-reload.scriptParts = {
-                "3" = ''
+              hm.theme.hot-reload.scriptParts = [
+                (lib.mkOrder 15 ''
                   rm "$directory/ironbar/style.css"
                   cp -rf "$directory/ironbar/ironbar_colorschemes/$1.css" "$directory/ironbar/style.css"
-                '';
-                "9" = ''
+                '')
+                (lib.mkOrder 45 ''
                   ironbar load-css "$directory/ironbar/style.css"
-                '';
-              };
+                '')
+              ];
 
               home.packages = lib.attrValues styleFiles;
             }
