@@ -109,7 +109,7 @@ in {
         in
           lib.mkMerge [
             {
-              hm.theme.hot-reload.scriptParts = [
+              hm.theme.hot-reload.scriptParts = lib.mkMerge [
                 (lib.mkOrder 15 ''
                   rm "$directory/ironbar/style.css"
                   cp -rf "$directory/ironbar/ironbar_colorschemes/$1.css" "$directory/ironbar/style.css"

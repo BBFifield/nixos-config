@@ -126,7 +126,7 @@ in {
       ]
       ++ [cfg.cursorTheme.package]; # custom # Needs to be installed system-wide so sddm has access to it;
 
-    hm.theme.hot-reload.scriptParts = [
+    hm.theme.hot-reload.scriptParts = lib.mkMerge [
       (lib.mkOrder 5
         ''
           #!/usr/bin/env bash

@@ -221,7 +221,7 @@ in {
             }
             (lib.mkIf (cfg.hot-reload.enable) (mkMerge [
               {
-                hm.theme.hot-reload.scriptParts = [
+                hm.theme.hot-reload.scriptParts = lib.mkMerge [
                   (lib.mkOrder 10 ''
                     rm "$directory/hypr/colorscheme_settings.conf" "$directory/hypr/hyprland_colorscheme.conf"
                     cp -rf "$directory/hypr/hyprland_colorschemes/$1.conf" "$directory/hypr/hyprland_colorscheme.conf"

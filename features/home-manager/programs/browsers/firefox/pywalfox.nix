@@ -59,7 +59,7 @@ in {
         pywalfox-native
         python3
       ];
-      hm.theme.hot-reload.scriptParts = [
+      hm.theme.hot-reload.scriptParts = lib.mkMerge [
         (lib.mkOrder 30 ''
           cp -rf "${directory}/pywalfox_colorschemes/$1.json" "${directory}/colors.json"
         '')

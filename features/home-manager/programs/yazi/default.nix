@@ -20,6 +20,9 @@
       rev = "c204853de7a78bc99ea628e51857ce65506468db";
     }
   ];
+
+  defaultTheme = config.hm.theme.colorscheme.name;
+  defaultVariant = config.hm.theme.colorscheme.variant;
 in {
   options.hm.yazi = {
     enable = lib.mkEnableOption "Enable Yazi, the terminal file manager.";
@@ -48,18 +51,20 @@ in {
           ))
       flavorPaths);
 
-    mkThemeFile = theme: variant: path:
+    mkThemeFileIfHasPath = theme: variant: path:
       if (queryGit theme variant) != {}
-      then {
-        xdg.configFile."${path}.toml" = {
-          source = tomlFormat.generate "theme" {
-            flavor = {
-              use = "${theme}-${variant}";
-            };
+      then mkThemeFile theme variant path
+      else null;
+
+    mkThemeFile = theme: variant: path: {
+      xdg.configFile."${path}.toml" = {
+        source = tomlFormat.generate "theme" {
+          flavor = {
+            use = "${theme}-${variant}";
           };
         };
-      }
-      else null;
+      };
+    };
   in
     lib.mkMerge [
       (
@@ -69,39 +74,39 @@ in {
             themeFilesList = lib.filter (item: item != null) (lib.concatMap (theme:
               lib.map (
                 variant: let
-                  file = mkThemeFile theme variant "yazi/themes/${theme}_${variant}";
+                  file = mkThemeFileIfHasPath theme variant "yazi/themes/${theme}_${variant}";
                 in
                   file
               ) (getVariantNames theme))
             themeNames);
 
-            themeFiles = lib.foldl' (acc: item: {xdg.configFile = acc.xdg.configFile // item.xdg.configFile;}) {xdg.configFile = {};} themeFilesList;
+            mkthemeFiles = lib.foldl' (acc: item: {xdg.configFile = acc.xdg.configFile // item.xdg.configFile;}) {xdg.configFile = {};} themeFilesList;
           in
             lib.mkMerge [
               {
-                hm.theme.hot-reload.scriptParts = [
+                hm.theme.hot-reload.scriptParts = lib.mkMerge [
                   (lib.mkOrder 25 ''
                     rm $directory/yazi/theme.toml
                     cp -rf $directory/yazi/themes/$1.toml $directory/yazi/theme.toml
                   '')
                 ];
               }
-              themeFiles
+              mkthemeFiles
             ]
         )
       )
       #This is the default file created regardless of hot-reloading being enabled
-      # (
-      #   mkThemeFile config.hm.theme.colorscheme.name config.hm.theme.colorscheme.variant "yazi/theme"
-      # )
+      (
+        lib.mkIf ((queryGit defaultTheme defaultVariant) != {}) (mkThemeFile defaultTheme defaultVariant "yazi/theme")
+      )
       #This ensures no theme is left over from a previous generation
       {
         home.activation.yazi = let
-          defaultThemeFile = "${config.home.homeDirectory}/.config/yazi/themes/${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}.toml";
+          defaultThemeFilePath = "${config.home.homeDirectory}/.config/yazi/themes/${defaultTheme}_${defaultVariant}.toml";
         in
           lib.hm.dag.entryAfter ["writeBoundary"] ''
-            if test -f ${defaultThemeFile}; then
-              cp -rf ${defaultThemeFile} ${config.home.homeDirectory}/.config/yazi/theme.toml
+            if test -f ${defaultThemeFilePath}; then
+              cp -rf ${defaultThemeFilePath} ${config.home.homeDirectory}/.config/yazi/theme.toml
             elif test -f "${config.home.homeDirectory}/.config/yazi/theme.toml"; then
               rm "${config.home.homeDirectory}/.config/yazi/theme.toml"
             fi

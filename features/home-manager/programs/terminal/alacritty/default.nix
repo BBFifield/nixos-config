@@ -68,7 +68,7 @@ in {
         in
           lib.mkMerge [
             {
-              hm.theme.hot-reload.scriptParts = [
+              hm.theme.hot-reload.scriptParts = lib.mkMerge [
                 (lib.mkOrder 20 ''
                   rm $directory/alacritty/alacritty-theme.toml
                   cp -rf $directory/alacritty/alacritty-themes/$1.toml $directory/alacritty/alacritty-theme.toml
