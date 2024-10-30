@@ -30,15 +30,17 @@
           mantle = "181825"; #181825
           crust = "11111b"; #11111b
           customBg = mantle;
-          customText = blue;
+          customFg = blue;
           customBtnHoverBg = blue;
           customBtnHoverFg = mantle;
-          customActiveWorkspace = red;
-          customInactiveWorkspace = pink;
+          customColorSlot1 = red;
+          customColorSlot2 = pink;
           customBgAlt = crust;
-          customTextAlt = customText;
-          customAccentPrimary = customText;
+          customFgAlt = customFg;
+          customAccentPrimary = customFg;
           customAccentSecondary = customBtnHoverBg;
+          customActiveTabBg = blue;
+          customInactiveTabBg = surface0;
         };
         mode = "dark";
       };
@@ -71,15 +73,17 @@
           mantle = "181825"; #181825
           crust = "11111b"; #11111b
           customBg = base;
-          customText = blue;
+          customFg = blue;
           customBtnHoverBg = blue;
           customBtnHoverFg = base;
-          customActiveWorkspace = red;
-          customInactiveWorkspace = pink;
+          customColorSlot1 = red;
+          customColorSlot2 = pink;
           customBgAlt = customBg;
-          customTextAlt = customText;
-          customAccentPrimary = customText;
+          customFgAlt = customFg;
+          customAccentPrimary = customFg;
           customAccentSecondary = customBtnHoverBg;
+          customActiveTabBg = blue;
+          customInactiveTabBg = surface0;
         };
         mode = "dark";
       };
@@ -112,15 +116,17 @@
           mantle = "292c3c"; #292c3c
           crust = "232634"; #232634
           customBg = base;
-          customText = blue;
+          customFg = blue;
           customBtnHoverBg = blue;
           customBtnHoverFg = base;
-          customActiveWorkspace = red;
-          customInactiveWorkspace = pink;
+          customColorSlot1 = red;
+          customColorSlot2 = pink;
           customBgAlt = crust;
-          customTextAlt = customText;
-          customAccentPrimary = customText;
+          customFgAlt = customFg;
+          customAccentPrimary = customFg;
           customAccentSecondary = customBtnHoverBg;
+          customActiveTabBg = blue;
+          customInactiveTabBg = surface0;
         };
         mode = "dark";
       };
@@ -153,43 +159,53 @@
           mantle = "e6e9ef"; #e6e9ef
           crust = "dce0e8"; #dce0e8
           customBg = base;
-          customText = text;
+          customFg = blue;
           customBtnHoverBg = blue;
           customBtnHoverFg = base;
-          customActiveWorkspace = blue;
-          customInactiveWorkspace = teal;
-          customBgAlt = "181825";
-          customTextAlt = customText;
-          customAccentPrimary = "303446";
+          customColorSlot1 = sky;
+          customColorSlot2 = teal;
+          customBgAlt = "181825"; #181825
+          customFgAlt = customFg;
+          customAccentPrimary = "303446"; #303446
           customAccentSecondary = customBtnHoverBg;
         };
         mode = "light";
       };
     };
     cognates = value: {
-      activeBorder1 = variants.${value}.palette.mauve;
-      activeBorder2 = variants.${value}.palette.rosewater;
-      inactiveBorder1 = variants.${value}.palette.lavender;
-      inactiveBorder2 = variants.${value}.palette.overlay0;
-      text = variants.${value}.palette.customText;
-      textField = variants.${value}.palette.surface0;
-      bg = variants.${value}.palette.customBg;
-      btnHoverBg = variants.${value}.palette.customBtnHoverBg;
-      btnHoverFg = variants.${value}.palette.customBtnHoverFg;
-      activeWorkspace = variants.${value}.palette.customActiveWorkspace;
-      inactiveWorkspace = variants.${value}.palette.customInactiveWorkspace;
-      failure = variants.${value}.palette.red;
-      warning = variants.${value}.palette.yellow;
       blue = variants.${value}.palette.blue;
       red = variants.${value}.palette.red;
       purple = variants.${value}.palette.mauve;
       pink = variants.${value}.palette.pink;
       yellow = variants.${value}.palette.yellow;
       green = variants.${value}.palette.green;
-      bgAlt = variants.${value}.palette.customBgAlt;
-      textAlt = variants.${value}.palette.customTextAlt;
-      accentPrimary = variants.${value}.palette.customAccentPrimary;
-      accentSecondary = variants.${value}.palette.customAccentSecondary;
+      orange = variants.${value}.palette.peach;
+      failure = variants.${value}.palette.red;
+      warning = variants.${value}.palette.yellow;
+      active_accent1 = variants.${value}.palette.mauve;
+      active_accent2 = variants.${value}.palette.rosewater;
+      inactive_accent1 = variants.${value}.palette.lavender;
+      inactive_accent2 = variants.${value}.palette.overlay0;
+      fg = variants.${value}.palette.customFg;
+      fg_field = variants.${value}.palette.surface1;
+      bg = variants.${value}.palette.customBg;
+      btn_hover_bg = variants.${value}.palette.customBtnHoverBg;
+      btn_hover_bg2 = variants.${value}.palette.green;
+      btn_hover_bg3 = variants.${value}.palette.mauve;
+      btn_hover_fg = variants.${value}.palette.customBtnHoverFg;
+      color_slot1 = variants.${value}.palette.customColorSlot1;
+      color_slot2 = variants.${value}.palette.customColorSlot2;
+      bg_alt = variants.${value}.palette.customBgAlt;
+      text_alt = variants.${value}.palette.customFgAlt;
+      accent_primary_alt = variants.${value}.palette.customAccentPrimary;
+      accent_secondary_alt = variants.${value}.palette.customAccentSecondary;
+      separator_mid = variants.${value}.palette.customFg;
+    };
+    props = {
+      separator_left = "";
+      separator_right = "";
+      separator_mid = "";
+      mascot = "󰄛";
     };
   };
   dracula = rec {
@@ -208,15 +224,16 @@
           red = "ff5555"; #ff5555
           yellow = "f1fa8c"; #f1fa8c
           customBg = background;
-          customText = foreground;
-          customBtnHoverBg = comment;
-          customBtnHoverFg = foreground;
-          customActiveWorkspace = purple;
-          customInactiveWorkspace = comment;
+          customFg = foreground;
+          customBtnHoverBg = purple;
+          customBtnHoverFg = background;
+          customColorSlot1 = pink;
+          customColorSlot2 = comment;
           customBgAlt = customBg;
-          customTextAlt = customText;
-          customAccentPrimary = customText;
+          customFgAlt = customFg;
+          customAccentPrimary = customFg;
           customAccentSecondary = customBtnHoverBg;
+          customFgField = comment;
         };
         mode = "dark";
       };
@@ -234,43 +251,54 @@
           red = "ff5555"; #ff5555
           yellow = "f1fa8c"; #f1fa8c
           customBg = currentLine;
-          customText = foreground;
-          customBtnHoverBg = comment;
-          customBtnHoverFg = currentLine;
-          customActiveWorkspace = red;
-          customInactiveWorkspace = comment;
+          customFg = foreground;
+          customBtnHoverBg = purple;
+          customBtnHoverFg = foreground;
+          customColorSlot1 = red;
+          customColorSlot2 = comment;
           customBgAlt = foreground;
-          customTextAlt = customText;
+          customFgAlt = customFg;
           customAccentPrimary = customBgAlt;
           customAccentSecondary = customBtnHoverBg;
+          customFgField = currentLine;
         };
         mode = "light";
       };
     };
     cognates = value: {
-      activeBorder1 = variants.${value}.palette.pink;
-      activeBorder2 = variants.${value}.palette.cyan;
-      inactiveBorder1 = variants.${value}.palette.comment;
-      inactiveBorder2 = variants.${value}.palette.currentLine;
-      text = variants.${value}.palette.customText;
-      textField = variants.${value}.palette.background;
-      bg = variants.${value}.palette.customBg;
-      btnHoverBg = variants.${value}.palette.customBtnHoverBg;
-      btnHoverFg = variants.${value}.palette.customBtnHoverFg;
-      activeWorkspace = variants.${value}.palette.customActiveWorkspace;
-      inactiveWorkspace = variants.${value}.palette.customInactiveWorkspace;
-      failure = variants.${value}.palette.red;
-      warning = variants.${value}.palette.yellow;
       blue = variants.${value}.palette.cyan;
       red = variants.${value}.palette.red;
       purple = variants.${value}.palette.purple;
       pink = variants.${value}.palette.pink;
       yellow = variants.${value}.palette.yellow;
       green = variants.${value}.palette.green;
-      bgAlt = variants.${value}.palette.customBgAlt;
-      textAlt = variants.${value}.palette.customTextAlt;
-      accentPrimary = variants.${value}.palette.customAccentPrimary;
-      accentSecondary = variants.${value}.palette.customAccentSecondary;
+      orange = variants.${value}.palette.orange;
+      failure = variants.${value}.palette.red;
+      warning = variants.${value}.palette.yellow;
+      active_accent1 = variants.${value}.palette.pink;
+      active_accent2 = variants.${value}.palette.cyan;
+      inactive_accent1 = variants.${value}.palette.comment;
+      inactive_accent2 = variants.${value}.palette.currentLine;
+      fg = variants.${value}.palette.customFg;
+      fg_field = variants.${value}.palette.customFgField;
+      bg = variants.${value}.palette.customBg;
+      btn_hover_bg = variants.${value}.palette.customBtnHoverBg;
+      btn_hover_bg2 = variants.${value}.palette.green;
+      btn_hover_bg3 = variants.${value}.palette.yellow;
+      btn_hover_fg = variants.${value}.palette.customBtnHoverFg;
+      color_slot1 = variants.${value}.palette.customColorSlot1;
+      color_slot2 = variants.${value}.palette.customColorSlot2;
+      bg_alt = variants.${value}.palette.customBgAlt;
+      text_alt = variants.${value}.palette.customFgAlt;
+      accent_primary_alt = variants.${value}.palette.customAccentPrimary;
+      accent_secondary_alt = variants.${value}.palette.customAccentSecondary;
+      separator_mid = "a2b2e4";
+    };
+    props = {
+      separator_left = "";
+      separator_right = "";
+      separator_mid = "";
+      mascot = "󰭟";
     };
   };
   gruvbox = rec {
@@ -286,7 +314,7 @@
           yellow = "fabd2f"; #fabd2f
           darkBlue = "83a598"; #83a598
           blue = "458588"; #458588
-          darkpurple = "b16286"; #b16286
+          darkPurple = "b16286"; #b16286
           purple = "d3869b"; #d3869b
           darkGray = "928374"; #928374
           gray = "a89984"; #a89984
@@ -312,29 +340,39 @@
       };
     };
     cognates = value: {
-      activeBorder1 = variants.${value}.palette.blue;
-      activeBorder2 = variants.${value}.palette.purple;
-      inactiveBorder1 = variants.${value}.palette.gray;
-      inactiveBorder2 = variants.${value}.palette.darkGray;
-      text = variants.${value}.palette.fg;
-      textField = variants.${value}.palette.bg2;
-      bg = variants.${value}.palette.bg;
-      btnHoverBg = variants.${value}.palette.darkBlue;
-      btnHoverFg = variants.${value}.palette.bg;
-      activeWorkspace = variants.${value}.palette.darkOrange;
-      inactiveWorkspace = variants.${value}.palette.gray;
-      failure = variants.${value}.palette.red;
-      warning = variants.${value}.palette.yellow;
       blue = variants.${value}.palette.blue;
       red = variants.${value}.palette.red;
       purple = variants.${value}.palette.purple;
       pink = variants.${value}.palette.aqua;
       yellow = variants.${value}.palette.yellow;
       green = variants.${value}.palette.green;
-      bgAlt = variants.${value}.palette.bg;
-      textAlt = variants.${value}.palette.fg;
-      accentPrimary = variants.${value}.palette.bg;
-      accentSecondary = variants.${value}.palette.darkBlue;
+      orange = variants.${value}.palette.orange;
+      failure = variants.${value}.palette.red;
+      warning = variants.${value}.palette.yellow;
+      active_accent1 = variants.${value}.palette.blue;
+      active_accent2 = variants.${value}.palette.purple;
+      inactive_accent1 = variants.${value}.palette.gray;
+      inactive_accent2 = variants.${value}.palette.darkGray;
+      fg = variants.${value}.palette.fg;
+      fg_field = variants.${value}.palette.bg3;
+      bg = variants.${value}.palette.bg;
+      btn_hover_bg = variants.${value}.palette.gray;
+      btn_hover_bg2 = variants.${value}.palette.yellow;
+      btn_hover_bg3 = variants.${value}.palette.purple;
+      btn_hover_fg = variants.${value}.palette.bg;
+      color_slot1 = variants.${value}.palette.darkOrange;
+      color_slot2 = variants.${value}.palette.gray;
+      bg_alt = variants.${value}.palette.bg;
+      text_alt = variants.${value}.palette.fg;
+      accent_primary_alt = variants.${value}.palette.bg;
+      accent_secondary_alt = variants.${value}.palette.darkBlue;
+      separator_mid = variants.${value}.palette.gray;
+    };
+    props = {
+      separator_left = "";
+      separator_right = "";
+      separator_mid = "";
+      mascot = "󰫴󰃔";
     };
   };
 }

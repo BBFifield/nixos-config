@@ -38,15 +38,15 @@ with lib; let
       ++ (lib.optionals (config.hm.gBar.enable) ["gBar bar 0"]);
 
     general = {
-      "col.active_border" = "0xff$activeBorder1 0xff$activeBorder2 45deg";
-      "col.inactive_border" = "0xcc$inactiveBorder1 0xcc$inactiveBorder2 45deg";
+      "col.active_border" = "0xff$active_accent1 0xff$active_accent2 45deg";
+      "col.inactive_border" = "0xcc$inactive_accent1 0xcc$inactive_accent2 45deg";
     };
 
     group = {
-      "col.border_active" = "0xff$activeBorder1 0xff$activeBorder2 45deg";
-      "col.border_inactive" = "0xcc$inactiveBorder1 0xcc$inactiveBorder2 45deg";
-      "col.border_locked_active" = "0xff$activeBorder 0xff$activeBorder2 45deg";
-      "col.border_locked_inactive" = "0xcc$inactiveBorder1 0xcc$inactiveBorder2 45deg";
+      "col.border_active" = "0xff$active_accent1 0xff$active_accent2 45deg";
+      "col.border_inactive" = "0xcc$inactive_accent1 0xcc$inactive_accent2 45deg";
+      "col.border_locked_active" = "0xff$active_accent1 0xff$active_accent2 45deg";
+      "col.border_locked_inactive" = "0xcc$inactive_accent1 0xcc$inactive_accent2 45deg";
     };
 
     bind = [
@@ -54,7 +54,7 @@ with lib; let
       "SUPER, N, exec, wpaperctl next"
       "SUPER, P, exec, hyprpicker --autocopy"
       "SUPER ALT, H, exec, hyprshade toggle blue-light-filter"
-      "SUPER, S, exec, grim -g \"$(slurp -o -c '##$activeBorder1ff')\" -t ppm - | satty --filename -"
+      "SUPER, S, exec, grim -g \"$(slurp -o -c '##$active_accent1ff')\" -t ppm - | satty --filename -"
     ];
   };
 

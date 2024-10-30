@@ -9,6 +9,7 @@ return {
 		"slugbyte/lackluster.nvim",
 		"Mofiqul/vscode.nvim",
 		"craftzdog/solarized-osaka.nvim",
+		"sainnhe/gruvbox-material",
 	},
 	{
 		"rachartier/tiny-devicons-auto-colors.nvim",

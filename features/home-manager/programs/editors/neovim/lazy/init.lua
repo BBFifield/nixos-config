@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.g.colorscheme = "catppuccin-macchiato"
+vim.g.colorscheme = "gruvbox-material"
 vim.opt.mousemoveevent = true
 vim.opt.termguicolors = true
 

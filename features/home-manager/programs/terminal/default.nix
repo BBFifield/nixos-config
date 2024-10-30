@@ -25,6 +25,12 @@ in {
 
   config = mkMerge [
     {
+      hm.starship = {
+        enable = true;
+        hot-reload.enable = true;
+      };
+    }
+    {
       programs.bash.enable = true;
       programs.zoxide = {
         enable = true;

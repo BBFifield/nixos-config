@@ -39,9 +39,9 @@ in {
           }
           {
             source = "$HOME/.config/hypr/hyprland.conf";
-            "$accent" = "0xff$activeBorder1";
-            "$accentAlpha" = "0xff$activeBorder1";
-            "$textVar" = "0xff$text";
+            "$accent" = "0xff$active_accent1";
+            "$accentAlpha" = "0xff$active_accent1";
+            "$textVar" = "0xff$fg";
             "$font" = "${config.hm.theme.fonts.defaultMonospace}";
 
             background = {
@@ -52,8 +52,8 @@ in {
             label = [
               {
                 monitor = "";
-                text = "Layout: $LAYOUT";
-                color = "$textVar";
+                fg = "Layout: $LAYOUT";
+                color = "$fgVar";
                 font_size = 25 * scale;
                 font_family = "$font";
                 position = "${builtins.toString (30 * scale)}, ${builtins.toString (-60 * scale)}";
@@ -63,8 +63,8 @@ in {
               # TIME
               {
                 monitor = "";
-                text = "$TIME";
-                color = "$textVar";
+                fg = "$TIME";
+                color = "$fgVar";
                 font_size = 90 * scale;
                 font_family = "$font";
                 position = "${builtins.toString (-30 * scale)}, 0";
@@ -74,8 +74,8 @@ in {
               # DATE
               {
                 monitor = "";
-                text = ''cmd[update:43200000] date +"%A, %d %B %Y"'';
-                color = "$textVar";
+                fg = ''cmd[update:43200000] date +"%A, %d %B %Y"'';
+                color = "$fgVar";
                 font_size = 25 * scale;
                 font_family = "$font";
                 position = "${builtins.toString (-30 * scale)}, ${builtins.toString (-150 * scale)}";
@@ -104,14 +104,14 @@ in {
               dots_spacing = 0.2 * scale;
               dots_center = true;
               outer_color = "$accent";
-              inner_color = "0xff$textField";
-              font_color = "$textVar";
+              inner_color = "0xff$fg_field";
+              font_color = "$fgVar";
               fade_on_empty = "false";
-              placeholder_text = ''<span foreground="##$text"><i>󰌾 Logged in as </i><span foreground="##$activeBorder1">$USER</span></span>'';
+              placeholder_fg = ''<span foreground="##$fg"><i>󰌾 Logged in as </i><span foreground="##$active_accent1">$USER</span></span>'';
               hide_input = false;
               check_color = "$accent";
               fail_color = "0xff$failure";
-              fail_text = ''<i>$FAIL <b>($ATTEMPTS)</b></i>'';
+              fail_fg = ''<i>$FAIL <b>($ATTEMPTS)</b></i>'';
               capslock_color = "0xff$warning";
               position = "0, ${builtins.toString (-47 * scale)}";
               halign = "center";

@@ -6,44 +6,6 @@
 }: let
   profilesPath = ".mozilla/firefox";
 
-  colorschemes = [
-    {
-      name = "catppuccin_frappe";
-      shortID = "catppuccin-frappe-blue";
-      uuid = "{0f28d17a-46f0-4fe1-8696-1676de0a87f2}";
-    }
-    {
-      name = "catppuccin_latte";
-      shortID = "catppuccin-latte-blue-git";
-      uuid = "{68f3538d-3881-45f4-aa73-288b010b39a1}";
-    }
-    {
-      name = "catppuccin_macchiato";
-      shortID = "catppuccin-macchiato-blue";
-      uuid = "{d49033ac-8969-488c-afb0-5cdb73957f41}";
-    }
-    {
-      name = "catppuccin_mocha";
-      shortID = "catppuccin-mocha-blue-git";
-      uuid = "{2adf0361-e6d8-4b74-b3bc-3f450e8ebb69}";
-    }
-    {
-      name = "dracula_standard";
-      shortID = "dracula-dark-colorscheme";
-      uuid = "{b743f56d-1cc1-4048-8ba6-f9c2ab7aa54d}";
-    }
-    {
-      name = "dracula_alucard";
-      shortID = "dracula-dark-colorscheme";
-      uuid = "{b743f56d-1cc1-4048-8ba6-f9c2ab7aa54d}";
-    }
-    {
-      name = "gruvbox_dark";
-      shortID = "gruvbox-dark-theme";
-      uuid = "{eb8c4a94-e603-49ef-8e81-73d3c4cc04ff}";
-    }
-  ];
-
   #Profile specific extensions
   extensions = with pkgs.nur.repos.rycee.firefox-addons; [
     ublock-origin
@@ -116,7 +78,7 @@ in
     options.hm.firefox = {
       enable = lib.mkEnableOption "Enable home-manager firefox configuration";
       style = lib.mkOption {
-        type = with types; nullOr (enum ["plasma" "gnome"]);
+        type = with types; nullOr (enum ["plasma" "gnome" "hyprland"]);
         default = null;
         description = "Choose which settings style to use";
       };
@@ -139,20 +101,20 @@ in
       };
     in
       lib.mkIf config.hm.firefox.enable (lib.mkMerge [
+        (lib.mkIf (config.hm.firefox.style == "hyprland") {
+          hm.firefox.pywalfox.enable = true;
+        })
         {
           home.file."${profilesPath}/default/chrome" = lib.mkMerge [
             {
               recursive = true;
               force = true;
             }
-            (lib.mkIf (config.hm.firefox.style == "plasma") {
+            (lib.mkIf (config.hm.firefox.style == "plasma" || config.hm.firefox.style == "hyprland") {
               source = pkgs.nur.repos.slaier.wavefox;
             })
             (lib.mkIf (config.hm.firefox.style == "gnome") {
               source = pkgs.firefox-gnome-theme;
-            })
-            (lib.mkIf (config.hm.firefox.hot-reload.enable) {
-              source = pkgs.nur.repos.slaier.wavefox;
             })
           ];
           programs = {
@@ -182,11 +144,8 @@ in
                 I think mkIf and mkMerge don't work inside ExtensionSettings because it's not part of the module system, but merely
                 nix syntax which is converted to json. That's what I gathered from the above discussion.
                 */
-                ExtensionSettings = let
-                  colorschemes' = lib.listToAttrs (lib.map (colorscheme: (mkExtension colorscheme.shortID colorscheme.uuid)) colorschemes);
-                in
-                  colorschemes'
-                  // ExtensionSettings
+                ExtensionSettings =
+                  ExtensionSettings
                   // {
                     "{4e507435-d65f-4467-a2c0-16dbae24f288}" = {
                       install_url = "https://addons.mozilla.org/firefox/downloads/latest/breezedarktheme/latest.xpi";
@@ -230,7 +189,7 @@ in
                   settings = lib.mkMerge [
                     settings
 
-                    (lib.mkIf (config.hm.firefox.hot-reload.enable) wavefoxSettings)
+                    (lib.mkIf (config.hm.firefox.style == "hyprland") wavefoxSettings)
 
                     (lib.mkIf (config.hm.firefox.style == "plasma") (lib.mkMerge [
                       {
@@ -256,7 +215,7 @@ in
                   ];
                   search = {
                     force = true;
-                    default = "Google";
+                    default = "DuckDuckGo";
                     order = ["DuckDuckGo" "Google"];
                     engines = (import ./searchEngines.nix {inherit pkgs;}).engines;
                   };

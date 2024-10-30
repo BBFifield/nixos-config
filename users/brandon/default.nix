@@ -83,7 +83,10 @@ in {
       })
       ###### HYPRLAND CONFIG ######
       (lib.optionalAttrs (sysCfg.desktop.hyprland.enable) {
-        firefox.hot-reload.enable = true;
+        firefox = {
+          style = "hyprland";
+          hot-reload.enable = true;
+        };
         dconf.enable = true;
         alacritty.hot-reload.enable = true;
         yazi.hot-reload.enable = true;
@@ -91,11 +94,8 @@ in {
           gtkTheme.name = "adw-gtk3-dark";
           iconTheme = "MoreWaita";
           colorscheme = {
-            name = "dracula";
-            variant = "standard";
-            disabledSchemes = [
-              "dracula_alucard"
-            ];
+            name = "catppuccin";
+            variant = "mocha";
           };
         };
 
