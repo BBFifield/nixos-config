@@ -69,6 +69,7 @@ in {
           if ! test -f "${config.home.homeDirectory}/.mozilla/native-messaging-hosts/pywalfox.json"; then
             ${pkgs.pywalfox-native}/bin/pywalfox install
           fi
+          ${pkgs.pywalfox-native}/bin/pywalfox start
           ${pkgs.pywalfox-native}/bin/pywalfox update
           ${pkgs.pywalfox-native}/bin/pywalfox ${attrset.${defaultTheme}.variants.${defaultVariant}.mode}
         '';
@@ -85,8 +86,8 @@ in {
               cp -rf "${directory}/pywalfox_colorschemes/$1.json" "${directory}/colors.json"
             '')
             (lib.mkOrder 50 ''
-              pywalfox update
               pywalfox $mode
+              pywalfox update
             '')
           ];
         }

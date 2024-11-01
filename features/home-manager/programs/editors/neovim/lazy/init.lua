@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.gruvbox_material_foreground = "original"
 vim.g.colorscheme = "gruvbox-material"
 vim.opt.mousemoveevent = true
 vim.opt.termguicolors = true

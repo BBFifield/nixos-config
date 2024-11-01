@@ -59,12 +59,7 @@ with lib; let
   };
 
   colorschemeSettings = theme: mode: {
-    bind = ''SUPER, T, exec, switch-colorscheme ${theme} ${mode}'';
-    /*
-      env = [
-      "CURRENT_COLORSCHEME,${theme}.conf"
-    ];
-    */
+    bind = "SUPER, T, exec, switch-colorscheme ${theme} ${mode}";
   };
 in {
   options.hm.hyprland = {
@@ -121,6 +116,10 @@ in {
       (mkIf (cfg.name == "vanilla") (
         let
           attrset = import ../../../themes/colorschemeInfo.nix;
+          defaultTheme = config.hm.theme.colorscheme.name;
+          defaultVariant = config.hm.theme.colorscheme.variant;
+          defaultName = "${defaultTheme}_${defaultVariant}";
+
           themeNames = lib.attrNames attrset;
           getVariantNames = theme: lib.attrNames attrset.${theme}.variants;
           sortedNames = lib.sort (a: b: a < b) (lib.concatMap (theme: (lib.map (variant: "${theme}_${variant}") (getVariantNames theme))) themeNames);
@@ -148,45 +147,41 @@ in {
             };
           };
 
-          mkSettingsFile = name: {
-            xdg.configFile."hypr/colorscheme_settings/${name}.conf".text = let
-              nextColorscheme = lib.findFirst (name': name < name') null sortedNames;
-              nextColorscheme' =
-                if nextColorscheme != null
-                then nextColorscheme
-                else lib.elemAt sortedNames 0;
-              splittedName = lib.splitString "_" nextColorscheme';
-              name' = lib.elemAt splittedName 0;
-              variant = lib.elemAt splittedName 1;
-              mode = attrset.${name'}.variants.${variant}.mode;
-            in
-              lib.hm.generators.toHyprconf {
-                attrs = colorschemeSettings nextColorscheme' mode;
-              };
-          };
+          mkSettingsText = name: let
+            nextColorscheme = lib.findFirst (name': name < name') null sortedNames;
+            nextColorscheme' =
+              if nextColorscheme != null
+              then nextColorscheme
+              else lib.elemAt sortedNames 0;
+            splittedName = lib.splitString "_" nextColorscheme';
+            nextName = lib.elemAt splittedName 0;
+            nextVariant = lib.elemAt splittedName 1;
+            nextMode = attrset.${nextName}.variants.${nextVariant}.mode;
+          in
+            lib.hm.generators.toHyprconf {
+              attrs = colorschemeSettings nextColorscheme' nextMode;
+              inherit (config.wayland.windowManager.hyprland) importantPrefixes;
+            };
 
           colorFiles =
             lib.foldl' (acc: item: {xdg.configFile = acc.xdg.configFile // item.xdg.configFile;}) {xdg.configFile = {};} (lib.attrValues (lib.mapAttrs (name: value: mkColorFile name value) unpacked));
 
           settingsFiles = mkMerge [
-            (lib.foldl' (acc: item: {xdg.configFile = acc.xdg.configFile // item.xdg.configFile;}) {xdg.configFile = {};} (lib.attrValues (lib.mapAttrs (name: value: mkSettingsFile name) unpacked)))
+            (lib.foldl' (acc: item: {xdg.configFile = acc.xdg.configFile // item.xdg.configFile;}) {xdg.configFile = {};} (lib.attrValues (lib.mapAttrs (name: value: {xdg.configFile."hypr/colorscheme_settings/${name}.conf".text = mkSettingsText name;}) unpacked)))
             {
-              xdg.configFile."hypr/colorscheme_settings.conf".text = let
-                name = "${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}";
-                nextColorscheme = lib.findFirst (name': name < name') null sortedNames;
-                nextColorscheme' =
-                  if nextColorscheme != null
-                  then nextColorscheme
-                  else lib.elemAt sortedNames 0;
-                splittedName = lib.splitString "_" nextColorscheme';
-                name' = lib.elemAt splittedName 0;
-                variant = lib.elemAt splittedName 1;
-                mode = attrset.${name'}.variants.${variant}.mode;
-              in
-                lib.hm.generators.toHyprconf {
-                  attrs = colorschemeSettings nextColorscheme' mode;
-                  inherit (config.wayland.windowManager.hyprland) importantPrefixes;
-                };
+              xdg.configFile."hypr/colorscheme_settings.conf" = {
+                text = mkSettingsText defaultName;
+                onChange = ''
+                  (
+                    XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
+                    if [[ -d "/tmp/hypr" || -d "$XDG_RUNTIME_DIR/hypr" ]]; then
+                      for i in $(${pkgs.hyprland}/bin/hyprctl instances -j | jq ".[].instance" -r); do
+                        ${pkgs.hyprland}/bin/hyprctl -i "$i" reload config-only
+                      done
+                    fi
+                  )
+                '';
+              };
             }
           ];
         in
@@ -212,12 +207,9 @@ in {
                 inherit settings;
               };
 
-              xdg.configFile."hypr/hyprland_colorscheme.conf".text = let
-                name = "${config.hm.theme.colorscheme.name}_${config.hm.theme.colorscheme.variant}";
-              in
-                lib.hm.generators.toHyprconf {
-                  attrs = (lib.filterAttrs (n: v: name == n) unpacked).${name}.colorAttrs;
-                };
+              xdg.configFile."hypr/hyprland_colorscheme.conf".text = lib.hm.generators.toHyprconf {
+                attrs = (lib.filterAttrs (n: v: defaultName == n) unpacked).${defaultName}.colorAttrs;
+              };
             }
             (lib.mkIf (cfg.hot-reload.enable) (mkMerge [
               {
@@ -232,6 +224,17 @@ in {
                     hyprctl reload
                   '')
                 ];
+
+                /*
+                home.activation.hypr = lib.hm.dag.entryAfter ["writeBoundary"] ''
+                 log_file="${config.home.homeDirectory}/hyprland_activation.log"
+                echo "Checking for Hyprland process..." >> $log_file
+                 echo $(pgrep -i hyprland) >> $log_file 2>&1
+
+                   echo $(${pkgs.hyprland}/bin/hyprctl -i 0 reload) >> $log_file 2>&1
+
+                   echo "Notice: Ignoring hyprland activation script. Hyprland is not running." >> $log_file                '';
+                */
               }
               colorFiles
               settingsFiles
