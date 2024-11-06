@@ -115,7 +115,7 @@ in {
       })
       (mkIf (cfg.name == "vanilla") (
         let
-          attrset = import ../../../themes/colorschemeInfo.nix;
+          attrset = import ../../../lookAndFeel/colorschemeInfo.nix;
           defaultTheme = config.hm.theme.colorscheme.name;
           defaultVariant = config.hm.theme.colorscheme.variant;
           defaultName = "${defaultTheme}_${defaultVariant}";

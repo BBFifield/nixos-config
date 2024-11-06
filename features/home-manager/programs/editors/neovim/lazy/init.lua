@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
-vim.g.gruvbox_material_foreground = "original"
-vim.g.colorscheme = "gruvbox-material"
+--vim.g.gruvbox_material_foreground = "original"
+vim.g.colorscheme = "neocolorizer"
+--vim.g.colorscheme = "dracula"
 vim.opt.mousemoveevent = true
 vim.opt.termguicolors = true
 
@@ -19,12 +20,12 @@ local opts = {
 	plugin_list = {
 		alpha = { "goolord/alpha-nvim", enabled = true },
 		bufferline = { "akinsho/bufferline.nvim", enabled = false },
-		dropbar = { "Bekaboo/dropbar.nvim", enabled = true },
+		dropbar = { "Bekaboo/dropbar.nvim", enabled = false },
 		fidget = { "j-hui/fidget.nvim", enabled = true },
 		indent_blankline = { "lukas-reineke/indent-blankline.nvim", enabled = true },
 		lsp_config = { "neovim/nvim-lspconfig", enabled = true },
 		lualine = { "nvim-lualine/lualine.nvim", enabled = true },
-		navic = { "SmiteshP/nvim-navic", enabled = false },
+		navic = { "SmiteshP/nvim-navic", enabled = true },
 		nvim_tree = { "nvim-tree/nvim-tree.lua", enabled = false },
 		nvim_treesitter = { "nvim-treesitter/nvim-treesitter", enabled = true },
 		telescope = { "nvim-telescope/telescope.nvim", enabled = true },

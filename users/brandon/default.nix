@@ -87,6 +87,9 @@ in {
           style = "hyprland";
           hot-reload.enable = true;
         };
+        neovim = {
+          hot-reload.enable = true;
+        };
         dconf.enable = true;
         alacritty.hot-reload.enable = true;
         yazi.hot-reload.enable = true;

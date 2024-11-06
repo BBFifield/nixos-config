@@ -21,7 +21,7 @@
     }
   ];
 
-  attrset = import ../../themes/colorschemeInfo.nix;
+  attrset = import ../../lookAndFeel/colorschemeInfo.nix;
   themeNames = lib.attrNames attrset;
   getVariantNames = theme: lib.attrNames attrset.${theme}.variants;
 

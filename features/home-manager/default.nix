@@ -6,7 +6,7 @@
 }: {
   imports =
     (lib.concatMap import [./programs])
-    ++ [./themes];
+    ++ [./lookAndFeel];
 
   options.hm = {
     enableMutableConfigs = lib.mkEnableOption "Enable live modification of configuration files.";

@@ -7,7 +7,7 @@
   cfg = config.hm.ironbar;
   mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
 
-  attrset = import ../../../themes/colorschemeInfo.nix;
+  attrset = import ../../../lookAndFeel/colorschemeInfo.nix;
 
   mkColorPrefix = name: value: {
     name = "\$${name}";

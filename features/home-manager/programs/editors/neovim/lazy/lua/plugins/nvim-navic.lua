@@ -1,8 +1,8 @@
 return {
 	{
 		"SmiteshP/nvim-navic",
+		enabled = NewfieVim:get_plugin_info("navic").enabled,
 		dependencies = { "neovim/nvim-lspconfig" },
-		enabled = false,
 		config = function()
 			local navic = require("nvim-navic")
 			navic.setup({
@@ -16,13 +16,13 @@ return {
 
 	{
 		"utilyre/barbecue.nvim",
+		enabled = NewfieVim:get_plugin_info("navic").enabled,
 		name = "barbecue",
 		version = "*",
 		dependencies = {
 			"SmiteshP/nvim-navic",
 			"nvim-tree/nvim-web-devicons", -- optional dependency
 		},
-		enabled = false,
 		opts = {
 			attach_navic = false, --Makes navic work with multiple tabs or something when set to false, haven't tested it
 			create_autocmd = false,

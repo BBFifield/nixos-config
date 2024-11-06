@@ -146,7 +146,8 @@ return {
 		require("lualine").setup(vim.tbl_deep_extend("keep", winbar, tabline, {
 			options = {
 				icons_enabled = true,
-				theme = vim.g.colorscheme,
+				theme = "neocolorizer",
+				--theme = "gruvbox-material",
 				--component_separators = { left = "", right = "" },
 				--component_separators = { left = "│", right = "│" },
 				component_separators = { left = "", right = "" },

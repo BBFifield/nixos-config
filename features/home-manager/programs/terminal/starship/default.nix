@@ -11,7 +11,7 @@
     symbol = icon;
     format = ''[[ $symbol( $version) ](fg:${color} bg:color_fg_field)](bg:color_fg_field)'';
   };
-  attrset = import ../../../themes/colorschemeInfo.nix;
+  attrset = import ../../../lookAndFeel/colorschemeInfo.nix;
 
   mkColorPrefix = name: value: {
     name = "color_${name}";

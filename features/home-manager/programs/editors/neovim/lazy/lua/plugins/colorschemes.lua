@@ -2,6 +2,7 @@ return {
 	{
 		{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 		"Mofiqul/dracula.nvim",
+		{ dir = "~/.config/neocolorizer.nvim" },
 		"folke/tokyonight.nvim",
 		"projekt0n/github-nvim-theme",
 		"rebelot/kanagawa.nvim",
@@ -16,7 +17,7 @@ return {
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 		},
-		event = "VeryLazy",
+		lazy = true,
 		opts = {},
 		config = function(_, opts)
 			local theme_colors
@@ -28,6 +29,10 @@ return {
 				if vim.g.colorscheme ~= "tokyonight" then
 					theme_colors = require(vim.g.colorscheme .. string.sub(vim.g.colorscheme, 12))
 				end
+			elseif vim.g.colorscheme == "neocolorizer" then
+				local neocolorizer_core = require("neocolorizer.core")
+				theme_colors = neocolorizer_core.get_colors()
+				print(vim.inspect(theme_colors))
 			end
 
 			require("tiny-devicons-auto-colors").setup({
