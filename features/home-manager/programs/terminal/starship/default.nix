@@ -108,12 +108,12 @@
 
     git_branch = {
       symbol = "";
-      style = "fg:color_color_slot1 bg:color_fg_field";
+      style = "fg:color_active_accent1 bg:color_fg_field";
       format = ''[ $symbol $branch ]($style)'';
     };
 
     git_status = {
-      style = "fg:color_color_slot1 bg:color_fg_field";
+      style = "fg:color_active_accent1 bg:color_fg_field";
       format = ''[[($all_status$ahead_behind )]($style)${props.separator_mid}](fg:color_separator_mid bg:color_fg_field)'';
     };
 
@@ -181,9 +181,9 @@
 
     character = {
       disabled = false;
-      success_symbol = "[${props.mascot}](bold fg:color_green)";
+      success_symbol = "[${props.mascot}](bold fg:color_success)";
       error_symbol = "[${props.mascot}](bold fg:color_failure)";
-      vimcmd_symbol = "[${props.mascot}](bold fg:color_green)";
+      vimcmd_symbol = "[${props.mascot}](bold fg:color_success)";
       vimcmd_replace_one_symbol = "[${props.mascot}](bold fg:color_purple)";
       vimcmd_replace_symbol = "[${props.mascot}](bold fg:color_purple)";
       vimcmd_visual_symbol = "[${props.mascot}](bold fg:color_yellow)";

@@ -111,6 +111,7 @@ with lib; let
       (f "xdg-desktop-portal-gnome")
       (f "de.haeckerfelix.Fragments")
       (f "com.github.Aylur.ags")
+      (f "dev.benz.walker")
       "workspace 3, ^(org.gnome.Nautilus)$"
       "workspace 2, title:Firefox"
       "workspace 1, ^(VSCodium)$"
@@ -196,9 +197,9 @@ with lib; let
     decoration = {
       rounding = 10;
       drop_shadow = "yes";
-      shadow_range = 8;
-      shadow_render_power = 2;
-      "col.shadow" = "rgba(00000044)";
+      shadow_range = 45;
+      shadow_render_power = 4;
+      "col.shadow" = "rgba(00000077)";
 
       # Change transparency of focused and unfocused windows
       active_opacity = 0.95;
@@ -208,10 +209,11 @@ with lib; let
 
       blur = {
         enabled = true;
-        size = 10;
+        ignore_opacity = true;
+        size = 8;
         passes = 3;
         new_optimizations = "on";
-        noise = 0.01;
+        noise = 0.2;
         contrast = 0.9;
         brightness = 0.9;
         popups = true;
@@ -260,16 +262,6 @@ in {
             categories = ["X-Preferences"];
             terminal = false;
           };
-          /*
-            "org.gnome.Tweaks" = {
-            name = "Tweaks";
-            comment = "Gnome Tweaks";
-            icon = "org.gnome.tweaks";
-            exec = "env XDG_CURRENT_DESKTOP=gnome ${pkgs.gnome-tweaks}/bin/gnome-tweaks";
-            categories = ["X-Preferences"];
-            terminal = false;
-          };
-          */
         };
 
         home = {

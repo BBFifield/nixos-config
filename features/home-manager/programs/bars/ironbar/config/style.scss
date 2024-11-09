@@ -6,10 +6,10 @@ $color_bg: ironbar_colors.$bg;
 $color_btn_hover_bg: ironbar_colors.$btn_hover_bg;
 $color_btn_hover_fg: ironbar_colors.$btn_hover_fg;
 $color_border: ironbar_colors.$inactive_accent2;
-$color_active_workspace: ironbar_colors.$color_slot1;
-$color_inactive_workspace: ironbar_colors.$color_slot2;
-$color_border_active: ironbar_colors.$purple;
-$color_urgent: ironbar_colors.$red;
+$color_active_workspace: ironbar_colors.$active_accent1;
+$color_inactive_workspace: ironbar_colors.$active_accent2;
+$color_border_active: ironbar_colors.$color0;
+$color_urgent: ironbar_colors.$color1;
 $font-family:
   JetBrainsMono Nerd Font,
   sans-serif;

@@ -71,7 +71,7 @@
             }
             {
               name = "release";
-              value = "master";
+              value = "unstable";
             }
           ];
         }
@@ -81,6 +81,25 @@
         sha256 = "sha256-oFp+eoTLXd0GAK/VrYRUeoXntJDfTu6VnzisEt+bW74=";
       }}";
       definedAliases = ["@hm"];
+    };
+
+    "Noogle" = {
+      urls = [
+        {
+          template = "https://noogle.dev/q";
+          params = [
+            {
+              name = "term";
+              value = "{searchTerms}";
+            }
+          ];
+        }
+      ];
+      icon = "${pkgs.fetchurl {
+        url = "https://cdn-icons-png.freepik.com/256/9941/9941475.png";
+        sha256 = "sha256-W+EKDxizCQEKejg+K4NnQmKrDiZVusJYDzQ3WlneVLA=";
+      }}";
+      definedAliases = ["@ng"];
     };
 
     "Reddit" = {

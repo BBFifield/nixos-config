@@ -5,7 +5,6 @@
   ...
 }: let
   cfg = config.hm.ironbar;
-  mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
 
   attrset = import ../../../lookAndFeel/colorschemeInfo.nix;
 
@@ -44,7 +43,6 @@
 in {
   options.hm.ironbar = {
     enable = lib.mkEnableOption "Enable ironbar statusbar.";
-    enableMutableConfigs = lib.mkEnableOption "Enable live modification of ironbar configuration files.";
     hot-reload = lib.mkOption {
       type = (import ../../../submodules {inherit lib;}).hot-reload;
     };
@@ -65,33 +63,32 @@ in {
           style = "";
         };
       }
+      {
+        home.packages = [initialStyleFile];
+        xdg.configFile."ironbar/style.css" = {
+          source = "${initialStyleFile}/.config/ironbar/style.css";
+          onChange = ''
+            (
+              log_file="${config.home.homeDirectory}/ironbar-reload.log"
+              echo "Checking for ironbar-ipc..." >> $log_file
+              XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
+              if [[ -S "$XDG_RUNTIME_DIR/ironbar-ipc.sock" ]]; then
+                echo "ipc file exists" >> $log_file 2>&1
+                ${pkgs.ironbar}/bin/ironbar load-css "${config.home.homeDirectory}/.config/ironbar/style.css"
+              else
+                echo "ipc file doesn't exist" >> $log_file
+              fi
+            )
+          '';
+        };
+        xdg.configFile."ironbar/config.corn".source = ./config/config.corn;
+        xdg.configFile."ironbar/sys_info.sh".source = ./config/sys_info.sh;
+      }
+
       (
-        lib.mkIf (!config.hm.ironbar.enableMutableConfigs) {
-          home.packages = [initialStyleFile];
-          xdg.configFile."ironbar/style.css" = {
-            source = "${initialStyleFile}/.config/ironbar/style.css";
-            onChange = ''
-              (
-                log_file="${config.home.homeDirectory}/ironbar-reload.log"
-                echo "Checking for ironbar-ipc..." >> $log_file
-                XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
-                if [[ -S "$XDG_RUNTIME_DIR/ironbar-ipc.sock" ]]; then
-                  echo "ipc file exists" >> $log_file 2>&1
-                  ${pkgs.ironbar}/bin/ironbar load-css "${config.home.homeDirectory}/.config/ironbar/style.css"
-                else
-                  echo "ipc file doesn't exist" >> $log_file
-                fi
-              )
-            '';
-          };
-          xdg.configFile."ironbar/config.corn".source = ./config/config.corn;
-          xdg.configFile."ironbar/sys_info.sh".source = ./config/sys_info.sh;
-        }
-      )
-      (
-        lib.mkIf (config.hm.ironbar.enableMutableConfigs && !config.hm.hot-reload.enable) {
+        lib.mkIf (!config.hm.hot-reload.enable) {
           xdg.configFile."ironbar" = {
-            source = mkOutOfStoreSymlink "${config.hm.projectPath}/bars/ironbar/config";
+            source = ./config;
             recursive = true;
           };
         }
@@ -129,7 +126,6 @@ in {
             {
               hm.theme.hot-reload.scriptParts = lib.mkMerge [
                 ''
-                  rm "$directory/ironbar/style.css"
                   cp -rf "$directory/ironbar/ironbar_colorschemes/$1.css" "$directory/ironbar/style.css"
                 ''
                 (lib.mkAfter ''

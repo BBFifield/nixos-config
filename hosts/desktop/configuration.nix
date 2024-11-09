@@ -35,16 +35,10 @@
 
   specialisations = false;
 
-  project = {
-    enableMutableConfigs = true;
-    path = "/home/brandon/nixos-config";
-  };
-
   ######################################################################
 
   specialisationSet = builtins.removeAttrs desktops [defaultDesktop];
   defaultConfiguration = {
-    inherit project;
     desktop = (lib.filterAttrs (name: value: name == defaultDesktop) desktops).${defaultDesktop};
   };
 
@@ -55,7 +49,6 @@
     "nvidia"
     "home-manager"
     "desktop"
-    "meta"
   ];
 in {
   imports = lib.mkImports features featuresDir;
@@ -80,7 +73,6 @@ in {
                   }
                   // {
                     nixos = {
-                      inherit project;
                       desktop = value;
                     };
                   };
@@ -104,7 +96,6 @@ in {
       # Configure network proxy if necessary
       # networking.proxy.default = "http://user:password@proxy:port/";
       # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-      #programs.neovim.enable = true;
 
       environment.systemPackages = with pkgs; [
         cachix
@@ -130,7 +121,6 @@ in {
           ++ (with overlays; [
             nonFlakeSrcs
             #neovimConfig
-            #firefoxGnomeTheme
             vivaldiFixed
             customPkgs
             asztalOverlay
@@ -167,7 +157,6 @@ in {
       #users.extraGroups.vboxusers.members = [ "brandon" ];
 
       hardware = {
-        # bluetooth settings
         bluetooth = {
           enable = true;
           powerOnBoot = true;

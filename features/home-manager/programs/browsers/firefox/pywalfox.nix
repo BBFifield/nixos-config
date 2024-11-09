@@ -43,7 +43,7 @@
           base10 = "#${value.text_alt}"; #dark:Accent Primary, light:Background
           base11 = "";
           base12 = "";
-          base13 = "#${value.color_slot2}"; #dark:Accent Secondary
+          base13 = "#${value.active_accent1}"; #dark:Accent Secondary
           base14 = "";
           base15 = "#${value.text_alt}"; #dark:Text
         };

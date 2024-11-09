@@ -46,12 +46,12 @@ in {
         color-palette = let
           cfg = config.hm.theme.colorscheme.cognates;
         in {
-          first = "#${cfg.blue}";
-          second = "#${cfg.red}";
-          third = "#${cfg.purple}";
-          fourth = "#${cfg.pink}";
-          fifth = "#${cfg.yellow}";
-          custom = "#${cfg.green}";
+          first = "#${cfg.color0}";
+          second = "#${cfg.color1}";
+          third = "#${cfg.color3}";
+          fourth = "#${cfg.color4}";
+          fifth = "#${cfg.color5}";
+          custom = "#${cfg.color6}";
         };
       };
     };

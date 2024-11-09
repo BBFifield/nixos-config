@@ -22,45 +22,6 @@ with lib; let
       };
     };
   };
-
-  settings = {
-    source =
-      [
-        "${config.home.homeDirectory}/.config/hypr/hyprland_colorscheme.conf"
-      ]
-      ++ (lib.optionals (config.hm.hyprland.shell.hot-reload.enable) ["${config.home.homeDirectory}/.config/hypr/colorscheme_settings.conf"]);
-
-    exec-once =
-      [
-        "wpaperd -d"
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-      ]
-      ++ (lib.optionals (config.hm.gBar.enable) ["gBar bar 0"]);
-
-    general = {
-      "col.active_border" = "0xff$active_accent1 0xff$active_accent2 45deg";
-      "col.inactive_border" = "0xcc$inactive_accent1 0xcc$inactive_accent2 45deg";
-    };
-
-    group = {
-      "col.border_active" = "0xff$active_accent1 0xff$active_accent2 45deg";
-      "col.border_inactive" = "0xcc$inactive_accent1 0xcc$inactive_accent2 45deg";
-      "col.border_locked_active" = "0xff$active_accent1 0xff$active_accent2 45deg";
-      "col.border_locked_inactive" = "0xcc$inactive_accent1 0xcc$inactive_accent2 45deg";
-    };
-
-    bind = [
-      "SUPER, R, exec, walker"
-      "SUPER, N, exec, wpaperctl next"
-      "SUPER, P, exec, hyprpicker --autocopy"
-      "SUPER ALT, H, exec, hyprshade toggle blue-light-filter"
-      "SUPER, S, exec, grim -g \"$(slurp -o -c '##$active_accent1ff')\" -t ppm - | satty --filename -"
-    ];
-  };
-
-  colorschemeSettings = theme: mode: {
-    bind = "SUPER, T, exec, switch-colorscheme ${theme} ${mode}";
-  };
 in {
   options.hm.hyprland = {
     shell = mkOption {
@@ -115,6 +76,51 @@ in {
       })
       (mkIf (cfg.name == "vanilla") (
         let
+          settings = {
+            source =
+              [
+                "${config.home.homeDirectory}/.config/hypr/hyprland_colorscheme.conf"
+              ]
+              ++ (lib.optionals (config.hm.hyprland.shell.hot-reload.enable) ["${config.home.homeDirectory}/.config/hypr/colorscheme_settings.conf"]);
+
+            exec-once =
+              [
+                "wpaperd -d"
+                "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+                "swaynotificationcenter"
+              ]
+              ++ (lib.optionals (config.hm.gBar.enable) ["gBar bar 0"]);
+
+            general = {
+              "col.active_border" = "0xff$active_accent1 0xff$active_accent2 45deg";
+              "col.inactive_border" = "0xcc$inactive_accent1 0xcc$inactive_accent2 45deg";
+            };
+
+            group = {
+              "col.border_active" = "0xff$active_accent1 0xff$active_accent2 45deg";
+              "col.border_inactive" = "0xcc$inactive_accent1 0xcc$inactive_accent2 45deg";
+              "col.border_locked_active" = "0xff$active_accent1 0xff$active_accent2 45deg";
+              "col.border_locked_inactive" = "0xcc$inactive_accent1 0xcc$inactive_accent2 45deg";
+            };
+
+            bind = [
+              "SUPER, R, exec, hyprctl dispatch closewindow '^(dev.benz.walker)$' && walker" #The first command is to ensure walker is closed if open on any other workspace
+              "SUPER, N, exec, wpaperctl next"
+              "SUPER, P, exec, hyprpicker --autocopy"
+              "SUPER ALT, H, exec, hyprshade toggle blue-light-filter"
+              "SUPER, S, exec, grim -g \"$(slurp -o -c '##$active_accent1ff')\" -t ppm - | satty --filename -"
+            ];
+            windowrulev2 = [
+              "stayfocused, class:^(dev.benz.walker)$"
+              "size ${builtins.toString (config.hm.walker.width + 30)} ${builtins.toString (config.hm.walker.height + 75)}, class:^(dev.benz.walker)$" #Needs to be add up to width and height plus total padding to fit inside window
+              "opacity 0.95 override 0.90 override, class:^(dev.benz.walker)$"
+            ];
+          };
+
+          colorschemeSettings = theme: mode: {
+            bind = "SUPER, T, exec, switch-colorscheme ${theme} ${mode}";
+          };
+
           attrset = import ../../../lookAndFeel/colorschemeInfo.nix;
           defaultTheme = config.hm.theme.colorscheme.name;
           defaultVariant = config.hm.theme.colorscheme.variant;
@@ -189,7 +195,10 @@ in {
             {
               hm.wpaperd.enable = true;
               hm.hyprland.hyprlock.enable = true;
-              hm.walker.enable = true;
+              hm.walker = {
+                enable = true;
+                hot-reload.enable = true;
+              };
               hm.satty.enable = true;
               hm.ironbar = {
                 enable = true;
@@ -224,17 +233,6 @@ in {
                     hyprctl reload
                   '')
                 ];
-
-                /*
-                home.activation.hypr = lib.hm.dag.entryAfter ["writeBoundary"] ''
-                 log_file="${config.home.homeDirectory}/hyprland_activation.log"
-                echo "Checking for Hyprland process..." >> $log_file
-                 echo $(pgrep -i hyprland) >> $log_file 2>&1
-
-                   echo $(${pkgs.hyprland}/bin/hyprctl -i 0 reload) >> $log_file 2>&1
-
-                   echo "Notice: Ignoring hyprland activation script. Hyprland is not running." >> $log_file                '';
-                */
               }
               colorFiles
               settingsFiles

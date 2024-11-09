@@ -2,7 +2,7 @@ return {
 	{
 		{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 		"Mofiqul/dracula.nvim",
-		{ dir = "~/.config/neocolorizer.nvim" },
+		"BBFifield/neocolorizer.nvim",
 		"folke/tokyonight.nvim",
 		"projekt0n/github-nvim-theme",
 		"rebelot/kanagawa.nvim",
@@ -17,7 +17,7 @@ return {
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 		},
-		lazy = true,
+		event = "VeryLazy",
 		opts = {},
 		config = function(_, opts)
 			local theme_colors
@@ -42,6 +42,7 @@ return {
 	},
 	{
 		"NvChad/nvim-colorizer.lua",
+		event = "BufEnter",
 		opts = {},
 	},
 }

@@ -9,7 +9,6 @@
     ++ [./lookAndFeel];
 
   options.hm = {
-    enableMutableConfigs = lib.mkEnableOption "Enable live modification of configuration files.";
     hot-reload = lib.mkOption {
       type = (import ./submodules {inherit lib;}).hot-reload;
     };

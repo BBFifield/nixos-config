@@ -54,10 +54,6 @@ in {
           };
         };
       }
-      (lib.optionalAttrs (sysCfg.project.enableMutableConfigs) {
-        enableMutableConfigs = true;
-        projectPath = sysCfg.project.path + "/features/home-manager/programs";
-      })
       ###### PLASMA CONFIG ######
       (lib.optionalAttrs (sysCfg.desktop.plasma.enable) {
         firefox.style = "plasma";

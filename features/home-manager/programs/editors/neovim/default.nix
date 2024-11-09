@@ -5,7 +5,6 @@
   ...
 }: let
   cfg = config.hm.neovim;
-  mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
 
   attrset = import ../../../lookAndFeel/colorschemeInfo.nix;
   themeNames = lib.attrNames attrset;
@@ -89,10 +88,10 @@ in
             gcc # For installing treesitter parsers
           ];
 
-          xdg.configFile."nvim".source =
-            if config.hm.enableMutableConfigs
-            then mkOutOfStoreSymlink "${config.hm.projectPath}/editors/neovim/lazy"
-            else pkgs.neovim-config; #"${config.hm.projectPath}/editors/neovim/lazy";
+          xdg.configFile."nvim" = {
+            source = ./lazy;
+            recursive = true;
+          };
         }
         (lib.mkIf config.hm.neovim.hot-reload.enable (lib.mkMerge [
           {
@@ -100,12 +99,6 @@ in
               (lib.mkOrder 33 ''
                 cp -rf "${config.home.homeDirectory}/.config/neocolorizer.nvim/palettes/$1.vim" "${config.home.homeDirectory}/.cache/neocolorizer/palette.vim"
               '')
-              /*
-                (lib.mkOrder 52 ''
-                pywalfox $mode
-                pywalfox update
-              '')
-              */
             ];
           }
           colorFiles

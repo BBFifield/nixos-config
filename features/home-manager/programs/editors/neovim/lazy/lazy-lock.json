@@ -19,6 +19,7 @@
   "lazydev.nvim": { "branch": "main", "commit": "d5800897d9180cea800023f2429bce0a94ed6064" },
   "lualine.nvim": { "branch": "master", "commit": "640260d7c2d98779cab89b1e7088ab14ea354a02" },
   "mini.icons": { "branch": "main", "commit": "a2742459f0ee32806c2438ca06b4d8b331f3f4d4" },
+  "neocolorizer.nvim": { "branch": "master", "commit": "acd1f56273491dddbf4ebd0c9ea7336c42e1a8e8" },
   "neoconf.nvim": { "branch": "main", "commit": "c32fd1d852e45cc03ed0729a2f5bec040ff9f065" },
   "nvim-colorizer.lua": { "branch": "master", "commit": "19477946096b7800ca215bc813c0f021ae98c46c" },
   "nvim-lsp-file-operations": { "branch": "master", "commit": "9744b738183a5adca0f916527922078a965515ed" },
