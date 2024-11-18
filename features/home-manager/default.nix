@@ -6,7 +6,8 @@
 }: {
   imports =
     (lib.concatMap import [./programs])
-    ++ [./lookAndFeel];
+    ++ [./lookAndFeel]
+    ++ [./lookAndFeel/snow-globe];
 
   options.hm = {
     hot-reload = lib.mkOption {

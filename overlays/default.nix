@@ -30,6 +30,12 @@
   customPkgs = f: p:
     lib.pathToAttrs "${self}/pkgs" (full_path: _: p.callPackage full_path {});
 
+  /*
+    base16 = f: p: {
+    base16 = import ../pkgs/base16 {};
+  };
+  */
+
   nonFlakeSrcs = f: p: {
     inherit (inputs) neovim-config;
     inherit (inputs) firefox-gnome-theme;

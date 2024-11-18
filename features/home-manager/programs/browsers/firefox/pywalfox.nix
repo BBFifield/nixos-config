@@ -9,50 +9,54 @@
 
   jsonFormat = pkgs.formats.json {};
 
-  attrset = import ../../../lookAndFeel/colorschemeInfo.nix;
-  themeNames = lib.attrNames attrset;
-  getVariantNames = theme: lib.attrNames attrset.${theme}.variants;
+  schemeAttrs = config.snow-globe.commonColors;
+
+  schemeNames = lib.attrNames schemeAttrs;
 
   defaultTheme = config.hm.theme.colorscheme.name;
   defaultVariant = config.hm.theme.colorscheme.variant;
 
-  unpacked = lib.listToAttrs (lib.concatMap (theme:
-    lib.map (variant: {
-      name = "${theme}_${variant}";
-      value = attrset.${theme}.cognates variant;
-    }) (getVariantNames theme))
-  themeNames);
+  unpacked = lib.listToAttrs (lib.map (schemeName: {
+      name = schemeName;
+      value = schemeAttrs.${schemeName}.colors;
+    })
+    schemeNames);
 
   mkColorFile = name': value: path: {
-    home.file.".cache/wal/${path}${name'}.json" = {
+    file.".cache/wal/${path}${name'}.json" = {
       source = jsonFormat.generate "${name'}" {
         wallpaper = "/home/brandon/Pictures/wallpapers/Bing/OHR.BeachHutsSweden_DE-DE4614841617_1920x1080.jpg";
         name = name';
         colors = {
-          #BackgroundLight and BackgroundExtra in dark mode depend on Background
-          base00 = "#${value.bg_alt}"; #dark:Background, light:Text Focus
-          base01 = "";
-          base02 = "";
-          base03 = "#${value.accent_primary_alt}"; #light:Accent Primary
-          base04 = "";
-          base05 = "#${value.accent_secondary_alt}"; #light:Accent Secondary
-          base06 = "";
-          base07 = "#${value.btn_hover_bg}"; #light:Background Extra
-          base08 = "";
-          base09 = "";
-          base10 = "#${value.text_alt}"; #dark:Accent Primary, light:Background
-          base11 = "";
-          base12 = "";
-          base13 = "#${value.active_accent1}"; #dark:Accent Secondary
-          base14 = "";
-          base15 = "#${value.text_alt}"; #dark:Text
+          base00 = "#${value.base00}";
+          base01 = "#${value.base01}";
+          base02 = "#${value.base02}";
+          base03 = "#${value.base03}";
+          base04 = "#${value.base04}";
+          base05 = "#${value.base05}";
+          base06 = "#${value.base06}";
+          base07 = "#${value.base07}";
+          base08 = "#${value.base08}";
+          base09 = "#${value.base09}";
+          base0A = "#${value.base05}";
+          base0B = "#${value.base0B}";
+          base0C = "#${value.base0C}";
+          base0D = "#${value.base0D}";
+          base0E = "#${value.base0E}";
+          base0F = "#${value.base05}";
         };
       };
     };
   };
 
-  colorFiles =
-    lib.foldl' (acc: item: {home.file = acc.home.file // item.home.file;}) {home.file = {};} (lib.attrValues (lib.mapAttrs (name: value: mkColorFile name value "pywalfox_colorschemes/") unpacked));
+  colorFiles = {
+    home = lib.mkMerge [
+      (lib.foldl' (acc: item: {file = acc.file // item.file;}) {file = {};}
+        (
+          lib.attrValues (lib.mapAttrs (name: value: mkColorFile name value "pywalfox_colorschemes/") unpacked)
+        ))
+    ];
+  };
 in {
   options.hm.firefox.pywalfox = {
     enable = lib.mkEnableOption "Enable pywalfox, a dynamic firefox colorscheme client.";
@@ -60,7 +64,7 @@ in {
   config = lib.mkIf (config.hm.firefox.pywalfox.enable) (
     lib.mkMerge [
       #This file is created regardless
-      (mkColorFile "colors" (attrset.${defaultTheme}.cognates defaultVariant) "")
+      {home = mkColorFile "colors" schemeAttrs."${defaultTheme}-${defaultVariant}".colors "";}
       {
         programs.firefox = {
           profiles.default.extensions = [pkgs.nur.repos.rycee.firefox-addons.pywalfox];
@@ -71,7 +75,7 @@ in {
           fi
           ${pkgs.pywalfox-native}/bin/pywalfox start
           ${pkgs.pywalfox-native}/bin/pywalfox update
-          ${pkgs.pywalfox-native}/bin/pywalfox ${attrset.${defaultTheme}.variants.${defaultVariant}.mode}
+          ${pkgs.pywalfox-native}/bin/pywalfox ${schemeAttrs."${defaultTheme}-${defaultVariant}".variant}
         '';
 
         home.packages = with pkgs; [

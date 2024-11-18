@@ -6,8 +6,8 @@
 }: let
   cfg = config.hm.yazi;
   tomlFormat = pkgs.formats.toml {};
-
-  flavorPaths = [
+  /*
+    flavorPaths = [
     {
       url = "https://github.com/yazi-rs/flavors.git";
       ref = "main";
@@ -18,14 +18,6 @@
       name = "gruvbox-dark.yazi";
       ref = "main";
       rev = "c204853de7a78bc99ea628e51857ce65506468db";
-    }
-  ];
-
-  pluginPaths = [
-    {
-      url = "https://github.com/Rolv-Apneseth/starship.yazi.git";
-      ref = "main";
-      rev = "77a65f5a367f833ad5e6687261494044006de9c3";
     }
   ];
 
@@ -67,6 +59,7 @@
   defaultVariant = config.hm.theme.colorscheme.variant;
 
   defaultThemeHasPath = queryGit defaultTheme defaultVariant;
+  */
 in {
   options.hm.yazi = {
     enable = lib.mkEnableOption "Enable Yazi, the terminal file manager.";
@@ -76,7 +69,8 @@ in {
   };
 
   config = lib.mkMerge [
-    (
+    /*
+      (
       lib.mkIf (cfg.hot-reload.enable)
       (
         let
@@ -104,12 +98,16 @@ in {
           ]
       )
     )
+    */
     #This is the default file created regardless of hot-reloading being enabled
-    (
+    /*
+      (
       lib.mkIf (defaultThemeHasPath != {}) (mkThemeFile defaultTheme defaultVariant "yazi/theme")
     )
+    */
     #This ensures no theme is left over from a previous generation
-    (
+    /*
+      (
       lib.mkIf (defaultThemeHasPath == {}) {
         home.activation.yazi = lib.hm.dag.entryAfter ["writeBoundary"] ''
           if test -f "${config.home.homeDirectory}/.config/yazi/theme.toml"; then
@@ -118,14 +116,24 @@ in {
         '';
       }
     )
+    */
     {
       home.packages = with pkgs; [
         ueberzugpp
       ];
-      programs.yazi = {
+      programs.yazi = let
+        pluginPaths = [
+          {
+            url = "https://github.com/Rolv-Apneseth/starship.yazi.git";
+            ref = "main";
+            rev = "77a65f5a367f833ad5e6687261494044006de9c3";
+          }
+        ];
+      in {
         enable = true;
         enableBashIntegration = true;
-        flavors = lib.mkMerge [
+        /*
+          flavors = lib.mkMerge [
           (lib.mkIf (config.hm.yazi.hot-reload.enable) (
             lib.listToAttrs (lib.filter (item: item != null) (lib.concatMap (theme:
               lib.map (
@@ -158,6 +166,7 @@ in {
               flavor
           ))
         ];
+        */
 
         settings = {
           manager = {

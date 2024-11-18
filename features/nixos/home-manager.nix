@@ -24,6 +24,7 @@ with inputs; {
       sops-nix.homeManagerModules.sops
       walker.homeManagerModules.default
       ironbar.homeManagerModules.default
+      base16-nix.homeManagerModule
     ];
   };
 }

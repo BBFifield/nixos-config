@@ -2,7 +2,7 @@
   lib,
   config,
   pkgs,
-  outputs,
+  overlays,
   modulesPath,
   ...
 }: {
@@ -41,7 +41,7 @@
   */
 
   nixpkgs = {
-    overlays = [outputs.overlays.uboot];
+    overlays = [overlays.uboot];
     config.platform = lib.systems.platforms.raspberrypi2;
     config.allowUnsupportedSystem = true;
     hostPlatform.system = "armv7l-linux";

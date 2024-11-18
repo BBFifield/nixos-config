@@ -17,7 +17,7 @@
   nix.settings.nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
 
   # With regard to substitutors
-  nix.settings.trusted-users = ["brandon"];
+  nix.settings.allowed-users = ["brandon"];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 

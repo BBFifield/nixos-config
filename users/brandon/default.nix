@@ -83,11 +83,7 @@ in {
           style = "hyprland";
           hot-reload.enable = true;
         };
-        neovim = {
-          hot-reload.enable = true;
-        };
         dconf.enable = true;
-        alacritty.hot-reload.enable = true;
         yazi.hot-reload.enable = true;
         theme = {
           gtkTheme.name = "adw-gtk3-dark";
@@ -97,12 +93,11 @@ in {
             variant = "mocha";
           };
         };
-
         hyprland = lib.mkMerge [
           {enable = true;}
-          (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "vanilla") {
+          (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "snow-globe") {
             shell = {
-              name = "vanilla";
+              name = "snow-globe";
               hot-reload.enable = true;
             };
           })
@@ -112,6 +107,33 @@ in {
         vscodium.theme = "gnome";
       })
     ];
+
+  snow-globe = {
+    enable = true;
+    enabledSchemes = with pkgs.base16; [catppuccin-frappe catppuccin-latte catppuccin-macchiato catppuccin-mocha dracula gruvbox-dark-hard];
+    targets = {
+      walker = {
+        enable = true;
+        hot-reload.enable = true;
+      };
+      ironbar = {
+        enable = true;
+        hot-reload.enable = true;
+      };
+      hyprland = {
+        enable = true;
+        hot-reload.enable = true;
+      };
+      alacritty = {
+        enable = true;
+        hot-reload.enable = true;
+      };
+      neovim = {
+        enable = true;
+        hot-reload.enable = true;
+      };
+    };
+  };
 
   programs.home-manager.enable = true;
 

@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  outputs,
+  overlays,
   lib,
   hostname,
   config,
@@ -43,7 +43,7 @@
     ]);
 
   nixpkgs = {
-    overlays = outputs.overlays.defaults;
+    overlays = overlays.defaults;
     config.allowUnfree = true;
   };
 

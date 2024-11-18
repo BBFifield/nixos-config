@@ -125,6 +125,40 @@
         "type": "github"
       }
     },
+    "base16-nix": {
+      "inputs": {
+        "fromYaml": "fromYaml"
+      },
+      "locked": {
+        "lastModified": 1721224776,
+        "narHash": "sha256-iakVQHg2DSmdOc5dNBwrDt9JLRxX5MT+IIbxfZEpGdo=",
+        "owner": "SenchoPens",
+        "repo": "base16.nix",
+        "rev": "c89c8123310257f3ddc04cc59aa4b5573c6d515f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SenchoPens",
+        "repo": "base16.nix",
+        "type": "github"
+      }
+    },
+    "base16-schemes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1727294262,
+        "narHash": "sha256-UCRGabAyj8+RFkKdSZBR8BPE6yLM3rPpdxXHmwd9rZ0=",
+        "owner": "tinted-theming",
+        "repo": "schemes",
+        "rev": "b3273211d5d1510aee669083fc5a1e0e4b5e310c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tinted-theming",
+        "repo": "schemes",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1725125250,
@@ -226,6 +260,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "fromYaml": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721222302,
+        "narHash": "sha256-5vL4w9+tS9yd8WpIiDUtxN1IuxCVK2nebZMs/hCXXis=",
+        "owner": "SenchoPens",
+        "repo": "fromYaml",
+        "rev": "93bad85d1633b8b27287b438c0bd394094c24d06",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SenchoPens",
+        "repo": "fromYaml",
         "type": "github"
       }
     },
@@ -704,11 +754,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1727264057,
-        "narHash": "sha256-KQPI8CTTnB9CrJ7LrmLC4VWbKZfljEPBXOFGZFRpxao=",
+        "lastModified": 1731386116,
+        "narHash": "sha256-lKA770aUmjPHdTaJWnP3yQ9OI1TigenUqVC3wweqZuI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "759537f06e6999e141588ff1c9be7f3a5c060106",
+        "rev": "689fed12a013f56d4c4d3f612489634267d86529",
         "type": "github"
       },
       "original": {
@@ -887,6 +937,8 @@
         "ags": "ags",
         "alacritty-theme": "alacritty-theme",
         "asztal": "asztal",
+        "base16-nix": "base16-nix",
+        "base16-schemes": "base16-schemes",
         "firefox-gnome-theme": "firefox-gnome-theme_2",
         "gBar": "gBar",
         "home-manager": "home-manager",

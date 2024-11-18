@@ -39,13 +39,13 @@ in {
           }
           {
             source = "$HOME/.config/hypr/hyprland.conf";
-            "$accent" = "0xff$active_accent1";
-            "$accentAlpha" = "0xff$active_accent1";
-            "$textVar" = "0xff$fg";
+            "$accent" = "0xff$base14";
+            "$accentAlpha" = "0xff$base15";
+            "$textVar" = "0xff$base09";
             "$font" = "${config.hm.theme.fonts.defaultMonospace}";
 
             background = {
-              color = "0xff$bg";
+              color = "0xff$base00";
             };
 
             # LAYOUT

@@ -5,45 +5,26 @@
   lib,
   ...
 }: let
-  tomlFormat = pkgs.formats.toml {};
-
   lang = icon: color: {
     symbol = icon;
-    format = ''[[ $symbol( $version) ](fg:${color} bg:color_fg_field)](bg:color_fg_field)'';
-  };
-  attrset = import ../../../lookAndFeel/colorschemeInfo.nix;
-
-  mkColorPrefix = name: value: {
-    name = "color_${name}";
-    value = ''#${value}'';
+    format = ''[[ $symbol( $version) ](fg:${color} bg:bright-green)](bg:black)'';
   };
 
-  mkCognateSet = name: variant: let
-    cognates = attrset.${name}.cognates variant;
-  in
-    lib.listToAttrs (lib.map (cognateName: mkColorPrefix cognateName cognates.${cognateName}) (lib.attrNames cognates));
-
-  mkThemeFile = theme: variant: path: {
-    xdg.configFile."${path}/${theme}_${variant}.toml" = {
-      source =
-        tomlFormat.generate "theme"
-        (settings theme variant);
+  settings = let
+    props = {
+      separator_left = "";
+      separator_right = "";
+      separator_mid = "";
+      char_symbol = "";
     };
-  };
-
-  defaultThemeName = config.hm.theme.colorscheme.name;
-  defaultVariantName = config.hm.theme.colorscheme.variant;
-
-  settings = theme: variant: let
-    props = attrset.${theme}.props;
   in {
     "$schema" = ''https://starship.rs/config-schema.json'';
     format = lib.concatStrings [
-      "[${props.separator_left}](color_btn_hover_bg)"
       "$nix_shell"
+      "[${props.separator_left}](blue)"
       "$os"
       "$username"
-      "[${props.separator_right}](bg:color_fg_field fg:color_btn_hover_bg)"
+      "[${props.separator_right}](bg:bright-green fg:blue)"
       "$directory"
       "$git_branch"
       "$git_status"
@@ -54,23 +35,19 @@
       "$java"
       "$haskell"
       "$python"
-      "[${props.separator_mid}](fg:color_separator_mid bg:color_fg_field)"
+      "[${props.separator_mid}](fg:blue bg:bright-green)"
       "$docker_context"
       "$conda"
       "$time"
-      "[${props.separator_right} ](color_fg_field)"
+      "[${props.separator_right} ](bright-green)"
       "$cmd_duration"
       "$status"
       "$line_break$character"
     ];
 
-    palette = "${theme}_${variant}";
-
-    palettes."${theme}_${variant}" = mkCognateSet theme variant;
-
     os = {
       disabled = false;
-      style = "bg:color_btn_hover_bg fg:bold color_btn_hover_fg";
+      style = "bg:blue fg:bold bright-green";
     };
     os.symbols = {
       NixOS = "";
@@ -94,27 +71,27 @@
 
     username = {
       show_always = true;
-      style_user = "bg:color_btn_hover_bg fg:bold color_btn_hover_fg";
-      style_root = "bg:color_btn_hover_bg fg:bold color_btn_hover_fg";
+      style_user = "bg:blue fg:bold bright-green";
+      style_root = "bg:blue fg:bold bright-green";
       format = ''[ $user ]($style)'';
     };
 
     directory = {
-      style = "fg:color_fg bg:color_fg_field";
-      format = "[[ $path ]($style)${props.separator_mid}](fg:color_separator_mid bg:color_fg_field)";
+      style = "fg:blue bg:bright-green";
+      format = "[[ $path ]($style)${props.separator_mid}](fg:blue bg:bright-green)";
       truncation_length = 3;
       truncation_symbol = "…/";
     };
 
     git_branch = {
       symbol = "";
-      style = "fg:color_active_accent1 bg:color_fg_field";
+      style = "fg:purple bg:bright-green";
       format = ''[ $symbol $branch ]($style)'';
     };
 
     git_status = {
-      style = "fg:color_active_accent1 bg:color_fg_field";
-      format = ''[[($all_status$ahead_behind )]($style)${props.separator_mid}](fg:color_separator_mid bg:color_fg_field)'';
+      style = "fg:purple bg:bright-green";
+      format = ''[[($all_status$ahead_behind )]($style)${props.separator_mid}]("fg:blue bg:bright-green";)'';
     };
 
     continuation_prompt = "∙  ┆ ";
@@ -126,23 +103,23 @@
       sigint_symbol = "󰂭 ";
       signal_symbol = "󱑽 ";
       success_symbol = "";
-      format = "[$symbol](fg:color_failure)";
+      format = "[$symbol](fg:red)";
       map_symbol = true;
       disabled = false;
     };
     cmd_duration = {
       min_time = 1000;
-      format = "[$duration ](fg:color_yellow)";
+      format = "[$duration ](fg:yellow)";
     };
-    /*
-      nix_shell = {
+
+    nix_shell = {
       disabled = false;
-      format = "[${pad.left}](fg:white)[ ](bg:white fg:black)[${pad.right}](fg:white) ";
+      format = "[${props.separator_left}](fg:white)[ ](bg:white fg:bright-green)[${props.separator_right} ](fg:white) ";
     };
-    */
+
     container = {
       symbol = " 󰏖";
-      format = "[$symbol ](color_yellow)";
+      format = "[$symbol ](yellow)";
     };
 
     directory.substitutions = {
@@ -153,17 +130,17 @@
       "Developer" = "󰲋 ";
     };
 
-    python = lang "" "color_yellow";
-    nodejs = lang "󰛦" "color_blue";
-    bun = lang "󰛦" "color_blue";
-    deno = lang "󰛦" "color_blue";
-    lua = lang "󰢱" "color_blue";
-    rust = lang "" "color_red";
-    java = lang "" "color_red";
-    c = lang "" "color_blue";
-    golang = lang "" "color_blue";
-    dart = lang "" "color_blue";
-    elixir = lang "" "color_purple";
+    python = lang "" "yellow";
+    nodejs = lang "󰛦" "blue";
+    bun = lang "󰛦" "blue";
+    deno = lang "󰛦" "blue";
+    lua = lang "󰢱" "blue";
+    rust = lang "" "red";
+    java = lang "" "red";
+    c = lang "" "blue";
+    golang = lang "" "blue";
+    dart = lang "" "blue";
+    elixir = lang "" "purple";
 
     /*
       conda = {
@@ -175,18 +152,18 @@
     time = {
       disabled = false;
       time_format = "%R";
-      style = "bg:color_fg_field";
-      format = ''[[  $time ](fg:color_fg $style)]($style)'';
+      style = "bg:bright-green";
+      format = ''[[  $time ](fg:blue $style)]($style)'';
     };
 
     character = {
       disabled = false;
-      success_symbol = "[${props.mascot}](bold fg:color_success)";
-      error_symbol = "[${props.mascot}](bold fg:color_failure)";
-      vimcmd_symbol = "[${props.mascot}](bold fg:color_success)";
-      vimcmd_replace_one_symbol = "[${props.mascot}](bold fg:color_purple)";
-      vimcmd_replace_symbol = "[${props.mascot}](bold fg:color_purple)";
-      vimcmd_visual_symbol = "[${props.mascot}](bold fg:color_yellow)";
+      success_symbol = "[${props.char_symbol}](bold fg:green)";
+      error_symbol = "[${props.char_symbol}](bold fg:red)";
+      vimcmd_symbol = "[${props.char_symbol}](bold fg:green)";
+      vimcmd_replace_one_symbol = "[${props.char_symbol}](bold fg:purple)";
+      vimcmd_replace_symbol = "[${props.char_symbol}](bold fg:purple)";
+      vimcmd_visual_symbol = "[${props.char_symbol}](bold fg:yellow)";
     };
   };
 in {
@@ -196,33 +173,13 @@ in {
       type = (import ../../../submodules {inherit lib;}).hot-reload;
     };
   };
-  config = lib.mkIf (config.hm.starship.enable) (
-    lib.mkMerge [
-      {
-        programs.starship = {
-          enable = true;
-          enableBashIntegration = true;
-          settings = settings defaultThemeName defaultVariantName;
-        };
-      }
-      (lib.mkIf (config.hm.starship.hot-reload.enable) (
-        let
-          themeNames = lib.attrNames attrset;
-          getVariantNames = theme: lib.attrNames attrset.${theme}.variants;
-
-          themeFilesList = lib.concatMap (theme: lib.map (variant: mkThemeFile theme variant "starship_themes") (getVariantNames theme)) themeNames;
-
-          themeFiles = lib.foldl' (acc: item: {xdg.configFile = acc.xdg.configFile // item.xdg.configFile;}) {xdg.configFile = {};} themeFilesList;
-        in
-          lib.mkMerge [
-            themeFiles
-            {
-              hm.theme.hot-reload.scriptParts = lib.mkOrder 30 ''
-                cp -rf "$directory/starship_themes/$1.toml" "$directory/starship.toml"
-              '';
-            }
-          ]
-      ))
-    ]
-  );
+  config =
+    lib.mkIf (config.hm.starship.enable)
+    {
+      programs.starship = {
+        enable = true;
+        enableBashIntegration = true;
+        settings = settings;
+      };
+    };
 }

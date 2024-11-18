@@ -72,6 +72,16 @@
     };
 
     alacritty-theme.url = "github:alexghr/alacritty-theme.nix";
+
+    base16-nix = {
+      url = "github:SenchoPens/base16.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    base16-schemes = {
+      url = "github:tinted-theming/schemes";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -80,8 +90,6 @@
     nixos-generators,
     ...
   } @ inputs: let
-    inherit (self) outputs;
-
     # Supported systems for your flake packages, shell, etc.
     systems = [
       "aarch64-linux"
@@ -131,13 +139,14 @@
   };
 
   nixConfig = {
-    extra-substituters = [
-      #"https:cache.nixos.org"
+    trusted-substituters = [
+      "https://cache.nixos.org"
       # "https://app.cachix.org/cache/bbfifield"
       "https://walker.cachix.org"
       "https://cache.garnix.io"
     ];
-    extra-trusted-public-keys = [
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       #"bbfifield.cachix.org-1:CCnFT1vusYyocjxJNHQKnighiTQSnv/LquQcZ3xrTgg="
       "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="

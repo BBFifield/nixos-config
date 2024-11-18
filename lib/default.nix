@@ -41,7 +41,7 @@
   from a string list of the form [ "packageSet" "subPackageSet" "package" ].
   Args:
     count ? 1 - Just an integer that counts up from 1 as the function iterates through the list from right to left.
-    prefix ? pkgs - The package set being worked with.
+    prefix - The package set being worked with.
     attr_list - The string list which contains the package set and subpackage names.
   Returns: The created package name of type package.
   */
@@ -57,4 +57,16 @@
             head (lib.attrsets.attrVals [(getElem count attr_list)] (mkPkgName {count = count + 1;} prefix attr_list))
           )
       );
+
+  /*
+  Can be used to get out of some nasty infinite recursions, speicifically the kind that state "while evaluating t  he module argument 'config'".
+  Args:
+    names - The attributes to return.
+    attrs - The attributes that you're trying to merge.
+  Returns: A set of attributes specified to return from the resulting list merge.
+  */
+  mkMergeTopLevel = names: attrs:
+    lib.getAttrs names (
+      lib.mapAttrs (k: v: lib.mkMerge v) (lib.foldAttrs (n: a: [n] ++ a) [] attrs)
+    );
 }

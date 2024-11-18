@@ -21,8 +21,8 @@ with lib; let
     options = {
       enable = mkEnableOption "Enable Hyprland Window Manager.";
       shell = mkOption {
-        type = types.enum ["asztal" "vanilla" "hyprpanel"];
-        default = "vanilla";
+        type = types.enum ["asztal" "snow-globe" "hyprpanel"];
+        default = "snow-globe";
         description = "Choose your preferred Hyprland shell";
         example = "asztal";
       };
@@ -46,7 +46,7 @@ in {
       type = hyprlandSubmodule;
       default = {
         enable = false;
-        shell = "vanilla";
+        shell = "snow-globe";
       };
     };
   };
@@ -131,7 +131,7 @@ in {
             };
           }
           # Hyprlock doesn't work without this
-          (mkIf (cfg.hyprland.shell == "vanilla") {
+          (mkIf (cfg.hyprland.shell == "snow-globe") {
             security.pam.services.hyprlock = {};
           })
         ]

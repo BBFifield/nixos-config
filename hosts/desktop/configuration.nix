@@ -16,7 +16,7 @@
   desktops = {
     hyprland = {
       hyprland.enable = true;
-      hyprland.shell = "vanilla";
+      hyprland.shell = "snow-globe";
       displayManager = "sddm";
       nautilus.enable = true;
     };
@@ -122,6 +122,7 @@ in {
             nonFlakeSrcs
             #neovimConfig
             vivaldiFixed
+            #base16
             customPkgs
             asztalOverlay
           ]);
