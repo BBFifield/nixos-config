@@ -1,9 +1,9 @@
 vim.g.mapleader = " "
---vim.g.gruvbox_material_foreground = "original"
-vim.g.colorscheme = "neocolorizer"
---vim.g.colorscheme = "dracula"
+vim.g.tinted_colorspace = 256
+vim.g.tinted_background_transparent = 1
+vim.g.colorscheme = "base16-catppuccin-frappe"
 vim.opt.mousemoveevent = true
-vim.opt.termguicolors = true
+vim.opt.termguicolors = false
 
 vim.opt.tabstop = 2 -- Number of spaces that a <Tab> in the file counts for
 vim.opt.shiftwidth = 2 -- Number of spaces to use for each step of (auto)indent
@@ -32,6 +32,8 @@ local opts = {
 		tfm = { "rolv-apneseth/tfm.nvim", enabled = true },
 		which_key = { "folke/which-key.nvim", enabled = true },
 		barbar = { "romgrk/barbar.nvim", enabled = false },
+		base16_nvim = { "RRethy/base16-nvim", enabled = false },
+		tinted_vim = { "tinted-theming/tinted-vim", enabled = true },
 	},
 }
 NewfieVim = NewfieVim_object:new(opts) -- Create a new NewfieVim object

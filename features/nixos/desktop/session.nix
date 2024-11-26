@@ -21,8 +21,8 @@ with lib; let
     options = {
       enable = mkEnableOption "Enable Hyprland Window Manager.";
       shell = mkOption {
-        type = types.enum ["asztal" "snow-globe" "hyprpanel"];
-        default = "snow-globe";
+        type = types.enum ["asztal" "tintednix" "hyprpanel"];
+        default = "tintednix";
         description = "Choose your preferred Hyprland shell";
         example = "asztal";
       };
@@ -46,7 +46,7 @@ in {
       type = hyprlandSubmodule;
       default = {
         enable = false;
-        shell = "snow-globe";
+        shell = "tintednix";
       };
     };
   };
@@ -125,13 +125,13 @@ in {
                 glib-networking.enable = true;
                 gnome-keyring.enable = true;
                 gnome-online-accounts.enable = true;
-                tracker-miners.enable = true;
-                tracker.enable = true;
+                localsearch.enable = true;
+                tinysparql.enable = true;
               };
             };
           }
           # Hyprlock doesn't work without this
-          (mkIf (cfg.hyprland.shell == "snow-globe") {
+          (mkIf (cfg.hyprland.shell == "tintednix") {
             security.pam.services.hyprlock = {};
           })
         ]

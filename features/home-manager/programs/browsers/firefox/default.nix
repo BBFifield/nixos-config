@@ -82,8 +82,8 @@ in
         default = null;
         description = "Choose which settings style to use";
       };
-      hot-reload = lib.mkOption {
-        type = (import ../../../submodules {inherit lib;}).hot-reload;
+      live = lib.mkOption {
+        type = (import ../../../submodules {inherit lib;}).live;
       };
     };
 

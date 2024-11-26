@@ -43,7 +43,8 @@ in {
           family = config.hm.theme.fonts.defaultMonospace;
           style = "Bold";
         };
-        color-palette = let
+        /*
+          color-palette = let
           cfg = config.hm.theme.colorscheme.cognates;
         in {
           first = "#${cfg.color0}";
@@ -53,6 +54,7 @@ in {
           fifth = "#${cfg.color5}";
           custom = "#${cfg.color6}";
         };
+        */
       };
     };
   };

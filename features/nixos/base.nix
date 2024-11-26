@@ -17,9 +17,11 @@
   nix.settings.nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
 
   # With regard to substitutors
-  nix.settings.allowed-users = ["brandon"];
+  # Use "sudo nix flake update" to use the appropriate caches specified in your flake.
+  nix.settings.trusted-users = ["root"];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.max-call-depth = 10000000;
 
   # Enable networking
   networking.networkmanager.enable = lib.mkDefault true;

@@ -7,11 +7,11 @@
   imports =
     (lib.concatMap import [./programs])
     ++ [./lookAndFeel]
-    ++ [./lookAndFeel/snow-globe];
+    ++ [./lookAndFeel/tintednix];
 
   options.hm = {
-    hot-reload = lib.mkOption {
-      type = (import ./submodules {inherit lib;}).hot-reload;
+    live = lib.mkOption {
+      type = (import ./submodules {inherit lib;}).live;
     };
     projectPath = lib.mkOption {
       type = lib.types.str;
@@ -24,14 +24,16 @@
     hidpi.enable = lib.mkEnableOption "Enable hidpi (which just makes the scale 2x in relevant parts of the configuration).";
   };
 
-  config = lib.mkIf config.hm.hot-reload.enable {
+  /*
+    config = lib.mkIf config.hm.live.enable {
     home.packages = [
       (pkgs.writeTextFile {
-        name = "switch-colorscheme";
-        text = config.hm.theme.hot-reload.scriptParts;
+        name = "tintednix";
+        text = config.hm.theme.live.hooks;
         executable = true;
-        destination = "/bin/switch-colorscheme";
+        destination = "/bin/tintednix";
       })
     ];
   };
+  */
 }

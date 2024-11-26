@@ -1,20 +1,18 @@
-@use "walker_colors";
-
 $color_1: #c6d0f5;
 $color_2: #7f849c;
 $color_3: #89b4fa;
 $color_4: #cad3f5;
 
-$color_text: walker_colors.$base07;
-$color_text_field: walker_colors.$base02;
-$color_bg: walker_colors.$base00;
-$color_btn_hover_bg: walker_colors.$base07;
-$color_btn_hover_fg: walker_colors.$base00;
-$color_border: walker_colors.$base03;
-$color_active_workspace: walker_colors.$base0E;
-$color_inactive_workspace: walker_colors.$base0F;
-$color_border_active: walker_colors.$base0B;
-$color_urgent: walker_colors.$base08;
+$color_text: var(--base07);
+$color_text_field: var(--base02);
+$color_bg: var(--base00);
+$color_btn_hover_bg: var(--base07);
+$color_btn_hover_fg: var(--base00);
+$color_border: var(--base03);
+$color_active_workspace: var(--base0E);
+$color_inactive_workspace: var(--base0F);
+$color_border_active: var(--base0B);
+$color_urgent: var(--base08);
 $font-family:
   JetBrainsMono Nerd Font,
   sans-serif;

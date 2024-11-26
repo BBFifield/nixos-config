@@ -2,6 +2,7 @@
   pkgs,
   osConfig,
   lib,
+  config,
   ...
 }: let
   username = "brandon";
@@ -36,7 +37,7 @@ in {
     lib.mkMerge [
       ###### BASE CONFIG ######
       {
-        hot-reload.enable = true;
+        live.enable = true;
         hidpi.enable = sysCfg.desktop.hidpi.enable;
 
         firefox.enable = true;
@@ -81,24 +82,20 @@ in {
       (lib.optionalAttrs (sysCfg.desktop.hyprland.enable) {
         firefox = {
           style = "hyprland";
-          hot-reload.enable = true;
+          live.enable = true;
         };
         dconf.enable = true;
-        yazi.hot-reload.enable = true;
+        yazi.live.enable = true;
         theme = {
           gtkTheme.name = "adw-gtk3-dark";
           iconTheme = "MoreWaita";
-          colorscheme = {
-            name = "catppuccin";
-            variant = "mocha";
-          };
         };
         hyprland = lib.mkMerge [
           {enable = true;}
-          (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "snow-globe") {
+          (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "tintednix") {
             shell = {
-              name = "snow-globe";
-              hot-reload.enable = true;
+              name = "tintednix";
+              live.enable = true;
             };
           })
           (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "asztal") {shell = "asztal";})
@@ -108,29 +105,94 @@ in {
       })
     ];
 
-  snow-globe = {
+  tintednix = {
     enable = true;
-    enabledSchemes = with pkgs.base16; [catppuccin-frappe catppuccin-latte catppuccin-macchiato catppuccin-mocha dracula gruvbox-dark-hard];
+    enabledSchemes = "all"; #with pkgs.base16; [catppuccin-frappe catppuccin-latte catppuccin-macchiato catppuccin-mocha dracula gruvbox-dark-hard];
+    defaultScheme = pkgs.base16.catppuccin-mocha;
     targets = {
-      walker = {
-        enable = true;
-        hot-reload.enable = true;
-      };
-      ironbar = {
-        enable = true;
-        hot-reload.enable = true;
-      };
+      # firefox = {
+      #   enable = true;
+      #   live.enable = true;
+      #   templateRepo = {
+      #     url = "https://github.com/GnRlLeclerc/firefox-native-base16.git";
+      #     rev = "6f2d7e4142975f10234bd43d6870c0e85d0650ac";
+      #     ref = "master";
+      #   };
+      #   templateName = "template";
+      #   path = ".config/firefox";
+      #   themeExtension = "toml";
+      # };
       hyprland = {
         enable = true;
-        hot-reload.enable = true;
+        live = {
+          enable = true;
+          hooks = ''hyprctl reload'';
+        };
+        templateRepo = {
+          url = "https://github.com/kirasok/base16-hyprland.git";
+          rev = "2b66f94aaf45f5e03f588272dde7177552835b3b";
+          ref = "main";
+        };
+        templateName = "colors";
+        path = ".config/hypr";
+        themeExtension = "conf";
       };
       alacritty = {
         enable = true;
-        hot-reload.enable = true;
+        live.enable = true;
+        templateRepo = {
+          url = "https://github.com/aarowill/base16-alacritty.git";
+          rev = "c95c200b3af739708455a03b5d185d3d2d263c6e";
+          ref = "master";
+        };
+        templateName = "default-256";
+        path = ".config/alacritty";
+        themeExtension = "toml";
       };
-      neovim = {
+      ironbar = {
         enable = true;
-        hot-reload.enable = true;
+        live = {
+          enable = true;
+          hooks = ''ironbar load-css "$directory/ironbar/style.css"'';
+        };
+        templateRepo = {
+          url = "https://github.com/tinted-theming/base16-waybar.git";
+          rev = "26d41f3550da17ebdd14b6b2bc4fdf86c543735e";
+          ref = "main";
+        };
+        path = ".config/ironbar";
+        themeExtension = "css";
+      };
+      walker = {
+        enable = true;
+        live = {
+          enable = true;
+          hooks = ''walker --theme "$directory/walker/themes/style.css"'';
+        };
+        templateRepo = {
+          url = "https://github.com/samme/base16-styles.git";
+          rev = "8db4f00ca9e5575ba52d98a204ee44a53e13d546";
+          ref = "master";
+        };
+        templateName = "css-variables";
+
+        path = ".config/walker/themes";
+        themeExtension = "css";
+      };
+      shell = {
+        enable = true;
+        live = {
+          enable = true;
+          hooks = "sh ~/.config/bash/colors.sh";
+        };
+        templateRepo = {
+          url = "https://github.com/tinted-theming/tinted-shell.git";
+          rev = "60c80f53cd3d97c25eb0580e40f0b9de84dac55f";
+          ref = "main";
+        };
+        templateName = "base16";
+        path = ".config/shell";
+        themeExtension = "sh";
       };
     };
   };

@@ -16,7 +16,7 @@
   desktops = {
     hyprland = {
       hyprland.enable = true;
-      hyprland.shell = "snow-globe";
+      hyprland.shell = "tintednix";
       displayManager = "sddm";
       nautilus.enable = true;
     };

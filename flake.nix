@@ -73,10 +73,7 @@
 
     alacritty-theme.url = "github:alexghr/alacritty-theme.nix";
 
-    base16-nix = {
-      url = "github:SenchoPens/base16.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    base16-nix.url = "github:SenchoPens/base16.nix";
 
     base16-schemes = {
       url = "github:tinted-theming/schemes";
@@ -139,16 +136,16 @@
   };
 
   nixConfig = {
-    trusted-substituters = [
+    extra-substituters = [
       "https://cache.nixos.org"
       # "https://app.cachix.org/cache/bbfifield"
-      "https://walker.cachix.org"
+      "https://walker-git.cachix.org"
       "https://cache.garnix.io"
     ];
-    trusted-public-keys = [
+    extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       #"bbfifield.cachix.org-1:CCnFT1vusYyocjxJNHQKnighiTQSnv/LquQcZ3xrTgg="
-      "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
+      "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];
   };

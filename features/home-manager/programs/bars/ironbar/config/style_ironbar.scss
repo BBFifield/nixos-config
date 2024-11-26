@@ -1,15 +1,13 @@
-@use "ironbar_colors";
-
-$color_text: ironbar_colors.$base07;
-$color_text_focused: ironbar_colors.$base00;
-$color_bg: ironbar_colors.$base00;
-$color_btn_hover_bg: ironbar_colors.$base07;
-$color_btn_hover_fg: ironbar_colors.$base00;
-$color_border: ironbar_colors.$base03;
-$color_active_workspace: ironbar_colors.$base0E;
-$color_inactive_workspace: ironbar_colors.$base0F;
-$color_border_active: ironbar_colors.$base0B;
-$color_urgent: ironbar_colors.$base08;
+$color_text: var(--base07);
+$color_text_focused: var(--base00);
+$color_bg: var(--base00);
+$color_btn_hover_bg: var(--base07);
+$color_btn_hover_fg: var(--base00);
+$color_border: var(--base03);
+$color_active_workspace: var(--base0E);
+$color_inactive_workspace: var(--base0F);
+$color_border_active: var(--base0B);
+$color_urgent: var(--base08);
 $font-family:
   JetBrainsMono Nerd Font,
   sans-serif;

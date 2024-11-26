@@ -9,12 +9,11 @@
 
   jsonFormat = pkgs.formats.json {};
 
-  schemeAttrs = config.snow-globe.commonColors;
+  schemeAttrs = config.tintednix.commonColors;
 
   schemeNames = lib.attrNames schemeAttrs;
 
-  defaultTheme = config.hm.theme.colorscheme.name;
-  defaultVariant = config.hm.theme.colorscheme.variant;
+  defaultScheme = lib.getName config.tintednix.defaultScheme;
 
   unpacked = lib.listToAttrs (lib.map (schemeName: {
       name = schemeName;
@@ -64,7 +63,7 @@ in {
   config = lib.mkIf (config.hm.firefox.pywalfox.enable) (
     lib.mkMerge [
       #This file is created regardless
-      {home = mkColorFile "colors" schemeAttrs."${defaultTheme}-${defaultVariant}".colors "";}
+      {home = mkColorFile "colors" schemeAttrs."${defaultScheme}".colors "";}
       {
         programs.firefox = {
           profiles.default.extensions = [pkgs.nur.repos.rycee.firefox-addons.pywalfox];
@@ -75,7 +74,7 @@ in {
           fi
           ${pkgs.pywalfox-native}/bin/pywalfox start
           ${pkgs.pywalfox-native}/bin/pywalfox update
-          ${pkgs.pywalfox-native}/bin/pywalfox ${schemeAttrs."${defaultTheme}-${defaultVariant}".variant}
+          ${pkgs.pywalfox-native}/bin/pywalfox ${schemeAttrs."${defaultScheme}".variant}
         '';
 
         home.packages = with pkgs; [
@@ -83,9 +82,9 @@ in {
           python3
         ];
       }
-      (lib.mkIf config.hm.firefox.hot-reload.enable (lib.mkMerge [
+      (lib.mkIf config.hm.firefox.live.enable (lib.mkMerge [
         {
-          hm.theme.hot-reload.scriptParts = lib.mkMerge [
+          hm.theme.live.hooks = lib.mkMerge [
             (lib.mkOrder 30 ''
               cp -rf "${directory}/pywalfox_colorschemes/$1.json" "${directory}/colors.json"
             '')

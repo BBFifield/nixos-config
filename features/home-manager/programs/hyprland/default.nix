@@ -88,7 +88,6 @@ with lib; let
     dwindle = {
       pseudotile = "yes";
       preserve_split = "yes";
-      # no_gaps_when_only = "yes";
     };
 
     gestures = {
@@ -100,11 +99,9 @@ with lib; let
       f = regex: "float, ^(${regex})$";
     in [
       (f "org.gnome.Calculator")
-      #(f "org.gnome.Nautilus")
       (f "pavucontrol")
       (f "nm-connection-editor")
       (f "blueberry.py")
-      #(f "org.gnome.Settings")
       (f "org.gnome.design.Palette")
       (f "Color Picker")
       (f "xdg-desktop-portal")
@@ -196,11 +193,12 @@ with lib; let
 
     decoration = {
       rounding = 10;
-      drop_shadow = "yes";
-      shadow_range = 45;
-      shadow_render_power = 4;
-      "col.shadow" = "rgba(00000077)";
-
+      shadow = {
+        enabled = true;
+        range = 45;
+        render_power = 4;
+        "color" = "rgba(00000077)";
+      };
       # Change transparency of focused and unfocused windows
       active_opacity = 0.95;
       inactive_opacity = 0.9;
@@ -322,12 +320,6 @@ in {
       {
         wayland.windowManager.hyprland = {
           enable = true;
-          systemd = {
-            enable = true;
-            variables = [
-              "--all"
-            ];
-          };
           xwayland.enable = true;
           inherit settings;
         };

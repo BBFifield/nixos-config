@@ -1,0 +1,159 @@
+@import url("colors.css");
+
+* {
+  font-family:
+    JetBrainsMono Nerd Font,
+    sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+#window {
+  all: unset;
+  background: none;
+}
+
+#box {
+  all: unset;
+  background: @base00;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow:
+    0 19px 38px rgba(0, 0, 0, 0.3),
+    0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+#search {
+  all: unset;
+  border-radius: 8px;
+  padding: 8px 0px 8px 0px;
+  background: @base02;
+}
+
+#password {
+  all: unset;
+  background: @base02;
+  border-radius: 0px;
+  border-radius: 32px;
+  color: @base07;
+  padding-left: 12px;
+  padding-right: 12px;
+  background: none;
+}
+
+#input {
+  all: unset;
+  background: @base02;
+  border-radius: 0px;
+  border-radius: 32px;
+  color: @base07;
+  padding-left: 12px;
+  padding-right: 12px;
+  background: none;
+}
+#input > *:first-child {
+  color: @base00;
+  margin-right: 7px;
+}
+#input > *:last-child {
+  color: @base00;
+}
+#input placeholder {
+  opacity: 0.5;
+}
+
+#typeahead {
+  all: unset;
+  background: @base02;
+  border-radius: 0px;
+  border-radius: 32px;
+  color: @base07;
+  padding-left: 12px;
+  padding-right: 12px;
+  background: none;
+  opacity: 0.5;
+}
+#typeahead > *:first-child {
+  color: @base07;
+  margin-right: 7px;
+}
+#typeahead > *:last-child {
+  color: @base07;
+}
+
+#spinner {
+  all: unset;
+}
+
+#list {
+  all: unset;
+}
+
+child {
+  all: unset;
+  border-radius: 8px;
+  color: @base00;
+  padding: 4px;
+}
+child:selected {
+  background: @base07;
+  box-shadow: none;
+  color: @base00;
+}
+child:selected label {
+  color: @base00;
+}
+child:selected #sub {
+  color: @base00;
+}
+child:selected #activationlabel {
+  color: @base00;
+}
+child:hover {
+  background: @base07;
+  box-shadow: none;
+  color: @base00;
+}
+child:hover label {
+  color: @base00;
+}
+child:hover #sub {
+  color: @base00;
+}
+child:hover #activationlabel {
+  color: @base00;
+}
+
+scrollbar {
+  all: unset;
+  background: none;
+  padding-left: 8px;
+}
+
+slider {
+  all: unset;
+  min-width: 2px;
+  background: @base07;
+  opacity: 0.5;
+}
+
+label {
+  all: unset;
+  font-weight: normal;
+  color: @base07;
+}
+
+#sub {
+  all: unset;
+  opacity: 0.6;
+  color: @base07;
+}
+
+#activationlabel {
+  all: unset;
+  opacity: 0.6;
+  padding-right: 4px;
+  color: @base07;
+}
+
+/*# sourceMappingURL=style.css.map */

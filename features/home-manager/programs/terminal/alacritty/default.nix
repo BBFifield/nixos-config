@@ -33,15 +33,13 @@
     };
   };
 in {
-  options.hm.alacritty = {
-  };
   config = lib.mkMerge [
     {
       programs.alacritty = {
         enable = true;
         settings = lib.mkMerge [
           {
-            import = ["${config.home.homeDirectory}/.config/alacritty/alacritty-theme.toml"];
+            general.import = ["${config.home.homeDirectory}/.config/alacritty/${config.tintednix.targets.alacritty.themeFilename}.toml"];
           }
           settings
         ];

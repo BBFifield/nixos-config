@@ -21,6 +21,7 @@ in {
             "scroll": {
               "list": {
                 "always_show": false,
+                "max_entries": 300,
                 "item": {
                   "activation_label": {
                     "overlay": true,

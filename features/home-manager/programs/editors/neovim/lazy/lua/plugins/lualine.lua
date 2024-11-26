@@ -1,7 +1,21 @@
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+		local active = vim.api.nvim_get_hl(0, { name = "lualine_a_normal" })
+		local inactive = vim.api.nvim_get_hl(0, { name = "lualine_b_normal" })
+		vim.api.nvim_set_hl(
+			0,
+			"active_buffer_title",
+			{ ctermfg = 18, ctermbg = 12, fg = active.fg, bg = active.bg, bold = true }
+		)
+		vim.api.nvim_set_hl(
+			0,
+			"inactive_buffer_title",
+			{ ctermfg = 12, ctermbg = 18, fg = inactive.fg, bg = inactive.bg }
+		)
+	end,
+})
 return {
-
 	"nvim-lualine/lualine.nvim",
-	--	enabled = false,
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
@@ -12,7 +26,6 @@ return {
 
 		function custom_buffers:init(options)
 			custom_buffers.super.init(self, options)
-			--self.super.bufnr = vim.api.nvim_get_current_buf()
 			self.options = vim.tbl_deep_extend("force", self.options, { options })
 			self.highlights = {
 				active = self:create_hl(self.options.buffers_color.active, "active"),
@@ -38,12 +51,24 @@ return {
 		function custom_buffers_buffer:name()
 			local name = custom_buffers_buffer.super.name(self)
 
-			local general_fg = vim.api.nvim_get_hl(0, { name = "lualine_a_replace" }).bg
-			local active_bg = vim.api.nvim_get_hl(0, { name = self.options.buffers_color.active }).bg
-			local inactive_bg = vim.api.nvim_get_hl(0, { name = self.options.buffers_color.inactive }).bg
-			vim.api.nvim_set_hl(0, "active_modified", { fg = general_fg, bg = active_bg })
-			vim.api.nvim_set_hl(0, "inactive_modified", { fg = general_fg, bg = inactive_bg })
-			vim.api.nvim_set_hl(0, "separator", { fg = active_bg, bg = inactive_bg })
+			local general = vim.api.nvim_get_hl(0, { name = "lualine_a_replace" })
+			local active = vim.api.nvim_get_hl(0, { name = self.options.buffers_color.active })
+			local inactive = vim.api.nvim_get_hl(0, { name = self.options.buffers_color.inactive })
+			vim.api.nvim_set_hl(
+				0,
+				"active_modified",
+				{ fg = general.bg, bg = active.bg, ctermfg = general.ctermbg, ctermbg = active.ctermbg }
+			)
+			vim.api.nvim_set_hl(
+				0,
+				"inactive_modified",
+				{ fg = general.fg, bg = inactive.bg, ctermfg = general.ctermfg, ctermbg = inactive.ctermbg }
+			)
+			vim.api.nvim_set_hl(
+				0,
+				"separator",
+				{ fg = active.bg, bg = inactive.bg, ctermfg = active.ctermbg, ctermbg = inactive.ctermbg }
+			)
 
 			if self:is_current() and vim.api.nvim_get_option_value("modified", { buf = self.bufnr }) then
 				name = name .. "%#active_modified# ●%*"
@@ -57,7 +82,7 @@ return {
 			if self.current then
 				return string.format("%%#separator# %s%%*", self.options.section_separators.right)
 			elseif self.aftercurrent then
-				return string.format("%%#separator#%s %%*", self.options.section_separators.left) --"%Z{" .. self.options.section_separators.left .. "}"
+				return string.format("%%#separator#%s %%*", self.options.section_separators.left)
 			else
 				return string.format("%%#separator#%s%%*", self.options.component_separators.right)
 			end
@@ -107,19 +132,17 @@ return {
 								TelescopePrompt = "Telescope",
 							},
 							buffers_color = {
-								active = "lualine_a_normal",
-								inactive = "lualine_b_normal",
+								active = "active_buffer_title",
+								inactive = "inactive_buffer_title",
 							},
 							separator = { left = "", right = "" },
 							padding = 0,
 							max_length = function()
 								return vim.o.columns * 4 / 3
 							end,
-							--fmt = trunc(300, 200, 50, false),
 							symbols = {
 								modified = "",
 							},
-
 							cond = function()
 								return vim.bo.filetype ~= "alpha"
 									and vim.bo.filetype ~= "lazy"
@@ -135,7 +158,7 @@ return {
 						{
 							"datetime",
 							separator = { left = "", right = "" },
-							--options: default, us, uk, iso, or your own format string ("%H:%M", etc..)
+							-- color = { fg = 0 },
 							style = "%H:%M",
 						},
 					},
@@ -143,20 +166,32 @@ return {
 			}
 		end
 
+		local custom_16color = {
+			normal = {
+				a = { fg = 18, bg = 12, gui = "bold" },
+				b = { fg = 12, bg = 18 },
+				c = { fg = 8, bg = 0 },
+			},
+			insert = { a = { fg = 18, bg = 2, gui = "bold" } },
+			visual = { a = { fg = 18, bg = 5, gui = "bold" } },
+			replace = { a = { fg = 18, bg = 1, gui = "bold" } },
+			inactive = {
+				a = { fg = 12, bg = 18, gui = "bold" },
+				b = { fg = 12, bg = 18 },
+				c = { fg = 12, bg = 18 },
+			},
+		}
+
 		require("lualine").setup(vim.tbl_deep_extend("keep", winbar, tabline, {
 			options = {
 				icons_enabled = true,
-				theme = "neocolorizer",
-				--theme = "gruvbox-material",
-				--component_separators = { left = "", right = "" },
-				--component_separators = { left = "│", right = "│" },
+				theme = custom_16color,
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
-				--	section_separators = { left = "", right = "" },
 			},
 			sections = {
 				lualine_a = { { "mode", separator = { left = "", right = "" } } },
-				lualine_b = { "branch" },
+				lualine_b = { { "branch", color = { fg = 5 } } },
 				lualine_c = {},
 				lualine_x = {},
 				lualine_y = { "filetype", "encoding", "fileformat", "progress" },
@@ -170,7 +205,6 @@ return {
 				lualine_y = {},
 				lualine_z = {},
 			},
-
 			extensions = {},
 		}))
 	end,

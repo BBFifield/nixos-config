@@ -63,15 +63,15 @@
 in {
   options.hm.yazi = {
     enable = lib.mkEnableOption "Enable Yazi, the terminal file manager.";
-    hot-reload = lib.mkOption {
-      type = (import ../../submodules {inherit lib;}).hot-reload;
+    live = lib.mkOption {
+      type = (import ../../submodules {inherit lib;}).live;
     };
   };
 
   config = lib.mkMerge [
     /*
       (
-      lib.mkIf (cfg.hot-reload.enable)
+      lib.mkIf (cfg.live.enable)
       (
         let
           themeFilesList = lib.filter (item: item != null) (lib.concatMap (theme:
@@ -87,7 +87,7 @@ in {
         in
           lib.mkMerge [
             {
-              hm.theme.hot-reload.scriptParts = lib.mkMerge [
+              hm.theme.live.hooks = lib.mkMerge [
                 (lib.mkOrder 25 ''
                   rm $directory/yazi/theme.toml
                   cp -rf $directory/yazi/themes/$1.toml $directory/yazi/theme.toml
@@ -99,7 +99,7 @@ in {
       )
     )
     */
-    #This is the default file created regardless of hot-reloading being enabled
+    #This is the default file created regardless of liveing being enabled
     /*
       (
       lib.mkIf (defaultThemeHasPath != {}) (mkThemeFile defaultTheme defaultVariant "yazi/theme")
@@ -134,7 +134,7 @@ in {
         enableBashIntegration = true;
         /*
           flavors = lib.mkMerge [
-          (lib.mkIf (config.hm.yazi.hot-reload.enable) (
+          (lib.mkIf (config.hm.yazi.live.enable) (
             lib.listToAttrs (lib.filter (item: item != null) (lib.concatMap (theme:
               lib.map (
                 variant: let
@@ -152,7 +152,7 @@ in {
             themeNames))
           ))
 
-          (lib.mkIf (!config.hm.yazi.hot-reload.enable) (
+          (lib.mkIf (!config.hm.yazi.live.enable) (
             let
               path = queryGit defaultTheme defaultVariant;
               flavor =

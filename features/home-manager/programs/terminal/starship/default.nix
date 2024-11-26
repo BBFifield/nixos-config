@@ -5,181 +5,184 @@
   lib,
   ...
 }: let
+  tomlFormat = pkgs.formats.toml {};
+
   lang = icon: color: {
     symbol = icon;
-    format = ''[[ $symbol( $version) ](fg:${color} bg:bright-green)](bg:black)'';
+    format = ''[[ $symbol( $version) ](fg:${color} bg:18)](bg:black)'';
   };
 
-  settings = let
-    props = {
-      separator_left = "";
-      separator_right = "";
-      separator_mid = "";
-      char_symbol = "";
-    };
-  in {
-    "$schema" = ''https://starship.rs/config-schema.json'';
-    format = lib.concatStrings [
-      "$nix_shell"
-      "[${props.separator_left}](blue)"
-      "$os"
-      "$username"
-      "[${props.separator_right}](bg:bright-green fg:blue)"
-      "$directory"
-      "$git_branch"
-      "$git_status"
-      "$c"
-      "$rust"
-      "$nodejs"
-      "$lua"
-      "$java"
-      "$haskell"
-      "$python"
-      "[${props.separator_mid}](fg:blue bg:bright-green)"
-      "$docker_context"
-      "$conda"
-      "$time"
-      "[${props.separator_right} ](bright-green)"
-      "$cmd_duration"
-      "$status"
-      "$line_break$character"
-    ];
+  settings =
+    #theme: variant:
+    let
+      props = {
+        separator_left = "";
+        separator_right = "";
+        separator_mid = "";
+        char_symbol = "";
+      };
+    in {
+      "$schema" = ''https://starship.rs/config-schema.json'';
+      format = lib.concatStrings [
+        "$nix_shell"
+        "[${props.separator_left}](blue)"
+        "$os"
+        "$username"
+        "[${props.separator_right}](fg:blue bg:18)"
+        "$directory"
+        "$git_branch"
+        "$git_status"
+        "$c"
+        "$rust"
+        "$nodejs"
+        "$lua"
+        "$java"
+        "$haskell"
+        "$python"
+        "[${props.separator_mid}](fg:blue bg:18)"
+        "$docker_context"
+        "$conda"
+        "$time"
+        "[${props.separator_right} ](18)"
+        "$cmd_duration"
+        "$status"
+        "$line_break$character"
+      ];
 
-    os = {
-      disabled = false;
-      style = "bg:blue fg:bold bright-green";
-    };
-    os.symbols = {
-      NixOS = "";
-      Windows = "󰍲";
-      Ubuntu = "󰕈";
-      SUSE = "";
-      Raspbian = "󰐿";
-      Mint = "󰣭";
-      Macos = "󰀵";
-      Linux = "󰌽";
-      Gentoo = "󰣨";
-      Fedora = "󰣛";
-      Amazon = "";
-      Android = "";
-      Arch = "󰣇";
-      Debian = "󰣚";
-      Redhat = "󱄛";
-      RedHatEnterprise = "󱄛";
-      Pop = "";
-    };
+      os = {
+        disabled = false;
+        style = "fg:bold 18 bg:blue";
+      };
+      os.symbols = {
+        NixOS = "";
+        Windows = "󰍲";
+        Ubuntu = "󰕈";
+        SUSE = "";
+        Raspbian = "󰐿";
+        Mint = "󰣭";
+        Macos = "󰀵";
+        Linux = "󰌽";
+        Gentoo = "󰣨";
+        Fedora = "󰣛";
+        Amazon = "";
+        Android = "";
+        Arch = "󰣇";
+        Debian = "󰣚";
+        Redhat = "󱄛";
+        RedHatEnterprise = "󱄛";
+        Pop = "";
+      };
 
-    username = {
-      show_always = true;
-      style_user = "bg:blue fg:bold bright-green";
-      style_root = "bg:blue fg:bold bright-green";
-      format = ''[ $user ]($style)'';
-    };
+      username = {
+        show_always = true;
+        style_user = "fg:bold 18 bg:blue";
+        style_root = "fg:bold 18 bg:blue";
+        format = ''[ $user ]($style)'';
+      };
 
-    directory = {
-      style = "fg:blue bg:bright-green";
-      format = "[[ $path ]($style)${props.separator_mid}](fg:blue bg:bright-green)";
-      truncation_length = 3;
-      truncation_symbol = "…/";
-    };
+      directory = {
+        style = "fg:blue bg:18";
+        format = "[[ $path ]($style)${props.separator_mid}]($style)";
+        truncation_length = 3;
+        truncation_symbol = "…/";
+      };
 
-    git_branch = {
-      symbol = "";
-      style = "fg:purple bg:bright-green";
-      format = ''[ $symbol $branch ]($style)'';
-    };
+      git_branch = {
+        symbol = "";
+        style = "fg:purple bg:18";
+        format = ''[ $symbol $branch ]($style)'';
+      };
 
-    git_status = {
-      style = "fg:purple bg:bright-green";
-      format = ''[[($all_status$ahead_behind )]($style)${props.separator_mid}]("fg:blue bg:bright-green";)'';
-    };
+      git_status = {
+        style = "fg:purple bg:18";
+        format = ''[[($all_status$ahead_behind )]($style)${props.separator_mid}](fg:blue bg:18)'';
+      };
 
-    continuation_prompt = "∙  ┆ ";
-    line_break = {disabled = false;};
-    status = {
-      symbol = "✗";
-      not_found_symbol = "󰍉 Not Found";
-      not_executable_symbol = " Can't Execute E";
-      sigint_symbol = "󰂭 ";
-      signal_symbol = "󱑽 ";
-      success_symbol = "";
-      format = "[$symbol](fg:red)";
-      map_symbol = true;
-      disabled = false;
-    };
-    cmd_duration = {
-      min_time = 1000;
-      format = "[$duration ](fg:yellow)";
-    };
+      continuation_prompt = "∙  ┆ ";
+      line_break = {disabled = false;};
+      status = {
+        symbol = "✗";
+        not_found_symbol = "󰍉 Not Found";
+        not_executable_symbol = " Can't Execute E";
+        sigint_symbol = "󰂭 ";
+        signal_symbol = "󱑽 ";
+        success_symbol = "";
+        format = "[$symbol](fg:red)";
+        map_symbol = true;
+        disabled = false;
+      };
+      cmd_duration = {
+        min_time = 1000;
+        format = "[$duration ](fg:yellow)";
+      };
 
-    nix_shell = {
-      disabled = false;
-      format = "[${props.separator_left}](fg:white)[ ](bg:white fg:bright-green)[${props.separator_right} ](fg:white) ";
-    };
+      nix_shell = {
+        disabled = false;
+        format = "[${props.separator_left}](fg:white)[ ](fg:18 bg:white)[${props.separator_right} ](fg:white) ";
+      };
 
-    container = {
-      symbol = " 󰏖";
-      format = "[$symbol ](yellow)";
-    };
+      container = {
+        symbol = " 󰏖";
+        format = "[$symbol ](yellow)";
+      };
 
-    directory.substitutions = {
-      "Documents" = "󰈙 ";
-      "Downloads" = " ";
-      "Music" = "󰝚 ";
-      "Pictures" = " ";
-      "Developer" = "󰲋 ";
-    };
+      directory.substitutions = {
+        "Documents" = "󰈙 ";
+        "Downloads" = " ";
+        "Music" = "󰝚 ";
+        "Pictures" = " ";
+        "Developer" = "󰲋 ";
+      };
 
-    python = lang "" "yellow";
-    nodejs = lang "󰛦" "blue";
-    bun = lang "󰛦" "blue";
-    deno = lang "󰛦" "blue";
-    lua = lang "󰢱" "blue";
-    rust = lang "" "red";
-    java = lang "" "red";
-    c = lang "" "blue";
-    golang = lang "" "blue";
-    dart = lang "" "blue";
-    elixir = lang "" "purple";
+      python = lang "" "yellow";
+      nodejs = lang "󰛦" "blue";
+      bun = lang "󰛦" "blue";
+      deno = lang "󰛦" "blue";
+      lua = lang "󰢱" "blue";
+      rust = lang "" "red";
+      java = lang "" "red";
+      c = lang "" "blue";
+      golang = lang "" "blue";
+      dart = lang "" "blue";
+      elixir = lang "" "purple";
 
-    /*
-      conda = {
-      style = "bg:color_bg3";
-      format = ''[[ $symbol( $environment) ](fg:#83a598 bg:color_bg3)]($style)'';
-    };
-    */
+      /*
+        conda = {
+        style = "bg:color_bg3";
+        format = ''[[ $symbol( $environment) ](fg:#83a598 bg:color_bg3)]($style)'';
+      };
+      */
 
-    time = {
-      disabled = false;
-      time_format = "%R";
-      style = "bg:bright-green";
-      format = ''[[  $time ](fg:blue $style)]($style)'';
-    };
+      time = {
+        disabled = false;
+        time_format = "%R";
+        style = "bg:18";
+        format = ''[[  $time ](fg:12 $style)]($style)'';
+      };
 
-    character = {
-      disabled = false;
-      success_symbol = "[${props.char_symbol}](bold fg:green)";
-      error_symbol = "[${props.char_symbol}](bold fg:red)";
-      vimcmd_symbol = "[${props.char_symbol}](bold fg:green)";
-      vimcmd_replace_one_symbol = "[${props.char_symbol}](bold fg:purple)";
-      vimcmd_replace_symbol = "[${props.char_symbol}](bold fg:purple)";
-      vimcmd_visual_symbol = "[${props.char_symbol}](bold fg:yellow)";
+      character = {
+        disabled = false;
+        success_symbol = "[${props.char_symbol}](bold fg:green)";
+        error_symbol = "[${props.char_symbol}](bold fg:red)";
+        vimcmd_symbol = "[${props.char_symbol}](bold fg:green)";
+        vimcmd_replace_one_symbol = "[${props.char_symbol}](bold fg:purple)";
+        vimcmd_replace_symbol = "[${props.char_symbol}](bold fg:purple)";
+        vimcmd_visual_symbol = "[${props.char_symbol}](bold fg:yellow)";
+      };
     };
-  };
 in {
   options.hm.starship = {
     enable = lib.mkEnableOption "Enable starship prompt, your gateway to beautiful command prompts.";
-    hot-reload = lib.mkOption {
-      type = (import ../../../submodules {inherit lib;}).hot-reload;
-    };
   };
-  config =
-    lib.mkIf (config.hm.starship.enable)
-    {
-      programs.starship = {
-        enable = true;
-        enableBashIntegration = true;
-        settings = settings;
-      };
-    };
+  config = lib.mkIf (config.hm.starship.enable) (
+    lib.mkMerge [
+      {
+        programs.starship = {
+          enable = true;
+          enableBashIntegration = true;
+          settings = settings;
+        };
+      }
+    ]
+  );
 }
