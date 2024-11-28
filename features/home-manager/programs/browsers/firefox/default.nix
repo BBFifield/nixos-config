@@ -31,6 +31,7 @@
     builtins.listToAttrs
     [
       (mkExtension "better-youtube-shorts" "{ac34afe8-3a2e-4201-b745-346c0cf6ec7d}")
+      (mkExtension "dynamic-base16" "dynamic_base16@gnrl_leclerc.org")
     ];
 
   # Couldn't use builtins.toJSON by itself to convert because it would put label before url
@@ -44,8 +45,6 @@
   in
     concatStringsSep ","
     [
-      # Each element in the list is the returned string of the function "shortcut",
-      # defined in the let block above, when given the url and label in that order.
       (shortcut "https://www.youtube.com/" "Youtube")
       (shortcut "https://github.com/BBFifield" "Github")
       (shortcut "https://mapleleafshotstove.com" "MLHS")
@@ -73,7 +72,7 @@
   };
 in
   with lib; {
-    imports = [./pywalfox.nix];
+    imports = [./firefox-base16.nix];
 
     options.hm.firefox = {
       enable = lib.mkEnableOption "Enable home-manager firefox configuration";
@@ -101,9 +100,6 @@ in
       };
     in
       lib.mkIf config.hm.firefox.enable (lib.mkMerge [
-        (lib.mkIf (config.hm.firefox.style == "hyprland") {
-          hm.firefox.pywalfox.enable = true;
-        })
         {
           home.file."${profilesPath}/default/chrome" = lib.mkMerge [
             {

@@ -16,13 +16,6 @@
     discord
     _1password-gui
     shellcheck
-    arduino-ide
-    alejandra
-    nil
-    lua-language-server
-    stylua
-    prettierd
-    dart-sass
   ];
 in {
   imports = [../../features/home-manager];
@@ -107,21 +100,23 @@ in {
 
   tintednix = {
     enable = true;
-    enabledSchemes = "all"; #with pkgs.base16; [catppuccin-frappe catppuccin-latte catppuccin-macchiato catppuccin-mocha dracula gruvbox-dark-hard];
-    defaultScheme = pkgs.base16.catppuccin-mocha;
+    enabledSchemes = with pkgs.base16; [catppuccin-frappe catppuccin-latte catppuccin-macchiato catppuccin-mocha dracula gruvbox-dark-hard];
+    defaultScheme = "catppuccin-mocha";
     targets = {
-      # firefox = {
-      #   enable = true;
-      #   live.enable = true;
-      #   templateRepo = {
-      #     url = "https://github.com/GnRlLeclerc/firefox-native-base16.git";
-      #     rev = "6f2d7e4142975f10234bd43d6870c0e85d0650ac";
-      #     ref = "master";
-      #   };
-      #   templateName = "template";
-      #   path = ".config/firefox";
-      #   themeExtension = "toml";
-      # };
+      firefox = {
+        enable = true;
+        live.enable = true;
+        templateRepo = {
+          /*
+            url = "https://github.com/GnRlLeclerc/firefox-native-base16.git";
+          rev = "6f2d7e4142975f10234bd43d6870c0e85d0650ac";
+          ref = "master";
+          */
+        };
+        templateName = "toml"; #"template";
+        path = ".mozilla";
+        themeExtension = "toml";
+      };
       hyprland = {
         enable = true;
         live = {

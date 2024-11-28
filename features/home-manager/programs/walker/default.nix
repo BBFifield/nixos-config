@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  #cssImportColors = ''import "colors.css"'';
+  # tintednix.lib = import ../../../lookAndFeel/tintednix/lib {inherit config pkgs lib;};
   compiledSassFile = pkgs.runCommand "style_walker" {nativeBuildInputs = with pkgs; [dart-sass];} ''
     #!/usr/bin/env bash
     mkdir -p $out
@@ -96,20 +96,27 @@ in {
                 "show_icon_when_single" = true;
                 "entries" = let
                   entries =
-                    lib.map (scheme: let
-                      schemeName =
-                        if lib.isDerivation scheme
-                        then lib.getName scheme
-                        else builtins.trace scheme.name scheme.name;
-                    in {
+                    lib.mapAttrsToList (schemeName: schemeValue: {
                       "label" = "${schemeName}";
-                      "exec" = "tintednix ${schemeName} ${(config.tintednix.commonColors).${schemeName}.variant}";
+                      "exec" = "tintednix ${schemeName} ${schemeValue.variant}";
                     })
-                    (
-                      if config.tintednix.enabledSchemes == "all"
-                      then lib.filter (packageAttr: packageAttr.name != "rose-pine-moon" && packageAttr.name != "rose-pine-dawn" && packageAttr.name != "rose-pine" && packageAttr.name != "override" && packageAttr.name != "overrideDerivation") (lib.attrsToList pkgs.base16)
-                      else config.tintednix.enabledSchemes
-                    );
+                    config.tintednix.commonColors;
+                  /*
+                    lib.map (scheme: let
+                    schemeName =
+                      if lib.isDerivation scheme
+                      then lib.getName scheme
+                      else builtins.trace scheme.name scheme.name;
+                  in {
+                    "label" = "${schemeName}";
+                    "exec" = "tintednix ${schemeName} ${(config.tintednix.commonColors).${schemeName}.variant}";
+                  })
+                  (
+                    if config.tintednix.enabledSchemes == "all"
+                    then lib.filter (packageAttr: packageAttr.name != "rose-pine-moon" && packageAttr.name != "rose-pine-dawn" && packageAttr.name != "rose-pine" && packageAttr.name != "override" && packageAttr.name != "overrideDerivation") (lib.attrsToList pkgs.base16)
+                    else config.tintednix.enabledSchemes
+                  );
+                  */
                 in
                   entries;
               }

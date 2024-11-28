@@ -207,22 +207,6 @@
         "type": "github"
       }
     },
-    "base16-schemes": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1731411556,
-        "narHash": "sha256-Tp1BpaF5qRav7O2TsSGjCfgRzhiasu4IuwROR66gz1o=",
-        "owner": "tinted-theming",
-        "repo": "schemes",
-        "rev": "61058a8d2e2bd4482b53d57a68feb56cdb991f0b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tinted-theming",
-        "repo": "schemes",
-        "type": "github"
-      }
-    },
     "crane": {
       "locked": {
         "lastModified": 1730060262,
@@ -268,6 +252,26 @@
         "owner": "rafaelmardojai",
         "repo": "firefox-gnome-theme",
         "type": "github"
+      }
+    },
+    "firefox-native-base16": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1732765638,
+        "narHash": "sha256-QwmOKAYQYn0uGVTLUd728pfE5QEdQFgbozW0VRDEBUw=",
+        "ref": "refs/heads/master",
+        "rev": "422cf17279f084b7adc5b5eee803dc7dbbe22d69",
+        "revCount": 46,
+        "type": "git",
+        "url": "file:///home/brandon/firefox-native-base16"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/brandon/firefox-native-base16"
       }
     },
     "flake-compat": {
@@ -955,8 +959,8 @@
         "alacritty-theme": "alacritty-theme",
         "asztal": "asztal",
         "base16-nix": "base16-nix",
-        "base16-schemes": "base16-schemes",
         "firefox-gnome-theme": "firefox-gnome-theme_2",
+        "firefox-native-base16": "firefox-native-base16",
         "gBar": "gBar",
         "home-manager": "home-manager",
         "hyprpanel": "hyprpanel",

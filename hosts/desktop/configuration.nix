@@ -3,6 +3,7 @@
   overlays,
   lib,
   pkgs,
+  inputs,
   ...
 }: let
   commonOpts = {
@@ -122,7 +123,7 @@ in {
             nonFlakeSrcs
             #neovimConfig
             vivaldiFixed
-            #base16
+            firefox-native-base16
             customPkgs
             asztalOverlay
           ]);

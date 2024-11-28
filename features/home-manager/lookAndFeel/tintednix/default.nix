@@ -70,36 +70,6 @@
   in
     lib.listToAttrs schemeList;
 
-  sassColors = let
-    schemeList =
-      lib.map (theme: {
-        name = theme.name;
-        value = let
-          theme' = theme.value.withHashtag;
-        in ''
-          $base00: ${theme'.base00};
-          $base00: ${theme'.base00};
-          $base01: ${theme'.base01};
-          $base02: ${theme'.base02};
-          $base03: ${theme'.base03};
-          $base04: ${theme'.base04};
-          $base05: ${theme'.base05};
-          $base06: ${theme'.base06};
-          $base07: ${theme'.base07};
-          $base08: ${theme'.base08};
-          $base09: ${theme'.base09};
-          $base0A: ${theme'.base0A};
-          $base0B: ${theme'.base0B};
-          $base0C: ${theme'.base0C};
-          $base0D: ${theme'.base0D};
-          $base0E: ${theme'.base0E};
-          $base0F: ${theme'.base0F};
-        '';
-      })
-      base16schemes;
-  in
-    lib.listToAttrs schemeList;
-
   mkGithubType = lib.mkOptionType {
     name = "mkGitHubType";
     check = src: (builtins.tryEval (builtins.fetchGit src)).success;
@@ -145,18 +115,14 @@ in {
       type = (import ../../submodules {inherit lib;}).live;
     };
     defaultScheme = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.base16.catppuccin-frappe;
+      type = lib.types.str;
+      default = "catppuccin-frappe";
     };
     base16schemes = lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = {};
     };
     commonColors = lib.mkOption {
-      type = lib.types.attrs;
-      default = {};
-    };
-    sassColors = lib.mkOption {
       type = lib.types.attrs;
       default = {};
     };
@@ -195,8 +161,6 @@ in {
         {
           tintednix.base16schemes = base16schemes;
           tintednix.commonColors = commonColors;
-
-          tintednix.sassColors = sassColors;
         }
       ]
   );

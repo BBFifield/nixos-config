@@ -4,9 +4,7 @@
   ./bars/waybar
   ./browsers/firefox
   ./dconf
-  ./editors/vscodium
-  ./editors/neovim
-  ./editors/kate
+  ./editors
   ./gnome-shell
   ./hyprland
   ./klassy

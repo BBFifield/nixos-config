@@ -2,8 +2,30 @@
   config,
   pkgs,
   lib,
-}: rec {
-  mkColorsFile = appName: value:
+}: let
+  tomlTemplate = ''      
+    # Base16 {{scheme-name}}
+    # Scheme by {{scheme-author}}
+
+    base00 = "#{{base00-hex}}"
+    base01 = "#{{base01-hex}}"
+    base02 = "#{{base02-hex}}"
+    base03 = "#{{base03-hex}}"
+    base04 = "#{{base04-hex}}"
+    base05 = "#{{base05-hex}}"
+    base06 = "#{{base06-hex}}"
+    base07 = "#{{base07-hex}}"
+    base08 = "#{{base08-hex}}"
+    base09 = "#{{base09-hex}}"
+    base0A = "#{{base0A-hex}}"
+    base0B = "#{{base0B-hex}}"
+    base0C = "#{{base0C-hex}}"
+    base0D = "#{{base0D-hex}}"
+    base0E = "#{{base0E-hex}}"
+    base0F = "#{{base0F-hex}}"'';
+in rec {
+  /*
+    mkColorsFile = appName: value:
     pkgs.writeTextFile {
       name = "_${appName}_colors.scss";
       text = value;
@@ -41,28 +63,12 @@
         (lib.map (name: (linkStyleFile appName name styleFiles.${name})) names))
     ];
   };
-
-  /*
-      applyToList = function:
-  lib.map (scheme: function scheme target.value.templateRepo target.value.templateName) (
-        if config.tintednix.enabledSchemes == "all"
-        then lib.filter (packageAttr: packageAttr.name != "override" && packageAttr.name != "overrideDerivation") (lib.attrsToList pkgs.base16)
-        else config.tintednix.enabledSchemes
-      );
   */
 
   mkConfigFromTemplate = scheme: templateRepo: templateName: let
-    name =
-      if lib.isDerivation scheme
-      then lib.getName scheme.name
-      else scheme.name;
-
-    schemeAttrs =
-      if lib.isDerivation scheme
-      then config.lib.base16.mkSchemeAttrs "${scheme}/${name}.yaml"
-      else config.lib.base16.mkSchemeAttrs "${scheme.value}/${name}.yaml";
+    schemeAttrs = scheme.value;
   in {
-    schemeName = name;
+    schemeName = scheme.name;
     generatedConfig =
       if !(lib.isPath templateRepo)
       then
@@ -73,12 +79,20 @@
       else null;
   };
 
+  mkConfigFromTemplateFirefox = scheme: template: let
+    schemeAttrs = scheme.value;
+  in {
+    schemeName = scheme.name;
+    generatedConfig = (schemeAttrs.__functor schemeAttrs) {
+      template = template;
+    };
+  };
+
   mkTargetFiles = target: let
-    configs = lib.map (scheme: mkConfigFromTemplate scheme target.value.templateRepo target.value.templateName) (
-      if config.tintednix.enabledSchemes == "all"
-      then lib.filter (packageAttr: packageAttr.name != "override" && packageAttr.name != "overrideDerivation") (lib.attrsToList pkgs.base16)
-      else config.tintednix.enabledSchemes
-    );
+    configs =
+      if target.value.templateName == "toml"
+      then lib.map (scheme: mkConfigFromTemplateFirefox scheme tomlTemplate) (config.tintednix.base16schemes)
+      else lib.map (scheme: mkConfigFromTemplate scheme target.value.templateRepo target.value.templateName) (config.tintednix.base16schemes);
     themeFilesList =
       if config.tintednix.targets.${target.name}.live.enable
       then lib.map (config: {file."${target.value.path}/themes/${config.schemeName}.${target.value.themeExtension}".source = config.generatedConfig;}) configs
@@ -87,8 +101,12 @@
     defaultThemeFile = [
       {
         file."${target.value.path}/${target.value.themeFilename}.${target.value.themeExtension}" = let
-          defaultScheme = config.tintednix.defaultScheme;
-          defaultConfig = mkConfigFromTemplate defaultScheme target.value.templateRepo target.value.templateName;
+          defaultConfig = let
+            defaultScheme = lib.head (lib.filter (scheme: (scheme.name == config.tintednix.defaultScheme)) config.tintednix.base16schemes);
+          in
+            if target.value.templateName == "toml"
+            then mkConfigFromTemplateFirefox defaultScheme tomlTemplate
+            else mkConfigFromTemplate defaultScheme target.value.templateRepo target.value.templateName;
         in {
           source = defaultConfig.generatedConfig;
         };
