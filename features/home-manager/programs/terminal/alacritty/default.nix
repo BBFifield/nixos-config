@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  family = "JetBrainsMono Nerd Font";
+  family = config.hm.theme.fonts.defaultMonospace;
   cfg = config.hm.alacritty;
   tomlFormat = pkgs.formats.toml {};
 
@@ -29,7 +29,7 @@
       };
     };
     window = {
-      opacity = 0.9;
+      opacity = 0.85;
     };
   };
 in {
@@ -40,6 +40,9 @@ in {
         settings = lib.mkMerge [
           {
             general.import = ["${config.home.homeDirectory}/.config/alacritty/${config.tintednix.targets.alacritty.themeFilename}.toml"];
+            env = {
+              TERM = "xterm-256color";
+            };
           }
           settings
         ];

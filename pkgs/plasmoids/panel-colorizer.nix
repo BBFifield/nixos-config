@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
   kdePackages,
-  ...
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "plasma-panel-colorizer";

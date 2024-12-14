@@ -24,6 +24,29 @@
       definedAliases = ["@gh"];
     };
 
+    "Neovim Plugins" = {
+      urls = [
+        {
+          template = "https://dotfyle.com/neovim/plugins/trending";
+          params = [
+            {
+              name = "page";
+              value = 1;
+            }
+            {
+              name = "q";
+              value = "{searchTerms}";
+            }
+          ];
+        }
+      ];
+      icon = "${pkgs.fetchurl {
+        url = " https://dotfyle.com/favicon.ico";
+        sha256 = "sha256-8kjAFQ/tGX0JObywRtXF3nXj7Gbra6efbIzKeMrplNA=";
+      }}";
+      definedAliases = ["@df"];
+    };
+
     "Nix Packages" = {
       urls = [
         {
@@ -71,7 +94,7 @@
             }
             {
               name = "release";
-              value = "unstable";
+              value = "master";
             }
           ];
         }

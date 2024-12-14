@@ -2,7 +2,6 @@
   stdenvNoCC,
   fetchzip,
   fetchFromGitHub,
-  ...
 }: {
   breezeChameleon = stdenvNoCC.mkDerivation {
     pname = "breeze-chameleon";

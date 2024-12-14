@@ -17,24 +17,11 @@ in
         '';
       };
     };
-    config = mkIf cfg.enable (
-      lib.mkMerge [
-        {
-          programs.neovim = {
-            enable = true;
-            defaultEditor = true;
-          };
-          home.packages = with pkgs; [
-            wl-clipboard # For system clipboard capabilities
-            ripgrep # For BurntSushi/ripgrep
-            gcc # For installing treesitter parsers
-          ];
-
-          xdg.configFile."nvim" = {
-            source = ./lazy;
-            recursive = true;
-          };
-        }
-      ]
-    );
+    config = mkIf cfg.enable {
+      hm.neovimConfig.enable = true;
+      programs.neovim = {
+        enable = true;
+        defaultEditor = true;
+      };
+    };
   }

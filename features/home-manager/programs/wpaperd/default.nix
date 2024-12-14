@@ -16,7 +16,6 @@ with lib; {
           duration = "30m";
           mode = "center";
           sorting = "random";
-          transition-time = "1000";
           transition = {
             hexagonalize = {};
           };

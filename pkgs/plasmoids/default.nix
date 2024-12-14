@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  ...
 }: let
   basePlasmoidDir = "$out/share/plasma/plasmoids";
 in {
@@ -53,7 +52,7 @@ in {
     };
   };
 
-  windowButtonsApplet = pkgs.kdePackages.callPackage ./windowButtons.nix {};
+  windowButtonsApplet = pkgs.kdePackages.callPackage ./window-buttons.nix {};
 
-  panelColorizer = pkgs.kdePackages.callPackage ./panelColorizer.nix {};
+  panelColorizer = pkgs.kdePackages.callPackage ./panel-colorizer.nix {};
 }

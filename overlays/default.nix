@@ -51,7 +51,7 @@
   asztalOverlay = import ./asztalOverlay.nix {inherit inputs;};
 
   defaults = [
-    inputs.nurpkgs.overlay
+    inputs.nurpkgs.overlays.default
     inputs.hyprpanel.overlay
     inputs.alacritty-theme.overlays.default
   ];

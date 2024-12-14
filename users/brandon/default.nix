@@ -33,7 +33,7 @@ in {
         live.enable = true;
         hidpi.enable = sysCfg.desktop.hidpi.enable;
 
-        firefox.enable = true;
+        browsers.firefox.enable = true;
         vscodium.enable = true;
         neovim = {
           enable = true;
@@ -50,7 +50,7 @@ in {
       }
       ###### PLASMA CONFIG ######
       (lib.optionalAttrs (sysCfg.desktop.plasma.enable) {
-        firefox.style = "plasma";
+        browsers.firefox.style = "plasma";
         plasma.enable = true;
         konsole.enable = true;
         klassy.enable = true;
@@ -62,7 +62,7 @@ in {
       })
       ###### GNOME-SHELL CONFIG ######
       (lib.optionalAttrs (sysCfg.desktop.gnome.enable) {
-        firefox.style = "gnome";
+        browsers.firefox.style = "gnome";
         gnome-shell.enable = true;
         dconf.enable = true;
         vscodium.theme = "gnome";
@@ -73,7 +73,7 @@ in {
       })
       ###### HYPRLAND CONFIG ######
       (lib.optionalAttrs (sysCfg.desktop.hyprland.enable) {
-        firefox = {
+        browsers.firefox = {
           style = "hyprland";
           live.enable = true;
         };
@@ -107,13 +107,10 @@ in {
         enable = true;
         live.enable = true;
         templateRepo = {
-          /*
-            url = "https://github.com/GnRlLeclerc/firefox-native-base16.git";
-          rev = "6f2d7e4142975f10234bd43d6870c0e85d0650ac";
+          url = "https://github.com/BBFifield/firefox-native-base16.git";
+          rev = "9f72a3caa05901f90849ed32da5c9e489b10f679";
           ref = "master";
-          */
         };
-        templateName = "toml"; #"template";
         path = ".mozilla";
         themeExtension = "toml";
       };
@@ -121,7 +118,7 @@ in {
         enable = true;
         live = {
           enable = true;
-          hooks = ''hyprctl reload'';
+          hooks.hotReload = ''hyprctl reload'';
         };
         templateRepo = {
           url = "https://github.com/kirasok/base16-hyprland.git";
@@ -131,6 +128,18 @@ in {
         templateName = "colors";
         path = ".config/hypr";
         themeExtension = "conf";
+      };
+      qutebrowser = {
+        enable = true;
+        live.enable = true;
+        templateRepo = {
+          url = "https://github.com/tinted-theming/base16-qutebrowser.git";
+          rev = "6253558595c15c29689b4343de6303f6743f5831";
+          ref = "main";
+        };
+        themeFilename = "colors";
+        path = ".config/qutebrowser";
+        themeExtension = "py";
       };
       alacritty = {
         enable = true;
@@ -148,7 +157,17 @@ in {
         enable = true;
         live = {
           enable = true;
-          hooks = ''ironbar load-css "$directory/ironbar/style.css"'';
+          hooks = {
+            hotReload = ''ironbar load-css "$directory/ironbar/style.css"'';
+            onActivation = ''
+              (
+                XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
+                if [[ -S "$XDG_RUNTIME_DIR/ironbar-ipc.sock" ]]; then
+                  ${pkgs.ironbar}/bin/ironbar load-css "${config.home.homeDirectory}/.config/ironbar/style.css"
+                fi
+              )
+            '';
+          };
         };
         templateRepo = {
           url = "https://github.com/tinted-theming/base16-waybar.git";
@@ -162,7 +181,7 @@ in {
         enable = true;
         live = {
           enable = true;
-          hooks = ''walker --theme "$directory/walker/themes/style.css"'';
+          hooks.hotReload = ''walker --theme style'';
         };
         templateRepo = {
           url = "https://github.com/samme/base16-styles.git";
@@ -178,7 +197,7 @@ in {
         enable = true;
         live = {
           enable = true;
-          hooks = "sh ~/.config/bash/colors.sh";
+          hooks.hotReload = "sh ~/.config/bash/colors.sh";
         };
         templateRepo = {
           url = "https://github.com/tinted-theming/tinted-shell.git";

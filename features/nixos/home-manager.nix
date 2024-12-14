@@ -25,6 +25,7 @@ with inputs; {
       walker.homeManagerModules.default
       ironbar.homeManagerModules.default
       base16-nix.homeManagerModule
+      neovim-config.homeManagerModules.default
     ];
   };
 }

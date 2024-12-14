@@ -5,15 +5,31 @@
   ...
 }: let
   # tintednix.lib = import ../../../lookAndFeel/tintednix/lib {inherit config pkgs lib;};
-  compiledSassFile = pkgs.runCommand "style_walker" {nativeBuildInputs = with pkgs; [dart-sass];} ''
-    #!/usr/bin/env bash
-    mkdir -p $out
-    cp -rf "${./config/style_walker.scss}" "$out/style_walker.scss"
-    sass "$out/style_walker.scss" "$out/.config/walker/themes/style.css"
-    CSS_FILE="$out/.config/walker/themes/style.css"
+  sassFile = (import ./config/style_walker.nix {inherit config;}).style;
+  compiledSassFile =
+    pkgs.runCommand "style_walker" {nativeBuildInputs = with pkgs; [dart-sass jq];}
+    /*
+    ''
+      #!/usr/bin/env bash
+      mkdir -p $out
+      cp -rf "${./config/style_walker.scss}" "$out/style_walker.scss"
+      sass "$out/style_walker.scss" "$out/.config/walker/themes/style.css"
+      CSS_FILE="$out/.config/walker/themes/style.css"
 
-    { echo "@import url('file://${config.home.homeDirectory}/.config/walker/themes/colors.css');"; cat "$CSS_FILE"; } > temp_file && mv temp_file "$CSS_FILE"
-  '';
+      { echo "@import url('file://${config.home.homeDirectory}/.config/walker/themes/colors.css');"; cat "$CSS_FILE"; } > temp_file && mv temp_file "$CSS_FILE"
+    '';
+    */
+    ''
+      #!/usr/bin/env bash
+      mkdir -p $out
+      cat > "$out/style_walker.scss" <<'EOF'
+      ${sassFile}
+      EOF
+      sass "$out/style_walker.scss" "$out/.config/walker/themes/style.css"
+      CSS_FILE="$out/.config/walker/themes/style.css"
+
+      { echo "@import url('file://${config.home.homeDirectory}/.config/walker/themes/colors.css');"; cat "$CSS_FILE"; } > temp_file && mv temp_file "$CSS_FILE"
+    '';
 in {
   options.hm.walker = {
     enable = lib.mkEnableOption "Enable Walker launcher.";
@@ -52,14 +68,17 @@ in {
       {
         programs.walker = {
           enable = true;
-          runAsService = false;
+          #package = pkgs.walker;
+          runAsService = true;
           config = {
+            hotreload_theme = true;
             theme = "style";
             as_window = true;
             disable_click_to_close = false;
             ui.fullscreen = true;
             websearch.prefix = "?";
             switcher.prefix = "/";
+            ignore_mouse = true;
             plugins = [
               {
                 "name" = "power";
@@ -101,22 +120,6 @@ in {
                       "exec" = "tintednix ${schemeName} ${schemeValue.variant}";
                     })
                     config.tintednix.commonColors;
-                  /*
-                    lib.map (scheme: let
-                    schemeName =
-                      if lib.isDerivation scheme
-                      then lib.getName scheme
-                      else builtins.trace scheme.name scheme.name;
-                  in {
-                    "label" = "${schemeName}";
-                    "exec" = "tintednix ${schemeName} ${(config.tintednix.commonColors).${schemeName}.variant}";
-                  })
-                  (
-                    if config.tintednix.enabledSchemes == "all"
-                    then lib.filter (packageAttr: packageAttr.name != "rose-pine-moon" && packageAttr.name != "rose-pine-dawn" && packageAttr.name != "rose-pine" && packageAttr.name != "override" && packageAttr.name != "overrideDerivation") (lib.attrsToList pkgs.base16)
-                    else config.tintednix.enabledSchemes
-                  );
-                  */
                 in
                   entries;
               }

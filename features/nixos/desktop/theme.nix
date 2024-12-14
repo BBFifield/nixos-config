@@ -9,13 +9,13 @@ with lib; let
   cfg = config.nixos.desktop.theme;
 
   nfAttrs = {
-    "FiraCode" = {name = "FiraCode Nerd Font";};
-    "VictorMono" = {name = "VictorMono Nerd Font";};
-    "IosevkaTerm" = {name = "IosevkaTerm Nerd Font";};
-    "JetBrainsMono" = {name = "JetBrainsMono Nerd Font";};
-    "Iosevka" = {name = "Iosevka Nerd Font";};
-    "RobotoMono" = {name = "RobotoMono Nerd Font";};
-    "CascadiaCode" = {name = "CaskaydiaCove Nerd Font Mono";};
+    fira-code = {name = "FiraCode Nerd Font";};
+    victor-mono = {name = "VictorMono Nerd Font";};
+    iosevka-term = {name = "IosevkaTerm Nerd Font";};
+    jetbrains-mono = {name = "JetBrainsMono Nerd Font";};
+    iosevka = {name = "Iosevka Nerd Font";};
+    roboto-mono = {name = "RobotoMono Nerd Font";};
+    caskaydia-cove = {name = "CaskaydiaCove Nerd Font Mono";};
   };
   nfToFetch = builtins.attrNames nfAttrs;
   nfEnums = with builtins; attrValues (mapAttrs (name: value: value.name) nfAttrs);
@@ -53,7 +53,7 @@ in {
   options.nixos.desktop.theme = {
     fonts = mkOption {
       type = fontsSubmodule;
-      default = "JetBrainsMono";
+      default = "JetBrainsMono Nerd Font";
     };
     cursorTheme = mkOption {
       type = cursorSubmodule;
@@ -76,12 +76,10 @@ in {
     in
       mkPkgName {} pkgs pkgNameParts;
 
-    fonts.packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = nfToFetch;
-      })
-      iosevka
-    ];
+    fonts.packages = with pkgs; let
+      nfPkgs = lib.map (nf: nerd-fonts.${nf}) nfToFetch;
+    in
+      nfPkgs ++ [iosevka];
     environment.systemPackages = [cfg.cursorTheme.package]; # custom # Needs to be installed system-wide so sddm has access to it;
   };
 }

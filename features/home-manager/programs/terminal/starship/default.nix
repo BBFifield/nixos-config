@@ -9,7 +9,7 @@
 
   lang = icon: color: {
     symbol = icon;
-    format = ''[[ $symbol( $version) ](fg:${color} bg:18)](bg:black)'';
+    format = ''[[ $symbol( $version) ](fg:${color} bg:19)](bg:black)'';
   };
 
   settings =
@@ -28,7 +28,7 @@
         "[${props.separator_left}](blue)"
         "$os"
         "$username"
-        "[${props.separator_right}](fg:blue bg:18)"
+        "[${props.separator_right}](fg:blue bg:19)"
         "$directory"
         "$git_branch"
         "$git_status"
@@ -39,11 +39,11 @@
         "$java"
         "$haskell"
         "$python"
-        "[${props.separator_mid}](fg:blue bg:18)"
+        "[${props.separator_mid}](fg:blue bg:19)"
         "$docker_context"
         "$conda"
         "$time"
-        "[${props.separator_right} ](18)"
+        "[${props.separator_right} ](19)"
         "$cmd_duration"
         "$status"
         "$line_break$character"
@@ -81,7 +81,7 @@
       };
 
       directory = {
-        style = "fg:blue bg:18";
+        style = "fg:blue bg:19";
         format = "[[ $path ]($style)${props.separator_mid}]($style)";
         truncation_length = 3;
         truncation_symbol = "…/";
@@ -89,13 +89,13 @@
 
       git_branch = {
         symbol = "";
-        style = "fg:purple bg:18";
+        style = "fg:purple bg:19";
         format = ''[ $symbol $branch ]($style)'';
       };
 
       git_status = {
-        style = "fg:purple bg:18";
-        format = ''[[($all_status$ahead_behind )]($style)${props.separator_mid}](fg:blue bg:18)'';
+        style = "fg:purple bg:19";
+        format = ''[[($all_status$ahead_behind )]($style)${props.separator_mid}](fg:blue bg:19)'';
       };
 
       continuation_prompt = "∙  ┆ ";
@@ -156,7 +156,7 @@
       time = {
         disabled = false;
         time_format = "%R";
-        style = "bg:18";
+        style = "bg:19";
         format = ''[[  $time ](fg:12 $style)]($style)'';
       };
 

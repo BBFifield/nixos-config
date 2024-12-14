@@ -7,7 +7,7 @@ $color_text: var(--base07);
 $color_text_field: var(--base02);
 $color_bg: var(--base00);
 $color_btn_hover_bg: var(--base07);
-$color_btn_hover_fg: var(--base00);
+$color_btn_hover_fg: var(--base07);
 $color_border: var(--base03);
 $color_active_workspace: var(--base0E);
 $color_inactive_workspace: var(--base0F);
@@ -25,7 +25,7 @@ $font-family:
   color: $color_text;
   padding-left: 12px;
   padding-right: 12px;
-  background: none;
+  /* background: none;*/
 }
 
 * {

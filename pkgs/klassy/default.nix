@@ -6,7 +6,6 @@
   kdePackages,
   libsForQt5,
   qtMajorVersion ? "6",
-  ...
 }: let
   qtPackages =
     {

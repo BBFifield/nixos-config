@@ -36,13 +36,13 @@
   };
 
   nfAttrs = {
-    VictorMono = {name = "VictorMono Nerd Font";};
-    IosevkaTerm = {name = "IosevkaTerm Nerd Font";};
-    JetBrainsMono = {name = "JetBrainsMono Nerd Font";};
-    Iosevka = {name = "Iosevka Nerd Font";};
-    RobotoMono = {name = "RobotoMono Nerd Font";};
-    CascadiaCode = {name = "CaskaydiaCove Nerd Font Mono";};
-    FiraCode = {name = "FiraCode Nerd Font";};
+    victor-mono = {name = "VictorMono Nerd Font";};
+    iosevka-term = {name = "IosevkaTerm Nerd Font";};
+    jetbrains-mono = {name = "JetBrainsMono Nerd Font";};
+    iosevka = {name = "Iosevka Nerd Font";};
+    roboto-mono = {name = "RobotoMono Nerd Font";};
+    caskaydia-cove = {name = "CaskaydiaCove Nerd Font Mono";};
+    fira-code = {name = "FiraCode Nerd Font";};
   };
   nfToFetch = lib.attrNames nfAttrs;
   nfEnums = lib.attrValues (lib.mapAttrs (name: value: value.name) nfAttrs);
@@ -114,14 +114,11 @@ in {
       iconTheme = pkgs.${builtins.head (filterByValue cfg.iconTheme iconThemeAttrs)};
       dependencies = lib.optionals (cfg.iconTheme == "MoreWaita") [pkgs.adwaita-icon-theme]; #MoreWaita requires Adwaita to also be installed
       iconThemePkgs = [iconTheme] ++ dependencies;
+      nfPkgs = lib.map (nf: nerd-fonts.${nf}) nfToFetch;
     in
       [cfg.gtkTheme.package]
       ++ iconThemePkgs
-      ++ [
-        (nerdfonts.override {
-          fonts = nfToFetch;
-        })
-      ]
+      ++ nfPkgs
       ++ [cfg.cursorTheme.package]; # custom # Needs to be installed system-wide so sddm has access to it;
   };
 }

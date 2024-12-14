@@ -184,7 +184,7 @@ in {
             }
             (lib.mkIf (config.tintednix.targets.hyprland.live.enable) (lib.mkMerge [
               {
-                tintednix.live.hooks = lib.mkMerge [
+                tintednix.live.hooks.hotReload = lib.mkMerge [
                   ''
                     cp -rf "$directory/hypr/tintednix_bindings/$1.conf" "$directory/hypr/tintednix_binding.conf"
                   ''

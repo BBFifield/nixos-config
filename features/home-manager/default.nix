@@ -6,8 +6,8 @@
 }: {
   imports =
     (lib.concatMap import [./programs])
-    ++ [./lookAndFeel]
-    ++ [./lookAndFeel/tintednix];
+    ++ [./look-and-feel]
+    ++ [./look-and-feel/tintednix];
 
   options.hm = {
     live = lib.mkOption {

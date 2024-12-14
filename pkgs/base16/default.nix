@@ -2,7 +2,6 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  ...
 }: let
   base16-schemes = fetchFromGitHub {
     owner = "tinted-theming";

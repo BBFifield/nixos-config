@@ -2,7 +2,7 @@
   ./bars/gBar
   ./bars/ironbar
   ./bars/waybar
-  ./browsers/firefox
+  ./browsers
   ./dconf
   ./editors
   ./gnome-shell

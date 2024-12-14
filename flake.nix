@@ -61,9 +61,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-config = {
+    /*
+      neovim-config = {
       url = "github:BBFifield/neovim-config";
-      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    */
+    neovim-config = {
+      url = "git+file:///home/brandon/nvim-config";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ironbar = {
@@ -76,7 +82,7 @@
     base16-nix.url = "github:SenchoPens/base16.nix";
 
     firefox-native-base16 = {
-      url = "git+file:///home/brandon/firefox-native-base16";
+      url = "github:BBFifield/firefox-native-base16";
       # url = "github:GnRlLeclerc/firefox-native-base16";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -93,8 +99,6 @@
       "aarch64-linux"
       "i686-linux"
       "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
     ];
 
     # Maps a function over the 'systems' attribute set. 'Systems' is provided as the first arg, but it also

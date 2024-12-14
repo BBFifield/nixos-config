@@ -139,6 +139,8 @@ in {
             directory=${config.home.homeDirectory}/.config
             next_colorscheme="$1"
             mode="$2"
+
+            sed -i "/^current_colorscheme=/c\current_colorscheme=$next_colorscheme" "$directory/tintednix/settings.txt"
           '')
       ];
       targetHooks' = lib.mkMerge [targetHooks scriptParts];
@@ -146,13 +148,14 @@ in {
       lib.mkMerge [
         {
           home = targetFiles;
+          xdg.configFile."tintednix/settings.txt".text = ''current_colorscheme=${config.tintednix.defaultScheme}'';
         }
         {
-          tintednix.live.hooks = targetHooks';
+          tintednix.live.hooks.hotReload = targetHooks';
           home.packages = [
             (pkgs.writeTextFile {
               name = "tintednix";
-              text = config.tintednix.live.hooks; # this bad, i know
+              text = config.tintednix.live.hooks.hotReload; # this bad, i know
               executable = true;
               destination = "/bin/tintednix";
             })

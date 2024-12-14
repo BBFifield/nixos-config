@@ -63,7 +63,10 @@
     vim
   ];
 
-  environment.variables = {EDITOR = lib.mkForce "vim";};
+  environment.variables = {
+    EDITOR = lib.mkForce "vim";
+    TERM = lib.mkForce "xterm-256color";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

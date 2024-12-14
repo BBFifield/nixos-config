@@ -5,7 +5,7 @@
   ...
 }: let
   profilesPath = ".mozilla/firefox";
-
+  cfg = config.hm.browsers.firefox;
   #Profile specific extensions
   extensions = with pkgs.nur.repos.rycee.firefox-addons; [
     ublock-origin
@@ -74,7 +74,7 @@ in
   with lib; {
     imports = [./firefox-base16.nix];
 
-    options.hm.firefox = {
+    options.hm.browsers.firefox = {
       enable = lib.mkEnableOption "Enable home-manager firefox configuration";
       style = lib.mkOption {
         type = with types; nullOr (enum ["plasma" "gnome" "hyprland"]);
@@ -93,23 +93,25 @@ in
         "userChrome.DragSpace.Left.Disabled" = true;
         "userChrome.Menu.Icons.Regular.Enabled" = true;
         "userChrome.Menu.Size.Compact.Enabled" = true;
+        "userChrome.Tabs.Option5.Enabled" = true;
         "userChrome.Tabs.Option6.Enabled" = false;
-        "userChrome.Tabs.Option7.Enabled" = true;
-        "userChrome.Tabs.SelectedTabIndicator.Enabled" = true;
+        "userChrome.Tabs.Option7.Enabled" = false;
+        "userChrome.Tabs.SelectedTabIndicator.Enabled" = false;
+        "userChrome.TabSeparators.Saturation.Low.Enabled" = true;
         "userChrome.Tabs.TabsOnBottom.Enabled" = true;
       };
     in
-      lib.mkIf config.hm.firefox.enable (lib.mkMerge [
+      lib.mkIf cfg.enable (lib.mkMerge [
         {
           home.file."${profilesPath}/default/chrome" = lib.mkMerge [
             {
               recursive = true;
               force = true;
             }
-            (lib.mkIf (config.hm.firefox.style == "plasma" || config.hm.firefox.style == "hyprland") {
+            (lib.mkIf (cfg.style == "plasma" || cfg.style == "hyprland") {
               source = pkgs.nur.repos.slaier.wavefox;
             })
-            (lib.mkIf (config.hm.firefox.style == "gnome") {
+            (lib.mkIf (cfg.style == "gnome") {
               source = pkgs.firefox-gnome-theme;
             })
           ];
@@ -146,7 +148,7 @@ in
                     "{4e507435-d65f-4467-a2c0-16dbae24f288}" = {
                       install_url = "https://addons.mozilla.org/firefox/downloads/latest/breezedarktheme/latest.xpi";
                       installation_mode =
-                        if (config.hm.firefox.style == "plasma")
+                        if (cfg.style == "plasma")
                         then "normal_installed"
                         else "blocked";
                     };
@@ -185,9 +187,9 @@ in
                   settings = lib.mkMerge [
                     settings
 
-                    (lib.mkIf (config.hm.firefox.style == "hyprland") wavefoxSettings)
+                    (lib.mkIf (cfg.style == "hyprland") wavefoxSettings)
 
-                    (lib.mkIf (config.hm.firefox.style == "plasma") (lib.mkMerge [
+                    (lib.mkIf (cfg.style == "plasma") (lib.mkMerge [
                       {
                         # Appearance
                         "extensions.activeThemeID" = lib.mkForce "{4e507435-d65f-4467-a2c0-16dbae24f288}"; #breezedarktheme
@@ -195,7 +197,7 @@ in
                       wavefoxSettings
                     ]))
 
-                    (lib.mkIf (config.hm.firefox.style == "gnome") {
+                    (lib.mkIf (cfg.style == "gnome") {
                       # Appearance settings
                       "browser.tabs.inTitlebar" = lib.mkForce 1;
                       "browser.uiCustomization.state" =
@@ -213,7 +215,7 @@ in
                     force = true;
                     default = "DuckDuckGo";
                     order = ["DuckDuckGo" "Google"];
-                    engines = (import ./searchEngines.nix {inherit pkgs;}).engines;
+                    engines = (import ./search-engines.nix {inherit pkgs;}).engines;
                   };
                 };
               };

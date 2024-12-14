@@ -8,7 +8,7 @@
 }: let
   commonOpts = {
     theme = {
-      fonts.defaultMonospace = "FiraCode Nerd Font";
+      fonts.defaultMonospace = "JetBrainsMono Nerd Font";
       cursorTheme.name = "BreezeX-Dark";
       cursorTheme.size = 24;
     };

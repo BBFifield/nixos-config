@@ -43,18 +43,18 @@ in {
           family = config.hm.theme.fonts.defaultMonospace;
           style = "Bold";
         };
-        /*
-          color-palette = let
-          cfg = config.hm.theme.colorscheme.cognates;
+
+        color-palette = let
+          colors = config.tintednix.commonColors;
+          defaultScheme = config.tintednix.defaultScheme;
         in {
-          first = "#${cfg.color0}";
-          second = "#${cfg.color1}";
-          third = "#${cfg.color3}";
-          fourth = "#${cfg.color4}";
-          fifth = "#${cfg.color5}";
-          custom = "#${cfg.color6}";
+          first = "#${colors.${defaultScheme}.colors.base08}";
+          second = "#${colors.${defaultScheme}.colors.base09}";
+          third = "#${colors.${defaultScheme}.colors.base0A}";
+          fourth = "#${colors.${defaultScheme}.colors.base0B}";
+          fifth = "#${colors.${defaultScheme}.colors.base0C}";
+          custom = "#${colors.${defaultScheme}.colors.base0D}";
         };
-        */
       };
     };
   };

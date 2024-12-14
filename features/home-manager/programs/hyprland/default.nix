@@ -133,7 +133,7 @@ with lib; let
       arr = [1 2 3 4 5 6 7];
     in
       [
-        "SUPER, W, exec, firefox"
+        "SUPER, W, exec, ${config.hm.browsers.defaultBrowser}"
         "SUPER, F, exec, [workspace 3] alacritty -e yazi"
         "SUPER, E, exec, alacritty"
         "SUPER, C, exec, [workspace 1] alacritty -e nvim"
