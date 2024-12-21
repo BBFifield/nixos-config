@@ -61,16 +61,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    /*
-      neovim-config = {
+    neovim-config = {
       url = "github:BBFifield/neovim-config";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    */
-    neovim-config = {
-      url = "git+file:///home/brandon/nvim-config";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
+    # neovim-config = {
+    #   url = "git+file:///home/brandon/nvim-config";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     ironbar = {
       url = "github:JakeStanger/ironbar";

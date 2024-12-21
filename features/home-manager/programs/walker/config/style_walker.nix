@@ -1,10 +1,5 @@
 {config, ...}: {
   style = ''
-    $color_1: #c6d0f5;
-    $color_2: #7f849c;
-    $color_3: #89b4fa;
-    $color_4: #cad3f5;
-
     $color_text: var(--base07);
     $color_text_field: var(--base02);
     $color_bg: var(--base00);
@@ -98,10 +93,10 @@
       box-shadow: none;
       color: $color_btn_hover_fg;
       label {
-        color: $color_btn_hover_fg;
+        color: $color_bg;
       }
       #sub {
-        color: $color_btn_hover_fg;
+        color: $color_bg;
       }
       #activationlabel {
         color: $color_btn_hover_fg;

@@ -29,6 +29,7 @@ in {
         xdg.configFile."ironbar/style.css".source = ./config/style_ironbar.css; #''${compiledSassFile}/.config/ironbar/style.css'';
         xdg.configFile."ironbar/config.corn".source = ./config/config.corn;
         xdg.configFile."ironbar/sys_info.sh".source = ./config/sys_info.sh;
+        xdg.configFile."ironbar/iron_bluetooth.sh".source = ./config/iron_bluetooth.sh;
       }
     ]
   );

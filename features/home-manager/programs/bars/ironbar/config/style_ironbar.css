@@ -8,44 +8,52 @@
   font-size: 16px;
 }
 
-#bar {
-  border-radius: 0%;
-  border-bottom: 1px solid @base03;
+#start,
+#center,
+#end {
+  background-color: @base02;
+}
+#topbar {
+  background-color: transparent;
+  min-height: 5px;
 }
 
-.window {
-  border-radius: 20%;
+#bar {
+  margin: 3px 3px 0px 3px;
+  border: 2px solid @base00;
 }
 
 .background {
-  border-radius: 1em;
   padding: 0px;
 }
 
 window {
-  border-radius: 1em;
+  border-radius: 50px;
 }
 
 box {
-  border-radius: 1em;
-  background-color: @base00;
+  border-radius: 50px;
+  background-color: @base01;
   background-image: none;
   box-shadow: none;
 }
 
 menubar {
-  background-color: @base00;
+  background-color: @base01;
   background-image: none;
   box-shadow: none;
 }
 
 button {
   transition-timing-function: linear;
-  background-color: @base00;
+  background-color: @base02;
   background-image: none;
   box-shadow: none;
-  color: @base07;
+  color: @base0D;
   box-shadow: none;
+  border-radius: 50px;
+  min-height: 10px;
+  padding: 0px 10px 0px 10px;
 }
 button .item {
   transition-duration: 0.2s;
@@ -56,18 +64,19 @@ button box {
   transition-timing-function: linear;
 }
 button:hover {
-  background-color: @base07;
+  background-color: @base0D;
 }
 button:hover label {
-  color: @base00;
+  color: @base01;
+  font-weight: bold;
 }
 button:hover box {
-  background-color: @base07;
-  color: @base00;
+  background-color: @base0D;
+  color: @base01;
 }
 
 label {
-  color: @base07;
+  color: @base0D;
   box-shadow: none;
 }
 
@@ -76,47 +85,35 @@ scale trough {
   min-height: 2px;
 }
 .popup {
-  border: 1px solid @base03;
+  border: 1px solid @base0D;
+  border-radius: 10px;
   padding: 1em;
-}
-
-/* -- clipboard -- */
-.clipboard {
-  margin-left: 5px;
-  font-size: 1.1em;
-}
-
-.popup-clipboard .item {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid @base03;
-  border-radius: 0%;
 }
 
 /* -- clock -- */
 .clock {
-  font-weight: normal;
-  margin-left: 5px;
+  font-weight: bold;
+  /*border-radius: 50px 0px 0px 50px;*/
+  /*border-right: 1.1px dotted @base0D;*/
 }
-
 .popup-clock .calendar-clock {
-  color: @base07;
+  color: @base0D;
   font-size: 2.5em;
   padding-bottom: 0.1em;
 }
 .popup-clock .calendar {
-  background-color: @base00;
-  color: @base07;
-  border-bottom-left-radius: 5%;
-  border-bottom-right-radius: 5%;
+  background-color: @base01;
+  color: @base0D;
+  border-color: transparent;
 }
 .popup-clock .calendar .header {
   padding-top: 1em;
-  border-top: 1px solid @base03;
+  border: transparent;
   font-size: 1.5em;
 }
 .popup-clock .calendar:selected {
-  background-color: @base07;
-  color: @base00;
+  background-color: @base0D;
+  color: @base01;
   border-radius: 20%;
 }
 
@@ -125,7 +122,7 @@ scale trough {
   margin-right: 4px;
 }
 .launcher .ifix examtem:not(.focused):hover {
-  background-color: @base07;
+  background-color: @base0D;
 }
 .launcher .open {
   border-bottom: 1px solid @base07;
@@ -146,7 +143,7 @@ scale trough {
 
 /* -- music -- */
 .music:hover * {
-  background-color: @base07;
+  background-color: @base0D;
 }
 
 .popup-music {
@@ -165,7 +162,7 @@ scale trough {
   font-size: 1.7em;
 }
 .popup-music .controls *:disabled {
-  color: @base03;
+  color: @base02;
 }
 .popup-music .volume .slider slider {
   border-radius: 100%;
@@ -180,8 +177,8 @@ scale trough {
 /* notifications */
 .notifications .count {
   font-size: 0.6rem;
-  background-color: @base07;
-  color: @base00;
+  background-color: @base0D;
+  color: @base01;
   border-radius: 100%;
   margin-right: 3px;
   margin-top: 3px;
@@ -195,49 +192,148 @@ scale trough {
 }
 
 /* -- sys_info -- */
+.sysinfo {
+  background-color: @base02;
+}
+
 /* -- tray -- */
 .tray {
   margin-left: 10px;
 }
 
+/* -- clipboard -- */
+.clipboard {
+  margin-left: 5px;
+  font-size: 1.1em;
+}
+.clipboard > label {
+  color: @base09;
+}
+.clipboard:hover {
+  background-color: @base09;
+}
+.popup-clipboard {
+  border-color: @base09;
+  color: @base09;
+}
+.popup-clipboard label {
+  color: @base09;
+}
+.popup-clipboard button:hover {
+  background-color: @base09;
+}
+.popup-clipboard .item {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid @base03;
+  border-radius: 0%;
+}
+radiobutton radio:checked {
+  background-color: @base09;
+  border-color: @base09;
+  background-clip: padding-box;
+  -gtk-icon-source: none;
+  background-image: none;
+}
+
 /* -- Volume -- */
+.volume > label {
+  color: @base0A;
+}
+.volume:hover {
+  background-color: @base0A;
+}
+.popup-volume {
+  border-color: @base0A;
+}
+.popup-volume label,
 .popup-volume .slider .top {
-  color: @base07;
+  color: @base0A;
 }
 .popup-volume slider {
-  background-color: @base07;
+  background-color: @base0A;
 }
 .popup-volume highlight {
-  background-color: @base07;
+  background-color: @base0A;
 }
 .popup-volume .device-box {
-  border-right: 1px solid @base03;
+  border-right: 1px dotted @base0A;
+  border-radius: 0px;
+  padding-right: 5px;
+}
+.popup-volume .device-box .device-selector .combo:hover {
+  background-color: @base0A;
+}
+.popup-volume .device-box .device-selector .combo box {
+  background-color: @base02;
 }
 .popup-volume .device-box .device-selector .combo:hover box {
-  background-color: @base07;
-  color: @base00;
+  background-color: @base0A;
+  color: @base01;
+  font-weight: bold;
 }
-.popup-volume .device-box .device-selector menu {
-  background-color: @base00;
-  color: @base07;
+.popup-volume cellview {
+  color: @base0A;
 }
-.popup-volume .device-box .device-selector menuitem:hover {
-  background-color: @base07;
-  color: @base00;
+.popup-volume .combo:hover cellview {
+  color: @base01;
+  font-weight: bold;
+}
+.popup-volume arrow {
+  color: @base0A;
+}
+.popup-volume .combo:hover arrow {
+  color: @base01;
+}
+.popup-volume button:hover {
+  background-color: @base0A;
+}
+#gtk-combobox-popup-menu {
+  border: 1px solid @base0A;
+  background-color: @base01;
+  color: @base0A;
+}
+#gtk-combobox-popup-menu menuitem:hover {
+  background-color: @base0A;
+  color: @base01;
+  font-weight: bold;
+}
+#gtk-combobox-popup-menu menuitem:hover cellview {
+  font-weight: bold;
+  color: @base01;
+}
+.csd decoration {
+  box-shadow: none;
 }
 
 /* -- workspaces -- */
+.workspaces {
+  background-color: @base02;
+}
 .workspaces label {
   color: @base0F;
 }
+.workspaces button:hover {
+  background-color: @base03;
+}
+.workspaces button:hover > label {
+  color: @base0F;
+}
 .workspaces .item.focused {
-  background-color: transparent;
+  background-color: @base0D;
+  padding: 0px 30px 0px 30px;
 }
 .workspaces .item.focused > label {
-  color: @base0E;
+  color: @base01;
+  font-weight: bold;
 }
 
 /* -- custom: power menu -- */
+.popup-power-menu {
+  border-color: @base08;
+}
+.popup-power-menu label {
+  color: @base08;
+}
 .popup-power-menu #header {
   font-size: 1.2em;
   padding-bottom: 0.4em;
@@ -248,12 +344,60 @@ scale trough {
   margin-bottom: 0.6em;
 }
 .popup-power-menu .power-btn {
-  border-radius: 20%;
   padding: 0.1em 1em;
   margin: 0.3em;
 }
 .popup-power-menu #buttons > *:nth-child(1) .power-btn {
   margin-right: 1em;
+}
+.power-btn:hover {
+  background-color: @base08;
+}
+#power-btn:hover {
+  background-color: @base08;
+}
+#power-btn label {
+  color: @base08;
+}
+#power-btn:hover label {
+  color: @base01;
+}
+#power-actions-box {
+  background-color: @base02;
+}
+
+/*-- bluetooth --*/
+#bluetooth-btn:hover {
+  background-color: @base0C;
+}
+#bluetooth-btn label {
+  background-color: @base02;
+  color: @base0C;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+}
+#bluetooth-btn:hover label {
+  background-color: @base0C;
+  color: @base01;
+}
+#popup-bluetooth {
+  border-color: @base0C;
+}
+#popup-bluetooth button {
+  background-color: @base02;
+  color: @base0C;
+}
+#popup-bluetooth button:hover {
+  background-color: @base0C;
+}
+#popup-bluetooth button:hover label {
+  color: @base01;
+}
+#popup-bluetooth label {
+  color: @base0C;
+}
+#bluetooth-settings-btn {
+  margin: 20px 0px 0px 0px;
 }
 
 /*# sourceMappingURL=style.css.map */

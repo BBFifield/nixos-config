@@ -16,6 +16,7 @@
     discord
     _1password-gui
     shellcheck
+    bluetui
   ];
 in {
   imports = [../../features/home-manager];

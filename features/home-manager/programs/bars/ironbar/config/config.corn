@@ -9,7 +9,7 @@ let {
     }
     favorites = [ "1" "2" "3" ]
   }
-$config_dir = ".config/ironbar"
+  $config_dir = ".config/ironbar"
     $cairo = {
         type = "cairo"
         path = "$config_dir/clock.lua"
@@ -66,7 +66,7 @@ $config_dir = ".config/ironbar"
 
   $custom_sys_info = {
     type = "script"
-    cmd = "bash /home/brandon/.config/ironbar/sys_info.sh"
+    cmd = "bash /home/$(whoami)/.config/ironbar/sys_info.sh"
     mode = "poll"
     interval = 5000
   }
@@ -74,7 +74,8 @@ $config_dir = ".config/ironbar"
   $sys_info_menu = {
     type = "custom"
     bar = [
-      { type = "button" name = "stats-btn" on_click = "popup:toggle" 
+      {
+        type = "button" name = "stats-btn" on_click = "popup:toggle"
         widgets = [ $sys_info_label ]
       }
     ]
@@ -91,14 +92,55 @@ $config_dir = ".config/ironbar"
 
   $tray = { type = "tray" }
 
-  $clock = { type = "clock" }
+  $clock = { type = "clock" format = " %d-%h-%Y-%I:%M%P" }
 
-  $clipboard = { 
+  $bluetooth_menu = {
+    type = "custom"
+    name = "bluetooth"
+    bar = [
+      {
+        type = "button"
+        name = "bluetooth-btn"
+        label = "{{5000:bash /home/$(whoami)/.config/ironbar/iron_bluetooth.sh button}}"
+        on_click = "popup:toggle"
+      }
+    ]
+    popup = [
+      {
+        type = "box"
+        orientation = "vertical"
+        widgets = [
+          {
+            type = "label"
+            label = "{{5000:echo 'Connected Devices:' $(bluetoothctl devices Connected | wc -l)}}"
+          }
+          {
+            type = "script"
+            name = "bluetooth-script"
+            cmd = "bash /home/$(whoami)/.config/ironbar/iron_bluetooth.sh popup"
+            mode = "poll"
+            interval = 5000
+          }
+          {
+            type = "button"
+            name = "bluetooth-settings-btn"
+            on_click = "bluetui"
+            label = "Open Bluetooth Settings"
+          }
+        ]
+      }
+    ]
+    show_if = "#show_bluetooth"
+  }
+
+  $clipboard = {
     type = "clipboard"
     icon = ""
     max_items = 6
+    truncate.Map = 50
     truncate.mode = "end"
     truncate.length = 50
+    truncate.max_length = 50
   }
 
   $volume = {
@@ -124,7 +166,7 @@ $config_dir = ".config/ironbar"
       { type = "box" orientation = "vertical" name = "profile-pic-box"
         widgets = [
           {type = "image" name = "profile-pic" src = $src  size = 80 }
-            
+
           ]
       }
       {
@@ -152,15 +194,16 @@ $config_dir = ".config/ironbar"
 
   $left = [ $workspaces ]
   $center = [ $clock $notifications ]
-  $right = [ $sys_info_menu $clipboard $volume $power_menu ]
+  $right = [ $sys_info_menu $bluetooth_menu $clipboard $volume $power_menu ]
 }
 
 in {
   name = "topbar"
-  height = 35
+  height = 10
   anchor_to_edges = true
   position = "top"
   icon_theme = "Morewaita"
+  ironvar_defaults.show_bluetooth = "true"
 
   start = $left
   center = $center

@@ -92,7 +92,7 @@ in
         "userChrome.DarkTheme.Tabs.Shadows.Saturation.Medium.Enabled" = false;
         "userChrome.DragSpace.Left.Disabled" = true;
         "userChrome.Menu.Icons.Regular.Enabled" = true;
-        "userChrome.Menu.Size.Compact.Enabled" = true;
+        "userChrome.Menu.Size.Compact.Enabled" = false;
         "userChrome.Tabs.Option5.Enabled" = true;
         "userChrome.Tabs.Option6.Enabled" = false;
         "userChrome.Tabs.Option7.Enabled" = false;

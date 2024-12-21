@@ -1181,7 +1181,7 @@
         {
           name = "nix";
           text = "";
-          fg = "cyan";
+          fg = "blue";
         }
         {
           name = "cshtml";
@@ -2501,7 +2501,7 @@
         {
           name = "luac";
           text = "";
-          fg = "cyan";
+          fg = "blue";
         }
         {
           name = "heex";
