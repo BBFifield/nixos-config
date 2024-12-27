@@ -8,6 +8,17 @@
   font-size: 16px;
 }
 
+@keyframes slide-down {
+  from {
+    margin-top: -80px;
+    padding: 0px;
+  }
+  to {
+    margin-top: 0px;
+    padding: 20px;
+  }
+}
+
 #start,
 #center,
 #end {
@@ -19,8 +30,7 @@
 }
 
 #bar {
-  margin: 3px 3px 0px 3px;
-  border: 2px solid @base00;
+  border: 1px solid @base00;
 }
 
 .background {
@@ -87,7 +97,11 @@ scale trough {
 .popup {
   border: 1px solid @base0D;
   border-radius: 10px;
-  padding: 1em;
+  /*padding: 1em;*/
+  animation-name: slide-down;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
 }
 
 /* -- clock -- */
@@ -133,7 +147,6 @@ scale trough {
 .launcher .urgent {
   border-bottom-color: @base08;
 }
-
 .popup-launcher {
   padding: 0;
 }
@@ -187,13 +200,61 @@ scale trough {
   opacity: 0.7;
 }
 
-.script {
-  padding-left: 10px;
-}
+/*.script {*/
+/*  padding-left: 10px;*/
+/*}*/
 
 /* -- sys_info -- */
 .sysinfo {
   background-color: @base02;
+}
+#base00 {
+  background-color: @base00;
+}
+#base01 {
+  background-color: @base01;
+}
+#base02 {
+  background-color: @base02;
+}
+#base03 {
+  background-color: @base03;
+}
+#base04 {
+  background-color: @base04;
+}
+#base05 {
+  background-color: @base05;
+}
+#base06 {
+  background-color: @base06;
+}
+#base07 {
+  background-color: @base07;
+}
+#base08 {
+  background-color: @base08;
+}
+#base09 {
+  background-color: @base09;
+}
+#base0A {
+  background-color: @base0A;
+}
+#base0B {
+  background-color: @base0B;
+}
+#base0C {
+  background-color: @base0C;
+}
+#base0D {
+  background-color: @base0D;
+}
+#base0E {
+  background-color: @base0E;
+}
+#base0F {
+  background-color: @base0F;
 }
 
 /* -- tray -- */

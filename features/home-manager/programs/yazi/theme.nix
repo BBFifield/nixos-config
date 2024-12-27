@@ -3031,7 +3031,7 @@
         {
           name = "lua";
           text = "";
-          fg = "cyan";
+          fg = "blue";
         }
         {
           name = "lhs";

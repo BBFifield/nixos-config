@@ -117,7 +117,7 @@ in {
                   entries =
                     lib.mapAttrsToList (schemeName: schemeValue: {
                       "label" = "${schemeName}";
-                      "exec" = "tintednix ${schemeName} ${schemeValue.variant}";
+                      "exec" = "tintednix update ${schemeName} ${schemeValue.variant}";
                     })
                     config.tintednix.commonColors;
                 in

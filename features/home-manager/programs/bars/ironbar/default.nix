@@ -31,6 +31,40 @@ in {
         xdg.configFile."ironbar/sys_info.sh".source = ./config/sys_info.sh;
         xdg.configFile."ironbar/iron_bluetooth.sh".source = ./config/iron_bluetooth.sh;
       }
+      {
+        systemd.user.services.ironbar-post-start = {
+          Unit = {
+            Description = "Run post-start setup for Ironbar";
+            Requires = ["ironbar.service"];
+            After = ["ironbar.service"];
+          };
+          Service = {
+            Type = "oneshot";
+            ExecStart = "${pkgs.bash}/bin/bash ${(import ./postStart.nix {inherit pkgs;}).postStart}/bin/ironbar-post-start";
+            RemainAfterExit = true;
+          };
+          Install = {
+            WantedBy = ["default.target"];
+          };
+        };
+        # systemd.user.services.ironbar = {
+        #   Unit = {
+        #     Description = "Systemd service for Ironbar";
+        #     Requires = ["graphical-session.target"];
+        #   };
+        #
+        #   Service = {
+        #     Type = "simple";
+        #     ExecStart = lib.mkForce "${pkgs.ironbar}/bin/ironbar";
+        #   };
+        #
+        #   Install.WantedBy = [
+        #     "hyprland-session.target"
+        #     "sway-session.target"
+        #     "river-session.target"
+        #   ];
+        # };
+      }
     ]
   );
 }

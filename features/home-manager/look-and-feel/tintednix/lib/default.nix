@@ -22,18 +22,18 @@ in rec {
   mkTargetFiles = target: let
     configs =
       lib.map (scheme: mkConfigFromTemplate scheme target.value.templateRepo target.value.templateName) (config.tintednix.base16schemes);
-    themeFilesList =
+    schemeFilesList =
       if config.tintednix.targets.${target.name}.live.enable
       then
         lib.map (config: {
-          file."${target.value.path}/themes/${config.schemeName}.${target.value.themeExtension}".source = config.generatedConfig;
+          file."${target.value.path}/color-schemes/${config.schemeName}.${target.value.schemeExtension}".source = config.generatedConfig;
         })
         configs
       else [];
 
-    defaultThemeFile = [
+    defaultSchemeFile = [
       {
-        file."${target.value.path}/${target.value.themeFilename}.${target.value.themeExtension}" = let
+        file."${target.value.path}/${target.value.schemeFilename}.${target.value.schemeExtension}" = let
           defaultConfig = let
             defaultScheme = lib.head (lib.filter (scheme: (scheme.name == config.tintednix.defaultScheme)) config.tintednix.base16schemes);
           in
@@ -45,7 +45,7 @@ in rec {
       }
     ];
   in
-    lib.mkMerge [(lib.foldl' (acc: item: {file = acc.file // item.file;}) {file = {};} (themeFilesList ++ defaultThemeFile))];
+    lib.mkMerge [(lib.foldl' (acc: item: {file = acc.file // item.file;}) {file = {};} (schemeFilesList ++ defaultSchemeFile))];
 
   mkTargetHooks = targets:
     lib.map
@@ -54,7 +54,7 @@ in rec {
       then
         lib.mkMerge [
           (lib.mkBefore ''
-            cp -rf ${cfg.home}/${target.path}/themes/$1.${target.themeExtension} ${cfg.home}/${target.path}/${target.themeFilename}.${target.themeExtension}
+            cp -rf ${cfg.home}/${target.path}/color-schemes/"$arg2".${target.schemeExtension} ${cfg.home}/${target.path}/${target.schemeFilename}.${target.schemeExtension}
           '')
           (
             lib.mkAfter ''${target.live.hooks.hotReload}''

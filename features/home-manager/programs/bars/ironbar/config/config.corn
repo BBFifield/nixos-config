@@ -10,13 +10,6 @@ let {
     favorites = [ "1" "2" "3" ]
   }
   $config_dir = ".config/ironbar"
-    $cairo = {
-        type = "cairo"
-        path = "$config_dir/clock.lua"
-        frequency = 100
-        width = 300
-        height = 300
-    }
 
   $focused = { type = "focused" }
 
@@ -66,7 +59,7 @@ let {
 
   $custom_sys_info = {
     type = "script"
-    cmd = "bash /home/$(whoami)/.config/ironbar/sys_info.sh"
+    cmd = "bash /home/brandon/.config/ironbar/sys_info.sh"
     mode = "poll"
     interval = 5000
   }
@@ -84,7 +77,121 @@ let {
         type = "box"
         orientation = "vertical"
         widgets = [
+          {
+            type = "label"
+            label = "<span  size='medium' weight='ultrabold'>Live Stats</span>"
+          }
           $custom_sys_info
+          {
+            type = "label"
+            label = "\n<span  size='medium' weight='ultrabold'>Theme</span>"
+          }
+          {
+            type = "label"
+            label = "#color_scheme"
+          }
+          {
+            type = "box"
+            orientation = "horizontal"
+            widgets = [
+              {
+                type = "label"
+                name = "base00"
+                label = " "
+                tooltip = "#base00"
+              }
+              {
+                type = "label"
+                name = "base01"
+                label = " "
+                tooltip = "#base01"
+              }
+              {
+                type = "label"
+                name = "base02"
+                label = " "
+                tooltip = "#base02"
+              }
+              {
+                type = "label"
+                name = "base03"
+                label = " "
+                tooltip = "#base03"
+              }
+              {
+                type = "label"
+                name = "base04"
+                label = " "
+                tooltip = "#base04"
+              }
+              {
+                type = "label"
+                name = "base05"
+                label = " "
+                tooltip = "#base05"
+              }
+              {
+                type = "label"
+                name = "base06"
+                label = " "
+                tooltip = "#base06"
+              }
+              {
+                type = "label"
+                name = "base07"
+                label = " "
+                tooltip = "#base07"
+              }
+              {
+                type = "label"
+                name = "base08"
+                label = " "
+                tooltip = "#base08"
+              }
+              {
+                type = "label"
+                name = "base09"
+                label = " "
+                tooltip = "#base09"
+              }
+              {
+                type = "label"
+                name = "base0A"
+                label = " "
+                tooltip = "#base0A"
+              }
+              {
+                type = "label"
+                name = "base0B"
+                label = " "
+                tooltip = "#base0B"
+              }
+              {
+                type = "label"
+                name = "base0C"
+                label = " "
+                tooltip = "#base0C"
+              }
+              {
+                type = "label"
+                name = "base0D"
+                label = " "
+                tooltip = "#base0D"
+              }
+              {
+                type = "label"
+                name = "base0E"
+                label = " "
+                tooltip = "#base0E"
+              }
+              {
+                type = "label"
+                name = "base0F"
+                label = " "
+                tooltip = "#base0F"
+              }
+            ]
+          }
         ]
       }
     ]
@@ -112,19 +219,25 @@ let {
         widgets = [
           {
             type = "label"
-            label = "{{5000:echo 'Connected Devices:' $(bluetoothctl devices Connected | wc -l)}}"
+            label = "<span weight='ultrabold'>{{5000:echo 'Connected Devices:' $(bluetoothctl devices Connected | wc -l)}}</span>"
           }
           {
-            type = "script"
-            name = "bluetooth-script"
-            cmd = "bash /home/$(whoami)/.config/ironbar/iron_bluetooth.sh popup"
-            mode = "poll"
-            interval = 5000
+            type = "box"
+            orientation = "horizontal"
+            widgets = [
+              {
+                type = "script"
+                name = "bluetooth-script"
+                cmd = "bash /home/brandon/.config/ironbar/iron_bluetooth.sh popup"
+                mode = "poll"
+                interval = 5000
+              }
+            ]
           }
           {
             type = "button"
             name = "bluetooth-settings-btn"
-            on_click = "bluetui"
+            on_click = "!alacritty -e bluetui"
             label = "Open Bluetooth Settings"
           }
         ]
@@ -163,12 +276,7 @@ let {
     orientation = "vertical"
     widgets = [
       { type = "label" name = "header" label = "{{echo $(whoami)}}" }
-      { type = "box" orientation = "vertical" name = "profile-pic-box"
-        widgets = [
-          {type = "image" name = "profile-pic" src = $src  size = 80 }
-
-          ]
-      }
+      {type = "image" name = "profile-pic" src = $src  size = 80 }
       {
         type = "box"
         name = "power-actions-box"
@@ -203,7 +311,27 @@ in {
   anchor_to_edges = true
   position = "top"
   icon_theme = "Morewaita"
+  margin.top = 3
+  margin.right = 3
+  margin.left = 3
   ironvar_defaults.show_bluetooth = "true"
+  ironvar_defaults.color_scheme = "default"
+  ironvar_defaults.base00 = "default"
+  ironvar_defaults.base01 = "default"
+  ironvar_defaults.base02 = "default"
+  ironvar_defaults.base03 = "default"
+  ironvar_defaults.base04 = "default"
+  ironvar_defaults.base05 = "default"
+  ironvar_defaults.base06 = "default"
+  ironvar_defaults.base07 = "default"
+  ironvar_defaults.base08 = "default"
+  ironvar_defaults.base09 = "default"
+  ironvar_defaults.base0A = "default"
+  ironvar_defaults.base0B = "default"
+  ironvar_defaults.base0C = "default"
+  ironvar_defaults.base0D = "default"
+  ironvar_defaults.base0E = "default"
+  ironvar_defaults.base0F = "default"
 
   start = $left
   center = $center

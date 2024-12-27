@@ -12,9 +12,9 @@
   isYaml = file: lib.hasSuffix ".yaml" file || lib.hasSuffix ".yml" file;
   withoutYamlExtension = file: lib.removeSuffix ".yml" (lib.removeSuffix ".yaml" file);
   dirEntries = lib.attrNames (builtins.readDir "${base16-schemes}/base16");
-  themeFiles = lib.filter isYaml dirEntries;
-  mkThemePackage = themeFile: let
-    name = lib.removeSuffix ".yaml" (lib.removeSuffix ".yml" themeFile);
+  schemeFiles = lib.filter isYaml dirEntries;
+  mkThemePackage = schemeFile: let
+    name = lib.removeSuffix ".yaml" (lib.removeSuffix ".yml" schemeFile);
   in
     lib.nameValuePair name (stdenvNoCC.mkDerivation {
       inherit name;
@@ -24,10 +24,10 @@
       installPhase = ''
         mkdir -p $out
         runHook preInstall
-        cp --reflink=auto ${base16-schemes}/base16/${themeFile} $out
+        cp --reflink=auto ${base16-schemes}/base16/${schemeFile} $out
         runHook postInstall
       '';
     });
-  themeDerivations = map mkThemePackage themeFiles;
+  schemeDerivations = map mkThemePackage schemeFiles;
 in
-  lib.listToAttrs themeDerivations
+  lib.listToAttrs schemeDerivations

@@ -11,7 +11,7 @@
     $color_border_active: var(--base0B);
     $color_urgent: var(--base08);
     $font-family:
-      ${config.hm.theme.fonts.defaultMonospace} Nerd Font,
+      ${config.hm.theme.fonts.defaultMonospace},
       sans-serif;
 
     @mixin input-field {

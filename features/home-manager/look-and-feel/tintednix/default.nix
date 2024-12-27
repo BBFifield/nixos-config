@@ -100,11 +100,11 @@ in {
             type = lib.types.str;
             default = "";
           };
-          themeFilename = lib.mkOption {
+          schemeFilename = lib.mkOption {
             type = lib.types.str;
             default = "colors";
           };
-          themeExtension = lib.mkOption {
+          schemeExtension = lib.mkOption {
             type = lib.types.str;
             default = "";
           };
@@ -136,11 +136,24 @@ in {
         (lib.mkOrder 5
           ''
             #!/usr/bin/env bash
+            arg1=$1
             directory=${config.home.homeDirectory}/.config
-            next_colorscheme="$1"
-            mode="$2"
+            arg2="$2"
 
-            sed -i "/^current_colorscheme=/c\current_colorscheme=$next_colorscheme" "$directory/tintednix/settings.txt"
+            tintednix=/etc/profiles/per-user/brandon/bin/tintednix
+
+            if [[ $arg1 == "get" ]]; then
+              #echo "$(grep "$arg2=" "$directory/tintednix/settings.txt" | cut -d '=' -f 2)"
+              grep "$arg2=" "$directory/tintednix/settings.txt" | cut -d '=' -f 2
+            elif [[ $arg1 == "update" ]]; then
+              # Clear the contents of the target file
+              sed -i '1,$d' "$directory/tintednix/settings.txt"
+              source_file_content=$(cat "$directory/tintednix/color-schemes/$arg2.txt")
+              gawk -i inplace -v src="$source_file_content" '{ print } ENDFILE { print src }' "$directory/tintednix/settings.txt" || echo "Failed to update settings"
+          '')
+        (lib.mkOrder 2000
+          ''
+            fi
           '')
       ];
       targetHooks' = lib.mkMerge [targetHooks scriptParts];
@@ -148,16 +161,63 @@ in {
       lib.mkMerge [
         {
           home = targetFiles;
-          xdg.configFile."tintednix/settings.txt".text = ''current_colorscheme=${config.tintednix.defaultScheme}'';
+          xdg.configFile."tintednix/settings.txt".text = let
+            bases = commonColors.${config.tintednix.defaultScheme}.colors;
+          in ''
+            color_scheme=${config.tintednix.defaultScheme}
+            base00=#${bases.base00}
+            base01=#${bases.base01}
+            base02=#${bases.base02}
+            base03=#${bases.base03}
+            base04=#${bases.base04}
+            base05=#${bases.base05}
+            base06=#${bases.base06}
+            base07=#${bases.base07}
+            base08=#${bases.base08}
+            base09=#${bases.base09}
+            base0A=#${bases.base0A}
+            base0B=#${bases.base0B}
+            base0C=#${bases.base0C}
+            base0D=#${bases.base0D}
+            base0E=#${bases.base0E}
+            base0F=#${bases.base0F}
+          '';
+        }
+        {
+          home = let
+            schemeFilesList =
+              lib.map (schemeAttrs: {
+                file.".config/tintednix/color-schemes/${schemeAttrs.name}.txt".text = ''
+                  color_scheme=${schemeAttrs.name}
+                  base00=#${schemeAttrs.value.base00}
+                  base01=#${schemeAttrs.value.base01}
+                  base02=#${schemeAttrs.value.base02}
+                  base03=#${schemeAttrs.value.base03}
+                  base04=#${schemeAttrs.value.base04}
+                  base05=#${schemeAttrs.value.base05}
+                  base06=#${schemeAttrs.value.base06}
+                  base07=#${schemeAttrs.value.base07}
+                  base08=#${schemeAttrs.value.base08}
+                  base09=#${schemeAttrs.value.base09}
+                  base0A=#${schemeAttrs.value.base0A}
+                  base0B=#${schemeAttrs.value.base0B}
+                  base0C=#${schemeAttrs.value.base0C}
+                  base0D=#${schemeAttrs.value.base0D}
+                  base0E=#${schemeAttrs.value.base0E}
+                  base0F=#${schemeAttrs.value.base0F}
+                '';
+              })
+              base16schemes;
+          in
+            lib.mkMerge [(lib.foldl' (acc: item: {file = acc.file // item.file;}) {file = {};} schemeFilesList)];
         }
         {
           tintednix.live.hooks.hotReload = targetHooks';
           home.packages = [
-            (pkgs.writeTextFile {
+            (pkgs.writeShellApplication {
               name = "tintednix";
+              runtimeInputs = with pkgs; [bash coreutils gnugrep gnused gawk];
               text = config.tintednix.live.hooks.hotReload; # this bad, i know
-              executable = true;
-              destination = "/bin/tintednix";
             })
           ];
         }

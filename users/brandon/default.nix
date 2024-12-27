@@ -113,7 +113,7 @@ in {
           ref = "master";
         };
         path = ".mozilla";
-        themeExtension = "toml";
+        schemeExtension = "toml";
       };
       hyprland = {
         enable = true;
@@ -128,7 +128,7 @@ in {
         };
         templateName = "colors";
         path = ".config/hypr";
-        themeExtension = "conf";
+        schemeExtension = "conf";
       };
       qutebrowser = {
         enable = true;
@@ -138,9 +138,9 @@ in {
           rev = "6253558595c15c29689b4343de6303f6743f5831";
           ref = "main";
         };
-        themeFilename = "colors";
+        schemeFilename = "colors";
         path = ".config/qutebrowser";
-        themeExtension = "py";
+        schemeExtension = "py";
       };
       alacritty = {
         enable = true;
@@ -152,19 +152,57 @@ in {
         };
         templateName = "default-256";
         path = ".config/alacritty";
-        themeExtension = "toml";
+        schemeExtension = "toml";
       };
       ironbar = {
         enable = true;
         live = {
           enable = true;
           hooks = {
-            hotReload = ''ironbar load-css "$directory/ironbar/style.css"'';
+            hotReload = ''
+              ironbar load-css "$directory/ironbar/style.css"
+              ironbar var set color_scheme "$arg2"
+              ironbar var set base00 "$($tintednix get base00)"
+              ironbar var set base01 "$($tintednix get base01)"
+              ironbar var set base02 "$($tintednix get base02)"
+              ironbar var set base03 "$($tintednix get base03)"
+              ironbar var set base04 "$($tintednix get base04)"
+              ironbar var set base05 "$($tintednix get base05)"
+              ironbar var set base06 "$($tintednix get base06)"
+              ironbar var set base07 "$($tintednix get base07)"
+              ironbar var set base08 "$($tintednix get base08)"
+              ironbar var set base09 "$($tintednix get base09)"
+              ironbar var set base0A "$($tintednix get base0A)"
+              ironbar var set base0B "$($tintednix get base0B)"
+              ironbar var set base0C "$($tintednix get base0C)"
+              ironbar var set base0D "$($tintednix get base0D)"
+              ironbar var set base0E "$($tintednix get base0E)"
+              ironbar var set base0F "$($tintednix get base0F)"
+            '';
             onActivation = ''
               (
                 XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
-                if [[ -S "$XDG_RUNTIME_DIR/ironbar-ipc.sock" ]]; then
-                  ${pkgs.ironbar}/bin/ironbar load-css "${config.home.homeDirectory}/.config/ironbar/style.css"
+                if socat - UNIX-CONNECT:"$XDG_RUNTIME_DIR/ironbar-ipc.sock" 2>/dev/null; then
+                  ironbar=${pkgs.ironbar}/bin/ironbar
+                  tintednix=/etc/profiles/per-user/$(whoami)/bin/tintednix
+                  $ironbar load-css "${config.home.homeDirectory}/.config/ironbar/style.css"
+                  ironbar var set color_scheme "$($tintednix get color_scheme)"
+                  ironbar var set base00 "$($tintednix get base00)"
+                  ironbar var set base01 "$($tintednix get base01)"
+                  ironbar var set base02 "$($tintednix get base02)"
+                  ironbar var set base03 "$($tintednix get base03)"
+                  ironbar var set base04 "$($tintednix get base04)"
+                  ironbar var set base05 "$($tintednix get base05)"
+                  ironbar var set base06 "$($tintednix get base06)"
+                  ironbar var set base07 "$($tintednix get base07)"
+                  ironbar var set base08 "$($tintednix get base08)"
+                  ironbar var set base09 "$($tintednix get base09)"
+                  ironbar var set base0A "$($tintednix get base0A)"
+                  ironbar var set base0B "$($tintednix get base0B)"
+                  ironbar var set base0C "$($tintednix get base0C)"
+                  ironbar var set base0D "$($tintednix get base0D)"
+                  ironbar var set base0E "$($tintednix get base0E)"
+                  ironbar var set base0F "$($tintednix get base0F)"
                 fi
               )
             '';
@@ -176,7 +214,7 @@ in {
           ref = "main";
         };
         path = ".config/ironbar";
-        themeExtension = "css";
+        schemeExtension = "css";
       };
       walker = {
         enable = true;
@@ -192,13 +230,13 @@ in {
         templateName = "css-variables";
 
         path = ".config/walker/themes";
-        themeExtension = "css";
+        schemeExtension = "css";
       };
       shell = {
         enable = true;
         live = {
           enable = true;
-          hooks.hotReload = "sh ~/.config/bash/colors.sh";
+          hooks.hotReload = "sh ~/.config/shell/colors.sh";
         };
         templateRepo = {
           url = "https://github.com/tinted-theming/tinted-shell.git";
@@ -207,7 +245,7 @@ in {
         };
         templateName = "base16";
         path = ".config/shell";
-        themeExtension = "sh";
+        schemeExtension = "sh";
       };
     };
   };

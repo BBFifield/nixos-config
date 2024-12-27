@@ -78,7 +78,7 @@ in {
         let
           settings = {
             source = [
-              "${config.home.homeDirectory}/.config/hypr/${config.tintednix.targets.hyprland.themeFilename}.conf"
+              "${config.home.homeDirectory}/.config/hypr/${config.tintednix.targets.hyprland.schemeFilename}.conf"
               "${config.home.homeDirectory}/.config/hypr/tintednix_binding.conf"
             ];
             exec-once =
@@ -114,8 +114,8 @@ in {
               "opacity 0.95 override 0.90 override, class:^(dev.benz.walker)$"
             ];
           };
-          mkScriptBinding = theme: mode: {
-            bind = "SUPER, T, exec, tintednix ${theme} ${mode}";
+          mkScriptBinding = color_scheme: {
+            bind = "SUPER, T, exec, tintednix update ${color_scheme}";
           };
 
           schemeAttrs = config.tintednix.commonColors;
@@ -130,10 +130,9 @@ in {
               if nextScheme != null
               then nextScheme
               else lib.elemAt schemeNames 0;
-            nextMode = schemeAttrs.${nextScheme'}.variant;
           in
             lib.hm.generators.toHyprconf {
-              attrs = mkScriptBinding nextScheme' nextMode;
+              attrs = mkScriptBinding nextScheme';
               inherit (config.wayland.windowManager.hyprland) importantPrefixes;
             };
 
@@ -186,7 +185,7 @@ in {
               {
                 tintednix.live.hooks.hotReload = lib.mkMerge [
                   ''
-                    cp -rf "$directory/hypr/tintednix_bindings/$1.conf" "$directory/hypr/tintednix_binding.conf"
+                    cp -rf "$directory/hypr/tintednix_bindings/$arg2.conf" "$directory/hypr/tintednix_binding.conf"
                   ''
                 ];
               }

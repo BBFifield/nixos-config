@@ -39,7 +39,7 @@ in {
         enable = true;
         settings = lib.mkMerge [
           {
-            general.import = ["${config.home.homeDirectory}/.config/alacritty/${config.tintednix.targets.alacritty.themeFilename}.toml"];
+            general.import = ["${config.home.homeDirectory}/.config/alacritty/${config.tintednix.targets.alacritty.schemeFilename}.toml"];
             env = {
               TERM = "xterm-256color";
             };

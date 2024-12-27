@@ -862,17 +862,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1734490200,
-        "narHash": "sha256-z/77Q1pq4kwpKAGjyyvM23UtQElV6fs3QO/w+LIycsU=",
-        "ref": "refs/heads/master",
-        "rev": "dc3a76c14ce3b610a2cb7b4b333f68d03089cf6b",
-        "revCount": 25,
-        "type": "git",
-        "url": "file:///home/brandon/nvim-config"
+        "lastModified": 1735267507,
+        "narHash": "sha256-OaYEHE2LsfutOTgCYVxaxXR468ZsP8+4lOs9g4nChJA=",
+        "owner": "BBFifield",
+        "repo": "neovim-config",
+        "rev": "86512d29adfb75deacf68ee2da62d6c9002a0b35",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/brandon/nvim-config"
+        "owner": "BBFifield",
+        "repo": "neovim-config",
+        "type": "github"
       }
     },
     "nixlib": {
