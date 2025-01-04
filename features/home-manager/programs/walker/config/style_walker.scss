@@ -1,13 +1,8 @@
-$color_1: #c6d0f5;
-$color_2: #7f849c;
-$color_3: #89b4fa;
-$color_4: #cad3f5;
-
-$color_text: var(--base07);
+$color_text: var(--base0D);
 $color_text_field: var(--base02);
-$color_bg: var(--base00);
-$color_btn_hover_bg: var(--base07);
-$color_btn_hover_fg: var(--base07);
+$color_bg: var(--base01);
+$color_btn_hover_bg: var(--base0D);
+$color_btn_hover_fg: var(--base0D);
 $color_border: var(--base03);
 $color_active_workspace: var(--base0E);
 $color_inactive_workspace: var(--base0F);
@@ -49,7 +44,7 @@ $font-family:
 }
 #search {
   all: unset;
-  border-radius: 8px;
+  border-radius: 25px;
   padding: 8px 0px 8px 0px;
   background: $color_text_field;
 }
@@ -96,21 +91,17 @@ $font-family:
   box-shadow: none;
   color: $color_btn_hover_fg;
   label {
-    color: $color_btn_hover_fg;
-  }
-  #sub {
-    color: $color_btn_hover_fg;
-  }
-  #activationlabel {
-    color: $color_btn_hover_fg;
+    font-weight: bold;
   }
 }
 
 child {
   all: unset;
-  border-radius: 8px;
+  border-radius: 25px;
   color: $color_btn_hover_fg;
-  padding: 4px;
+  padding: 8px;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
   &:selected {
     @include highlightLabels;
   }
@@ -119,6 +110,7 @@ child {
     @include highlightLabels;
   }
 }
+
 scrollbar {
   all: unset;
   background: none;
@@ -130,19 +122,13 @@ slider {
   background: $color_text;
   opacity: 0.5;
 }
-label {
-  all: unset;
-  font-weight: normal;
-  color: $color_text;
-}
+
 #sub {
   all: unset;
   opacity: 0.6;
-  color: $color_text;
 }
 #activationlabel {
   all: unset;
   opacity: 0.6;
   padding-right: 4px;
-  color: $color_text;
 }

@@ -18,7 +18,7 @@
     hyprland = {
       hyprland.enable = true;
       hyprland.shell = "tintednix";
-      displayManager = "sddm";
+      displayManager = "ly";
       nautilus.enable = true;
     };
     plasma = {
@@ -121,7 +121,6 @@ in {
           overlays.defaults
           ++ (with overlays; [
             nonFlakeSrcs
-            #neovimConfig
             vivaldiFixed
             firefox-native-base16
             customPkgs
@@ -148,7 +147,7 @@ in {
         #jack.enable = true;
 
         # use the example session manager (no others are packaged yet so this is enabled by default,
-        # no need to redefine it in your config for now)i
+        # no need to redefine it in your config for now)
         #media-session.enable = true;
         wireplumber = {
           enable = true;

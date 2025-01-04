@@ -1,7 +1,10 @@
-{pkgs}: {
+{
+  config,
+  pkgs,
+}: {
   postStart = pkgs.writeShellApplication {
-    name = "ironbar-post-start";
-    runtimeInputs = with pkgs; [bash ironbar coreutils socat];
+    name = "ironbar_post_start";
+    runtimeInputs = with pkgs; [bash config.programs.ironbar.package coreutils socat];
     text = ''
       #!/usr/bin/env bash
 
@@ -37,6 +40,9 @@
           ironbar var set base0D "$($tintednix get base0D)"
           ironbar var set base0E "$($tintednix get base0E)"
           ironbar var set base0F "$($tintednix get base0F)"
+          if [[ ! -f /home/brandon/ironbar_log.txt ]]; then
+            touch /home/brandon/ironbar_log.txt
+          fi
           exit 0
         else
           echo "Ironbar IPC server not available. Retrying in $DELAY seconds..."
@@ -45,7 +51,9 @@
         sleep $DELAY
         RETRIES=$((RETRIES+1))
       done
-
+      if [[ ! -f /home/brandon/ironbar_log.txt ]]; then
+        touch /home/brandon/ironbar_log.txt
+      fi
       echo "Failed to connect to Ironbar IPC server after $MAX_RETRIES retries. Exiting."
       exit 1
     '';

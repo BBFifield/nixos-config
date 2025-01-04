@@ -13,9 +13,6 @@ with lib; let
         default = null;
         description = "Choose a customized shell.";
       };
-      live = lib.mkOption {
-        type = (import ../../../submodules {inherit lib;}).live;
-      };
       baseConfig = mkOption {
         type = types.attrs;
         default = {};
@@ -83,9 +80,10 @@ in {
             ];
             exec-once =
               [
-                "wpaperd -d"
-                "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-                "swaync"
+                "uwsm app -- wpaperd -d"
+                "uwsm app -- swaync"
+                "uwsm app -t service -u ironbar.service -- ${config.programs.ironbar.package}/bin/ironbar"
+                "uwsm app -t service -u walker.service -- ${config.programs.walker.package}/bin/walker --gapplication-service"
               ]
               ++ (lib.optionals (config.hm.gBar.enable) ["gBar bar 0"]);
 
@@ -110,7 +108,7 @@ in {
             ];
             windowrulev2 = [
               "stayfocused, class:^(dev.benz.walker)$"
-              "size ${builtins.toString (config.hm.walker.width + 30)} ${builtins.toString (config.hm.walker.height + 75)}, class:^(dev.benz.walker)$" #Needs to be add up to width and height plus total padding to fit inside window
+              #"size ${builtins.toString (config.hm.walker.width + 30)} ${builtins.toString (config.hm.walker.height + 75)}, class:^(dev.benz.walker)$" #Needs to be add up to width and height plus total padding to fit inside window
               "opacity 0.95 override 0.90 override, class:^(dev.benz.walker)$"
             ];
           };

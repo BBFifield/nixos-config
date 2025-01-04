@@ -31,15 +31,11 @@ in {
     lib.mkMerge [
       ###### BASE CONFIG ######
       {
-        live.enable = true;
         hidpi.enable = sysCfg.desktop.hidpi.enable;
 
         browsers.firefox.enable = true;
         vscodium.enable = true;
-        neovim = {
-          enable = true;
-          pluginManager = "lazy";
-        };
+        neovim.enable = true;
         theme = {
           gtkTheme.name = "adw-gtk3-dark";
           fonts.defaultMonospace = sysCfg.desktop.theme.fonts.defaultMonospace;
@@ -74,24 +70,15 @@ in {
       })
       ###### HYPRLAND CONFIG ######
       (lib.optionalAttrs (sysCfg.desktop.hyprland.enable) {
-        browsers.firefox = {
-          style = "hyprland";
-          live.enable = true;
-        };
+        browsers.firefox.style = "hyprland";
         dconf.enable = true;
-        yazi.live.enable = true;
         theme = {
           gtkTheme.name = "adw-gtk3-dark";
           iconTheme = "MoreWaita";
         };
         hyprland = lib.mkMerge [
           {enable = true;}
-          (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "tintednix") {
-            shell = {
-              name = "tintednix";
-              live.enable = true;
-            };
-          })
+          (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "tintednix") {shell.name = "tintednix";})
           (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "asztal") {shell = "asztal";})
           (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "hyprpanel") {shell = "hyprpanel";})
         ];
@@ -180,31 +167,8 @@ in {
               ironbar var set base0F "$($tintednix get base0F)"
             '';
             onActivation = ''
-              (
-                XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
-                if socat - UNIX-CONNECT:"$XDG_RUNTIME_DIR/ironbar-ipc.sock" 2>/dev/null; then
-                  ironbar=${pkgs.ironbar}/bin/ironbar
-                  tintednix=/etc/profiles/per-user/$(whoami)/bin/tintednix
-                  $ironbar load-css "${config.home.homeDirectory}/.config/ironbar/style.css"
-                  ironbar var set color_scheme "$($tintednix get color_scheme)"
-                  ironbar var set base00 "$($tintednix get base00)"
-                  ironbar var set base01 "$($tintednix get base01)"
-                  ironbar var set base02 "$($tintednix get base02)"
-                  ironbar var set base03 "$($tintednix get base03)"
-                  ironbar var set base04 "$($tintednix get base04)"
-                  ironbar var set base05 "$($tintednix get base05)"
-                  ironbar var set base06 "$($tintednix get base06)"
-                  ironbar var set base07 "$($tintednix get base07)"
-                  ironbar var set base08 "$($tintednix get base08)"
-                  ironbar var set base09 "$($tintednix get base09)"
-                  ironbar var set base0A "$($tintednix get base0A)"
-                  ironbar var set base0B "$($tintednix get base0B)"
-                  ironbar var set base0C "$($tintednix get base0C)"
-                  ironbar var set base0D "$($tintednix get base0D)"
-                  ironbar var set base0E "$($tintednix get base0E)"
-                  ironbar var set base0F "$($tintednix get base0F)"
-                fi
-              )
+              ${pkgs.bash}/bin/bash ${(import ../../features/home-manager/programs/bars/ironbar/postStart.nix {inherit config pkgs;}).postStart}/bin/ironbar_post_start
+              ${config.programs.ironbar.package}/bin/ironbar load-css "/home/$(whoami)/.config/ironbar/style.css"
             '';
           };
         };
@@ -220,7 +184,7 @@ in {
         enable = true;
         live = {
           enable = true;
-          hooks.hotReload = ''walker --theme style'';
+          # hooks.hotReload = ''walker --theme style'';
         };
         templateRepo = {
           url = "https://github.com/samme/base16-styles.git";

@@ -10,12 +10,10 @@
 
 @keyframes slide-down {
   from {
-    margin-top: -80px;
-    padding: 0px;
+    margin: -140px 20px 20px 20px;
   }
   to {
-    margin-top: 0px;
-    padding: 20px;
+    margin: 10px 20px 20px 20px;
   }
 }
 
@@ -26,11 +24,14 @@
 }
 #topbar {
   background-color: transparent;
-  min-height: 5px;
 }
 
 #bar {
   border: 1px solid @base00;
+  margin: 5px 15px 10px 15px;
+  box-shadow:
+    0 2px 3px 0 rgba(0, 0, 0, 0.5),
+    0 3px 4px 0 rgba(0, 0, 0, 0.4);
 }
 
 .background {
@@ -39,30 +40,29 @@
 
 window {
   border-radius: 50px;
+  background-color: transparent;
 }
 
 box {
-  border-radius: 50px;
-  background-color: @base01;
   background-image: none;
   box-shadow: none;
+  border-radius: 50px;
+  background-color: @base01;
 }
 
 menubar {
-  background-color: @base01;
   background-image: none;
   box-shadow: none;
+  background-color: @base01;
 }
 
 button {
-  transition-timing-function: linear;
-  background-color: @base02;
   background-image: none;
   box-shadow: none;
+  transition-timing-function: linear;
+  background-color: @base02;
   color: @base0D;
-  box-shadow: none;
   border-radius: 50px;
-  min-height: 10px;
   padding: 0px 10px 0px 10px;
 }
 button .item {
@@ -94,21 +94,36 @@ scale trough {
   min-width: 1px;
   min-height: 2px;
 }
+tooltip {
+  background-color: transparent;
+  border: 0px;
+  text-shadow: none;
+}
+
+tooltip > *:last-child {
+  border: 1px solid @base0D;
+  margin: 0px 15px 20px 15px;
+  box-shadow:
+    0 4px 6px 2px rgba(0, 0, 0, 0.5),
+    0 6px 10px 2px rgba(0, 0, 0, 0.4);
+}
 .popup {
+  transition-property: none;
   border: 1px solid @base0D;
   border-radius: 10px;
-  /*padding: 1em;*/
   animation-name: slide-down;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: linear;
   animation-duration: 0.2s;
   animation-fill-mode: forwards;
+  padding: 20px;
+  box-shadow:
+    0 4px 6px 2px rgba(0, 0, 0, 0.5),
+    0 6px 10px 2px rgba(0, 0, 0, 0.4);
 }
 
 /* -- clock -- */
 .clock {
   font-weight: bold;
-  /*border-radius: 50px 0px 0px 50px;*/
-  /*border-right: 1.1px dotted @base0D;*/
 }
 .popup-clock .calendar-clock {
   color: @base0D;
@@ -200,13 +215,13 @@ scale trough {
   opacity: 0.7;
 }
 
-/*.script {*/
-/*  padding-left: 10px;*/
-/*}*/
-
 /* -- sys_info -- */
 .sysinfo {
   background-color: @base02;
+}
+.header {
+  border-bottom: 1px dotted @base0D;
+  margin-bottom: 5px;
 }
 #base00 {
   background-color: @base00;
@@ -289,11 +304,11 @@ scale trough {
   border-radius: 0%;
 }
 radiobutton radio:checked {
+  -gtk-icon-source: none;
+  background-image: none;
   background-color: @base09;
   border-color: @base09;
   background-clip: padding-box;
-  -gtk-icon-source: none;
-  background-image: none;
 }
 
 /* -- Volume -- */
@@ -357,13 +372,18 @@ radiobutton radio:checked {
   background-color: @base0A;
   color: @base01;
   font-weight: bold;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
 }
 #gtk-combobox-popup-menu menuitem:hover cellview {
   font-weight: bold;
   color: @base01;
 }
-.csd decoration {
-  box-shadow: none;
+.csd.background.popup decoration {
+  margin: 20px 30px 30px 30px;
+  box-shadow:
+    0 4px 6px 2px rgba(0, 0, 0, 0.01),
+    0 6px 10px 2px rgba(0, 0, 0, 0.01);
 }
 
 /* -- workspaces -- */

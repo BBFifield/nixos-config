@@ -1,7 +1,7 @@
 # This file is based on the following comment by jonathan-conder:
 # https://github.com/NixOS/nixpkgs/issues/163080#issuecomment-1722465663
 # The original comment has the limitation that updates to icons would not
-# necessarily be picked up. This should be rectified by user github:Cu3PO42's version.
+# necessarily be picked up. This should be rectified by user github:Cu3PO42's version, with modifications made by myself to ensur GDM, SDDM, and asztal greetd user-icons are supported.
 {
   config,
   lib,
@@ -44,7 +44,7 @@ in {
     system.activationScripts = {
       user_Icons = {
         text = ''
-          cp -rf /run/current-system/sw${userIconsPath}/* /var/lib/AccountsService/icons/
+          cp -rf ${icons}${userIconsPath}/* /var/lib/AccountsService/icons/
         '';
       };
     };

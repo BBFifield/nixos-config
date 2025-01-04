@@ -133,10 +133,10 @@ with lib; let
       arr = [1 2 3 4 5 6 7];
     in
       [
-        "SUPER, W, exec, ${config.hm.browsers.defaultBrowser}"
-        "SUPER, F, exec, [workspace 3] alacritty -e yazi"
-        "SUPER, E, exec, alacritty"
-        "SUPER, C, exec, [workspace 1] alacritty -e nvim"
+        "SUPER, W, exec, [workspace 2] uwsm app -- ${config.hm.browsers.defaultBrowser}"
+        "SUPER, F, exec, [workspace 3] uwsm app -- alacritty -e yazi"
+        "SUPER, E, exec, uwsm app -- alacritty"
+        "SUPER, C, exec, [workspace 1] uwsm app -- alacritty -e nvim"
 
         # youtube
         ", XF86Launch1,  exec, ${yt}"
@@ -256,7 +256,7 @@ in {
             name = "Settings";
             comment = "Gnome Control Center";
             icon = "org.gnome.Settings";
-            exec = "env XDG_CURRENT_DESKTOP=gnome ${pkgs.gnome-control-center}/bin/gnome-control-center";
+            exec = "uwsm app -- env XDG_CURRENT_DESKTOP=gnome ${pkgs.gnome-control-center}/bin/gnome-control-center";
             categories = ["X-Preferences"];
             terminal = false;
           };
@@ -316,6 +316,9 @@ in {
             ];
           };
         };
+      }
+      {
+        systemd.user.services.hypridle.Unit.After = lib.mkForce "graphical-session.target";
       }
       {
         wayland.windowManager.hyprland = {

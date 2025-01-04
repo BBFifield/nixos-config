@@ -1,10 +1,10 @@
 {config, ...}: {
   style = ''
-    $color_text: var(--base07);
+    $color_text: var(--base0D);
     $color_text_field: var(--base02);
-    $color_bg: var(--base00);
-    $color_btn_hover_bg: var(--base07);
-    $color_btn_hover_fg: var(--base07);
+    $color_bg: var(--base01);
+    $color_btn_hover_bg: var(--base0D);
+    $color_btn_hover_fg: var(--base01);
     $color_border: var(--base03);
     $color_active_workspace: var(--base0E);
     $color_inactive_workspace: var(--base0F);
@@ -17,8 +17,7 @@
     @mixin input-field {
       all: unset;
       background: $color_text_field;
-      border-radius: 0px;
-      border-radius: 32px;
+      border-radius: 25px;
       color: $color_text;
       padding-left: 12px;
       padding-right: 12px;
@@ -39,14 +38,14 @@
       all: unset;
       background: $color_bg;
       padding: 16px;
-      border-radius: 8px;
+      border-radius: 10px;
       box-shadow:
         0 19px 38px rgba(0, 0, 0, 0.3),
         0 15px 12px rgba(0, 0, 0, 0.22);
     }
     #search {
       all: unset;
-      border-radius: 8px;
+      border-radius: 25px;
       padding: 8px 0px 8px 0px;
       background: $color_text_field;
     }
@@ -57,11 +56,11 @@
       @include input-field;
       > * {
         &:first-child {
-          color: $color_btn_hover_fg;
+          color: $color_text;
           margin-right: 7px;
         }
         &:last-child {
-          color: $color_btn_hover_fg;
+          color: $color_text;
         }
       }
       placeholder {
@@ -93,29 +92,26 @@
       box-shadow: none;
       color: $color_btn_hover_fg;
       label {
-        color: $color_bg;
-      }
-      #sub {
-        color: $color_bg;
-      }
-      #activationlabel {
-        color: $color_btn_hover_fg;
+        font-weight: bold;
       }
     }
 
     child {
       all: unset;
-      border-radius: 8px;
-      color: $color_btn_hover_fg;
-      padding: 4px;
+      border-radius: 25px;
+      color: $color_text;
+      padding: 8px;
+      transition-duration: 0.2s;
+      transition-timing-function: linear;
       &:selected {
         @include highlightLabels;
       }
-
       &:hover {
         @include highlightLabels;
       }
     }
+
+
     scrollbar {
       all: unset;
       background: none;
@@ -127,21 +123,15 @@
       background: $color_text;
       opacity: 0.5;
     }
-    label {
-      all: unset;
-      font-weight: normal;
-      color: $color_text;
-    }
+
     #sub {
       all: unset;
       opacity: 0.6;
-      color: $color_text;
     }
     #activationlabel {
       all: unset;
       opacity: 0.6;
       padding-right: 4px;
-      color: $color_text;
     }
   '';
 }

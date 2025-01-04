@@ -1,9 +1,7 @@
-@import url("colors.css");
+@import url('file:///home/brandon/.config/walker/themes/colors.css');
 
 * {
-  font-family:
-    JetBrainsMono Nerd Font,
-    sans-serif;
+  font-family: JetBrainsMono Nerd Font, sans-serif;
   font-weight: normal;
   font-size: 14px;
 }
@@ -15,70 +13,68 @@
 
 #box {
   all: unset;
-  background: @base00;
+  background: var(--base01);
   padding: 16px;
   border-radius: 8px;
-  box-shadow:
-    0 19px 38px rgba(0, 0, 0, 0.3),
-    0 15px 12px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
 #search {
   all: unset;
-  border-radius: 8px;
+  border-radius: 25px;
   padding: 8px 0px 8px 0px;
-  background: @base02;
+  background: var(--base02);
 }
 
 #password {
   all: unset;
-  background: @base02;
+  background: var(--base02);
   border-radius: 0px;
   border-radius: 32px;
-  color: @base07;
+  color: var(--base07);
   padding-left: 12px;
   padding-right: 12px;
-  background: none;
+  /* background: none;*/
 }
 
 #input {
   all: unset;
-  background: @base02;
+  background: var(--base02);
   border-radius: 0px;
   border-radius: 32px;
-  color: @base07;
+  color: var(--base0D);
   padding-left: 12px;
   padding-right: 12px;
-  background: none;
+  /* background: none;*/
 }
 #input > *:first-child {
-  color: @base00;
+  color: var(--base0D);
   margin-right: 7px;
 }
 #input > *:last-child {
-  color: @base00;
+  color: var(--base0D);
 }
-#input placeholder {
-  opacity: 0.5;
-}
+/*#input placeholder {*/
+/*  opacity: 0.5;*/
+/*}*/
 
 #typeahead {
   all: unset;
-  background: @base02;
+  background: var(--base02);
   border-radius: 0px;
   border-radius: 32px;
-  color: @base07;
+  color: var(--base07);
   padding-left: 12px;
   padding-right: 12px;
-  background: none;
+  /* background: none;*/
   opacity: 0.5;
 }
 #typeahead > *:first-child {
-  color: @base07;
+  color: var(--base07);
   margin-right: 7px;
 }
 #typeahead > *:last-child {
-  color: @base07;
+  color: var(--base07);
 }
 
 #spinner {
@@ -91,38 +87,26 @@
 
 child {
   all: unset;
-  border-radius: 8px;
-  color: @base00;
-  padding: 4px;
+  border-radius: 25px;
+  color: var(--base0D);
+  padding: 8px;
 }
 child:selected {
-  background: @base07;
+  background: var(--base0D);
   box-shadow: none;
-  color: @base00;
-}
-child:selected label {
-  color: @base00;
-}
-child:selected #sub {
-  color: @base00;
-}
-child:selected #activationlabel {
-  color: @base00;
+  color: var(--base01);
 }
 child:hover {
-  background: @base07;
+  background: var(--base0D);
   box-shadow: none;
-  color: @base00;
+  color: var(--base01);
 }
-child:hover label {
-  color: @base00;
+child:selected label, child:hover label {
+  /*color: var(--base01);*/
+  font-weight: bold;
 }
-child:hover #sub {
-  color: @base00;
-}
-child:hover #activationlabel {
-  color: @base00;
-}
+
+
 
 scrollbar {
   all: unset;
@@ -133,27 +117,20 @@ scrollbar {
 slider {
   all: unset;
   min-width: 2px;
-  background: @base07;
+  background: var(--base07);
   opacity: 0.5;
 }
 
-label {
-  all: unset;
-  font-weight: normal;
-  color: @base07;
-}
 
 #sub {
   all: unset;
   opacity: 0.6;
-  color: @base07;
 }
 
 #activationlabel {
   all: unset;
   opacity: 0.6;
   padding-right: 4px;
-  color: @base07;
 }
 
 /*# sourceMappingURL=style.css.map */

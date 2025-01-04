@@ -57,9 +57,10 @@ let {
     ]
   }
 
-  $custom_sys_info = {
+  $stats = {
     type = "script"
-    cmd = "bash /home/brandon/.config/ironbar/sys_info.sh"
+    class = "info-script"
+    cmd = "bash /home/$(whoami)/.config/ironbar/stats.sh"
     mode = "poll"
     interval = 5000
   }
@@ -79,16 +80,30 @@ let {
         widgets = [
           {
             type = "label"
+            class = "header"
             label = "<span  size='medium' weight='ultrabold'>Live Stats</span>"
           }
-          $custom_sys_info
+          {
+            type = "box"
+            orientation = "horizontal"
+            widgets = [
+              $stats
+            ]
+          }
           {
             type = "label"
+            class = "header"
             label = "\n<span  size='medium' weight='ultrabold'>Theme</span>"
           }
           {
-            type = "label"
-            label = "#color_scheme"
+            type = "box"
+            orientation = "horizontal"
+            widgets = [
+              {
+                type = "label"
+                label = "#color_scheme"
+              }
+            ]
           }
           {
             type = "box"
@@ -192,6 +207,19 @@ let {
               }
             ]
           }
+          {
+            type = "label"
+            class = "header"
+            name = "system_info_header"
+            label = "\n<span  size='medium' weight='ultrabold'>System Info</span>"
+          }
+          {
+            type = "script"
+            class = "info-script"
+            cmd = "bash /home/$(whoami)/.config/ironbar/sys_info.sh"
+            mode = "poll"
+            interval = 600000
+          }
         ]
       }
     ]
@@ -282,7 +310,7 @@ let {
         name = "power-actions-box"
         widgets = [
           // {type = "box" class = "spacer-box" }
-          { type = "button" class="power-btn" label = "<span font-size='25pt'>󰗽</span>" on_click = "!pkill -U $(echo $(whoami))" }
+          { type = "button" class="power-btn" label = "<span font-size='25pt'>󰗽</span>" on_click = "!loginctl terminate-user ''''" }
           { type = "button" class="power-btn" label = "<span font-size='25pt'>󰌾</span>" on_click = "!~/.config/hypr/start_hyprlock.sh" }
           { type = "button" class="power-btn" label = "<span font-size='25pt'>󰐥</span>" on_click = "!shutdown now" }
           { type = "button" class="power-btn" label = "<span font-size='25pt'>󰜉</span>" on_click = "!reboot" }
@@ -311,9 +339,7 @@ in {
   anchor_to_edges = true
   position = "top"
   icon_theme = "Morewaita"
-  margin.top = 3
-  margin.right = 3
-  margin.left = 3
+
   ironvar_defaults.show_bluetooth = "true"
   ironvar_defaults.color_scheme = "default"
   ironvar_defaults.base00 = "default"

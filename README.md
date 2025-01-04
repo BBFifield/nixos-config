@@ -1,16 +1,22 @@
 # nix-config
 
-Feel free to use parts of this repo as part of your nixos configuration in whatever way you want. 
+Feel free to use parts of this repo as part of your nixos configuration in whatever way you want.
 
 Currently, there's a primary focus to organize declarations according to host and desktop environment.
+
+It's currently required to start UWSM Hyprland via the following command from a shell since attempting to do so via display-manager results in an immediate logout.
+
+```bash
+uwsm start -S -F /run/current-system/sw/bin/Hyprland
+```
 
 ## Outputs:
 
 There are several outputs provided by this flake. If you want to utilize any of them inside your flake, just follow the instructions below.
 
-The first step is to add this repository to inputs inside your flake. 
+The first step is to add this repository to inputs inside your flake.
 
-```nix 
+```nix
 inputs.<my-repo> = {
   url = "github:/BBFifield/nix-config";
 };

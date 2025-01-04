@@ -82,8 +82,22 @@ in {
       (mkIf (cfg.hyprland.enable) (
         mkMerge [
           {
+            programs.uwsm = {
+              enable = true;
+              waylandCompositors = {
+                hyprland = {
+                  prettyName = "Hyprland";
+                  comment = "Hyprland compositor managed by UWSM";
+                  binPath = "/run/current-system/sw/bin/Hyprland";
+                };
+              };
+            };
             # Enable the hyprland "desktop environment"
-            programs.hyprland.enable = true;
+            programs.hyprland = {
+              enable = true;
+              # withUWSM = true;
+              #systemd.setPath.enable = true;
+            };
             environment.systemPackages = with pkgs; [
               bun
               gnome-tweaks
@@ -94,15 +108,15 @@ in {
 
             security = {
               polkit.enable = true;
-              pam.services.ags = {};
+              # pam.services.ags = {};
             };
 
             systemd = {
               user.services.polkit-gnome-authentication-agent-1 = {
                 description = "polkit-gnome-authentication-agent-1";
-                wantedBy = ["graphical-session.target"];
-                wants = ["graphical-session.target"];
-                after = ["graphical-session.target"];
+                wantedBy = ["wayland-wm@Hyprland.service"];
+                wants = ["wayland-wm@Hyprland.service"];
+                after = ["wayland-wm@Hyprland.service"];
                 serviceConfig = {
                   Type = "simple";
                   ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
@@ -121,10 +135,8 @@ in {
               power-profiles-daemon.enable = true;
               accounts-daemon.enable = true;
               gnome = {
-                evolution-data-server.enable = true;
                 glib-networking.enable = true;
                 gnome-keyring.enable = true;
-                gnome-online-accounts.enable = true;
                 localsearch.enable = true;
                 tinysparql.enable = true;
               };

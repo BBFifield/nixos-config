@@ -10,7 +10,7 @@ with lib; let
 in {
   options.nixos.desktop = {
     displayManager = mkOption {
-      type = with types; nullOr (enum ["sddm" "gdm" "greetd"]);
+      type = with types; nullOr (enum ["sddm" "gdm" "greetd" "ly"]);
       default = null;
       example = "sddm";
       description = mdDoc "Choose the preferred display-manager.";
@@ -75,6 +75,16 @@ in {
     (mkIf (cfg.displayManager == "greetd") {
       services.greetd = {
         enable = true;
+      };
+    })
+
+    (mkIf (cfg.displayManager == "ly") {
+      services.displayManager.ly = {
+        enable = true;
+        settings = {
+          # login_cmd = ''exec "$@" && systemctl --user stop nixos-fake-graphical-session.target'';
+          session_log = "/home/brandon/ly-session.log";
+        };
       };
     })
   ];

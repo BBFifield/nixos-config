@@ -2,71 +2,68 @@
   theme = {
     manager = {
       cwd = {fg = "green";};
-    };
+      hovered = {
+        fg = "black";
+        bg = "blue";
+      };
+      preview_hovered = {
+        fg = "black";
+        bg = "gray";
+      };
 
-    hovered = {
-      fg = "black";
-      bg = "blue";
-    };
-    preview_hovered = {
-      fg = "black";
-      bg = "gray";
-    };
+      find_keyword = {
+        fg = "yellow";
+        italic = true;
+      };
+      find_position = {
+        fg = "red";
+        bg = "reset";
+        italic = true;
+      };
 
-    find_keyword = {
-      fg = "yellow";
-      italic = true;
-    };
-    find_position = {
-      fg = "red";
-      bg = "reset";
-      italic = true;
-    };
+      marker_copied = {
+        fg = "green";
+        bg = "green";
+      };
+      marker_cut = {
+        fg = "red";
+        bg = "red";
+      };
+      marker_marked = {
+        fg = "green";
+        bg = "red";
+      };
+      marker_selected = {
+        fg = "blue";
+        bg = "blue";
+      };
 
-    marker_copied = {
-      fg = "green";
-      bg = "green";
-    };
-    marker_cut = {
-      fg = "red";
-      bg = "red";
-    };
-    marker_marked = {
-      fg = "green";
-      bg = "red";
-    };
-    marker_selected = {
-      fg = "blue";
-      bg = "blue";
-    };
+      tab_active = {
+        fg = "black";
+        bg = "gray";
+      };
+      tab_inactive = {
+        fg = "gray";
+        bg = "darkgray";
+      };
+      tab_width = 1;
 
-    tab_active = {
-      fg = "black";
-      bg = "gray";
-    };
-    tab_inactive = {
-      fg = "gray";
-      bg = "darkgray";
-    };
-    tab_width = 1;
+      count_copied = {
+        fg = "black";
+        bg = "green";
+      };
+      count_cut = {
+        fg = "black";
+        bg = "red";
+      };
+      count_selected = {
+        fg = "black";
+        bg = "blue";
+      };
 
-    count_copied = {
-      fg = "black";
-      bg = "green";
+      border_symbol = "│";
+      border_style = {fg = "blue";};
     };
-    count_cut = {
-      fg = "black";
-      bg = "red";
-    };
-    count_selected = {
-      fg = "black";
-      bg = "blue";
-    };
-
-    border_symbol = "│";
-    border_style = {fg = "gray";};
-
-    syntect_theme = "~/.config/yazi/Catppuccin-mocha.tmTheme";
 
     mode = {
       normal_main = {

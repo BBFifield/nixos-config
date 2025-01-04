@@ -1,36 +1,11 @@
-#!/usr/bin/env bash
+distro_name_version="$(grep -w "NAME" "/etc/os-release" | cut -d '=' -f 2) $(grep -w "VERSION_ID" "/etc/os-release" | cut -d '=' -f 2 | tr -d '"')"
+build_id=$(grep -w "BUILD_ID" "/etc/os-release" | cut -d '=' -f 2 | tr -d '"')
+kernel_version=$(uname -r)
+hostname=$(hostname)
 
-# Function to get CPU usage
-get_cpu_usage() {
-    top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
+
+print_sys_info() {
+  printf "Distro: %s\nBuild: %s\nKernel: %s\nHostname: %s" "$distro_name_version" "$build_id" "$kernel_version" "$hostname"
 }
 
-# Function to get memory usage
-get_memory_usage() {
-  local usage=$(free | grep Mem | awk '{print $3*0.000001"GB"}')
-  local percentage=$(free | grep Mem | awk '{print $3/$2 * 100}')
-  local formatted=$(printf "%.2fGB(%.0f%%)" "$usage" "$percentage")
-  echo $formatted
-}
-
-# Function to get disk usage
-get_disk_usage() {
-    df -h | grep '/dev/nvme0n1p3' | awk '{print $5}'
-}
-
-# Main monitoring function
-monitor_system() {
-    local timestamp=$(date "+%Y-%m-%d %H:%M:%S")
-    local cpu_usage=$(get_cpu_usage)
-    local memory_usage=$(get_memory_usage)
-    local disk_usage=$(get_disk_usage)
-    local gpu_usage=$(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits)
-    local gpu_temp=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)
-    printf "CPU: %s\nRam: %s\nDisk: %s\nGPU: %s%%|%s°C\n" "$cpu_usage" "$memory_usage" "$disk_usage" "$gpu_usage" "$gpu_temp"
-}
-
-# Run the monitoring function
-monitor_system
-
-# Optional: Set up a cron job to run this script every 5 minutes
-# */5 * * * * /path/to/this/script.sh
+print_sys_info

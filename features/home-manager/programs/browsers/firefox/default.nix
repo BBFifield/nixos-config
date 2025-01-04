@@ -81,9 +81,6 @@ in
         default = null;
         description = "Choose which settings style to use";
       };
-      live = lib.mkOption {
-        type = (import ../../../submodules {inherit lib;}).live;
-      };
     };
 
     config = let

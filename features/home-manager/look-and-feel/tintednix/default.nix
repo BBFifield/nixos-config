@@ -120,11 +120,11 @@ in {
     };
     base16schemes = lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
-      default = {};
+      default = base16schemes;
     };
     commonColors = lib.mkOption {
       type = lib.types.attrs;
-      default = {};
+      default = commonColors;
     };
   };
   config = lib.mkIf (config.tintednix.enable) (
@@ -143,7 +143,6 @@ in {
             tintednix=/etc/profiles/per-user/brandon/bin/tintednix
 
             if [[ $arg1 == "get" ]]; then
-              #echo "$(grep "$arg2=" "$directory/tintednix/settings.txt" | cut -d '=' -f 2)"
               grep "$arg2=" "$directory/tintednix/settings.txt" | cut -d '=' -f 2
             elif [[ $arg1 == "update" ]]; then
               # Clear the contents of the target file
@@ -220,10 +219,6 @@ in {
               text = config.tintednix.live.hooks.hotReload; # this bad, i know
             })
           ];
-        }
-        {
-          tintednix.base16schemes = base16schemes;
-          tintednix.commonColors = commonColors;
         }
       ]
   );

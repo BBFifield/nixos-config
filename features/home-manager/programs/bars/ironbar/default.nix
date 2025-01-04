@@ -20,15 +20,16 @@ in {
 
         programs.ironbar = {
           enable = true;
-          systemd = true;
+          systemd = false;
           config = lib.mkForce "";
           style = lib.mkForce "";
         };
       }
       {
-        xdg.configFile."ironbar/style.css".source = ./config/style_ironbar.css; #''${compiledSassFile}/.config/ironbar/style.css'';
+        xdg.configFile."ironbar/style.css".text = (import ./config/style_ironbar.nix {inherit config;}).style; #''${compiledSassFile}/.config/ironbar/style.css'';
         xdg.configFile."ironbar/config.corn".source = ./config/config.corn;
         xdg.configFile."ironbar/sys_info.sh".source = ./config/sys_info.sh;
+        xdg.configFile."ironbar/stats.sh".source = ./config/stats.sh;
         xdg.configFile."ironbar/iron_bluetooth.sh".source = ./config/iron_bluetooth.sh;
       }
       {
@@ -40,30 +41,13 @@ in {
           };
           Service = {
             Type = "oneshot";
-            ExecStart = "${pkgs.bash}/bin/bash ${(import ./postStart.nix {inherit pkgs;}).postStart}/bin/ironbar-post-start";
+            ExecStart = "${pkgs.bash}/bin/bash ${(import ./postStart.nix {inherit config pkgs;}).postStart}/bin/ironbar_post_start";
             RemainAfterExit = true;
           };
           Install = {
             WantedBy = ["default.target"];
           };
         };
-        # systemd.user.services.ironbar = {
-        #   Unit = {
-        #     Description = "Systemd service for Ironbar";
-        #     Requires = ["graphical-session.target"];
-        #   };
-        #
-        #   Service = {
-        #     Type = "simple";
-        #     ExecStart = lib.mkForce "${pkgs.ironbar}/bin/ironbar";
-        #   };
-        #
-        #   Install.WantedBy = [
-        #     "hyprland-session.target"
-        #     "sway-session.target"
-        #     "river-session.target"
-        #   ];
-        # };
       }
     ]
   );
