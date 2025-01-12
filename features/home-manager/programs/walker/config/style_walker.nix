@@ -1,4 +1,4 @@
-{config, ...}: {
+{config}: {
   style = ''
     $color_text: var(--base0D);
     $color_text_field: var(--base02);
@@ -17,7 +17,7 @@
     @mixin input-field {
       all: unset;
       background: $color_text_field;
-      border-radius: 25px;
+      border-radius: ${config.hm.hyprland.buttonRounding};
       color: $color_text;
       padding-left: 12px;
       padding-right: 12px;
@@ -27,7 +27,7 @@
     * {
       font-family: $font-family;
       font-weight: normal;
-      font-size: 14px;
+      font-size: 15px;
     }
 
     #window {
@@ -45,7 +45,7 @@
     }
     #search {
       all: unset;
-      border-radius: 25px;
+      border-radius: ${config.hm.hyprland.buttonRounding};
       padding: 8px 0px 8px 0px;
       background: $color_text_field;
     }
@@ -96,9 +96,14 @@
       }
     }
 
+    #icon {
+      -gtk-icon-size: 40px;
+      -gtk-icon-shadow: 0px 1px 6px rgb(0, 0, 0);
+    }
+
     child {
       all: unset;
-      border-radius: 25px;
+      border-radius: ${config.hm.hyprland.buttonRounding};
       color: $color_text;
       padding: 8px;
       transition-duration: 0.2s;

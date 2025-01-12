@@ -82,8 +82,8 @@ in {
               [
                 "uwsm app -- wpaperd -d"
                 "uwsm app -- swaync"
-                "uwsm app -t service -u ironbar.service -- ${config.programs.ironbar.package}/bin/ironbar"
-                "uwsm app -t service -u walker.service -- ${config.programs.walker.package}/bin/walker --gapplication-service"
+                "uwsm app -t service -u ironbar.service -- ironbar"
+                "uwsm app -t service -u walker.service -- walker --gapplication-service"
               ]
               ++ (lib.optionals (config.hm.gBar.enable) ["gBar bar 0"]);
 
@@ -100,16 +100,15 @@ in {
             };
 
             bind = [
-              "SUPER, R, exec, hyprctl dispatch closewindow '^(dev.benz.walker)$' && walker" #The first command is to ensure walker is closed if open on any other workspace
+              "SUPER, R, exec, walker"
               "SUPER, N, exec, wpaperctl next"
               "SUPER, P, exec, hyprpicker --autocopy"
-              "SUPER ALT, H, exec, hyprshade toggle blue-light-filter"
-              "SUPER, S, exec, grim -g \"$(slurp -o -c '##$base0E')\" -t ppm - | satty --filename -"
+              "SUPER ALT, H, exec, uwsm app -t service -u hyprsunset.service -- hyprsunset -t 3000"
+              ''SUPER, S, exec, grim -g "$(slurp -o -c $(echo $base0D | sed 's/^....\(......\)/\1/'))" -t ppm - | satty --filename -''
             ];
             windowrulev2 = [
-              "stayfocused, class:^(dev.benz.walker)$"
-              #"size ${builtins.toString (config.hm.walker.width + 30)} ${builtins.toString (config.hm.walker.height + 75)}, class:^(dev.benz.walker)$" #Needs to be add up to width and height plus total padding to fit inside window
-              "opacity 0.95 override 0.90 override, class:^(dev.benz.walker)$"
+              #"stayfocused, class:^(dev.benz.walker)$"
+              "opacity 0.90 override 0.85 override, class:^(dev.benz.walker)$"
             ];
           };
           mkScriptBinding = color_scheme: {
@@ -170,7 +169,7 @@ in {
               home.packages = with pkgs; [
                 hyprpicker
                 clipse #TUI clipboard manager
-                hyprshade #Screenshader utility
+                hyprsunset #Blue light filter
                 slurp #For selecting region of the screen
                 grim #Screenshotter
               ];

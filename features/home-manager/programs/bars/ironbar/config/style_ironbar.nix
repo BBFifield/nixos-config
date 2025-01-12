@@ -1,10 +1,10 @@
-{config, ...}: {
+{config}: {
   style = ''
     @import url("colors.css");
     /* -- base styles -- */
     * {
       font-family:
-        JetBrainsMono Nerd Font,
+        ${config.hm.theme.fonts.defaultMonospace},
         sans-serif;
       font-weight: normal;
       font-size: 16px;
@@ -12,10 +12,10 @@
 
     @keyframes slide-down {
       from {
-        margin: -140px 20px 20px 20px;
+        margin: -140px 25px 30px 25px;
       }
       to {
-        margin: 10px 20px 20px 20px;
+        margin: 10px 25px 30px 25px;
       }
     }
 
@@ -39,32 +39,22 @@
     .background {
       padding: 0px;
     }
-
     window {
-      border-radius: 50px;
+      border-radius: ${config.hm.hyprland.buttonRounding};
       background-color: transparent;
     }
-
     box {
-      background-image: none;
-      box-shadow: none;
-      border-radius: 50px;
+      border-radius: ${config.hm.hyprland.buttonRounding};
       background-color: @base01;
     }
-
     menubar {
-      background-image: none;
-      box-shadow: none;
       background-color: @base01;
     }
-
     button {
-      background-image: none;
-      box-shadow: none;
       transition-timing-function: linear;
       background-color: @base02;
       color: @base0D;
-      border-radius: 50px;
+      border-radius: ${config.hm.hyprland.buttonRounding};
       padding: 0px 10px 0px 10px;
     }
     button .item {
@@ -86,12 +76,9 @@
       background-color: @base0D;
       color: @base01;
     }
-
     label {
       color: @base0D;
-      box-shadow: none;
     }
-
     scale trough {
       min-width: 1px;
       min-height: 2px;
@@ -101,7 +88,6 @@
       border: 0px;
       text-shadow: none;
     }
-
     tooltip > *:last-child {
       border: 1px solid @base0D;
       margin: 0px 15px 20px 15px;
@@ -123,6 +109,7 @@
         0 6px 10px 2px rgba(0, 0, 0, 0.4);
     }
 
+
     /* -- clock -- */
     .clock {
       font-weight: bold;
@@ -130,7 +117,8 @@
     .popup-clock .calendar-clock {
       color: @base0D;
       font-size: 2.5em;
-      padding-bottom: 0.1em;
+      margin-bottom: 0.1em;
+      border-bottom: 1px dotted currentColor;
     }
     .popup-clock .calendar {
       background-color: @base01;
@@ -145,8 +133,22 @@
     .popup-clock .calendar:selected {
       background-color: @base0D;
       color: @base01;
-      border-radius: 20%;
+      border-radius: ${config.hm.hyprland.buttonRounding};
     }
+
+    /* notifications */
+    .notifications .count {
+      font-size: 0.6rem;
+      background-color: @base0D;
+      color: @base01;
+      border-radius: 100%;
+      margin-right: 3px;
+      margin-top: 3px;
+      padding-left: 4px;
+      padding-right: 4px;
+      opacity: 0.7;
+    }
+
 
     /* -- launcher -- */
     .launcher .item {
@@ -171,13 +173,10 @@
       border-top: 1px solid @base03;
     }
 
+
     /* -- music -- */
     .music:hover * {
       background-color: @base0D;
-    }
-
-    .popup-music {
-      /* -- volume -- */
     }
     .popup-music .album-art {
       margin-right: 1em;
@@ -204,80 +203,129 @@
       border-radius: 100%;
     }
 
-    /* notifications */
-    .notifications .count {
-      font-size: 0.6rem;
-      background-color: @base0D;
-      color: @base01;
-      border-radius: 100%;
-      margin-right: 3px;
-      margin-top: 3px;
-      padding-left: 4px;
-      padding-right: 4px;
-      opacity: 0.7;
-    }
+
+
 
     /* -- sys_info -- */
     .sysinfo {
       background-color: @base02;
     }
     .header {
-      border-bottom: 1px dotted @base0D;
+      border-radius: 0px;
+      border-bottom: 1px dotted currentColor;
       margin-bottom: 5px;
     }
+    #cpu-label {
+      color: @base08;
+    }
+    #ram-label {
+      color: @base0E;
+    }
+    #disk-label {
+      color: @base0D;
+    }
+    #gpu-label {
+      color: @base0B;
+    }
+    #uptime-label {
+      color: @base0A;
+    }
+
+    .reveal-btn {
+      margin: 10px 30px 0px 30px;
+    }
+    .info {
+      border-radius: 0px;
+      border-top: 1px dotted @base0D;
+      margin-top: 5px;
+      padding-top: 5px;
+    }
+    #distro-label {
+      color: @base0A;
+    }
+    #build-label {
+      color: @base0D;
+    }
+    #kernel-label {
+      color: @base08;
+    }
+    #hostname-label {
+      color: @base0B;
+    }
+    #packages-label {
+      color: @base0E;
+    }
+    #local-ip-label {
+      color: @base0C;
+    }
+    #public-ip-label {
+      color: @base06;
+    }
+
+    #colors-label {
+      color: @base0F;
+    }
     #base00 {
-      background-color: @base00;
+      color: @base00;
     }
     #base01 {
-      background-color: @base01;
+      color: @base01;
     }
     #base02 {
-      background-color: @base02;
+      color: @base02;
     }
     #base03 {
-      background-color: @base03;
+      color: @base03;
     }
     #base04 {
-      background-color: @base04;
+      color: @base04;
     }
     #base05 {
-      background-color: @base05;
+      color: @base05;
     }
     #base06 {
-      background-color: @base06;
+      color: @base06;
     }
     #base07 {
-      background-color: @base07;
+      color: @base07;
     }
     #base08 {
-      background-color: @base08;
+      color: @base08;
     }
     #base09 {
-      background-color: @base09;
+      color: @base09;
     }
     #base0A {
-      background-color: @base0A;
+      color: @base0A;
     }
     #base0B {
-      background-color: @base0B;
+      color: @base0B;
     }
     #base0C {
-      background-color: @base0C;
+      color: @base0C;
     }
     #base0D {
-      background-color: @base0D;
+      color: @base0D;
     }
     #base0E {
-      background-color: @base0E;
+      color: @base0E;
     }
     #base0F {
-      background-color: @base0F;
+      color: @base0F;
     }
+    #font-label {
+      color: @base07;
+    }
+    .gtk-label {
+      color: @base0B;
+    }
+
 
     /* -- tray -- */
     .tray {
       margin-left: 10px;
     }
+
 
     /* -- clipboard -- */
     .clipboard {
@@ -312,6 +360,7 @@
       border-color: @base09;
       background-clip: padding-box;
     }
+
 
     /* -- Volume -- */
     .volume > label {
@@ -388,6 +437,27 @@
         0 6px 10px 2px rgba(0, 0, 0, 0.01);
     }
 
+
+    /* -- walker button -- */
+    #walker box {
+      background-color: @base02;
+    }
+    #walker button:hover {
+      background-color: @base02;
+    }
+    #walker button:hover box {
+      background-color: @base02;
+    }
+    #walker-img {
+      -gtk-icon-shadow: 0px 0px 2px rgb(0, 0, 0);
+      padding:0px 2px 0px 2px;
+      transition-duration: 0.2s;
+    }
+    #walker button:hover #walker-img {
+      -gtk-icon-transform: rotate(90deg);
+    }
+
+
     /* -- workspaces -- */
     .workspaces {
       background-color: @base02;
@@ -410,56 +480,60 @@
       font-weight: bold;
     }
 
-    /* -- custom: power menu -- */
-    .popup-power-menu {
-      border-color: @base08;
+
+    /* -- power -- */
+    #power button:hover {
+      background-color: @base08;
     }
-    .popup-power-menu label {
+    #power label {
       color: @base08;
     }
-    .popup-power-menu #header {
+    #power button:hover label {
+      color: @base01;
+    }
+    #popup-power {
+      border-color: @base08;
+    }
+    #popup-power label {
+      color: @base08;
+    }
+    #profile-header {
       font-size: 1.2em;
       padding-bottom: 0.4em;
       margin-bottom: 0.6em;
-      border-bottom: 1px solid @base03;
     }
-    .popup-power-menu #profile-pic {
+    #profile-pic {
       margin-bottom: 0.6em;
     }
-    .popup-power-menu .power-btn {
+    .power-btn {
       padding: 0.1em 1em;
       margin: 0.3em;
     }
-    .popup-power-menu #buttons > *:nth-child(1) .power-btn {
-      margin-right: 1em;
+    #power-actions-box button:hover label {
+      color: @base01;
     }
     .power-btn:hover {
       background-color: @base08;
     }
-    #power-btn:hover {
-      background-color: @base08;
-    }
-    #power-btn label {
-      color: @base08;
-    }
-    #power-btn:hover label {
-      color: @base01;
-    }
     #power-actions-box {
       background-color: @base02;
     }
+    #power-actions-box > *:nth-child(1) .power-btn {
+      margin-right: 1em;
+    }
+
 
     /*-- bluetooth --*/
-    #bluetooth-btn:hover {
+    #bluetooth button:hover {
       background-color: @base0C;
     }
-    #bluetooth-btn label {
+    #bluetooth label {
       background-color: @base02;
       color: @base0C;
       transition-duration: 0.2s;
       transition-timing-function: linear;
     }
-    #bluetooth-btn:hover label {
+    #bluetooth button:hover label {
       background-color: @base0C;
       color: @base01;
     }
@@ -468,21 +542,19 @@
     }
     #popup-bluetooth button {
       background-color: @base02;
-      color: @base0C;
     }
     #popup-bluetooth button:hover {
       background-color: @base0C;
     }
-    #popup-bluetooth button:hover label {
-      color: @base01;
-    }
     #popup-bluetooth label {
       color: @base0C;
+    }
+    #popup-bluetooth button:hover label {
+      color: @base01;
     }
     #bluetooth-settings-btn {
       margin: 20px 0px 0px 0px;
     }
-
     /*# sourceMappingURL=style.css.map */
   '';
 }

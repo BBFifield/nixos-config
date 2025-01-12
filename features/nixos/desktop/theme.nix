@@ -29,7 +29,7 @@ with lib; let
     options = {
       defaultMonospace = mkOption {
         type = types.enum nfEnums;
-        default = "JetBrainsMono";
+        default = "JetBrainsMono Nerd Font";
       };
     };
   };
@@ -53,7 +53,9 @@ in {
   options.nixos.desktop.theme = {
     fonts = mkOption {
       type = fontsSubmodule;
-      default = "JetBrainsMono Nerd Font";
+      default = {
+        defaultMonospace = "JetBrainsMono Nerd Font";
+      };
     };
     cursorTheme = mkOption {
       type = cursorSubmodule;

@@ -16,6 +16,7 @@
     discord
     _1password-gui
     shellcheck
+    fastfetch
     bluetui
   ];
 in {
@@ -74,7 +75,7 @@ in {
         dconf.enable = true;
         theme = {
           gtkTheme.name = "adw-gtk3-dark";
-          iconTheme = "MoreWaita";
+          iconTheme = "Tela";
         };
         hyprland = lib.mkMerge [
           {enable = true;}
@@ -94,7 +95,7 @@ in {
       firefox = {
         enable = true;
         live.enable = true;
-        templateRepo = {
+        templateSrc = {
           url = "https://github.com/BBFifield/firefox-native-base16.git";
           rev = "9f72a3caa05901f90849ed32da5c9e489b10f679";
           ref = "master";
@@ -108,7 +109,7 @@ in {
           enable = true;
           hooks.hotReload = ''hyprctl reload'';
         };
-        templateRepo = {
+        templateSrc = {
           url = "https://github.com/kirasok/base16-hyprland.git";
           rev = "2b66f94aaf45f5e03f588272dde7177552835b3b";
           ref = "main";
@@ -120,7 +121,7 @@ in {
       qutebrowser = {
         enable = true;
         live.enable = true;
-        templateRepo = {
+        templateSrc = {
           url = "https://github.com/tinted-theming/base16-qutebrowser.git";
           rev = "6253558595c15c29689b4343de6303f6743f5831";
           ref = "main";
@@ -132,7 +133,7 @@ in {
       alacritty = {
         enable = true;
         live.enable = true;
-        templateRepo = {
+        templateSrc = {
           url = "https://github.com/aarowill/base16-alacritty.git";
           rev = "c95c200b3af739708455a03b5d185d3d2d263c6e";
           ref = "master";
@@ -172,7 +173,7 @@ in {
             '';
           };
         };
-        templateRepo = {
+        templateSrc = {
           url = "https://github.com/tinted-theming/base16-waybar.git";
           rev = "26d41f3550da17ebdd14b6b2bc4fdf86c543735e";
           ref = "main";
@@ -186,7 +187,7 @@ in {
           enable = true;
           # hooks.hotReload = ''walker --theme style'';
         };
-        templateRepo = {
+        templateSrc = {
           url = "https://github.com/samme/base16-styles.git";
           rev = "8db4f00ca9e5575ba52d98a204ee44a53e13d546";
           ref = "master";
@@ -202,7 +203,7 @@ in {
           enable = true;
           hooks.hotReload = "sh ~/.config/shell/colors.sh";
         };
-        templateRepo = {
+        templateSrc = {
           url = "https://github.com/tinted-theming/tinted-shell.git";
           rev = "60c80f53cd3d97c25eb0580e40f0b9de84dac55f";
           ref = "main";

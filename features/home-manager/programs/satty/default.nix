@@ -23,6 +23,7 @@ in {
       source = tomlFormat.generate "satty-config" {
         general = {
           fullscreen = false;
+          corner-roundness = config.wayland.windowManager.hyprland.settings.decoration.rounding;
           # Exit directly after copy/save action
           early-exit = true;
           # Select the tool on startup [possible values: pointer, crop, line, arrow, rectangle, text, marker, blur, brush]
@@ -48,12 +49,22 @@ in {
           colors = config.tintednix.commonColors;
           defaultScheme = config.tintednix.defaultScheme;
         in {
-          first = "#${colors.${defaultScheme}.colors.base08}";
-          second = "#${colors.${defaultScheme}.colors.base09}";
-          third = "#${colors.${defaultScheme}.colors.base0A}";
-          fourth = "#${colors.${defaultScheme}.colors.base0B}";
-          fifth = "#${colors.${defaultScheme}.colors.base0C}";
-          custom = "#${colors.${defaultScheme}.colors.base0D}";
+          palette = [
+            "#${colors.${defaultScheme}.colors.base08}"
+            "#${colors.${defaultScheme}.colors.base09}"
+            "#${colors.${defaultScheme}.colors.base0A}"
+            "#${colors.${defaultScheme}.colors.base0B}"
+            "#${colors.${defaultScheme}.colors.base0C}"
+            "#${colors.${defaultScheme}.colors.base0D}"
+          ];
+          custom = [
+            "#${colors.${defaultScheme}.colors.base08}"
+            "#${colors.${defaultScheme}.colors.base09}"
+            "#${colors.${defaultScheme}.colors.base0A}"
+            "#${colors.${defaultScheme}.colors.base0B}"
+            "#${colors.${defaultScheme}.colors.base0C}"
+            "#${colors.${defaultScheme}.colors.base0D}"
+          ];
         };
       };
     };

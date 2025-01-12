@@ -111,22 +111,6 @@ in {
               # pam.services.ags = {};
             };
 
-            systemd = {
-              user.services.polkit-gnome-authentication-agent-1 = {
-                description = "polkit-gnome-authentication-agent-1";
-                wantedBy = ["wayland-wm@Hyprland.service"];
-                wants = ["wayland-wm@Hyprland.service"];
-                after = ["wayland-wm@Hyprland.service"];
-                serviceConfig = {
-                  Type = "simple";
-                  ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-                  Restart = "on-failure";
-                  RestartSec = 1;
-                  TimeoutStopSec = 10;
-                };
-              };
-            };
-
             services = {
               gvfs.enable = true;
               devmon.enable = true;

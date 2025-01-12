@@ -5,15 +5,15 @@
 }: let
   cfg.home = config.home.homeDirectory;
 in rec {
-  mkConfigFromTemplate = scheme: templateRepo: templateName: let
+  mkConfigFromTemplate = scheme: templateSrc: templateName: let
     schemeAttrs = scheme.value;
   in {
     schemeName = scheme.name;
     generatedConfig =
-      if !(lib.isPath templateRepo)
+      if !(lib.isPath templateSrc)
       then
         (schemeAttrs.__functor schemeAttrs) {
-          templateRepo = builtins.fetchGit templateRepo;
+          templateRepo = builtins.fetchGit templateSrc;
           target = templateName;
         }
       else null;
@@ -21,7 +21,7 @@ in rec {
 
   mkTargetFiles = target: let
     configs =
-      lib.map (scheme: mkConfigFromTemplate scheme target.value.templateRepo target.value.templateName) (config.tintednix.base16schemes);
+      lib.map (scheme: mkConfigFromTemplate scheme target.value.templateSrc target.value.templateName) (config.tintednix.base16schemes);
     schemeFilesList =
       if config.tintednix.targets.${target.name}.live.enable
       then
@@ -37,7 +37,7 @@ in rec {
           defaultConfig = let
             defaultScheme = lib.head (lib.filter (scheme: (scheme.name == config.tintednix.defaultScheme)) config.tintednix.base16schemes);
           in
-            mkConfigFromTemplate defaultScheme target.value.templateRepo target.value.templateName;
+            mkConfigFromTemplate defaultScheme target.value.templateSrc target.value.templateName;
         in {
           source = defaultConfig.generatedConfig;
           onChange = target.value.live.hooks.onActivation;

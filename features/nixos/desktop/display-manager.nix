@@ -75,6 +75,12 @@ in {
     (mkIf (cfg.displayManager == "greetd") {
       services.greetd = {
         enable = true;
+        settings = {
+          default_session = {
+            command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --user-menu --theme 'border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red' --cmd ${pkgs.cage}/bin/cage";
+            user = "greeter";
+          };
+        };
       };
     })
 
@@ -82,7 +88,6 @@ in {
       services.displayManager.ly = {
         enable = true;
         settings = {
-          # login_cmd = ''exec "$@" && systemctl --user stop nixos-fake-graphical-session.target'';
           session_log = "/home/brandon/ly-session.log";
         };
       };

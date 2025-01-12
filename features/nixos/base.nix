@@ -31,7 +31,7 @@
   # Set your time zone.
   time.timeZone = "America/St_Johns";
 
-  time.hardwareClockInLocalTime = true;
+  time.hardwareClockInLocalTime = false;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";

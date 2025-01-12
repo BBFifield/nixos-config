@@ -232,11 +232,11 @@
     },
     "crane": {
       "locked": {
-        "lastModified": 1732991615,
-        "narHash": "sha256-CgEHGXSzUdlRI1MzsZmWUwW8+6MKYqtCBIDrD/5H5/o=",
+        "lastModified": 1734808813,
+        "narHash": "sha256-3aH/0Y6ajIlfy7j52FGZ+s4icVX0oHhqBzRdlOeztqg=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "da87d1af7e4e09fd0271432340a5cadf3eb96005",
+        "rev": "72e2d02dbac80c8c86bf6bf3e785536acf8ee926",
         "type": "github"
       },
       "original": {
@@ -821,11 +821,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1735432812,
-        "narHash": "sha256-V6IM/rTMBvM8mO2ac5NSV02Jflfmu4+UUEEgx6HMThU=",
+        "lastModified": 1736201978,
+        "narHash": "sha256-BgvwxeXzI23TLzhpijRzRRYrDKQp9GLQr0dBvL9zhTk=",
         "owner": "JakeStanger",
         "repo": "ironbar",
-        "rev": "5136637752db9c6e07f319760338bb46044068f9",
+        "rev": "b296726aa4dc2765c4dad4be9ab12c58c03a8de4",
         "type": "github"
       },
       "original": {
@@ -930,11 +930,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1721727458,
-        "narHash": "sha256-r/xppY958gmZ4oTfLiHN0ZGuQ+RSTijDblVgVLFi1mw=",
+        "lastModified": 1733346208,
+        "narHash": "sha256-a4WZp1xQkrnA4BbnKrzJNr+dYoQr5Xneh2syJoddFyE=",
         "owner": "nix-community",
         "repo": "naersk",
-        "rev": "3fb418eaf352498f6b6c30592e3beb63df42ef11",
+        "rev": "378614f37a6bee5a3f2ef4f825a73d948d3ae921",
         "type": "github"
       },
       "original": {
@@ -951,11 +951,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1735437260,
-        "narHash": "sha256-zWb9LDRSunETYXgARp3RYG2B2zBMVQ+beOQZoa1suXw=",
+        "lastModified": 1736114344,
+        "narHash": "sha256-iqlWQGK/MX86BIHlROcuQvdq+MrFfmuSKhRPE7LZ7ps=",
         "ref": "refs/heads/master",
-        "rev": "884f0042baad704592d6f6e28d4ee111d2977e16",
-        "revCount": 28,
+        "rev": "a34ed0cffb8eb4b1fe5af5d019ac837a90e2a241",
+        "revCount": 29,
         "type": "git",
         "url": "file:///home/brandon/nvim-config"
       },
@@ -1068,11 +1068,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1732937961,
-        "narHash": "sha256-B5pYT+IVaqcrfOekkwKvx/iToDnuQWzc2oyDxzzBDc4=",
+        "lastModified": 1735554305,
+        "narHash": "sha256-zExSA1i/b+1NMRhGGLtNfFGXgLtgo+dcuzHzaWA6w3Q=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4703b8d2c708e13a8cab03d865f90973536dcdf5",
+        "rev": "0e82ab234249d8eee3e8c91437802b32c74bb3fd",
         "type": "github"
       },
       "original": {
@@ -1249,11 +1249,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1732933841,
-        "narHash": "sha256-dge02pUSe2QeC/B3PriA0R8eAX+EU3aDoXj9FcS3XDw=",
+        "lastModified": 1735612067,
+        "narHash": "sha256-rsjojgfPUf9tWuMXuuo2KAIoUZ49XGZQJSjFGOO8Cq4=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "c65e91d4a33abc3bc4a892d3c5b5b378bad64ea1",
+        "rev": "d199142e84bfaae476ffb4e09a70879d7918784d",
         "type": "github"
       },
       "original": {

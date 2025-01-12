@@ -50,7 +50,7 @@
     options = {
       defaultMonospace = lib.mkOption {
         type = lib.types.enum nfEnums;
-        default = "JetBrainsMono";
+        default = "JetBrainsMono Nerd Font";
       };
     };
   };

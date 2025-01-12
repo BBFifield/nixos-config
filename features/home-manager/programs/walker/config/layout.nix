@@ -1,4 +1,4 @@
-{config, ...}: let
+{config}: let
   cfg = config.hm.walker;
 in {
   layout = ''
@@ -48,25 +48,25 @@ in {
     [ui.window.box.scroll.list]
     always_show = false
     max_entries = 300
-    max_height = 600
-    min_height = 600
-    max_width = 600
-    min_width = 600
-    width = 600
+    max_height = ${toString cfg.height}
+    min_height = ${toString cfg.height}
+    max_width = ${toString cfg.width}
+    min_width = ${toString cfg.width}
+    width = ${toString cfg.width}
 
     [ui.window.box.scroll.list.placeholder]
-    max_height = 600
-    min_height = 600
-    max_width = 600
-    min_width = 600
-    width = 600
-    height = 600
+    max_height = ${toString cfg.height}
+    min_height = ${toString cfg.height}
+    max_width = ${toString cfg.width}
+    min_width = ${toString cfg.width}
+    width = ${toString cfg.width}
+    height = ${toString cfg.height}
 
     [ui.window.box.scroll.list.placeholder.margins]
     top = 0
 
     [ui.window.box.scroll.list.item]
-    spacing = 3
+    spacing = 20
 
     [ui.window.box.scroll.list.item.activation_label]
     overlay = true
@@ -75,8 +75,13 @@ in {
     justify = "right"
     x_align = 1
 
+    [ui.window.box.bar.entry.icon]
+    icon_size = "larger"
+    theme = "${config.hm.theme.iconTheme}"
+
     [ui.window.box.scroll.list.item.icon]
-    theme = "MoreWaita"
+    icon_size = "larger"
+    theme = "${config.hm.theme.iconTheme}"
 
     [ui.window.box.scroll.list.item.text]
     h_align = "fill"

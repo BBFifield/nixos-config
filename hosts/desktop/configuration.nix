@@ -18,7 +18,7 @@
     hyprland = {
       hyprland.enable = true;
       hyprland.shell = "tintednix";
-      displayManager = "ly";
+      displayManager = "greetd";
       nautilus.enable = true;
     };
     plasma = {

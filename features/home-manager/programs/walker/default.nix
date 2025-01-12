@@ -27,7 +27,7 @@ in {
     };
     height = lib.mkOption {
       type = lib.types.int;
-      default = 400;
+      default = 600;
     };
   };
 
@@ -38,9 +38,11 @@ in {
           enable = true;
           runAsService = false;
           config = {
+            app_launch_prefix = "uwsm app -- ";
             hotreload_theme = true;
             theme = "style";
             as_window = true;
+            close_when_open = true;
             disable_click_to_close = false;
             websearch.prefix = "?";
             switcher.prefix = "/";
@@ -66,7 +68,7 @@ in {
                   {
                     "label" = "Lock Screen";
                     "icon" = "system-lock-screen";
-                    "exec" = "playerctl --all-players pause & hyprlock";
+                    "exec" = "playerctl --all-players pause & ~/.config/hypr/start_hyprlock.sh";
                   }
                 ];
               }
@@ -111,7 +113,7 @@ in {
             )
           '';
         };
-        xdg.configFile."walker/themes/style.toml".text = (import ./config/layout.nix {inherit config lib;}).layout;
+        xdg.configFile."walker/themes/style.toml".text = (import ./config/layout.nix {inherit config;}).layout;
       }
     ]
   );

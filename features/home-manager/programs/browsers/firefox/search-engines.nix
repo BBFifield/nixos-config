@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs}: {
   engines = {
     "Bing".metaData.hidden = true;
     "eBay".metaData.hidden = true;

@@ -33,6 +33,7 @@ with lib; let
 
   settings = {
     exec-once = [
+      "uwsm app -- ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
     ];
 
     monitor = [
@@ -246,6 +247,10 @@ in {
 
   options.hm.hyprland = {
     enable = mkEnableOption "Enable hyprland configuration via home-manager";
+    buttonRounding = lib.mkOption {
+      type = lib.types.str;
+      default = "50px";
+    };
   };
 
   config = mkIf cfg.enable (
@@ -305,11 +310,11 @@ in {
 
             listener = [
               {
-                timeout = 9000;
+                timeout = 900;
                 on-timeout = "./start_hyprlock.sh";
               }
               {
-                timeout = 12000;
+                timeout = 1200;
                 on-timeout = "hyprctl dispatch dpms off";
                 on-resume = "hyprctl dispatch dpms on";
               }

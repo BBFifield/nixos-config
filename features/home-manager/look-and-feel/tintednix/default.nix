@@ -88,9 +88,12 @@ in {
           live = lib.mkOption {
             type = (import ../../submodules {inherit lib;}).live;
           };
-          templateRepo = lib.mkOption {
-            type = lib.types.attrs;
-            default = {};
+          # templateRepo = lib.mkOption {
+          #   type = lib.types.attrs;
+          #   default = {};
+          # };
+          templateSrc = lib.mkOption {
+            type = with types; either mkGithubType path;
           };
           templateName = lib.mkOption {
             type = lib.types.str;
