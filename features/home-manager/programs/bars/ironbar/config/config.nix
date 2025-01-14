@@ -430,7 +430,7 @@
       }
 
       $clock = { type = "clock" format = " %d-%h-%Y-%I:%M%P" }
-      $tray = { type = "tray" }
+      $tray = { type = "tray" icon_size = 32 }
 
       $bluetooth_popup = {
         type = "custom"
@@ -491,10 +491,12 @@
         type = "volume"
         format = "{icon}"
         max_volume = 100
-        icons.volume_high = " "
+        icons.volume_high = ""
         icons.volume_medium = ""
         icons.volume_low = ""
         icons.muted = ""
+        on_scroll_up = "wpctl set-volume \"$(wpctl status | grep \"*\" | awk 'NR==1' | awk -F. '{print $1}' | awk '{print $3}')\" 5%+"
+        on_scroll_down = "wpctl set-volume \"$(wpctl status | grep \"*\" | awk 'NR==1' | awk -F. '{print $1}' | awk '{print $3}')\" 5%-"
       }
 
       $profile_picture = "/var/lib/AccountsService/icons/{{echo $(whoami)}}"
@@ -526,7 +528,7 @@
 
       $left = [ $walker_popup $workspaces ]
       $center = [ $clock $notifications ]
-      $right = [ $stats_popup $bluetooth_popup $clipboard $volume $power_popup ]
+      $right = [ $tray $stats_popup $bluetooth_popup $clipboard $volume $power_popup ]
     }
 
     in {

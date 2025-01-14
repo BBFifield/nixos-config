@@ -1,6 +1,16 @@
 {config}: {
   style = ''
     @import url("colors.css");
+
+    @keyframes slide-down {
+      from {
+        margin-top: -140px;
+      }
+      to {
+        margin-top: 0px;
+      }
+    }
+
     /* -- base styles -- */
     * {
       font-family:
@@ -8,17 +18,10 @@
         sans-serif;
       font-weight: normal;
       font-size: 16px;
+      transition-duration: 0.2s;
+      transition-timing-function: linear;
+      transition-property: background-color, color, opacity, transform, box-shadow, -gtk-icon-transform;
     }
-
-    @keyframes slide-down {
-      from {
-        margin: -140px 25px 30px 25px;
-      }
-      to {
-        margin: 10px 25px 30px 25px;
-      }
-    }
-
     #start,
     #center,
     #end {
@@ -47,23 +50,41 @@
       border-radius: ${config.hm.hyprland.buttonRounding};
       background-color: @base01;
     }
+    decoration {
+      box-shadow:
+        0 4px 6px 2px rgba(0, 0, 0, 0.01),
+        0 6px 10px 2px rgba(0, 0, 0, 0.01);
+    }
+    menu {
+      background-color: @base01;
+      border: 1px solid @base0D;
+      border-radius: ${toString config.wayland.windowManager.hyprland.settings.decoration.rounding}px;
+    }
+    menuitem {
+      border-radius: ${config.hm.hyprland.buttonRounding};
+    }
+    menuitem:hover {
+      background-color: @base0D;
+    }
+    menuitem:hover label, menuitem:hover cellview {
+      font-weight: bold;
+      color: @base01;
+    }
+    separator {
+      background-color: transparent;
+      border: dotted @base0D;
+      margin-right: 15px;
+      margin-left: 15px;
+      border-width: 1px 0px 0px 0px;
+    }
     menubar {
       background-color: @base01;
     }
     button {
-      transition-timing-function: linear;
       background-color: @base02;
       color: @base0D;
       border-radius: ${config.hm.hyprland.buttonRounding};
       padding: 0px 10px 0px 10px;
-    }
-    button .item {
-      transition-duration: 0.2s;
-      transition-timing-function: linear;
-    }
-    button box {
-      transition-duration: 0.2s;
-      transition-timing-function: linear;
     }
     button:hover {
       background-color: @base0D;
@@ -103,12 +124,72 @@
       animation-timing-function: linear;
       animation-duration: 0.2s;
       animation-fill-mode: forwards;
+      margin: 10px 25px 30px 25px;
       padding: 20px;
       box-shadow:
         0 4px 6px 2px rgba(0, 0, 0, 0.5),
         0 6px 10px 2px rgba(0, 0, 0, 0.4);
     }
 
+    /* -- walker button -- */
+    #walker box {
+      background-color: @base02;
+    }
+    #walker button:hover {
+      background-color: @base02;
+    }
+    #walker button:hover box {
+      background-color: @base02;
+    }
+    #walker-img {
+      -gtk-icon-shadow: 0px 0px 2px rgb(0, 0, 0);
+      padding: 0px 2px 0px 2px;
+    }
+    #walker button:hover #walker-img {
+      -gtk-icon-transform: rotate(90deg);
+    }
+
+    /* -- workspaces -- */
+    .workspaces {
+      background-color: @base02;
+    }
+    .workspaces label {
+      color: @base0F;
+    }
+    .workspaces button {
+      border: 1.3px dotted;
+      border-radius: 0px 0px 0px 0px;
+      border-color: transparent transparent transparent @base04;
+    }
+    .workspaces button:last-child {
+      border-radius: 0px ${config.hm.hyprland.buttonRounding} ${config.hm.hyprland.buttonRounding} 0px;
+    }
+    .workspaces button:hover {
+      background-color: @base03;
+      border-radius: ${config.hm.hyprland.buttonRounding};
+      border-color: transparent;
+    }
+    .workspaces button:hover + button {
+      background-color: @base02;
+      border-radius: ${config.hm.hyprland.buttonRounding};
+      border-color: transparent;
+    }
+    .workspaces button:hover > label {
+      color: @base0F;
+    }
+    .workspaces .item.focused {
+      background-color: @base0F;
+      border-radius: ${config.hm.hyprland.buttonRounding};
+      border: 1px solid @base0F;
+      padding: 0px 30px 0px 30px;
+    }
+    .workspaces .item.focused + button {
+      border-left-color: transparent;
+    }
+    .workspaces .item.focused > label {
+      color: @base01;
+      font-weight: bold;
+    }
 
     /* -- clock -- */
     .clock {
@@ -149,7 +230,6 @@
       opacity: 0.7;
     }
 
-
     /* -- launcher -- */
     .launcher .item {
       margin-right: 4px;
@@ -172,7 +252,6 @@
     .popup-launcher .popup-item:not(:first-child) {
       border-top: 1px solid @base03;
     }
-
 
     /* -- music -- */
     .music:hover * {
@@ -203,8 +282,15 @@
       border-radius: 100%;
     }
 
-
-
+     /*-- tray -- */
+    .tray * {
+      background-color: @base02;
+      border-radius: ${config.hm.hyprland.buttonRounding};
+    }
+    .tray .item {
+      padding: 0px 10px 0px 10px;
+      -gtk-icon-shadow: 0px 0px 2px rgb(0, 0, 0);
+    }
 
     /* -- sys_info -- */
     .sysinfo {
@@ -232,13 +318,17 @@
     }
 
     .reveal-btn {
-      margin: 10px 30px 0px 30px;
+      margin: 10px 30px 5px 30px;
     }
     .info {
       border-radius: 0px;
       border-top: 1px dotted @base0D;
       margin-top: 5px;
       padding-top: 5px;
+      animation-name: slide-down;
+      animation-timing-function: linear;
+      animation-duration: 0.2s;
+      animation-fill-mode: forwards;
     }
     #distro-label {
       color: @base0A;
@@ -320,12 +410,36 @@
       color: @base0B;
     }
 
-
-    /* -- tray -- */
-    .tray {
-      margin-left: 10px;
+    /*-- bluetooth --*/
+    #bluetooth button:hover {
+      background-color: @base0C;
     }
-
+    #bluetooth label {
+      background-color: @base02;
+      color: @base0C;
+    }
+    #bluetooth button:hover label {
+      background-color: @base0C;
+      color: @base01;
+    }
+    #popup-bluetooth {
+      border-color: @base0C;
+    }
+    #popup-bluetooth button {
+      background-color: @base02;
+    }
+    #popup-bluetooth button:hover {
+      background-color: @base0C;
+    }
+    #popup-bluetooth label {
+      color: @base0C;
+    }
+    #popup-bluetooth button:hover label {
+      color: @base01;
+    }
+    #bluetooth-settings-btn {
+      margin: 20px 0px 0px 0px;
+    }
 
     /* -- clipboard -- */
     .clipboard {
@@ -361,10 +475,10 @@
       background-clip: padding-box;
     }
 
-
     /* -- Volume -- */
     .volume > label {
       color: @base0A;
+      margin-right: 5px;
     }
     .volume:hover {
       background-color: @base0A;
@@ -421,63 +535,6 @@
     }
     #gtk-combobox-popup-menu menuitem:hover {
       background-color: @base0A;
-      color: @base01;
-      font-weight: bold;
-      transition-duration: 0.2s;
-      transition-timing-function: linear;
-    }
-    #gtk-combobox-popup-menu menuitem:hover cellview {
-      font-weight: bold;
-      color: @base01;
-    }
-    .csd.background.popup decoration {
-      margin: 20px 30px 30px 30px;
-      box-shadow:
-        0 4px 6px 2px rgba(0, 0, 0, 0.01),
-        0 6px 10px 2px rgba(0, 0, 0, 0.01);
-    }
-
-
-    /* -- walker button -- */
-    #walker box {
-      background-color: @base02;
-    }
-    #walker button:hover {
-      background-color: @base02;
-    }
-    #walker button:hover box {
-      background-color: @base02;
-    }
-    #walker-img {
-      -gtk-icon-shadow: 0px 0px 2px rgb(0, 0, 0);
-      padding:0px 2px 0px 2px;
-      transition-duration: 0.2s;
-    }
-    #walker button:hover #walker-img {
-      -gtk-icon-transform: rotate(90deg);
-    }
-
-
-    /* -- workspaces -- */
-    .workspaces {
-      background-color: @base02;
-    }
-    .workspaces label {
-      color: @base0F;
-    }
-    .workspaces button:hover {
-      background-color: @base03;
-    }
-    .workspaces button:hover > label {
-      color: @base0F;
-    }
-    .workspaces .item.focused {
-      background-color: @base0D;
-      padding: 0px 30px 0px 30px;
-    }
-    .workspaces .item.focused > label {
-      color: @base01;
-      font-weight: bold;
     }
 
 
@@ -520,40 +577,6 @@
     }
     #power-actions-box > *:nth-child(1) .power-btn {
       margin-right: 1em;
-    }
-
-
-    /*-- bluetooth --*/
-    #bluetooth button:hover {
-      background-color: @base0C;
-    }
-    #bluetooth label {
-      background-color: @base02;
-      color: @base0C;
-      transition-duration: 0.2s;
-      transition-timing-function: linear;
-    }
-    #bluetooth button:hover label {
-      background-color: @base0C;
-      color: @base01;
-    }
-    #popup-bluetooth {
-      border-color: @base0C;
-    }
-    #popup-bluetooth button {
-      background-color: @base02;
-    }
-    #popup-bluetooth button:hover {
-      background-color: @base0C;
-    }
-    #popup-bluetooth label {
-      color: @base0C;
-    }
-    #popup-bluetooth button:hover label {
-      color: @base01;
-    }
-    #bluetooth-settings-btn {
-      margin: 20px 0px 0px 0px;
     }
     /*# sourceMappingURL=style.css.map */
   '';

@@ -20,6 +20,7 @@
       rustfmt
       cargo
       arduino-ide
+      nodejs_23
     ];
   };
 }
