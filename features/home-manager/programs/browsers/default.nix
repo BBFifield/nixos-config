@@ -18,7 +18,7 @@ in {
   };
   config = {
     hm.browsers.qutebrowser.enable = true;
-
+    programs.chromium.enable = true;
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {

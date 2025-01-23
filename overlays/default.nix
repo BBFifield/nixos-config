@@ -1,5 +1,6 @@
 {
   self,
+  system,
   lib,
   inputs,
   ...

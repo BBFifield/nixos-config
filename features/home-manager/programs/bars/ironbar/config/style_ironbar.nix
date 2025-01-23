@@ -2,7 +2,7 @@
   style = ''
     @import url("colors.css");
 
-    @keyframes slide-down {
+    @keyframes generic-slide-down {
       from {
         margin-top: -140px;
       }
@@ -117,13 +117,8 @@
         0 6px 10px 2px rgba(0, 0, 0, 0.4);
     }
     .popup {
-      transition-property: none;
       border: 1px solid @base0D;
       border-radius: ${toString config.wayland.windowManager.hyprland.settings.decoration.rounding}px;
-      animation-name: slide-down;
-      animation-timing-function: linear;
-      animation-duration: 0.2s;
-      animation-fill-mode: forwards;
       margin: 10px 25px 30px 25px;
       padding: 20px;
       box-shadow:
@@ -323,9 +318,8 @@
     .info {
       border-radius: 0px;
       border-top: 1px dotted @base0D;
-      margin-top: 5px;
       padding-top: 5px;
-      animation-name: slide-down;
+      animation-name: generic-slide-down;
       animation-timing-function: linear;
       animation-duration: 0.2s;
       animation-fill-mode: forwards;
@@ -410,11 +404,25 @@
       color: @base0B;
     }
 
+    /*-- network --*/
+    #network label {
+      font-size: 18px;
+      color: @base0E;
+      margin-right: 2px;
+    }
+    #network button:hover {
+      background-color: @base0E;
+    }
+    #network button:hover label {
+      color: @base01;
+    }
+
     /*-- bluetooth --*/
     #bluetooth button:hover {
       background-color: @base0C;
     }
     #bluetooth label {
+      font-size: 17px;
       background-color: @base02;
       color: @base0C;
     }
@@ -443,7 +451,6 @@
 
     /* -- clipboard -- */
     .clipboard {
-      margin-left: 5px;
       font-size: 1.1em;
     }
     .clipboard > label {
@@ -464,15 +471,17 @@
     }
     .popup-clipboard .item {
       padding-bottom: 0.3em;
-      border-bottom: 1px solid @base03;
+      border-bottom: 1px dotted currentColor;
       border-radius: 0%;
     }
-    radiobutton radio:checked {
+    radio {
+      border: 1px solid @base09;
+    }
+    radio:checked {
       -gtk-icon-source: none;
       background-image: none;
       background-color: @base09;
       border-color: @base09;
-      background-clip: padding-box;
     }
 
     /* -- Volume -- */

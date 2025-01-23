@@ -13,7 +13,6 @@ with lib; let
 
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
-  pactl = "${pkgs.pulseaudio}/bin/pactl";
 
   theme = {
     name = config.hm.theme.gtkTheme.name;
@@ -111,7 +110,7 @@ with lib; let
       (f "com.github.Aylur.ags")
       (f "dev.benz.walker")
       "workspace 3, ^(org.gnome.Nautilus)$"
-      "workspace 2, title:Firefox"
+      "workspace 2, ${config.hm.browsers.defaultBrowser}"
       "workspace 1, ^(VSCodium)$"
     ];
 
@@ -143,7 +142,7 @@ with lib; let
         ", XF86Launch1,  exec, ${yt}"
 
         "ALT, Tab, focuscurrentorlast"
-        "CTRL ALT, Delete, exit"
+        "CTRL ALT, Delete, exec, loginctl terminate-user $(whoami)"
         "ALT, Q, killactive"
         #"SUPER, F, togglefloating"
         "SUPER, G, fullscreen"
@@ -174,8 +173,8 @@ with lib; let
       ",XF86MonBrightnessDown, exec, ${brightnessctl} set  5%-"
       ",XF86KbdBrightnessUp,   exec, ${brightnessctl} -d asus::kbd_backlight set +1"
       ",XF86KbdBrightnessDown, exec, ${brightnessctl} -d asus::kbd_backlight set  1-"
-      ",XF86AudioRaiseVolume,  exec, ${pactl} set-sink-volume @DEFAULT_SINK@ +5%"
-      ",XF86AudioLowerVolume,  exec, ${pactl} set-sink-volume @DEFAULT_SINK@ -5%"
+      ",XF86AudioRaiseVolume,  exec, wpctl set-volume @DEFAULT_SINK@ 5%+"
+      ",XF86AudioLowerVolume,  exec, wpctl set-volume @DEFAULT_SINK@ 5%-"
     ];
 
     bindl = [
@@ -184,7 +183,7 @@ with lib; let
       ",XF86AudioPause,   exec, ${playerctl} pause"
       ",XF86AudioPrev,    exec, ${playerctl} previous"
       ",XF86AudioNext,    exec, ${playerctl} next"
-      ",XF86AudioMicMute, exec, ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
+      ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle"
     ];
 
     bindm = [
@@ -236,6 +235,7 @@ with lib; let
         "borderangle, 1, 30, liner, loop"
         "fade, 1, 10, default"
         "workspaces, 1, 5, wind"
+        "layers, 1, 5, wind, slide"
       ];
     };
   };
@@ -304,7 +304,7 @@ in {
             general = {
               lock_cmd = "./start_hyprlock.sh"; # avoid starting multiple hyprlock instances.
               before_sleep_cmd = "./start_hyprlock.sh";
-              after_sleep_cmd = "hyprctl dispatch dpms on";
+              after_sleep_cmd = "sleep 1s && hyprctl dispatch dpms on";
               ignore_dbus_inhibit = false;
             };
 
@@ -315,8 +315,8 @@ in {
               }
               {
                 timeout = 1200;
-                on-timeout = "hyprctl dispatch dpms off";
-                on-resume = "hyprctl dispatch dpms on";
+                on-timeout = "sleep 1s && hyprctl dispatch dpms off";
+                on-resume = "sleep 1s && hyprctl dispatch dpms on";
               }
             ];
           };

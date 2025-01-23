@@ -14,6 +14,7 @@
     efibootmgr
     gptfdisk
     discord
+    slack
     _1password-gui
     shellcheck
     fastfetch
@@ -185,7 +186,6 @@ in {
         enable = true;
         live = {
           enable = true;
-          # hooks.hotReload = ''walker --theme style'';
         };
         templateSrc = {
           url = "https://github.com/samme/base16-styles.git";

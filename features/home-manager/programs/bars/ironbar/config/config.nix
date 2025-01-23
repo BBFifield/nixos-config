@@ -8,7 +8,7 @@
           {
             type = "button"
             name = "walker-btn"
-            on_click = "!hyprctl keyword windowrulev2 move 20 58, class:'^(dev.benz.walker)$' && walker && sleep 1s && hyprctl keyword windowrulev2 center, class:'^(dev.benz.walker)$'"
+            on_click = "!hyprctl keyword windowrulev2 move 20 53, class:'^(dev.benz.walker)$' && walker && sleep 1s && hyprctl keyword windowrulev2 center, class:'^(dev.benz.walker)$'"
             widgets = [
               {
                 type = "image"
@@ -146,173 +146,181 @@
           }
           {
             type = "box"
-            orientation = "horizontal"
+            orientation = "vertical"
             class = "info"
             show_if = "#show_theme_info"
             widgets = [
               {
-                type = "label"
-                name = "colors-label"
-                label = "  "
-                tooltip = "Color Scheme"
+                type = "box"
+                orientation = "horizontal"
+                // class = "info"
+                show_if = "#show_theme_info"
+                widgets = [
+                  {
+                    type = "label"
+                    name = "colors-label"
+                    label = "  "
+                    tooltip = "Color Scheme"
+                  }
+                  {
+                    type = "label"
+                    label = "#color_scheme"
+                  }
+                ]
               }
               {
-                type = "label"
-                label = "#color_scheme"
-              }
-            ]
-          }
-          {
-            type = "box"
-            orientation = "horizontal"
-            show_if = "#show_theme_info"
-            widgets = [
-              {
-                type = "label"
-                name = "base00"
-                label = " "
-                tooltip = "#base00"
-              }
-              {
-                type = "label"
-                name = "base01"
-                label = " "
-                tooltip = "#base01"
-              }
-              {
-                type = "label"
-                name = "base02"
-                label = " "
-                tooltip = "#base02"
-              }
-              {
-                type = "label"
-                name = "base03"
-                label = " "
-                tooltip = "#base03"
-              }
-              {
-                type = "label"
-                name = "base04"
-                label = " "
-                tooltip = "#base04"
-              }
-              {
-                type = "label"
-                name = "base05"
-                label = " "
-                tooltip = "#base05"
-              }
-              {
-                type = "label"
-                name = "base06"
-                label = " "
-                tooltip = "#base06"
-              }
-              {
-                type = "label"
-                name = "base07"
-                label = " "
-                tooltip = "#base07"
-              }
-              {
-                type = "label"
-                name = "base08"
-                label = " "
-                tooltip = "#base08"
-              }
-              {
-                type = "label"
-                name = "base09"
-                label = " "
-                tooltip = "#base09"
-              }
-              {
-                type = "label"
-                name = "base0A"
-                label = " "
-                tooltip = "#base0A"
-              }
-              {
-                type = "label"
-                name = "base0B"
-                label = " "
-                tooltip = "#base0B"
-              }
-              {
-                type = "label"
-                name = "base0C"
-                label = " "
-                tooltip = "#base0C"
-              }
-              {
-                type = "label"
-                name = "base0D"
-                label = " "
-                tooltip = "#base0D"
-              }
-              {
-                type = "label"
-                name = "base0E"
-                label = " "
-                tooltip = "#base0E"
-              }
-              {
-                type = "label"
-                name = "base0F"
-                label = " "
-                tooltip = "#base0F"
-              }
-            ]
-          }
-          {
-            type = "box"
-            orientation = "horizontal"
-            show_if = "#show_theme_info"
-            widgets = [
-              {
-                type = "label"
-                name = "font-label"
-                label = "  "
-                tooltip = "Default Font"
+                type = "box"
+                orientation = "horizontal"
+                show_if = "#show_theme_info"
+                widgets = [
+                  {
+                    type = "label"
+                    name = "base00"
+                    label = " "
+                    tooltip = "#base00"
+                  }
+                  {
+                    type = "label"
+                    name = "base01"
+                    label = " "
+                    tooltip = "#base01"
+                  }
+                  {
+                    type = "label"
+                    name = "base02"
+                    label = " "
+                    tooltip = "#base02"
+                  }
+                  {
+                    type = "label"
+                    name = "base03"
+                    label = " "
+                    tooltip = "#base03"
+                  }
+                  {
+                    type = "label"
+                    name = "base04"
+                    label = " "
+                    tooltip = "#base04"
+                  }
+                  {
+                    type = "label"
+                    name = "base05"
+                    label = " "
+                    tooltip = "#base05"
+                  }
+                  {
+                    type = "label"
+                    name = "base06"
+                    label = " "
+                    tooltip = "#base06"
+                  }
+                  {
+                    type = "label"
+                    name = "base07"
+                    label = " "
+                    tooltip = "#base07"
+                  }
+                  {
+                    type = "label"
+                    name = "base08"
+                    label = " "
+                    tooltip = "#base08"
+                  }
+                  {
+                    type = "label"
+                    name = "base09"
+                    label = " "
+                    tooltip = "#base09"
+                  }
+                  {
+                    type = "label"
+                    name = "base0A"
+                    label = " "
+                    tooltip = "#base0A"
+                  }
+                  {
+                    type = "label"
+                    name = "base0B"
+                    label = " "
+                    tooltip = "#base0B"
+                  }
+                  {
+                    type = "label"
+                    name = "base0C"
+                    label = " "
+                    tooltip = "#base0C"
+                  }
+                  {
+                    type = "label"
+                    name = "base0D"
+                    label = " "
+                    tooltip = "#base0D"
+                  }
+                  {
+                    type = "label"
+                    name = "base0E"
+                    label = " "
+                    tooltip = "#base0E"
+                  }
+                  {
+                    type = "label"
+                    name = "base0F"
+                    label = " "
+                    tooltip = "#base0F"
+                  }
+                ]
               }
               {
-                type = "label"
-                label = "{{poll:600000:fc-match 'Monospace' | awk -F\\\" '{print $2}'}}"
-              }
-            ]
-          }
-          {
-            type = "box"
-            orientation = "horizontal"
-            show_if = "#show_theme_info"
-            widgets = [
-              {
-                type = "label"
-                class = "gtk-label"
-                label = "  "
-                tooltip = "GTK3 Theme"
-              }
-              {
-                type = "label"
-                label = "{{poll:600000:cat ~/.config/gtk-3.0/settings.ini | grep 'gtk-theme-name' | cut -d '=' -f 2}}"
-              }
-            ]
-          }
-          {
-            type = "box"
-            orientation = "horizontal"
-            show_if = "#show_theme_info"
-            widgets = [
-              {
-                type = "label"
-                class = "gtk-label"
-                label = "  "
-                tooltip = "GTK Icon Theme"
+                type = "box"
+                orientation = "horizontal"
+                show_if = "#show_theme_info"
+                widgets = [
+                  {
+                    type = "label"
+                    name = "font-label"
+                    label = "  "
+                    tooltip = "Default Font"
+                  }
+                  {
+                    type = "label"
+                    label = "{{poll:600000:fc-match 'Monospace' | awk -F\\\" '{print $2}'}}"
+                  }
+                ]
               }
               {
-                type = "label"
-                label = "{{poll:600000:cat ~/.config/gtk-3.0/settings.ini | grep 'gtk-icon-theme-name' | cut -d '=' -f 2}}"
+                type = "box"
+                orientation = "horizontal"
+                show_if = "#show_theme_info"
+                widgets = [
+                  {
+                    type = "label"
+                    class = "gtk-label"
+                    label = "  "
+                    tooltip = "GTK3 Theme"
+                  }
+                  {
+                    type = "label"
+                    label = "{{poll:600000:cat ~/.config/gtk-3.0/settings.ini | grep 'gtk-theme-name' | cut -d '=' -f 2}}"
+                  }
+                ]
+              }
+              {
+                type = "box"
+                orientation = "horizontal"
+                show_if = "#show_theme_info"
+                widgets = [
+                  {
+                    type = "label"
+                    class = "gtk-label"
+                    label = "  "
+                    tooltip = "GTK Icon Theme"
+                  }
+                  {
+                    type = "label"
+                    label = "{{poll:600000:cat ~/.config/gtk-3.0/settings.ini | grep 'gtk-icon-theme-name' | cut -d '=' -f 2}}"
+                  }
+                ]
               }
             ]
           }
@@ -432,6 +440,18 @@
       $clock = { type = "clock" format = " %d-%h-%Y-%I:%M%P" }
       $tray = { type = "tray" icon_size = 32 }
 
+      $network_popup = {
+        type = "custom"
+        name = "network"
+        bar = [
+          {
+            type = "button"
+            label = "{{watch:bash /home/$(whoami)/.config/ironbar/network.sh}}"
+            on_click = "popup:toggle"
+          }
+        ]
+      }
+
       $bluetooth_popup = {
         type = "custom"
         name = "bluetooth"
@@ -450,6 +470,7 @@
             widgets = [
               {
                 type = "label"
+                class = "header"
                 label = "<span weight='ultrabold'>Connected Devices: {{watch:while :; do echo $(bluetoothctl devices Connected | wc -l); sleep 5s; done}}</span>"
               }
               {
@@ -495,8 +516,8 @@
         icons.volume_medium = ""
         icons.volume_low = ""
         icons.muted = ""
-        on_scroll_up = "wpctl set-volume \"$(wpctl status | grep \"*\" | awk 'NR==1' | awk -F. '{print $1}' | awk '{print $3}')\" 5%+"
-        on_scroll_down = "wpctl set-volume \"$(wpctl status | grep \"*\" | awk 'NR==1' | awk -F. '{print $1}' | awk '{print $3}')\" 5%-"
+        on_scroll_up = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        on_scroll_down = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
       }
 
       $profile_picture = "/var/lib/AccountsService/icons/{{echo $(whoami)}}"
@@ -509,7 +530,7 @@
             type = "box"
             orientation = "vertical"
             widgets = [
-              { type = "label" name = "profile-header" label = "{{echo $(whoami)}}" }
+              { type = "label" class = "header" name = "profile-header" label = "{{echo $(whoami)}}" }
               {type = "image" name = "profile-pic" src = $profile_picture  size = 80 }
               {
                 type = "box"
@@ -517,7 +538,7 @@
                 widgets = [
                   { type = "button" class="power-btn" label = "<span font-size='25pt'>󰗽</span>" on_click = "!loginctl terminate-user $(whoami)" }
                   { type = "button" class="power-btn" label = "<span font-size='25pt'>󰌾</span>" on_click = "!~/.config/hypr/start_hyprlock.sh" }
-                  { type = "button" class="power-btn" label = "<span font-size='25pt'>󰐥</span>" on_click = "!shutdown now" }
+                  { type = "button" class="power-btn" label = "<span font-size='25pt'>󰐥</span>" on_click = "!poweroff" }
                   { type = "button" class="power-btn" label = "<span font-size='25pt'>󰜉</span>" on_click = "!reboot" }
                 ]
               }
@@ -528,7 +549,7 @@
 
       $left = [ $walker_popup $workspaces ]
       $center = [ $clock $notifications ]
-      $right = [ $tray $stats_popup $bluetooth_popup $clipboard $volume $power_popup ]
+      $right = [ $tray $stats_popup $network_popup $bluetooth_popup $clipboard $volume $power_popup ]
     }
 
     in {
@@ -536,6 +557,7 @@
       height = 30
       anchor_to_edges = true
       position = "top"
+      popup_gap = -10
       icon_theme = "${config.hm.theme.iconTheme}"
 
 

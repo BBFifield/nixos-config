@@ -88,7 +88,7 @@ in {
               ++ (lib.optionals (config.hm.gBar.enable) ["gBar bar 0"]);
 
             general = {
-              "col.active_border" = "$base0E $base0F 45deg";
+              "col.active_border" = "$base0E $base0D 45deg";
               "col.inactive_border" = "$base03 $base04 45deg";
             };
 

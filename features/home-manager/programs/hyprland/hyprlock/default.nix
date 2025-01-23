@@ -10,7 +10,7 @@ in {
     enable = mkEnableOption "Enable Hyprlock.";
   };
   config = mkIf cfg.enable {
-    xdg.configFile."hypr/start_hyprlock.sh".source = ./start_hyprlock.sh; # This ensures the script is available to ironbar while its config is outside of the store;
+    xdg.configFile."hypr/start_hyprlock.sh".source = ./start_hyprlock.sh;
     programs.hyprlock = {
       enable = true;
 
@@ -35,52 +35,61 @@ in {
               monitor = "";
               path = "/tmp/hyprlock_screenshot1.png"; #"$HOME/.config/background";
               blur_passes = 2;
+              noise = 0.03;
             };
           }
           {
             source = "$HOME/.config/hypr/hyprland.conf";
-            "$accent" = "0xff$base14";
-            "$accentAlpha" = "0xff$base15";
-            "$textVar" = "0xff$base09";
             "$font" = "${config.hm.theme.fonts.defaultMonospace}";
+            "$fgColor" = "$base0D";
+            "$bgColor" = "$base03";
+            "$failureColor" = "$base08";
+            "$successColor" = "$base0B";
+            "$checkColor" = "$base09";
 
             background = {
-              color = "0xff$base00";
+              color = "$base00";
             };
 
             # LAYOUT
             label = [
               {
                 monitor = "";
-                fg = "Layout: $LAYOUT";
-                color = "$fgVar";
+                text = "Layout: $LAYOUT";
+                color = "$fgColor";
                 font_size = 25 * scale;
                 font_family = "$font";
                 position = "${builtins.toString (30 * scale)}, ${builtins.toString (-60 * scale)}";
                 halign = "left";
                 valign = "top";
+                shadow_passes = 2;
+                shadow_size = 5;
               }
               # TIME
               {
                 monitor = "";
-                fg = "$TIME";
-                color = "$fgVar";
-                font_size = 90 * scale;
+                text = "$TIME12";
+                color = "$fgColor";
+                font_size = 60 * scale;
                 font_family = "$font";
                 position = "${builtins.toString (-30 * scale)}, 0";
                 halign = "right";
                 valign = "top";
+                shadow_passes = 2;
+                shadow_size = 5;
               }
               # DATE
               {
                 monitor = "";
-                fg = ''cmd[update:43200000] date +"%A, %d %B %Y"'';
-                color = "$fgVar";
+                text = ''cmd[update:43200000] date +"%A, %d %B %Y"'';
+                color = "$fgColor";
                 font_size = 25 * scale;
                 font_family = "$font";
                 position = "${builtins.toString (-30 * scale)}, ${builtins.toString (-150 * scale)}";
                 halign = "right";
                 valign = "top";
+                shadow_passes = 2;
+                shadow_size = 5;
               }
             ];
 
@@ -89,33 +98,38 @@ in {
               monitor = "";
               path = "/var/lib/AccountsService/icons/$USER";
               size = 150 * scale;
-              border_color = "$accent";
+              border_color = "$fgColor";
+              border_size = 7;
               position = "0, ${builtins.toString (75 * scale)}";
               halign = "center";
               valign = "center";
+              shadow_passes = 2;
+              shadow_size = 5;
             };
 
             # INPUT FIELD
             input-field = {
               monitor = "";
               size = "${builtins.toString (250 * scale)}, ${builtins.toString (50 * scale)}";
-              outline_thickness = 4;
+              outline_thickness = 0;
               dots_size = 0.2 * scale;
               dots_spacing = 0.2 * scale;
               dots_center = true;
-              outer_color = "$accent";
-              inner_color = "0xff$fg_field";
-              font_color = "$fgVar";
+              outer_color = "$bgColor";
+              inner_color = "$bgColor";
+              font_color = "$fgColor";
               fade_on_empty = "false";
-              placeholder_fg = ''<span foreground="##$fg"><i>󰌾 Logged in as </i><span foreground="##$active_accent1">$USER</span></span>'';
+              placeholder_text = ''<i>󰌾 Logged in as $USER</i>'';
               hide_input = false;
-              check_color = "$accent";
-              fail_color = "0xff$failure";
-              fail_fg = ''<i>$FAIL <b>($ATTEMPTS)</b></i>'';
+              check_color = "$fgColor";
+              fail_color = "$failureColor";
+              fail_text = ''<i>$FAIL <b>($ATTEMPTS)</b></i>'';
               capslock_color = "0xff$warning";
               position = "0, ${builtins.toString (-47 * scale)}";
               halign = "center";
               valign = "center";
+              shadow_passes = 2;
+              shadow_size = 5;
             };
           }
         ];

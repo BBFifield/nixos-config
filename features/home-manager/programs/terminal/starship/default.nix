@@ -118,7 +118,7 @@
 
       nix_shell = {
         disabled = false;
-        format = "[${props.separator_left}](fg:white)[ ](fg:18 bg:white)[${props.separator_right} ](fg:white) ";
+        format = "[${props.separator_left}](fg:white)[ ](fg:18 bg:white)[${props.separator_right}](fg:white) ";
       };
 
       container = {

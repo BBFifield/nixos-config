@@ -123,7 +123,7 @@
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
-    overlays = import ./overlays {inherit self lib inputs;};
+    overlays = forAllSystems (system: import ./overlays {inherit self system lib inputs;});
 
     nixosConfigurations = lib.pathToAttrs "${self}/hosts" (full_path: hostname:
       nixpkgs.lib.nixosSystem {

@@ -17,11 +17,16 @@ in {
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        xdg.configFile."ironbar/style.css".text = (import ./config/style_ironbar.nix {inherit config;}).style; #''${compiledSassFile}/.config/ironbar/style.css'';
+        xdg.configFile."ironbar/style.css" = {
+          text = (import ./config/style_ironbar.nix {inherit config;}).style;
+          onChange = ''
+            ${config.programs.ironbar.package}/bin/ironbar load-css "/home/$(whoami)/.config/ironbar/style.css"
+          '';
+        };
         xdg.configFile."ironbar/config.corn".text = (import ./config/config.nix {inherit config;}).ironbarConfig;
         xdg.configFile."ironbar/sys_info.sh".source = ./config/sys_info.sh;
-        # xdg.configFile."ironbar/stats.sh".source = ./config/stats.sh;
         xdg.configFile."ironbar/bluetooth.sh".source = ./config/bluetooth.sh;
+        xdg.configFile."ironbar/network.sh".source = ./config/network.sh;
       }
       {
         systemd.user.services = {

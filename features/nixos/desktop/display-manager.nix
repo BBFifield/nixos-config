@@ -77,7 +77,7 @@ in {
         enable = true;
         settings = {
           default_session = {
-            command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --user-menu --theme 'border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red' --cmd ${pkgs.cage}/bin/cage";
+            command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --time-format %d-%h-%Y-%I:%M%P --user-menu --remember --remember-session --asterisks --cmd ${pkgs.cage}/bin/cage";
             user = "greeter";
           };
         };
@@ -88,7 +88,9 @@ in {
       services.displayManager.ly = {
         enable = true;
         settings = {
-          session_log = "/home/brandon/ly-session.log";
+          save = true;
+          animation = "matrix";
+          clock = "%c";
         };
       };
     })

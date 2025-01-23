@@ -21,6 +21,10 @@
       cargo
       arduino-ide
       nodejs_23
+      npm-check-updates
+      typescript
+      typescript-language-server
+      nodePackages.vscode-json-languageserver
     ];
   };
 }
