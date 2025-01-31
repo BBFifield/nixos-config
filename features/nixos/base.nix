@@ -50,7 +50,7 @@
       hashedPassword = "$y$j9T$v4UN6562YZBZR.cqnWOiV0$JhBpDsBHHNtcbjzJ1AeY1JRmtNwwK4QGEAizjey1g6/";
       isNormalUser = true;
       description = "Brandon";
-      extraGroups = ["networkmanager" "wheel" "dialout"];
+      extraGroups = ["networkmanager" "wheel" "dialout" "adbusers"];
     };
     root = {
       hashedPassword = "$y$j9T$2Y/Apsh35UhYHOXBwomYS.$w3PBuxNSv9mIn9/vepOT86hjpl7SaRYGIS04.Z5DGhD";

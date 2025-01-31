@@ -15,12 +15,13 @@ in {
       enable = true;
 
       settings = let
-        scale =
-          {
-            "1" = 2; # "1" is true
-            "" = 1; # "" is false
-          }
-          .${builtins.toString config.hm.hidpi.enable};
+        # scale =
+        #   {
+        #     "1" = 2; # "1" is true
+        #     "" = 1; # "" is false
+        #   }
+        #   .${builtins.toString config.hm.hidpi.enable};
+        scale = 1;
       in
         mkMerge [
           {
@@ -31,12 +32,16 @@ in {
             };
 
             # BACKGROUND
-            background = {
-              monitor = "";
-              path = "/tmp/hyprlock_screenshot1.png"; #"$HOME/.config/background";
-              blur_passes = 2;
-              noise = 0.03;
-            };
+            background =
+              lib.map (displayOutput: let
+                displayOutputName = lib.head (lib.splitString "," displayOutput);
+              in {
+                monitor = displayOutputName;
+                path = "/tmp/hyprlock_screenshot_${displayOutputName}.png"; #"$HOME/.config/background";
+                blur_passes = 2;
+                noise = 0.03;
+              })
+              config.hm.hyprland.displayOutputs;
           }
           {
             source = "$HOME/.config/hypr/hyprland.conf";
@@ -45,11 +50,8 @@ in {
             "$bgColor" = "$base03";
             "$failureColor" = "$base08";
             "$successColor" = "$base0B";
-            "$checkColor" = "$base09";
-
-            background = {
-              color = "$base00";
-            };
+            "$checkColor" = "$base0A";
+            "$warningColor" = "$base09";
 
             # LAYOUT
             label = [
@@ -121,11 +123,11 @@ in {
               fade_on_empty = "false";
               placeholder_text = ''<i>󰌾 Logged in as $USER</i>'';
               hide_input = false;
-              check_color = "$fgColor";
+              check_color = "$checkColor";
               fail_color = "$failureColor";
               fail_text = ''<i>$FAIL <b>($ATTEMPTS)</b></i>'';
-              capslock_color = "0xff$warning";
-              position = "0, ${builtins.toString (-47 * scale)}";
+              capslock_color = "0xff$warningColor";
+              position = "0, ${builtins.toString (-75 * scale)}";
               halign = "center";
               valign = "center";
               shadow_passes = 2;

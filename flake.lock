@@ -951,10 +951,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1736114344,
-        "narHash": "sha256-iqlWQGK/MX86BIHlROcuQvdq+MrFfmuSKhRPE7LZ7ps=",
+        "lastModified": 1737697241,
+        "narHash": "sha256-cuw/f4ndCQ88728qzEXPnzWuMSl6RLh+bUEUAGoXROM=",
         "ref": "refs/heads/master",
-        "rev": "a34ed0cffb8eb4b1fe5af5d019ac837a90e2a241",
+        "rev": "71dc063ce39d0a8d66b652b9a6fe0cf4017f2458",
         "revCount": 29,
         "type": "git",
         "url": "file:///home/brandon/nvim-config"

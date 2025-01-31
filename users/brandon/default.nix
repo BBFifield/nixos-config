@@ -79,7 +79,10 @@ in {
           iconTheme = "Tela";
         };
         hyprland = lib.mkMerge [
-          {enable = true;}
+          {
+            enable = true;
+            displayOutputs = sysCfg.desktop.hyprland.displayOutputs;
+          }
           (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "tintednix") {shell.name = "tintednix";})
           (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "asztal") {shell = "asztal";})
           (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "hyprpanel") {shell = "hyprpanel";})

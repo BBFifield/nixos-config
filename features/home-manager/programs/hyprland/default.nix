@@ -33,11 +33,10 @@ with lib; let
   settings = {
     exec-once = [
       "uwsm app -- ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+      "uwsm app -t service -u hypr-displays.service -- ${pkgs.bash}/bin/bash ${(import ./hyprDisplays.nix {inherit config pkgs;}).hyprDisplays}/bin/hypr_displays"
     ];
 
-    monitor = [
-      ",preferred,auto,2"
-    ];
+    monitor = cfg.displayOutputs;
 
     env = [
       "XCURSOR_SIZE,${toString cursorTheme.size}"
@@ -251,6 +250,11 @@ in {
       type = lib.types.str;
       default = "50px";
     };
+    displayOutputs = lib.mkOption {
+      type = with lib.types; nullOr (listOf str);
+      default = null;
+      example = ["HDMI-A-1, highres@highrr, 0x0, 2"];
+    };
   };
 
   config = mkIf cfg.enable (
@@ -329,6 +333,9 @@ in {
         wayland.windowManager.hyprland = {
           enable = true;
           xwayland.enable = true;
+          systemd.variables = [
+            "GDK_SCALE"
+          ];
           inherit settings;
         };
       }

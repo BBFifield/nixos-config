@@ -18,6 +18,13 @@
     hyprland = {
       hyprland.enable = true;
       hyprland.shell = "tintednix";
+      hyprland.displayOutputs = [
+        # ",preferred,auto,2"
+        "HDMI-A-1,highres@highrr,0x0,2"
+        "DP-1,highres@highrr,1920x0,1"
+        "DP-2,highres@highrr,3840x0,1"
+        "HDMI-A-2,highres@highrr,5760x0,1"
+      ];
       displayManager = "greetd";
       nautilus.enable = true;
     };
@@ -108,6 +115,8 @@ in {
         openrgb-with-all-plugins
       ];
 
+      programs.adb.enable = true;
+
       programs.bash.shellAliases = {
         sudo = "sudo ";
         nixos-rebuild = "nixos-rebuild ";
@@ -126,7 +135,10 @@ in {
             customPkgs
             asztalOverlay
           ]);
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          android_sdk.accept_license = true;
+        };
       };
 
       # Configure keymap in X11

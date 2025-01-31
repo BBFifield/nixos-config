@@ -80,7 +80,7 @@ in {
             ];
             exec-once =
               [
-                "uwsm app -- wpaperd -d"
+                "uwsm app -t service -u wpaperd.service -- wpaperd -d"
                 "uwsm app -- swaync"
                 "uwsm app -t service -u ironbar.service -- ironbar"
                 "uwsm app -t service -u walker.service -- walker --gapplication-service"
@@ -103,7 +103,7 @@ in {
               "SUPER, R, exec, walker"
               "SUPER, N, exec, wpaperctl next"
               "SUPER, P, exec, hyprpicker --autocopy"
-              "SUPER ALT, H, exec, uwsm app -t service -u hyprsunset.service -- hyprsunset -t 3000"
+              "SUPER ALT, H, exec, if [[ $(systemctl --user status hyprsunset.service) ]]; then systemctl --user stop hyprsunset.service; else uwsm app -t service -u hyprsunset.service -- hyprsunset -t 3000; fi"
               ''SUPER, S, exec, grim -g "$(slurp -o -c $(echo $base0D | sed 's/^....\(......\)/\1/'))" -t ppm - | satty --filename -''
             ];
             windowrulev2 = [

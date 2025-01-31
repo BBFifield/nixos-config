@@ -26,6 +26,11 @@ with lib; let
         description = "Choose your preferred Hyprland shell";
         example = "asztal";
       };
+      displayOutputs = mkOption {
+        type = with types; nullOr (listOf str);
+        default = null;
+        example = ["HDMI-A-1, highres@highrr, 0x0, 2"];
+      };
     };
   };
 in {
@@ -47,6 +52,7 @@ in {
       default = {
         enable = false;
         shell = "tintednix";
+        displayOutputs = null;
       };
     };
   };
