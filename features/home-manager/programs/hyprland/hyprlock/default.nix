@@ -14,49 +14,55 @@ in {
     programs.hyprlock = {
       enable = true;
 
-      settings = let
-        # scale =
-        #   {
-        #     "1" = 2; # "1" is true
-        #     "" = 1; # "" is false
-        #   }
-        #   .${builtins.toString config.hm.hidpi.enable};
-        scale = 1;
-      in
-        mkMerge [
-          {
-            # GENERAL
-            general = {
-              disable_loading_bar = true;
-              hide_cursor = false;
-            };
+      # settings = let
+      #   # scale =
+      #   #   {
+      #   #     "1" = 2; # "1" is true
+      #   #     "" = 1; # "" is false
+      #   #   }
+      #   #   .${builtins.toString config.hm.hidpi.enable};
+      #   scale = 1;
+      # in
 
-            # BACKGROUND
-            background =
-              lib.map (displayOutput: let
-                displayOutputName = lib.head (lib.splitString "," displayOutput);
-              in {
-                monitor = displayOutputName;
-                path = "/tmp/hyprlock_screenshot_${displayOutputName}.png"; #"$HOME/.config/background";
-                blur_passes = 2;
-                noise = 0.03;
-              })
-              config.hm.hyprland.displayOutputs;
-          }
-          {
-            source = "$HOME/.config/hypr/hyprland.conf";
-            "$font" = "${config.hm.theme.fonts.defaultMonospace}";
-            "$fgColor" = "$base0D";
-            "$bgColor" = "$base03";
-            "$failureColor" = "$base08";
-            "$successColor" = "$base0B";
-            "$checkColor" = "$base0A";
-            "$warningColor" = "$base09";
+      settings = mkMerge [
+        {
+          # GENERAL
+          general = {
+            disable_loading_bar = true;
+            hide_cursor = false;
+          };
 
-            # LAYOUT
-            label = [
+          # BACKGROUND
+          background =
+            lib.map (displayOutput: let
+              displayOutputName = lib.head (lib.splitString "," displayOutput);
+            in {
+              monitor = displayOutputName;
+              path = "/tmp/hyprlock_screenshot_${displayOutputName}.png";
+              blur_passes = 2;
+              noise = 0.03;
+            })
+            config.hm.hyprland.displayOutputs;
+        }
+        {
+          source = "$HOME/.config/hypr/hyprland.conf";
+          "$font" = "${config.hm.theme.fonts.defaultMonospace}";
+          "$fgColor" = "$base0D";
+          "$bgColor" = "$base03";
+          "$failureColor" = "$base08";
+          "$successColor" = "$base0B";
+          "$checkColor" = "$base0A";
+          "$warningColor" = "$base09";
+
+          # LAYOUT
+          label =
+            lib.concatMap (displayOutput: let
+              displayProps = lib.splitString "," displayOutput;
+              displayOutputName = lib.head displayProps;
+              scale = lib.toInt (lib.last displayProps);
+            in [
               {
-                monitor = "";
+                monitor = displayOutputName;
                 text = "Layout: $LAYOUT";
                 color = "$fgColor";
                 font_size = 25 * scale;
@@ -69,7 +75,7 @@ in {
               }
               # TIME
               {
-                monitor = "";
+                monitor = displayOutputName;
                 text = "$TIME12";
                 color = "$fgColor";
                 font_size = 60 * scale;
@@ -82,7 +88,7 @@ in {
               }
               # DATE
               {
-                monitor = "";
+                monitor = displayOutputName;
                 text = ''cmd[update:43200000] date +"%A, %d %B %Y"'';
                 color = "$fgColor";
                 font_size = 25 * scale;
@@ -93,11 +99,17 @@ in {
                 shadow_passes = 2;
                 shadow_size = 5;
               }
-            ];
+            ])
+            config.hm.hyprland.displayOutputs;
 
-            # USER AVATAR
-            image = {
-              monitor = "";
+          # USER AVATAR
+          image =
+            lib.map (displayOutput: let
+              displayProps = lib.splitString "," displayOutput;
+              displayOutputName = lib.head displayProps;
+              scale = lib.toInt (lib.last displayProps);
+            in {
+              monitor = displayOutputName;
               path = "/var/lib/AccountsService/icons/$USER";
               size = 150 * scale;
               border_color = "$fgColor";
@@ -107,11 +119,17 @@ in {
               valign = "center";
               shadow_passes = 2;
               shadow_size = 5;
-            };
+            })
+            config.hm.hyprland.displayOutputs;
 
-            # INPUT FIELD
-            input-field = {
-              monitor = "";
+          # INPUT FIELD
+          input-field =
+            lib.map (displayOutput: let
+              displayProps = lib.splitString "," displayOutput;
+              displayOutputName = lib.head displayProps;
+              scale = lib.toInt (lib.last displayProps);
+            in {
+              monitor = displayOutputName;
               size = "${builtins.toString (250 * scale)}, ${builtins.toString (50 * scale)}";
               outline_thickness = 0;
               dots_size = 0.2 * scale;
@@ -132,9 +150,10 @@ in {
               valign = "center";
               shadow_passes = 2;
               shadow_size = 5;
-            };
-          }
-        ];
+            })
+            config.hm.hyprland.displayOutputs;
+        }
+      ];
     };
   };
 }
