@@ -19,20 +19,21 @@
     wait $native_pid
   '';
 in {
-  config = lib.mkIf (config.tintednix.targets.firefox.enable) (
-    lib.mkMerge [
-      {
-        home.activation.firefox_base16 = lib.hm.dag.entryAfter ["writeBoundary"] ''
-          if ! test -f "${config.home.homeDirectory}/.mozilla/native-messaging-hosts/firefox_native_base16.json"; then
-            mkdir -p ${config.home.homeDirectory}/.mozilla/native-messaging-hosts
-            jq ".path = \"${launcherScript}\"" "${repo}/manifest.json" >"${config.home.homeDirectory}/.mozilla/native-messaging-hosts/firefox_native_base16.json"
+  config = let
+    manifestFile = "${config.home.homeDirectory}/.mozilla/native-messaging-hosts/firefox_native_base16.json";
+  in
+    lib.mkIf (config.tintednix.targets.firefox.enable)
+    {
+      home.activation.firefox_base16 = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        if ! test -f ${manifestFile}; then
+          mkdir -p ${config.home.homeDirectory}/.mozilla/native-messaging-hosts
+          jq ".path = \"${launcherScript}\"" "${repo}/manifest.json" >"${manifestFile}"
+        else
+          current_path=$(jq ".path" ${manifestFile})
+          if [ $current_path != "${launcherScript}" ]; then
+            jq ".path = \"${launcherScript}\"" ${repo}/manifest.json >"${manifestFile}"
           fi
-        '';
-
-        home.packages = with pkgs; [
-          firefox-base16
-        ];
-      }
-    ]
-  );
+        fi
+      '';
+    };
 }

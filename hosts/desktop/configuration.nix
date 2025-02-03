@@ -20,7 +20,7 @@
       hyprland.shell = "tintednix";
       hyprland.displayOutputs = [
         # ",preferred,auto,2"
-        "HDMI-A-1,highres@highrr,0x0,2"
+        "HDMI-A-1,3840x2160@60,0x0,2"
         "DP-1,highres@highrr,1920x0,1"
         "DP-2,highres@highrr,3840x0,1"
         "HDMI-A-2,highres@highrr,5760x0,1"
@@ -148,7 +148,7 @@ in {
       };
 
       # Enable sound with pipewire.
-      hardware.pulseaudio.enable = lib.mkForce false;
+      services.pulseaudio.enable = lib.mkForce false;
       security.rtkit.enable = true;
       services.pipewire = {
         enable = true;
