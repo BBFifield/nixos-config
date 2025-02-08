@@ -23,6 +23,7 @@
       };
     in {
       "$schema" = ''https://starship.rs/config-schema.json'';
+      add_newline = false;
       format = lib.concatStrings [
         "$nix_shell"
         "[${props.separator_left}](blue)"
@@ -179,7 +180,7 @@ in {
       {
         programs.starship = {
           enable = true;
-          enableBashIntegration = true;
+          enableBashIntegration = false; # This is false because bash integration is done manually in ../shell
           settings = settings;
         };
       }

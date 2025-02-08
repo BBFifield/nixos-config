@@ -97,15 +97,37 @@ in {
               "col.border_inactive" = "$base03 $base04 45deg";
               "col.border_locked_active" = "$base0E $base0F 45deg";
               "col.border_locked_inactive" = "$base03 $base04 45deg";
+              groupbar = {
+                font_size = 25;
+                height = 15;
+                text_color = "$base0D";
+                "col.active" = "$base01";
+                "col.inactive" = "$base02";
+              };
             };
 
             bind = [
               "SUPER, R, exec, walker"
               "SUPER, N, exec, wpaperctl next"
-              "SUPER, P, exec, hyprpicker --autocopy"
-              "SUPER ALT, H, exec, if [[ $(systemctl --user status hyprsunset.service) ]]; then systemctl --user stop hyprsunset.service; else uwsm app -t service -u hyprsunset.service -- hyprsunset -t 3000; fi"
+              "SUPER, P, exec, ${
+                if config.hm.ironbar.enable
+                then "bash ${../../bars/ironbar/config/customModules/tools/update_picked_color.sh}"
+                else "hyprpicker -a"
+              }"
               ''SUPER, S, exec, grim -g "$(slurp -o -c $(echo $base0D | sed 's/^....\(......\)/\1/'))" -t ppm - | satty --filename -''
             ];
+            bindl = [
+              "SUPER, B, exec, if [[ $(systemctl --user status hyprsunset.service) ]]; then systemctl --user stop hyprsunset.service; ${
+                if config.hm.ironbar.enable
+                then "ironbar var set night_light_icon 󱩍"
+                else ""
+              }; else uwsm app -t service -u hyprsunset.service -- hyprsunset -t 3000; ${
+                if config.hm.ironbar.enable
+                then "ironbar var set night_light_icon 󱩌"
+                else ""
+              }; fi"
+            ];
+
             windowrulev2 = [
               #"stayfocused, class:^(dev.benz.walker)$"
               "opacity 0.90 override 0.85 override, class:^(dev.benz.walker)$"

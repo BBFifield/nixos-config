@@ -4,16 +4,16 @@
   lib,
   ...
 }: let
-  sassFile = (import ./config/style_walker.nix {inherit config;}).style;
+  sassFile = import ./config/style.nix config;
   compiledSassFile =
     pkgs.runCommand "style_walker" {nativeBuildInputs = with pkgs; [dart-sass jq];}
     ''
       #!/usr/bin/env bash
       mkdir -p $out
-      cat > "$out/style_walker.scss" <<'EOF'
+      cat > "$out/styleWalker.scss" <<'EOF'
       ${sassFile}
       EOF
-      sass "$out/style_walker.scss" "$out/.config/walker/themes/style.css"
+      sass "$out/styleWalker.scss" "$out/.config/walker/themes/style.css"
       CSS_FILE="$out/.config/walker/themes/style.css"
 
       { echo "@import url('file://${config.home.homeDirectory}/.config/walker/themes/colors.css');"; cat "$CSS_FILE"; } > temp_file && mv temp_file "$CSS_FILE"
@@ -113,7 +113,7 @@ in {
             )
           '';
         };
-        xdg.configFile."walker/themes/style.toml".text = (import ./config/layout.nix {inherit config;}).layout;
+        xdg.configFile."walker/themes/style.toml".text = import ./config/layout.nix config;
       }
     ]
   );

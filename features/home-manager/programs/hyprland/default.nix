@@ -30,7 +30,15 @@ with lib; let
     size = lib.mkForce 10;
   };
 
-  settings = {
+  settings = let
+    binding = mod: cmd: key: arg: "${mod}, ${key}, ${cmd}, ${arg}";
+    mvfocus = binding "SUPER" "movefocus";
+    ws = binding "SUPER" "workspace";
+    resizeactive = binding "SUPER SHIFT" "resizeactive";
+    swapactive = binding "SUPER CTRL" "swapwindow";
+    mvtows = binding "SUPER SHIFT" "movetoworkspace";
+    arr = [1 2 3 4 5 6 7];
+  in {
     exec-once = [
       "uwsm app -- ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
       "uwsm app -t service -u hypr-displays.service -- ${pkgs.bash}/bin/bash ${(import ./hyprDisplays.nix {inherit config pkgs;}).hyprDisplays}/bin/hypr_displays"
@@ -62,11 +70,21 @@ with lib; let
     general = {
       layout = "dwindle";
       resize_on_border = true;
+      border_size = 1;
     };
 
     misc = {
       disable_splash_rendering = true;
       force_default_wallpaper = 1;
+      font_family = config.hm.theme.fonts.defaultMonospace;
+      mouse_move_enables_dpms = true;
+      key_press_enables_dpms = true;
+      focus_on_activate = true;
+      allow_session_lock_restore = true;
+    };
+
+    cursor = {
+      inactive_timeout = 5;
     };
 
     input = {
@@ -82,6 +100,7 @@ with lib; let
 
     binds = {
       allow_workspace_cycles = true;
+      workspace_center_on = 1;
     };
 
     dwindle = {
@@ -122,15 +141,7 @@ with lib; let
       "opacity 0.95 override 0.9 override, class:^(Alacritty)$"
     ];
 
-    bind = let
-      binding = mod: cmd: key: arg: "${mod}, ${key}, ${cmd}, ${arg}";
-      mvfocus = binding "SUPER" "movefocus";
-      ws = binding "SUPER" "workspace";
-      resizeactive = binding "SUPER CTRL" "resizeactive";
-      mvactive = binding "SUPER ALT" "moveactive";
-      mvtows = binding "SUPER SHIFT" "movetoworkspace";
-      arr = [1 2 3 4 5 6 7];
-    in
+    bind =
       [
         "SUPER, W, exec, [workspace 2] uwsm app -- ${config.hm.browsers.defaultBrowser}"
         "SUPER, F, exec, [workspace 3] uwsm app -- alacritty -e yazi"
@@ -143,9 +154,9 @@ with lib; let
         "ALT, Tab, focuscurrentorlast"
         "CTRL ALT, Delete, exec, loginctl terminate-user $(whoami)"
         "ALT, Q, killactive"
-        #"SUPER, F, togglefloating"
-        "SUPER, G, fullscreen"
-        "SUPER CTRL, P, togglesplit"
+        "SUPER CTRL, G, togglefloating"
+        "SUPER CTRL, F, fullscreen"
+        "SUPER CTRL, S, togglesplit"
 
         (mvfocus "k" "u")
         (mvfocus "j" "d")
@@ -153,19 +164,24 @@ with lib; let
         (mvfocus "h" "l")
         (ws "left" "e-1")
         (ws "right" "e+1")
+        (ws "mouse_down" "e-1")
+        (ws "mouse_up" "e+1")
         (mvtows "left" "e-1")
         (mvtows "right" "e+1")
-        (resizeactive "k" "0 -20")
-        (resizeactive "j" "0 20")
-        (resizeactive "l" "20 0")
-        (resizeactive "h" "-20 0")
-        (mvactive "k" "0 -20")
-        (mvactive "j" "0 20")
-        (mvactive "l" "20 0")
-        (mvactive "h" "-20 0")
+        (swapactive "k" "u")
+        (swapactive "j" "d")
+        (swapactive "l" "r")
+        (swapactive "h" "l")
       ]
       ++ (map (i: ws (toString i) (toString i)) arr)
       ++ (map (i: mvtows (toString i) (toString i)) arr);
+
+    binde = [
+      (resizeactive "k" "0 -20")
+      (resizeactive "j" "0 20")
+      (resizeactive "l" "20 0")
+      (resizeactive "h" "-20 0")
+    ];
 
     bindle = [
       ",XF86MonBrightnessUp,   exec, ${brightnessctl} set +5%"
@@ -238,6 +254,18 @@ with lib; let
       ];
     };
   };
+
+  extraConfig = ''
+    bind = SUPER ALT, G, submap, group
+    submap = group
+    bind = SUPER, G, togglegroup
+    bind = SUPER, left, changegroupactive,b
+    bind = SUPER, right, changegroupactive, f
+    ${lib.concatMapStrings (i: "bind = SUPER, ${i}, changegroupactive, ${i}\n") ["1" "2" "3" "4" "5" "6" "7"]}
+    bind = SUPER, L, lockgroups, toggle
+    bind = SUPER, escape, submap, reset
+    submap = reset
+  '';
 in {
   imports = [
     ./shell
@@ -336,7 +364,7 @@ in {
           systemd.variables = [
             "GDK_SCALE"
           ];
-          inherit settings;
+          inherit settings extraConfig;
         };
       }
     ]

@@ -8,9 +8,9 @@
 in {
   options.hm.ironbar = {
     enable = lib.mkEnableOption "Enable ironbar statusbar.";
-    enabledModules = lib.mkOption {
+    customModules = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = ["bluetooth" "stats" "powerMenu"];
+      default = ["walker" "tools" "stats" "network" "bluetooth" "power"];
     };
   };
 
@@ -18,15 +18,15 @@ in {
     lib.mkMerge [
       {
         xdg.configFile."ironbar/style.css" = {
-          text = (import ./config/style_ironbar.nix {inherit config;}).style;
+          text = import ./config/style.nix config;
           onChange = ''
             ${config.programs.ironbar.package}/bin/ironbar load-css "/home/$(whoami)/.config/ironbar/style.css"
           '';
         };
-        xdg.configFile."ironbar/config.corn".text = (import ./config/config.nix {inherit config;}).ironbarConfig;
-        xdg.configFile."ironbar/sys_info.sh".source = ./config/sys_info.sh;
-        xdg.configFile."ironbar/bluetooth.sh".source = ./config/bluetooth.sh;
-        xdg.configFile."ironbar/network.sh".source = ./config/network.sh;
+        xdg.configFile."ironbar/config.corn".text = import ./config/config.nix config lib;
+        # xdg.configFile."ironbar/sys_info.sh".source = ./config/sys_info.sh;
+        # xdg.configFile."ironbar/bluetooth.sh".source = ./config/bluetooth.sh;
+        # xdg.configFile."ironbar/network.sh".source = ./config/network.sh;
       }
       {
         systemd.user.services = {
@@ -53,7 +53,7 @@ in {
             };
             Service = {
               Type = "oneshot";
-              ExecStart = "${pkgs.bash}/bin/bash ${builtins.path {path = ./config/stats.sh;}}";
+              ExecStart = "${pkgs.bash}/bin/bash ${./config/customModules/stats/stats.sh}"; #"${pkgs.bash}/bin/bash ${builtins.path {path = ./config/customModules/stats/stats.sh;}}";
               RemainAfterExit = true;
             };
             Install = {
