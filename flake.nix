@@ -32,8 +32,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    astal = {
+      url = "github:aylur/astal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     ags = {
-      url = "github:Aylur/ags";
+      url = "github:aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -61,15 +65,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    neovim-config = {
+      url = "github:BBFifield/neovim-config";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # neovim-config = {
-    #   url = "github:BBFifield/neovim-config";
+    #   url = "git+file:///home/brandon/nvim-config";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    neovim-config = {
-      url = "git+file:///home/brandon/nvim-config";
+    tintednix = {
+      url = "github:BBFifield/tintednix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # tintednix = {
+    #   url = "git+file:///home/brandon/tintednix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     ironbar = {
       url = "github:JakeStanger/ironbar";
@@ -77,8 +91,6 @@
     };
 
     alacritty-theme.url = "github:alexghr/alacritty-theme.nix";
-
-    base16-nix.url = "github:SenchoPens/base16.nix";
 
     firefox-native-base16 = {
       url = "github:BBFifield/firefox-native-base16";
@@ -100,8 +112,6 @@
       "x86_64-linux"
     ];
 
-    # Maps a function over the 'systems' attribute set. 'Systems' is provided as the first arg, but it also
-    # needs a function as the second arg, which is provided below when forAllSystems is called.
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in rec
   {

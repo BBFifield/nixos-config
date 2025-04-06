@@ -16,7 +16,7 @@ config: ''
             name = "power-actions-box"
             widgets = [
               { type = "button" class="power-btn" label = "<span font-size='25pt'>󰗽</span>" on_click = "!loginctl terminate-user $(whoami)" }
-              { type = "button" class="power-btn" label = "<span font-size='25pt'>󰌾</span>" on_click = "!~/.config/hypr/start_hyprlock.sh" }
+              { type = "button" class="power-btn" label = "<span font-size='25pt'>󰌾</span>" on_click = "!loginctl lock-session" }
               { type = "button" class="power-btn" label = "<span font-size='25pt'>󰐥</span>" on_click = "!poweroff" }
               { type = "button" class="power-btn" label = "<span font-size='25pt'>󰜉</span>" on_click = "!reboot" }
             ]

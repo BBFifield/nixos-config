@@ -334,16 +334,16 @@ in {
           enable = true;
           settings = {
             general = {
-              lock_cmd = "./start_hyprlock.sh"; # avoid starting multiple hyprlock instances.
-              before_sleep_cmd = "./start_hyprlock.sh";
+              lock_cmd = "bash ${./hyprlock/start_hyprlock.sh}"; # avoid starting multiple hyprlock instances.
+              before_sleep_cmd = "loginctl lock-session";
               after_sleep_cmd = "sleep 1s && hyprctl dispatch dpms on";
               ignore_dbus_inhibit = false;
             };
 
             listener = [
               {
-                timeout = 900;
-                on-timeout = "./start_hyprlock.sh";
+                timeout = 600;
+                on-timeout = "loginctl lock-session";
               }
               {
                 timeout = 1200;

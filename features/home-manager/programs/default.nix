@@ -1,7 +1,5 @@
 [
-  ./bars/gBar
-  ./bars/ironbar
-  ./bars/waybar
+  ./bars
   ./browsers
   ./dconf
   ./editors
@@ -11,6 +9,8 @@
   ./plasma
   ./wpaperd
   ./satty
+  ./source-control
+  ./swaync
   ./terminal
   ./walker
   ./yazi

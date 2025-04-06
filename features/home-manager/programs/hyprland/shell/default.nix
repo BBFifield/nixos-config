@@ -71,11 +71,11 @@ in {
           };
         };
       })
-      (mkIf (config.hm.hyprland.shell.name == "tintednix" && config.tintednix.targets.hyprland.enable) (
+      (mkIf (config.hm.hyprland.shell.name == "tintednix" && config.hm.tintednix.targets.hyprland.enable) (
         let
           settings = {
             source = [
-              "${config.home.homeDirectory}/.config/hypr/${config.tintednix.targets.hyprland.schemeFilename}.conf"
+              "${config.home.homeDirectory}/.config/hypr/${config.hm.tintednix.targets.hyprland.schemeFilename}.conf"
               "${config.home.homeDirectory}/.config/hypr/tintednix_binding.conf"
             ];
             exec-once =
@@ -137,9 +137,9 @@ in {
             bind = "SUPER, T, exec, tintednix update ${color_scheme}";
           };
 
-          schemeAttrs = config.tintednix.commonColors;
+          schemeAttrs = config.hm.tintednix.commonColors;
 
-          defaultName = "${config.tintednix.defaultScheme}";
+          defaultName = "${config.hm.tintednix.defaultScheme}";
 
           schemeNames = lib.attrNames schemeAttrs;
 
@@ -200,9 +200,9 @@ in {
                 inherit settings;
               };
             }
-            (lib.mkIf (config.tintednix.targets.hyprland.live.enable) (lib.mkMerge [
+            (lib.mkIf (config.hm.tintednix.targets.hyprland.live.enable) (lib.mkMerge [
               {
-                tintednix.live.hooks.hotReload = lib.mkMerge [
+                hm.tintednix.live.hooks.hotReload = lib.mkMerge [
                   ''
                     cp -rf "$directory/hypr/tintednix_bindings/$arg2.conf" "$directory/hypr/tintednix_binding.conf"
                   ''

@@ -6,8 +6,7 @@
 }: {
   imports =
     (lib.concatMap import [./programs])
-    ++ [./look-and-feel]
-    ++ [./look-and-feel/tintednix];
+    ++ [./look-and-feel];
 
   options.hm = {
     projectPath = lib.mkOption {

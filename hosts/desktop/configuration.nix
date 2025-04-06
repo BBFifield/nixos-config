@@ -3,7 +3,6 @@
   overlays,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
   commonOpts = {

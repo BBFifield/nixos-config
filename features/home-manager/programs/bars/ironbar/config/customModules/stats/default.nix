@@ -259,7 +259,7 @@ config: ''
           {
             type = "script"
             class = "info-script"
-            cmd = "bash /home/$(whoami)/.config/ironbar/sys_info.sh"
+            cmd = "bash ${./sys_info.sh}"
             mode = "poll"
             interval = 600000
           }

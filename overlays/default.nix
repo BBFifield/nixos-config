@@ -1,6 +1,5 @@
 {
   self,
-  system,
   lib,
   inputs,
   ...
@@ -55,5 +54,6 @@
     inputs.nurpkgs.overlays.default
     inputs.hyprpanel.overlay
     inputs.alacritty-theme.overlays.default
+    inputs.tintednix.overlays.default
   ];
 }

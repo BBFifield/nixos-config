@@ -87,7 +87,7 @@ in {
                       "label" = "${schemeName}";
                       "exec" = "tintednix update ${schemeName} ${schemeValue.variant}";
                     })
-                    config.tintednix.commonColors;
+                    config.hm.tintednix.commonColors;
                 in
                   entries;
               }

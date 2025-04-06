@@ -22,7 +22,7 @@ in {
   config = let
     manifestFile = "${config.home.homeDirectory}/.mozilla/native-messaging-hosts/firefox_native_base16.json";
   in
-    lib.mkIf (config.tintednix.targets.firefox.enable)
+    lib.mkIf (config.hm.tintednix.targets.firefox.enable)
     {
       home.activation.firefox_base16 = lib.hm.dag.entryAfter ["writeBoundary"] ''
         if ! test -f ${manifestFile}; then

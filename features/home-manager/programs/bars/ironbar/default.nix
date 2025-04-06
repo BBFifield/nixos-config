@@ -63,9 +63,10 @@ in {
         };
       }
       {
+        hm.swaync.enable = true;
+
         home.packages = with pkgs; [
           playerctl
-          swaynotificationcenter
         ];
 
         programs.ironbar = {

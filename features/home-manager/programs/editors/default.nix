@@ -26,7 +26,8 @@
       typescript-language-server
       nodePackages.vscode-json-languageserver
       android-studio
-      # android-tools
+      sops
+      age
     ];
   };
 }
