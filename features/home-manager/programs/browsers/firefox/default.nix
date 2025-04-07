@@ -7,7 +7,7 @@
   profilesPath = ".mozilla/firefox";
   cfg = config.hm.browsers.firefox;
   #Profile specific extensions
-  extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+  extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
     ublock-origin
     reddit-enhancement-suite
     betterttv
@@ -85,17 +85,11 @@ in
 
     config = let
       wavefoxSettings = {
-        "userChrome.DarkTheme.Tabs.Borders.Saturation.Medium.Enabled" = true;
-        "userChrome.DarkTheme.Tabs.Shadows.Saturation.Medium.Enabled" = false;
-        "userChrome.DragSpace.Left.Disabled" = true;
-        "userChrome.Menu.Icons.Regular.Enabled" = true;
-        "userChrome.Menu.Size.Compact.Enabled" = false;
-        "userChrome.Tabs.Option5.Enabled" = true;
-        "userChrome.Tabs.Option6.Enabled" = false;
-        "userChrome.Tabs.Option7.Enabled" = false;
-        "userChrome.Tabs.SelectedTabIndicator.Enabled" = false;
-        "userChrome.TabSeparators.Saturation.Low.Enabled" = true;
-        "userChrome.Tabs.TabsOnBottom.Enabled" = true;
+        "WaveFox.DragSpace.TabBarLeftSide.Disabled" = true;
+        "WaveFox.Tabs.Shape" = 4;
+        "WaveFox.Tabs.SelectedTabIndicator.Enabled" = false;
+        "WaveFox.Tabs.Separators" = 1;
+        "WaveFox.TabsBelowURL.Enabled" = true;
       };
     in
       lib.mkIf cfg.enable (lib.mkMerge [
@@ -210,8 +204,8 @@ in
                   ];
                   search = {
                     force = true;
-                    default = "DuckDuckGo";
-                    order = ["DuckDuckGo" "Google"];
+                    default = "ddg";
+                    order = ["ddg" "google"];
                     engines = (import ./search-engines.nix {inherit pkgs;}).engines;
                   };
                 };

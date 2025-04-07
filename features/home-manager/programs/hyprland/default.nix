@@ -114,7 +114,7 @@ with lib; let
     };
 
     windowrule = let
-      f = regex: "float, ^(${regex})$";
+      f = regex: "float, class:^(${regex})$";
     in [
       (f "org.gnome.Calculator")
       (f "pavucontrol")
@@ -127,18 +127,15 @@ with lib; let
       (f "de.haeckerfelix.Fragments")
       (f "com.github.Aylur.ags")
       (f "dev.benz.walker")
-      "workspace 3, ^(org.gnome.Nautilus)$"
-      "workspace 2, ${config.hm.browsers.defaultBrowser}"
-      "workspace 1, ^(VSCodium)$"
-    ];
-
-    windowrulev2 = [
+      "workspace 3, class:^(org.gnome.Nautilus)$"
+      "workspace 2, class:${config.hm.browsers.defaultBrowser}"
+      "workspace 1, class:^(VSCodium)$"
+      "opacity 0.95 override 0.9 override, class:^(Alacritty)$"
       /*
         won't match
       "workspace 3, initialTitle:^(.*Yazi.*)$, class:^(.Alacritty.*)$"
       "workspace 1, initialTitle:^(.*Alacritty.*)$, class:^(.*Alacritty.*)$, title:^(.*NVIM.*)$"
       */
-      "opacity 0.95 override 0.9 override, class:^(Alacritty)$"
     ];
 
     bind =

@@ -20,12 +20,12 @@ in {
           {
             url = "https://github.com/Rolv-Apneseth/starship.yazi.git";
             ref = "main";
-            rev = "247f49da1c408235202848c0897289ed51b69343";
+            rev = "6c639b474aabb17f5fecce18a4c97bf90b016512";
           }
           {
             url = "https://github.com/DreamMaoMao/keyjump.yazi.git";
             ref = "main";
-            rev = "9ba4cfae2f6cc45bfaa543409af91de41cb1e825";
+            rev = "4fb2bc3ae51993c7196b32bc781b5c5d0ae1e437";
           }
         ];
       in {
@@ -36,7 +36,7 @@ in {
             prepend_keymap = [
               {
                 on = ["i"];
-                run = "plugin keyjump --args=keep";
+                run = "plugin keyjump keep";
                 desc = "Keyjump (Keep mode)";
               }
               {
@@ -46,17 +46,17 @@ in {
               }
               {
                 on = ["i"];
-                run = "plugin keyjump --args=select";
+                run = "plugin keyjump select";
                 desc = "Keyjump (Select mode)";
               }
               {
                 on = ["i"];
-                run = "plugin keyjump --args=global";
+                run = "plugin keyjump global";
                 desc = "Keyjump (Global mode)";
               }
               {
                 on = ["i"];
-                run = "plugin keyjump --args='global once'";
+                run = "plugin keyjump 'global once'";
                 desc = "Keyjump (once Global mode)";
               }
             ];

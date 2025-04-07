@@ -117,18 +117,18 @@ in {
               ''SUPER, S, exec, grim -g "$(slurp -o -c $(echo $base0D | sed 's/^....\(......\)/\1/'))" -t ppm - | satty --filename -''
             ];
             bindl = [
-              "SUPER, B, exec, if [[ $(systemctl --user status hyprsunset.service) ]]; then systemctl --user stop hyprsunset.service; ${
+              "SUPER, B, exec, if [[ $(systemctl --user status hyprsunset.service | grep 'active (running)') ]]; then systemctl --user stop hyprsunset.service; ${
                 if config.hm.ironbar.enable
                 then "ironbar var set night_light_icon 󱩍"
                 else ""
-              }; else uwsm app -t service -u hyprsunset.service -- hyprsunset -t 3000; ${
+              }; else systemctl --user start hyprsunset.service; hyprsunset -t 3000; ${
                 if config.hm.ironbar.enable
                 then "ironbar var set night_light_icon 󱩌"
                 else ""
               }; fi"
             ];
 
-            windowrulev2 = [
+            windowrule = [
               #"stayfocused, class:^(dev.benz.walker)$"
               "opacity 0.90 override 0.85 override, class:^(dev.benz.walker)$"
             ];

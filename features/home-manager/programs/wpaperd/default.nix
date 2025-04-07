@@ -9,7 +9,7 @@ with lib; {
   };
 
   config = mkIf config.hm.wpaperd.enable {
-    programs.wpaperd = {
+    services.wpaperd = {
       enable = true;
       settings = {
         default = {

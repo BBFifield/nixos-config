@@ -1,9 +1,17 @@
 {pkgs}: {
+  # ame, use 'ddg' instead of 'DuckDuckGo'
+  # evaluation warning: Search engines are now referenced by id instead of by name, use 'bing' instead of 'Bing'
+  # evaluation warning: Search engines are now referenced by id instead of by name, use 'google' instead of 'Google'
+  # evaluation warning: Search engines are now referenced by id instead of by name, use 'reddit' instead of 'Reddit'
+  # evaluation warning: Search engines are now referenced by id instead of by name, use 'wikipedia' instead of 'Wikipedia (en)'
+  # evaluation warning: Search engines are now referenced by id instead of by name, use 'ebay' instead of 'eBay'
+  # evaluation warning: Search engines are now referenced by id instead of by name, use 'ddg' instead of 'DuckDuckGo'
+  # evaluation warning: Search engines are now referenced by id instead of by name, use 'google' instead of 'Google'
   engines = {
-    "Bing".metaData.hidden = true;
-    "eBay".metaData.hidden = true;
-    "Google".metaData.alias = "@g";
-    "Wikipedia (en)".metaData.alias = "@w";
+    "bing".metaData.hidden = true;
+    "ebay".metaData.hidden = true;
+    "google".metaData.alias = "@g";
+    "wikipedia".metaData.alias = "@w";
 
     "GitHub" = {
       urls = [
@@ -125,7 +133,7 @@
       definedAliases = ["@ng"];
     };
 
-    "Reddit" = {
+    "reddit" = {
       urls = [
         {
           template = "https://www.reddit.com/search";
