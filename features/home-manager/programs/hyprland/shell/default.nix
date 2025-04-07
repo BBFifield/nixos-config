@@ -121,7 +121,7 @@ in {
                 if config.hm.ironbar.enable
                 then "ironbar var set night_light_icon 󱩍"
                 else ""
-              }; else systemctl --user start hyprsunset.service; hyprsunset -t 3000; ${
+              }; else systemctl --user start hyprsunset.service; hyprctl hyprsunset temperature 3000; ${
                 if config.hm.ironbar.enable
                 then "ironbar var set night_light_icon 󱩌"
                 else ""

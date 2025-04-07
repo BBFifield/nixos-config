@@ -348,7 +348,7 @@ config: ''
     interval.networks = 2
     format = [
       "  {cpu_percent}%|{temp_c:k10temp-Tctl}°C"
-      "  {memory_used}GiB({memory_percent}%)"
+      "  {memory_used:2}GiB({memory_percent:2}%)"
     ]
   }
   $stats_popup = {
