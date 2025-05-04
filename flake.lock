@@ -618,17 +618,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1739426811,
-        "narHash": "sha256-kmMcFZAlsU//czEw3xMSYF8NBYbG+50xEgFIpgsG+DI=",
-        "owner": "BBFifield",
-        "repo": "neovim-config",
-        "rev": "6d6fa1c803ac8d85f955361e705677dbd7c20765",
-        "type": "github"
+        "lastModified": 1743997818,
+        "narHash": "sha256-zeBcOeGrOJpIV9e7p4jGIOCUKEeDhh1XvfICxe6FMc0=",
+        "ref": "refs/heads/master",
+        "rev": "fb562c1d3a0adfea1a985826e6c4afc71adf0974",
+        "revCount": 38,
+        "type": "git",
+        "url": "file:///home/brandon/nvim-config"
       },
       "original": {
-        "owner": "BBFifield",
-        "repo": "neovim-config",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/brandon/nvim-config"
       }
     },
     "nixlib": {
@@ -942,17 +942,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1743917555,
-        "narHash": "sha256-kASyMXj6msCH4zwMxzd6TWli7Fpg4/dwCsQ9dk0GtfI=",
-        "owner": "BBFifield",
-        "repo": "tintednix",
-        "rev": "837903b972bf98a3c2403ccd79bd0f5011fe290d",
-        "type": "github"
+        "lastModified": 1743997365,
+        "narHash": "sha256-eg7ZsglhY3iaZRmY/3GrMaT8uBlj0SdCBHwptvoTmZE=",
+        "ref": "refs/heads/master",
+        "rev": "90efd69327f8450a559e1ed5b7e675a5acf51424",
+        "revCount": 7,
+        "type": "git",
+        "url": "file:///home/brandon/tintednix"
       },
       "original": {
-        "owner": "BBFifield",
-        "repo": "tintednix",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/brandon/tintednix"
       }
     },
     "treefmt-nix": {

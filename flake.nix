@@ -65,15 +65,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-config = {
-      url = "github:BBFifield/neovim-config";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # neovim-config = {
-    #   url = "git+file:///home/brandon/nvim-config";
+    #   url = "github:BBFifield/neovim-config";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
+
+    neovim-config = {
+      url = "git+file:///home/brandon/nvim-config";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     tintednix = {
       url = "github:BBFifield/tintednix";

@@ -117,15 +117,7 @@ in {
               ''SUPER, S, exec, grim -g "$(slurp -o -c $(echo $base0D | sed 's/^....\(......\)/\1/'))" -t ppm - | satty --filename -''
             ];
             bindl = [
-              "SUPER, B, exec, if [[ $(systemctl --user status hyprsunset.service | grep 'active (running)') ]]; then systemctl --user stop hyprsunset.service; ${
-                if config.hm.ironbar.enable
-                then "ironbar var set night_light_icon 󱩍"
-                else ""
-              }; else systemctl --user start hyprsunset.service; hyprctl hyprsunset temperature 3000; ${
-                if config.hm.ironbar.enable
-                then "ironbar var set night_light_icon 󱩌"
-                else ""
-              }; fi"
+              "SUPER, B, exec, ${(import ../../bars/ironbar/config/customModules/tools/hyprsunset.nix) config}"
             ];
 
             windowrule = [

@@ -171,7 +171,7 @@ in {
                     ironbar var set base0F "$($tintednix get base0F)"
                   '';
                   onActivation = ''
-                    ${pkgs.bash}/bin/bash ${(import ../../features/home-manager/programs/bars/ironbar/postStart.nix {inherit config pkgs;}).postStart}/bin/ironbar_post_start
+                    ${pkgs.bash}/bin/bash ${(import ../../features/home-manager/programs/bars/ironbar/postStart.nix {inherit config pkgs;})}/bin/ironbar_post_start
                     ${config.programs.ironbar.package}/bin/ironbar load-css "/home/$(whoami)/.config/ironbar/style.css"
                   '';
                 };

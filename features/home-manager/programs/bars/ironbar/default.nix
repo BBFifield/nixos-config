@@ -38,7 +38,7 @@ in {
             };
             Service = {
               Type = "oneshot";
-              ExecStart = "${pkgs.bash}/bin/bash ${(import ./postStart.nix {inherit config pkgs;}).postStart}/bin/ironbar_post_start";
+              ExecStart = "${pkgs.bash}/bin/bash ${(import ./postStart.nix {inherit config pkgs;})}/bin/ironbar_post_start";
               RemainAfterExit = true;
             };
             Install = {
