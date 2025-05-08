@@ -22,25 +22,65 @@ config: ''
     background: @base0D;
   }
 
-  .notification-row .notification-background .close-button {
-    background: @base02;
+  .notification-group-header {
     color: @base0D;
-    margin: 10px 8px 5px 5px;
+    margin-left: 20px;
+    font-weight: bold;
+  }
+
+  .notification-group-buttons {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .notification-group-collapse-button {
+    color: @base0B;
+  }
+
+  .notification-group-close-all-button {
+    color: @base08;
+  }
+
+  .notification-group-collapse-button:hover {
+    background: @base0B;
+  }
+
+  .notification-group-close-all-button:hover {
+    background: @base08;
+  }
+
+  button {
+    background: @base02;
+    border-radius: ${config.hm.hyprland.buttonRounding};
+    border-width: 0px;
+    color: @base0D;
     box-shadow:
       0 0 0 1px rgba(0, 0, 0, 0.3),
       0 1px 3px 1px rgba(0, 0, 0, 0.7),
       0 2px 6px 2px rgba(0, 0, 0, 0.3);
   }
-  .notification-row .notification-background .close-button:hover {
+  button:hover {
     background: @base0D;
     color: @base01;
-    box-shadow:
-      0 0 0 1px rgba(0, 0, 0, 0.3),
-      0 1px 3px 1px rgba(0, 0, 0, 0.7),
-      0 2px 6px 2px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+  }
+
+  .notification-row .notification-background .close-button {
+    color: @base08;
+    margin: 10px 8px 5px 5px;
+  }
+
+  .notification-row .notification-background .close-button:hover {
+    color: @base01;
+    background-color: @base08;
+  }
+
+  .notification-content image {
+    margin-right: 10px;
   }
 
   .notification-row .notification-background .notification {
+    background: @base02;
     border-radius: ${config.hm.hyprland.buttonRounding};
     border-width: 0px;
     margin: 10px;
@@ -76,6 +116,7 @@ config: ''
     .notification
     .notification-default-action {
     /* The large action that also displays the notification summary and body */
+    background: @base02;
     border-radius: ${config.hm.hyprland.buttonRounding};
   }
 
@@ -85,7 +126,7 @@ config: ''
     .notification-default-action
     .notification-content {
     border-radius: ${config.hm.hyprland.buttonRounding};
-    margin: 5px 5px 5px 15px;
+    margin: 5px 5px 5px 20px;
     padding: 0px;
   }
 
@@ -112,7 +153,7 @@ config: ''
     .text-box
     .time {
     /* Notification time-ago */
-    color: @base0D;
+    color: @base0A;
     margin-right: 40px;
   }
 
@@ -194,6 +235,7 @@ config: ''
   }
 
   .widget-title > button {
+    background: @base02;
     border-radius: ${config.hm.hyprland.buttonRounding};
     border-width: 0px;
     color: @base0D;
@@ -236,5 +278,13 @@ config: ''
 
   .text-button:hover label {
     font-weight: bold;
+  }
+
+  scrollbar slider {
+    background-color: @base0D;
+  }
+
+  scrollbar trough {
+    background-color: @base01;
   }
 ''

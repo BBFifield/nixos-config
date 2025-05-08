@@ -944,15 +944,15 @@
       "locked": {
         "lastModified": 1743997365,
         "narHash": "sha256-eg7ZsglhY3iaZRmY/3GrMaT8uBlj0SdCBHwptvoTmZE=",
-        "ref": "refs/heads/master",
+        "owner": "BBFifield",
+        "repo": "tintednix",
         "rev": "90efd69327f8450a559e1ed5b7e675a5acf51424",
-        "revCount": 7,
-        "type": "git",
-        "url": "file:///home/brandon/tintednix"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/brandon/tintednix"
+        "owner": "BBFifield",
+        "repo": "tintednix",
+        "type": "github"
       }
     },
     "treefmt-nix": {

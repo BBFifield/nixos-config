@@ -1,5 +1,6 @@
 # The core module of NixOS configuration.
 {
+  config,
   pkgs,
   inputs,
   hostname,
@@ -36,24 +37,34 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
-  /*
-  sops.defaultSopsFile = ../secrets/keys.yaml;
-  sops.age.keyFile = "../secrets/private/keys.txt";
+  sops = {
+    # This is using an age key that is expected to already be in the filesystem
+    age.keyFile = "/home/brandon/.config/sops/age/keys.txt"; #../../secrets/age_keys.txt;
+    # This is the actual specification of the secrets.
+    secrets = {
+      brandonPwd = {
+        sopsFile = ../../users/brandon/secrets/pwd.sops;
+        neededForUsers = true;
+        key = "data";
+      };
+      rootPwd = {
+        sopsFile = ../../users/root/secrets/pwd.sops;
+        neededForUsers = true;
+        key = "data";
+      };
+    };
+  };
 
-  sops.age.generateKey = true;
-  sops.secrets."user_passwords/brandon".neededForUsers = true;
-  sops.secrets."user_passwords/root".neededForUsers = true;
-  */
   users.users = {
     brandon = {
       icon = ../../users/brandon/avatar.jpg;
-      hashedPassword = "$y$j9T$v4UN6562YZBZR.cqnWOiV0$JhBpDsBHHNtcbjzJ1AeY1JRmtNwwK4QGEAizjey1g6/";
+      hashedPasswordFile = config.sops.secrets.brandonPwd.path; #"$y$j9T$v4UN6562YZBZR.cqnWOiV0$JhBpDsBHHNtcbjzJ1AeY1JRmtNwwK4QGEAizjey1g6/";
       isNormalUser = true;
       description = "Brandon";
       extraGroups = ["networkmanager" "wheel" "dialout" "adbusers"];
     };
     root = {
-      hashedPassword = "$y$j9T$2Y/Apsh35UhYHOXBwomYS.$w3PBuxNSv9mIn9/vepOT86hjpl7SaRYGIS04.Z5DGhD";
+      hashedPasswordFile = config.sops.secrets.rootPwd.path; #"$y$j9T$2Y/Apsh35UhYHOXBwomYS.$w3PBuxNSv9mIn9/vepOT86hjpl7SaRYGIS04.Z5DGhD";
     };
   };
 

@@ -205,10 +205,15 @@ in {
                 enable = true;
                 hooks = {
                   hotReload = ''
-                    swaync load-css "$directory/swaync/style.css"
+                    swaync-client -rs
                   '';
                   onActivation = ''
-                    ${pkgs.swaynotificationcenter}/bin/swaync -s "/home/$(whoami)/.config/swaync/style.css"
+                    if [[ $(systemctl --user status swaync.service | grep 'active (running)') ]]; then
+                      systemctl --user stop swaync.service;
+                      ${pkgs.swaynotificationcenter}/bin/swaync -s "/home/$(whoami)/.config/swaync/style.css"
+                    else
+                      ${pkgs.swaynotificationcenter}/bin/swaync-client -rs
+                    fi
                   '';
                 };
               };

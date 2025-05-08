@@ -10,6 +10,7 @@
   ./wpaperd
   ./satty
   ./source-control
+  ./ssh
   ./swaync
   ./terminal
   ./walker
