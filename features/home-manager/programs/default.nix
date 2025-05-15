@@ -6,13 +6,14 @@
   ./gnome-shell
   ./hyprland
   ./klassy
+  ./multimedia
   ./plasma
-  ./wpaperd
   ./satty
   ./source-control
   ./ssh
   ./swaync
   ./terminal
   ./walker
+  ./wpaperd
   ./yazi
 ]

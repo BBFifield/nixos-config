@@ -27,10 +27,34 @@ with lib; let
         example = "asztal";
       };
       displayOutputs = mkOption {
-        type = with types; nullOr (listOf str);
-        default = null;
-        example = ["HDMI-A-1, highres@highrr, 0x0, 2"];
+        description = "Monitor options";
+        type = with types;
+          attrsOf (submodule {
+            options = {
+              displayProps = mkOption {
+                type = with types; nullOr (listOf str);
+                default = null;
+                example = ["highres@highrr" "0x0" "2"];
+              };
+              isHDRcapable = mkOption {
+                type = bool;
+                default = false;
+                description = ''Whether the monitor is capable of displaying HDR content.'';
+              };
+            };
+          });
+        example = {
+          "HDMI-A-1" = {
+            displayProps = ["highres@highrr" "0x0" "2"];
+            isHDRcapable = true;
+          };
+        };
       };
+      # displayOutputs = mkOption {
+      #   type = with types; nullOr (listOf str);
+      #   default = null;
+      #   example = ["HDMI-A-1, highres@highrr, 0x0, 2"];
+      # };
     };
   };
 in {

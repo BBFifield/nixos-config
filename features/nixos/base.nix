@@ -58,13 +58,13 @@
   users.users = {
     brandon = {
       icon = ../../users/brandon/avatar.jpg;
-      hashedPasswordFile = config.sops.secrets.brandonPwd.path; #"$y$j9T$v4UN6562YZBZR.cqnWOiV0$JhBpDsBHHNtcbjzJ1AeY1JRmtNwwK4QGEAizjey1g6/";
+      hashedPasswordFile = config.sops.secrets.brandonPwd.path;
       isNormalUser = true;
       description = "Brandon";
       extraGroups = ["networkmanager" "wheel" "dialout" "adbusers"];
     };
     root = {
-      hashedPasswordFile = config.sops.secrets.rootPwd.path; #"$y$j9T$2Y/Apsh35UhYHOXBwomYS.$w3PBuxNSv9mIn9/vepOT86hjpl7SaRYGIS04.Z5DGhD";
+      hashedPasswordFile = config.sops.secrets.rootPwd.path;
     };
   };
 

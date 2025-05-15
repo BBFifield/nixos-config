@@ -23,7 +23,7 @@ in {
             ${config.programs.ironbar.package}/bin/ironbar load-css "/home/$(whoami)/.config/ironbar/style.css"
           '';
         };
-        xdg.configFile."ironbar/config.corn".text = import ./config/config.nix config lib;
+        xdg.configFile."ironbar/config.corn".text = import ./config/config.nix {inherit config pkgs lib;};
         # xdg.configFile."ironbar/sys_info.sh".source = ./config/sys_info.sh;
         # xdg.configFile."ironbar/bluetooth.sh".source = ./config/bluetooth.sh;
         # xdg.configFile."ironbar/network.sh".source = ./config/network.sh;
@@ -38,7 +38,8 @@ in {
             };
             Service = {
               Type = "oneshot";
-              ExecStart = "${pkgs.bash}/bin/bash ${(import ./postStart.nix {inherit config pkgs;})}/bin/ironbar_post_start";
+              # ExecStart = "${pkgs.bash}/bin/bash ${(import ./postStart.nix {inherit config pkgs;})}/bin/ironbar_post_start";
+              ExecStart = "${(import ./postStart.nix {inherit config pkgs;})}/bin/ironbar_post_start";
               RemainAfterExit = true;
             };
             Install = {

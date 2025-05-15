@@ -1,4 +1,4 @@
-config: ''
+{config, ...}: ''
   $theme_info_module = {
     type = "box"
     orientation = "vertical"

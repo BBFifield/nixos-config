@@ -68,7 +68,7 @@ in {
                   {
                     "label" = "Lock Screen";
                     "icon" = "system-lock-screen";
-                    "exec" = "playerctl --all-players pause & ~/.config/hypr/start_hyprlock.sh";
+                    "exec" = "playerctl --all-players pause & pidof hyprlock || hyprlock";
                   }
                 ];
               }

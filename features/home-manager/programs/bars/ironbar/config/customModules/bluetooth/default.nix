@@ -1,4 +1,4 @@
-config: ''
+{config, ...}: ''
   $bluetooth_popup = {
     type = "custom"
     name = "bluetooth"

@@ -1,4 +1,4 @@
-config: ''
+{config, ...}: ''
   $walker_popup = {
     type = "custom"
     name = "walker"

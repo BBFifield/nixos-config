@@ -66,7 +66,7 @@
     # Automatically enable extensions
     "extensions.autoDisableScopes" = 0;
     # For vaapi support
-    "media.ffmpeg.vaapi.enabled" = true;
+    "media.hardware-video-decoding.force-enabled" = true; #https://github.com/elFarto/nvidia-vaapi-driver#firefox
     "gfx.x11-egl.force-enabled" = true;
     "widget.dmabuf.force-enabled" = true;
   };
@@ -106,6 +106,7 @@ in
               source = pkgs.firefox-gnome-theme;
             })
           ];
+          home.packages = with pkgs; [ffmpeg]; #for hardware acceleration apparently
           programs = {
             firefox = {
               enable = true;

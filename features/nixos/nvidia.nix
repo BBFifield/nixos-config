@@ -14,7 +14,7 @@
     WLR_DRM_NO_ATOMIC = "1";
   };
 
-  # Eliminates phantom display 'unknown-1'
+  # Eliminates phantom display 'unknown-1', As of Nvidia driver version 570.86.16, fbdev has now been enabled by default when modeset is also enabled. Therefore we simply need to enable modeset.
   boot.kernelParams = ["nvidia-drm.fbdev=1"];
 
   # Load nvidia driver for Xorg and Wayland

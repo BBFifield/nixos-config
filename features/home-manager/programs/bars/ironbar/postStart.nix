@@ -4,10 +4,8 @@
 }:
 pkgs.writeShellApplication {
   name = "ironbar_post_start";
-  runtimeInputs = with pkgs; [bash config.programs.ironbar.package coreutils socat];
+  runtimeInputs = with pkgs; [config.programs.ironbar.package coreutils socat];
   text = ''
-    #!/usr/bin/env bash
-
     # Maximum number of retries
     MAX_RETRIES=20
     # Delay between retries in seconds

@@ -111,19 +111,26 @@ in {
               "SUPER, N, exec, wpaperctl next"
               "SUPER, P, exec, ${
                 if config.hm.ironbar.enable
-                then "bash ${../../bars/ironbar/config/customModules/tools/update_picked_color.sh}"
+                then "${import ../../bars/ironbar/config/customModules/tools/updatePickedColor.nix pkgs}"
                 else "hyprpicker -a"
               }"
               ''SUPER, S, exec, grim -g "$(slurp -o -c $(echo $base0D | sed 's/^....\(......\)/\1/'))" -t ppm - | satty --filename -''
             ];
             bindl = [
-              "SUPER, B, exec, ${(import ../../bars/ironbar/config/customModules/tools/hyprsunset.nix) config}"
+              "SUPER, B, exec, ${(import ../hyprsunset.nix) {inherit config pkgs;}}"
             ];
 
             windowrule = [
               #"stayfocused, class:^(dev.benz.walker)$"
               "opacity 0.90 override 0.85 override, class:^(dev.benz.walker)$"
             ];
+
+            experimental = let
+              displays = config.hm.hyprland.displayOutputs;
+              hasHDR = lib.any (display: display.isHDRcapable or false) (lib.attrValues displays);
+            in {
+              xx_color_management_v4 = hasHDR;
+            };
           };
           mkScriptBinding = color_scheme: {
             bind = "SUPER, T, exec, tintednix update ${color_scheme}";
@@ -180,13 +187,15 @@ in {
               hm.ironbar = {
                 enable = true;
               };
-              home.packages = with pkgs; [
-                hyprpicker
-                clipse #TUI clipboard manager
-                hyprsunset #Blue light filter
-                slurp #For selecting region of the screen
-                grim #Screenshotter
-              ];
+              home.packages = with pkgs;
+                [
+                  hyprpicker
+                  clipse #TUI clipboard manager
+                  hyprsunset #Blue light filter
+                  slurp #For selecting region of the screen
+                  grim #Screenshotter
+                ]
+                ++ lib.optionals (config.wayland.windowManager.hyprland.settings.experimental.xx_color_management_v4) [vulkan-hdr-layer-kwin6]; #For HDR https://wiki.hyprland.org/Configuring/Variables/#experimental ENABLE_HDR_WSI=1 mpv --vo=gpu-next --target-colorspace-hint --gpu-api=vulkan --gpu-context=waylandvk "filename"
 
               wayland.windowManager.hyprland = {
                 inherit settings;

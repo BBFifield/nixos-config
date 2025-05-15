@@ -20,12 +20,11 @@
       rustfmt
       cargo
       arduino-ide
-      nodejs_23
+      nodejs_24
       npm-check-updates
       typescript
       typescript-language-server
       nodePackages.vscode-json-languageserver
-      android-studio
       sops
       age
     ];

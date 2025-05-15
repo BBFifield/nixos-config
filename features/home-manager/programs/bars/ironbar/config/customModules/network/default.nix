@@ -1,4 +1,4 @@
-config: ''
+{config, ...}: ''
   $network_popup = {
     type = "custom"
     name = "network"

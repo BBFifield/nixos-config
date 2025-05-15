@@ -1,4 +1,8 @@
-config: lib: let
+{
+  config,
+  pkgs,
+  lib,
+}: let
   cfg = config.hm.ironbar;
   isEnabled = module: output:
     if (builtins.elem module cfg.customModules)
@@ -6,7 +10,7 @@ config: lib: let
     else "";
 in ''
   let {
-    ${lib.concatStrings (map (module: import ./customModules/${module} config) cfg.customModules)}
+    ${lib.concatStrings (map (module: import ./customModules/${module} {inherit config pkgs;}) cfg.customModules)}
     $workspaces = {
       type = "workspaces"
       all_monitors = false
@@ -102,6 +106,8 @@ in ''
       base0F = "default"
       show_bluetooth = "true"
       night_light_icon = "󱩍"
+      show_night_light_slider = "false"
+      night_light_value = "6000"
     }
 
     start = $left

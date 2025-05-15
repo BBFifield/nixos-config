@@ -92,7 +92,7 @@ in {
       {
         tintednix = {
           enable = true;
-          enabledSchemes = with pkgs.base16; [catppuccin-frappe catppuccin-latte catppuccin-macchiato catppuccin-mocha dracula gruvbox-dark-hard];
+          enabledSchemes = with pkgs.base16; [ashes atelier-cave atelier-heath atelier-sulphurpool ayu-dark bespin blueforest blueish brushtrees-dark catppuccin-frappe catppuccin-latte catppuccin-macchiato catppuccin-mocha codeschool darkviolet dracula everforest everforest-dark-hard gruvbox-dark-hard gruvbox-dark-soft gruvbox-material-dark-hard gruvbox-material-dark-soft katy material-palenight moonlight nord rose-pine rose-pine-moon stella tokyo-night-dark tokyo-night-moon];
           defaultScheme = "catppuccin-mocha";
           targets = {
             firefox = {
@@ -171,7 +171,7 @@ in {
                     ironbar var set base0F "$($tintednix get base0F)"
                   '';
                   onActivation = ''
-                    ${pkgs.bash}/bin/bash ${(import ../../features/home-manager/programs/bars/ironbar/postStart.nix {inherit config pkgs;})}/bin/ironbar_post_start
+                    ${(import ../../features/home-manager/programs/bars/ironbar/postStart.nix {inherit config pkgs;})}/bin/ironbar_post_start
                     ${config.programs.ironbar.package}/bin/ironbar load-css "/home/$(whoami)/.config/ironbar/style.css"
                   '';
                 };

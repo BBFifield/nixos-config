@@ -1,4 +1,7 @@
-config: ''
+{
+  config,
+  pkgs,
+}: ''
   $tools_popup = {
     type = "custom"
     name = "tools"
@@ -12,23 +15,49 @@ config: ''
     popup = [
       {
         type = "box"
-        orientation = "horizontal"
+        orientation = "vertical"
         widgets = [
           {
             type = "button"
             name = "colorPicker"
             class = "tool"
             label = "󰌁"
-            on_click = "!bash ${./update_picked_color.sh}"
+            on_click = "!${import ./updatePickedColor.nix pkgs}"
             tooltip = "#picked_color"
           }
           {
+            type = "box"
+            orientation = "horizontal"
+            widgets = [
+              {
+                type = "button"
+                name = "blueLightFilter"
+                class = "tool"
+                label = "#night_light_icon"
+                on_click = "!${(import ./../../../../../hyprland/hyprsunset.nix) {inherit config pkgs;}}"
+                tooltip = "Night Light"
+              }
+              {
+                type = "slider"
+                name = "nightLightSlider"
+                show_label = false
+                show_if = "#show_night_light_slider"
+                length = 100
+                min = 2000
+                max = 8000
+                on_change="!hyprctl hyprsunset temperature ''${0%.*}'; ironbar var set night_light_value ''${0%.*}';"
+                value = "#night_light_value"
+                tooltip = "#night_light_value"
+              }
+            ]
+          }
+          {
             type = "button"
-            name = "blueLightFilter"
+            name = "screenshotter"
             class = "tool"
-            label = "#night_light_icon"
-            on_click = "!${(import ./hyprsunset.nix) config}"
-            tooltip = "Night Light"
+            label = "󰹑"
+            on_click = "!grim -g \"$(slurp -o -c $(echo $(ironbar var get base0D) | sed 's/^....\\(......\\)/\\1/'))\" -t ppm - | satty --filename -"
+            tooltip = "Take Screenshot"
           }
         ]
       }

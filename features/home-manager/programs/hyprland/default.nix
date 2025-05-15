@@ -41,10 +41,10 @@ with lib; let
   in {
     exec-once = [
       "uwsm app -- ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
-      "uwsm app -t service -u hypr-displays.service -- ${pkgs.bash}/bin/bash ${(import ./hyprDisplays.nix {inherit config pkgs;}).hyprDisplays}/bin/hypr_displays"
+      "uwsm app -t service -u hypr-displays.service -- ${(import ./hyprDisplays.nix {inherit config pkgs;})}/bin/hypr_displays"
     ];
 
-    monitor = cfg.displayOutputs;
+    monitor = lib.mapAttrsToList (name: value: "${name}, ${lib.concatStringsSep "," value.displayProps}") cfg.displayOutputs;
 
     env = [
       "XCURSOR_SIZE,${toString cursorTheme.size}"
@@ -275,11 +275,35 @@ in {
       type = lib.types.str;
       default = "50px";
     };
-    displayOutputs = lib.mkOption {
-      type = with lib.types; nullOr (listOf str);
-      default = null;
-      example = ["HDMI-A-1, highres@highrr, 0x0, 2"];
+    displayOutputs = mkOption {
+      description = "Monitor options";
+      type = with types;
+        attrsOf (submodule {
+          options = {
+            displayProps = mkOption {
+              type = with types; nullOr (listOf str);
+              default = null;
+              example = ["highres@highrr" "0x0" "2"];
+            };
+            isHDRcapable = mkOption {
+              type = bool;
+              default = false;
+              description = ''Whether the monitor is capable of displaying HDR content.'';
+            };
+          };
+        });
+      example = {
+        "HDMI-A-1" = {
+          displayProps = ["highres@highrr" "0x0" "2"];
+          isHDRcapable = true;
+        };
+      };
     };
+    # displayOutputs = lib.mkOption {
+    #   type = with lib.types; nullOr (listOf str);
+    #   default = null;
+    #   example = ["HDMI-A-1, highres@highrr, 0x0, 2"];
+    # };
   };
 
   config = mkIf cfg.enable (
@@ -331,7 +355,7 @@ in {
           enable = true;
           settings = {
             general = {
-              lock_cmd = "bash ${./hyprlock/start_hyprlock.sh}"; # avoid starting multiple hyprlock instances.
+              lock_cmd = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
               before_sleep_cmd = "loginctl lock-session";
               after_sleep_cmd = "sleep 1s && hyprctl dispatch dpms on";
               ignore_dbus_inhibit = false;

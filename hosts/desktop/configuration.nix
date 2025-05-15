@@ -17,13 +17,28 @@
     hyprland = {
       hyprland.enable = true;
       hyprland.shell = "tintednix";
-      hyprland.displayOutputs = [
-        # ",preferred,auto,2"
-        "HDMI-A-1,3840x2160@60,0x0,2"
-        "DP-1,highres@highrr,1920x0,1"
-        "DP-2,highres@highrr,3840x0,1"
-        "HDMI-A-2,highres@highrr,5760x0,1"
-      ];
+      hyprland.displayOutputs = {
+        "HDMI-A-1" = {
+          displayProps = ["3840x2160@60" "0x0" "2" "bitdepth" "10"];
+          isHDRcapable = true;
+        };
+        "DP-1" = {
+          displayProps = ["highres@highrr" "1920x0" "1"];
+        };
+        "DP-2" = {
+          displayProps = ["highres@highrr" "3840x0" "1"];
+        };
+        "HDMI-A-2" = {
+          displayProps = ["highres@highrr" "5760x0" "1"];
+        };
+      };
+      # hyprland.displayOutputs = [
+      #   # ",preferred,auto,2"
+      #   "HDMI-A-1,3840x2160@60,0x0,2,bitdepth,10"
+      #   "DP-1,highres@highrr,1920x0,1"
+      #   "DP-2,highres@highrr,3840x0,1"
+      #   "HDMI-A-2,highres@highrr,5760x0,1"
+      # ];
       displayManager = "greetd";
       nautilus.enable = true;
     };
@@ -97,6 +112,7 @@ in {
       boot.loader.efi.canTouchEfiVariables = true;
 
       boot.binfmt.emulatedSystems = ["armv7l-linux"];
+      # boot.supportedFilesystems = ["ntfs"];
 
       # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 

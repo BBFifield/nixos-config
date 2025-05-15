@@ -10,9 +10,7 @@
     ref = "master";
   };
 
-  launcherScript = pkgs.writeScript "firefox-native-base16-launcher" ''
-    #!/run/current-system/sw/bin/bash
-
+  launcherScript = pkgs.writeShellScript "firefox-native-base16-launcher" ''
     trap 'kill -SIGTERM $native_pid' SIGTERM
     ${pkgs.firefox-base16}/bin/firefox-native-base16 &
     native_pid=$!

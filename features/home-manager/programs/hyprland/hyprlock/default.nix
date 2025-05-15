@@ -4,25 +4,14 @@
   ...
 }:
 with lib; let
-  cfg = config.hm.hyprland.hyprlock;
+  cfg = config.hm.hyprland;
 in {
   options.hm.hyprland.hyprlock = {
     enable = mkEnableOption "Enable Hyprlock.";
   };
-  config = mkIf cfg.enable {
-    xdg.configFile."hypr/start_hyprlock.sh".source = ./start_hyprlock.sh;
+  config = mkIf cfg.hyprlock.enable {
     programs.hyprlock = {
       enable = true;
-
-      # settings = let
-      #   # scale =
-      #   #   {
-      #   #     "1" = 2; # "1" is true
-      #   #     "" = 1; # "" is false
-      #   #   }
-      #   #   .${builtins.toString config.hm.hidpi.enable};
-      #   scale = 1;
-      # in
 
       settings = mkMerge [
         {
@@ -33,16 +22,12 @@ in {
           };
 
           # BACKGROUND
-          background =
-            lib.map (displayOutput: let
-              displayOutputName = lib.head (lib.splitString "," displayOutput);
-            in {
-              monitor = displayOutputName;
-              path = "/tmp/hyprlock_screenshot_${displayOutputName}.png";
-              blur_passes = 2;
-              noise = 0.03;
-            })
-            config.hm.hyprland.displayOutputs;
+          background = {
+            monitor = "";
+            path = "screenshot";
+            color = "rgba(25, 20, 20, 1.0)";
+            blur_passes = 2;
+          };
         }
         {
           source = "$HOME/.config/hypr/hyprland.conf";
@@ -55,11 +40,9 @@ in {
           "$warningColor" = "$base09";
 
           # LAYOUT
-          label =
-            lib.concatMap (displayOutput: let
-              displayProps = lib.splitString "," displayOutput;
-              displayOutputName = lib.head displayProps;
-              scale = lib.toInt (lib.last displayProps);
+          label = lib.concatLists (lib.mapAttrsToList (name: value: let
+              displayOutputName = name;
+              scale = lib.toInt (lib.elemAt value.displayProps 2);
             in [
               {
                 monitor = displayOutputName;
@@ -100,14 +83,13 @@ in {
                 shadow_size = 5;
               }
             ])
-            config.hm.hyprland.displayOutputs;
+            cfg.displayOutputs);
 
           # USER AVATAR
           image =
-            lib.map (displayOutput: let
-              displayProps = lib.splitString "," displayOutput;
-              displayOutputName = lib.head displayProps;
-              scale = lib.toInt (lib.last displayProps);
+            lib.mapAttrsToList (name: value: let
+              displayOutputName = name;
+              scale = lib.toInt (lib.elemAt value.displayProps 2);
             in {
               monitor = displayOutputName;
               path = "/var/lib/AccountsService/icons/$USER";
@@ -120,14 +102,13 @@ in {
               shadow_passes = 2;
               shadow_size = 5;
             })
-            config.hm.hyprland.displayOutputs;
+            cfg.displayOutputs;
 
           # INPUT FIELD
           input-field =
-            lib.map (displayOutput: let
-              displayProps = lib.splitString "," displayOutput;
-              displayOutputName = lib.head displayProps;
-              scale = lib.toInt (lib.last displayProps);
+            lib.mapAttrsToList (name: value: let
+              displayOutputName = name;
+              scale = lib.toInt (lib.elemAt value.displayProps 2);
             in {
               monitor = displayOutputName;
               size = "${builtins.toString (250 * scale)}, ${builtins.toString (50 * scale)}";
@@ -151,7 +132,7 @@ in {
               shadow_passes = 2;
               shadow_size = 5;
             })
-            config.hm.hyprland.displayOutputs;
+            cfg.displayOutputs;
         }
       ];
     };

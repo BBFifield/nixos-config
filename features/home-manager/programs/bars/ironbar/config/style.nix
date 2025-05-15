@@ -37,7 +37,6 @@ config: ''
       0 2px 3px 0 rgba(0, 0, 0, 0.5),
       0 3px 4px 0 rgba(0, 0, 0, 0.4);
   }
-
   .background {
     padding: 0px;
   }
@@ -239,8 +238,9 @@ config: ''
   #popup-tools {
     border-color: @base06;
   }
-  #popup-tools box widget:not(:last-child) button {
-    margin-right: 5px;
+  #popup-tools box widget:not(:first-child) button,
+  #popup-tools box widget:not(:first-child) scale {
+    margin-top: 5px;
   }
   .tool {
     background-color: transparent;
@@ -256,6 +256,24 @@ config: ''
   }
   #blueLightFilter label {
     color: @base0A;
+  }
+  #nightLightSlider {
+    margin-left: 5px;
+  }
+  #nightLightSlider slider,
+  #nightLightSlider .top {
+    color: @base0A;
+    background-color: @base0A;
+  }
+  #screenshotter:hover {
+    background-color: @base08;
+  }
+  #screenshotter:hover label {
+    color: @base01;
+  }
+  #screenshotter label {
+    color: @base08;
+    margin-left: -7px;
   }
 
   /*-- tray -- */
@@ -568,5 +586,6 @@ config: ''
   #power-actions-box > *:nth-child(1) .power-btn {
     margin-right: 1em;
   }
-  /*# sourceMappingURL=style.css.map */
+  /* prettier-ignore */
+  #colorPicker { border-color: transparent; }
 ''

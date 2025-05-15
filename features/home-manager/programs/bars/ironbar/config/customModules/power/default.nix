@@ -1,4 +1,4 @@
-config: ''
+{config, ...}: ''
   $profile_picture = "/var/lib/AccountsService/icons/{{echo $(whoami)}}"
   $power_popup = {
     type = "custom"
