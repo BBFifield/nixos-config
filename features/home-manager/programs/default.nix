@@ -14,6 +14,7 @@
   ./swaync
   ./terminal
   ./walker
+  ./wleave
   ./wpaperd
   ./yazi
 ]

@@ -129,8 +129,8 @@ in {
                 rev = "6253558595c15c29689b4343de6303f6743f5831";
                 ref = "main";
               };
-              schemeFilename = "colors";
               path = ".config/qutebrowser";
+              schemeFilename = "colors";
               schemeExtension = "py";
             };
             alacritty = {
@@ -189,13 +189,7 @@ in {
               live = {
                 enable = true;
               };
-              templateSrc = {
-                url = "https://github.com/samme/base16-styles.git";
-                rev = "8db4f00ca9e5575ba52d98a204ee44a53e13d546";
-                ref = "master";
-              };
-              templateName = "css-variables";
-
+              templateSrc = ../../features/home-manager/look-and-feel/tintednix-templates/walker;
               path = ".config/walker/themes";
               schemeExtension = "css";
             };
@@ -225,6 +219,39 @@ in {
               path = ".config/swaync";
               schemeExtension = "css";
             };
+            wleave = {
+              enable = true;
+              live = {
+                enable = true;
+              };
+              templateSrc = {
+                url = "https://github.com/tinted-theming/base16-waybar.git";
+                rev = "26d41f3550da17ebdd14b6b2bc4fdf86c543735e";
+                ref = "main";
+              };
+              path = ".config/wleave";
+              schemeExtension = "css";
+            };
+            "gtk-3.0" = {
+              enable = true;
+              live = {
+                enable = true;
+              };
+              templateSrc = ../../features/home-manager/look-and-feel/tintednix-templates/gtk;
+              path = ".config/gtk-3.0";
+              schemeFilename = "gtk";
+              schemeExtension = "css";
+            };
+            "gtk-4.0" = {
+              enable = true;
+              live = {
+                enable = true;
+              };
+              templateSrc = ../../features/home-manager/look-and-feel/tintednix-templates/gtk;
+              path = ".config/gtk-4.0";
+              schemeFilename = "colors";
+              schemeExtension = "scss";
+            };
             shell = {
               enable = true;
               live = {
@@ -253,6 +280,8 @@ in {
     packages =
       defaultPkgs;
   };
+
+  xdg.configFile."gtk-4.0/gtk.css".source = ../../features/home-manager/look-and-feel/themes/gtk/bubbles/gtk-4.0/gtk.css;
 
   programs.git = {
     enable = true;

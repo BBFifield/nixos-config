@@ -14,7 +14,7 @@ in
       hm.neovimConfig.enable = true;
       programs.neovim = {
         enable = true;
-        defaultEditor = true;
+        defaultEditor = config.hm.editors.defaultEditor == "nvim";
       };
     };
   }

@@ -28,10 +28,11 @@
           {
             type = "box"
             orientation = "horizontal"
+            halign = "center"
             widgets = [
               {
                 type = "button"
-                name = "blueLightFilter"
+                name = "nightLightToggle"
                 class = "tool"
                 label = "#night_light_icon"
                 on_click = "!${(import ./../../../../../hyprland/hyprsunset.nix) {inherit config pkgs;}}"
@@ -45,7 +46,7 @@
                 length = 100
                 min = 2000
                 max = 8000
-                on_change="!hyprctl hyprsunset temperature ''${0%.*}'; ironbar var set night_light_value ''${0%.*}';"
+                on_change="!hyprctl hyprsunset temperature \"''${0%.*}\"; ironbar var set night_light_value \"''${0%.*}\";"
                 value = "#night_light_value"
                 tooltip = "#night_light_value"
               }
@@ -58,6 +59,39 @@
             label = "󰹑"
             on_click = "!grim -g \"$(slurp -o -c $(echo $(ironbar var get base0D) | sed 's/^....\\(......\\)/\\1/'))\" -t ppm - | satty --filename -"
             tooltip = "Take Screenshot"
+          }
+          {
+            type = "box"
+            orientation = "horizontal"
+            halign = "center"
+            widgets = [
+              {
+                type = "button"
+                name = "wallpaperToggle"
+                class = "tool"
+                label = "󰸉"
+                on_click = "!if [[ $(wpaperctl status | grep 'running') ]]; then wpaperctl pause; ironbar var set wallpaper_daemon_on 'false'; else wpaperctl resume; ironbar var set wallpaper_daemon_on 'true'; fi"
+                tooltip = "Toggle Wallpaper Cycle"
+              }
+              {
+                type = "button"
+                class = "wallpaperNav"
+                name = "wallpaperPrevious"
+                label = ""
+                show_if = "#wallpaper_daemon_on"
+                on_click="!wpaperctl previous;"
+                tooltip = "Previous wallpaper"
+              }
+              {
+                type = "button"
+                class = "wallpaperNav"
+                name = "wallpaperNext"
+                label = ""
+                show_if = "#wallpaper_daemon_on"
+                on_click="!wpaperctl next;"
+                tooltip = "Next wallpaper"
+              }
+            ]
           }
         ]
       }

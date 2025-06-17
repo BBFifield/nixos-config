@@ -21,10 +21,13 @@ config: ''
     transition-timing-function: linear;
     transition-property: background-color, color, opacity, transform, box-shadow, -gtk-icon-transform;
   }
+
   #start,
   #center,
   #end {
     background-color: @base02;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.20);
   }
   #topbar {
     background-color: transparent;
@@ -32,10 +35,9 @@ config: ''
 
   #bar {
     border: 1px solid @base00;
-    margin: 5px 15px 10px 15px;
+    margin: 5px 15px 11px 15px;
     box-shadow:
-      0 2px 3px 0 rgba(0, 0, 0, 0.5),
-      0 3px 4px 0 rgba(0, 0, 0, 0.4);
+      1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.20);
   }
   .background {
     padding: 0px;
@@ -43,15 +45,19 @@ config: ''
   window {
     border-radius: ${config.hm.hyprland.buttonRounding};
     background-color: transparent;
+    opacity: 0.9;
+  }
+  /* -- Necessary so menu shadows look okay -- */
+  decoration {
+    box-shadow:
+      4px 12px 10px rgba(0, 0, 0, 0),
+      7px 18px 14px rgba(0, 0, 0, 0),
+      10px 24px 18px rgba(0, 0, 0, 0),
+      14px 30px 24px rgba(0, 0, 0, 0);
   }
   box {
     border-radius: ${config.hm.hyprland.buttonRounding};
     background-color: @base01;
-  }
-  decoration {
-    box-shadow:
-      0 4px 6px 2px rgba(0, 0, 0, 0.01),
-      0 6px 10px 2px rgba(0, 0, 0, 0.01);
   }
   menu {
     background-color: @base01;
@@ -109,20 +115,25 @@ config: ''
   }
   tooltip > *:last-child {
     border: ${toString config.wayland.windowManager.hyprland.settings.general.border_size}px solid @base0D;
+    background-color: @base02;
     margin: 0px 15px 20px 15px;
     box-shadow:
-      0 4px 6px 2px rgba(0, 0, 0, 0.5),
-      0 6px 10px 2px rgba(0, 0, 0, 0.4);
+      4px 12px 10px rgba(0, 0, 0, 0.2),
+      7px 18px 14px rgba(0, 0, 0, 0.21),
+      10px 24px 18px rgba(0, 0, 0, 0.25),
+      14px 30px 24px rgba(0, 0, 0, 0.30);
   }
   .popup {
     border: ${toString config.wayland.windowManager.hyprland.settings.general.border_size}px solid @base0D;
     border-radius: ${toString config.wayland.windowManager.hyprland.settings.decoration.rounding}px;
-    margin: 10px 25px 30px 25px;
-    padding: 20px;
+    margin: 15px 65px 80px 65px;
+    padding: 15px 15px 10px 15px;
     box-shadow:
-      0 4px 6px 2px rgba(0, 0, 0, 0.5),
-      0 6px 10px 2px rgba(0, 0, 0, 0.4);
-  }
+      4px 12px 10px rgba(0, 0, 0, 0.2),
+      7px 18px 14px rgba(0, 0, 0, 0.21),
+      10px 24px 18px rgba(0, 0, 0, 0.25),
+      14px 30px 24px rgba(0, 0, 0, 0.30);
+    }
 
   /* -- walker button -- */
   #walker box {
@@ -243,22 +254,25 @@ config: ''
     margin-top: 5px;
   }
   .tool {
+    margin: 6px 11px 11px 11px;
     background-color: transparent;
   }
   .tool label {
     font-size: 25px;
   }
-  #blueLightFilter:hover {
+  .tool:hover {
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.20);
+  }
+  #nightLightToggle:hover {
     background-color: @base0A;
   }
-  #blueLightFilter:hover label {
+  #nightLightToggle:hover label {
     color: @base01;
   }
-  #blueLightFilter label {
+  #nightLightToggle label {
     color: @base0A;
-  }
-  #nightLightSlider {
-    margin-left: 5px;
   }
   #nightLightSlider slider,
   #nightLightSlider .top {
@@ -274,6 +288,36 @@ config: ''
   #screenshotter label {
     color: @base08;
     margin-left: -7px;
+  }
+  #wallpaperToggle label {
+    color: @base0C;
+    margin-left: -5px;
+  }
+  #wallpaperToggle:hover label {
+    color: @base01;
+  }
+  #wallpaperToggle:hover {
+    background-color: @base0C;
+  }
+  .wallpaperNav {
+    margin: 5px 0px 10px 0px;
+  }
+  .wallpaperNav:hover {
+    background-color: @base0C;
+  }
+  .wallpaperNav label {
+    color: @base0C;
+  }
+  .wallpaperNav:hover label {
+    color: @base01;
+  }
+  #wallpaperNext {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+  #wallpaperPrevious {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
   }
 
   /*-- tray -- */
@@ -312,7 +356,10 @@ config: ''
   }
 
   .reveal-btn {
-    margin: 10px 30px 5px 30px;
+    margin: 10px 30px 11px 30px;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.20);
   }
   .info {
     border-radius: 0px;
@@ -431,6 +478,7 @@ config: ''
   }
   #popup-bluetooth {
     border-color: @base0C;
+    padding-bottom: 10px;
   }
   #popup-bluetooth button {
     background-color: @base02;
@@ -445,7 +493,10 @@ config: ''
     color: @base01;
   }
   #bluetooth-settings-btn {
-    margin: 20px 0px 0px 0px;
+    margin: 20px 6px 11px 6px;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.20);
   }
 
   /* -- clipboard -- */
@@ -474,13 +525,24 @@ config: ''
     border-radius: 0%;
   }
   radio {
-    border: 1px solid @base09;
+    border: 1px solid @base02;
+    background-color: @base02;
+    margin: 7px 14px 7px 7px;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.20);
   }
   radio:checked {
     -gtk-icon-source: none;
     background-image: none;
     background-color: @base09;
     border-color: @base09;
+  }
+  .btn-remove {
+    margin: 10px;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.20);
   }
 
   /* -- Volume -- */
@@ -493,6 +555,7 @@ config: ''
   }
   .popup-volume {
     border-color: @base0A;
+    padding: 20px;
   }
   .popup-volume label,
   .popup-volume .slider .top {
@@ -533,6 +596,9 @@ config: ''
   .popup-volume .combo:hover arrow {
     color: @base01;
   }
+  .popup-volume .combo {
+    margin-bottom: 10px;
+  }
   .popup-volume button:hover {
     background-color: @base0A;
   }
@@ -543,6 +609,11 @@ config: ''
   }
   #gtk-combobox-popup-menu menuitem:hover {
     background-color: @base0A;
+  }
+  .btn-mute, .combo {
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.20);
   }
 
 
@@ -567,12 +638,22 @@ config: ''
     padding-bottom: 0.4em;
     margin-bottom: 0.6em;
   }
-  #profile-pic {
-    margin-bottom: 0.6em;
+  #profile-pic-button {
+    border: 1px @base08 solid;
+    border-radius: 100%;
+    min-height: 120px;
+    min-width: 120px;
+    padding: 0px;
+    background-size: contain;
+    margin: 10px 10px 17px 10px;
+    box-shadow:
+      1px 2px 4px rgba(0, 0, 0, 0.17),
+      2px 4px 7px rgba(0, 0, 0, 0.20);
+    background-image: url("/var/lib/AccountsService/icons/${config.home.username}.face.icon");
   }
   .power-btn {
     padding: 0.1em 1em;
-    margin: 0.3em;
+    border-radius: 100%;
   }
   #power-actions-box button:hover label {
     color: @base01;
@@ -582,10 +663,24 @@ config: ''
   }
   #power-actions-box {
     background-color: @base02;
+    margin: 9px 9px 12px 9px;
+    box-shadow:
+      1px 2px 3px rgba(0, 0, 0, 0.17),
+      2px 4px 6px rgba(0, 0, 0, 0.20);
   }
-  #power-actions-box > *:nth-child(1) .power-btn {
-    margin-right: 1em;
+
+  /* Miscellaneous */
+  .inset:active {
+    box-shadow:
+      0px 2px 3px 1px rgba(0, 0, 0, 0.5),
+      0px 5px 3px 5px rgba(0, 0, 0, 0.5) inset;
   }
+  .inset-no-shadow:active {
+    box-shadow:
+      0px 2px 3px 1px rgba(0, 0, 0, 0.5),
+      0px 5px 3px 5px rgba(0, 0, 0, 0.5) inset;
+  }
+
   /* prettier-ignore */
   #colorPicker { border-color: transparent; }
 ''

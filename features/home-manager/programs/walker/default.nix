@@ -39,20 +39,58 @@ in {
           runAsService = false;
           config = {
             app_launch_prefix = "uwsm app -- ";
+            terminal = "alacritty";
             hotreload_theme = true;
             theme = "style";
             as_window = true;
             close_when_open = true;
             disable_click_to_close = false;
-            websearch.prefix = "?";
-            switcher.prefix = "/";
             ignore_mouse = true;
+            builtins.websearch = {
+              # Some reason the second param doesn't get used by walker even if it's in the config
+              entries = let
+                customEngines = (import ../browsers/search-engines.nix {inherit pkgs;}).custom;
+                entriesList =
+                  lib.mapAttrsToList (name': value: {
+                    name = lib.toSentenceCase name';
+                    url = let
+                      urlParts = lib.head value.urls;
+                      template = urlParts.template;
+                      params = urlParts.params;
+                      paramsString = lib.foldl (acc: paramParts: let
+                        param = let
+                          index = lib.lists.findFirstIndex (x: x.name == paramParts.name && x.value == paramParts.value) null params;
+                          nextPrefix =
+                            if (index == ((lib.length params) - 1))
+                            then ""
+                            else "&";
+                          value =
+                            if paramParts.value == "{searchTerms}"
+                            then "%TERM%"
+                            else paramParts.value;
+                        in
+                          paramParts.name + "=" + value + nextPrefix;
+                      in
+                        acc + param) "?"
+                      params;
+                    in
+                      template + paramsString;
+                    prefix = lib.head value.definedAliases;
+                    # image = value.icon;
+                  })
+                  customEngines;
+              in
+                entriesList;
+            };
+            builtins.switcher.prefix = "/";
+            custom_commands = {
+              "name" = "commands";
+              "prefix" = "!";
+            };
             plugins = [
               {
                 "name" = "power";
                 "placeholder" = "Power";
-                "switcher_only" = true;
-                "recalculate_score" = true;
                 "show_icon_when_single" = true;
                 "entries" = [
                   {
@@ -75,10 +113,8 @@ in {
               {
                 "name" = "color scheme";
                 "placeholder" = "Color Scheme";
-                "prefix" = ",";
-                "switcher_only" = false;
-                "eager_loading" = true;
-                "refresh" = true;
+                "prefix" = "$";
+                "switcher_only" = true;
                 "recalculate_score" = false;
                 "show_icon_when_single" = true;
                 "entries" = let
@@ -90,6 +126,16 @@ in {
                     config.hm.tintednix.commonColors;
                 in
                   entries;
+              }
+              {
+                name = "wallpapers";
+                prefix = "#";
+                src_once = "node ${./config/fetch_wallpapers.cjs}";
+                parser = "kv";
+                recalculate_score = false;
+                refresh = true;
+                show_icon_when_single = true;
+                switcher_only = true;
               }
             ];
           };

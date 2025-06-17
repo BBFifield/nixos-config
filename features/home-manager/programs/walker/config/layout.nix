@@ -87,8 +87,31 @@ in ''
   h_expand = true
   revert = false
 
+  [ui.window.box.scroll.list.item.text.label.margins]
+  bottom = 0
+  start = 0
+  end = 30
+  top = 0
+
   [ui.window.box.search]
   spacing = 10
   v_align = "start"
   width = 400
+
+  [ui.window.box.search.spinner]
+  name = "spinner"
+  v_align = "fill"
+  v_expand = false
+  h_expand = false
+  h_align = "fill"
+  height = 23
+  width = 23
+  hide = false
+  opacity = 1
+
+  [ui.window.box.search.spinner.margins]
+  bottom = -10
+  start = 10
+  end = 10
+  top = -10
 ''

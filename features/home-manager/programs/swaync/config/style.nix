@@ -17,6 +17,10 @@ config: ''
       -gtk-icon-transform;
   }
 
+  window {
+    opacity: 0.9;
+  }
+
   .notification-row:focus,
   .notification-row:hover {
     background: @base0D;
@@ -35,6 +39,7 @@ config: ''
 
   .notification-group-collapse-button {
     color: @base0B;
+    margin-right: 5px;
   }
 
   .notification-group-close-all-button {
@@ -55,9 +60,8 @@ config: ''
     border-width: 0px;
     color: @base0D;
     box-shadow:
-      0 0 0 1px rgba(0, 0, 0, 0.3),
-      0 1px 3px 1px rgba(0, 0, 0, 0.7),
-      0 2px 6px 2px rgba(0, 0, 0, 0.3);
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2);
   }
   button:hover {
     background: @base0D;
@@ -65,39 +69,42 @@ config: ''
     font-weight: bold;
   }
 
-  .notification-row .notification-background .close-button {
+  .close-button {
     color: @base08;
-    margin: 10px 8px 5px 5px;
+    margin: 10px 30px 5px 5px;
   }
 
-  .notification-row .notification-background .close-button:hover {
+  .close-button:hover {
     color: @base01;
     background-color: @base08;
+  }
+
+  .control-center .close-button {
+    margin: 0px 0px 10px 10px;
   }
 
   .notification-content image {
     margin-right: 10px;
   }
 
-  .notification-row .notification-background .notification {
+  .notification {
     background: @base02;
     border-radius: ${config.hm.hyprland.buttonRounding};
     border-width: 0px;
-    margin: 10px;
+    margin: 10px 30px 60px 20px;
     box-shadow:
-      0 0 0 1px rgba(0, 0, 0, 0.3),
-      0 1px 3px 1px rgba(0, 0, 0, 0.7),
-      0 2px 6px 2px rgba(0, 0, 0, 0.3);
+      4px 12px 10px rgba(0, 0, 0, 0.2),
+      7px 18px 14px rgba(0, 0, 0, 0.21),
+      10px 24px 18px rgba(0, 0, 0, 0.25),
+      14px 30px 24px rgba(0, 0, 0, 0.3);
   }
 
-  /*.notification-row .notification-background .notification .notification-action,*/
-  /*.notification-row*/
-  /*  .notification-background*/
-  /*  .notification*/
-  /*  .notification-default-action {*/
-  /*  background: @base02;*/
-  /*  color: @base0D;*/
-  /*}*/
+  .control-center .notification {
+    margin: 0px;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2);
+    }
 
   .notification-row
     .notification-background
@@ -210,14 +217,15 @@ config: ''
     /* The Control Center which contains the old notifications + widgets */
     background: @base01;
     color: @base0D;
-    margin: 10px;
+    margin: 20px;
     border-radius: ${toString config.wayland.windowManager.hyprland.settings.decoration.rounding}px;
     border: ${toString config.wayland.windowManager.hyprland.settings.general.border_size}px solid @base0D;
     box-shadow:
-      0 0 0 1px rgba(0, 0, 0, 0.3),
-      0 1px 3px 1px rgba(0, 0, 0, 0.7),
-      0 2px 6px 2px rgba(0, 0, 0, 0.3);
-  }
+      4px 12px 10px rgba(0, 0, 0, 0.2),
+      7px 18px 14px rgba(0, 0, 0, 0.21),
+      10px 24px 18px rgba(0, 0, 0, 0.25),
+      14px 30px 24px rgba(0, 0, 0, 0.3);
+    }
 
   .control-center
     .control-center-list
@@ -240,9 +248,8 @@ config: ''
     border-width: 0px;
     color: @base0D;
     box-shadow:
-      0 0 0 1px rgba(0, 0, 0, 0.3),
-      0 1px 3px 1px rgba(0, 0, 0, 0.7),
-      0 2px 6px 2px rgba(0, 0, 0, 0.3);
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2);
   }
   .widget-title > button:hover {
     background: @base0D;
@@ -262,9 +269,8 @@ config: ''
     background: @base02;
     border-width: 0px;
     box-shadow:
-      0 0 0 1px rgba(0, 0, 0, 0.3),
-      0 1px 3px 1px rgba(0, 0, 0, 0.7),
-      0 2px 6px 2px rgba(0, 0, 0, 0.3);
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2);
   }
 
   .widget-dnd > switch:checked {

@@ -10,7 +10,6 @@ in {
     ./session.nix
     ./display-manager.nix
     ./theme.nix
-    ./nautilus.nix
   ];
 
   config = lib.mkMerge [

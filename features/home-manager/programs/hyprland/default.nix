@@ -206,10 +206,13 @@ with lib; let
     decoration = {
       rounding = 10;
       shadow = {
+        color = "rgba(000000AA)";
+        color_inactive = "rgba(00000066)";
         enabled = true;
-        range = 45;
-        render_power = 4;
-        "color" = "rgba(00000077)";
+        range = 60;
+        render_power = 2;
+        offset = "14 25";
+        scale = 0.95;
       };
       # Change transparency of focused and unfocused windows
       active_opacity = 0.95;
@@ -219,14 +222,10 @@ with lib; let
 
       blur = {
         enabled = true;
-        ignore_opacity = true;
-        size = 8;
         passes = 3;
         new_optimizations = "on";
-        noise = 0.2;
-        contrast = 0.9;
-        brightness = 0.9;
         popups = true;
+        popups_ignorealpha = 0.6;
       };
     };
 
@@ -299,26 +298,21 @@ in {
         };
       };
     };
-    # displayOutputs = lib.mkOption {
-    #   type = with lib.types; nullOr (listOf str);
-    #   default = null;
-    #   example = ["HDMI-A-1, highres@highrr, 0x0, 2"];
-    # };
   };
 
   config = mkIf cfg.enable (
     mkMerge [
       {
-        xdg.desktopEntries = {
-          "org.gnome.Settings" = {
-            name = "Settings";
-            comment = "Gnome Control Center";
-            icon = "org.gnome.Settings";
-            exec = "uwsm app -- env XDG_CURRENT_DESKTOP=gnome ${pkgs.gnome-control-center}/bin/gnome-control-center";
-            categories = ["X-Preferences"];
-            terminal = false;
-          };
-        };
+        # xdg.desktopEntries = {
+        #   "org.gnome.Settings" = {
+        #     name = "Settings";
+        #     comment = "Gnome Control Center";
+        #     icon = "org.gnome.Settings";
+        #     exec = "uwsm app -- env XDG_CURRENT_DESKTOP=gnome ${pkgs.gnome-control-center}/bin/gnome-control-center";
+        #     categories = ["X-Preferences"];
+        #     terminal = false;
+        #   };
+        # };
 
         home = {
           packages = with pkgs; [

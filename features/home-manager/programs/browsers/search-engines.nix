@@ -1,10 +1,11 @@
 {pkgs}: {
-  engines = {
+  predefined = {
     "bing".metaData.hidden = true;
     "ebay".metaData.hidden = true;
     "google".metaData.alias = "@g";
     "wikipedia".metaData.alias = "@w";
-
+  };
+  custom = {
     "GitHub" = {
       urls = [
         {
@@ -31,7 +32,7 @@
           params = [
             {
               name = "page";
-              value = 1;
+              value = "1";
             }
             {
               name = "q";
@@ -44,7 +45,7 @@
         url = " https://dotfyle.com/favicon.ico";
         sha256 = "sha256-8kjAFQ/tGX0JObywRtXF3nXj7Gbra6efbIzKeMrplNA=";
       }}";
-      definedAliases = ["@df"];
+      definedAliases = ["@nv"];
     };
 
     "Nix Packages" = {

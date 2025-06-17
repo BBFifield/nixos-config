@@ -24,9 +24,6 @@ in {
           '';
         };
         xdg.configFile."ironbar/config.corn".text = import ./config/config.nix {inherit config pkgs lib;};
-        # xdg.configFile."ironbar/sys_info.sh".source = ./config/sys_info.sh;
-        # xdg.configFile."ironbar/bluetooth.sh".source = ./config/bluetooth.sh;
-        # xdg.configFile."ironbar/network.sh".source = ./config/network.sh;
       }
       {
         systemd.user.services = {
@@ -38,7 +35,6 @@ in {
             };
             Service = {
               Type = "oneshot";
-              # ExecStart = "${pkgs.bash}/bin/bash ${(import ./postStart.nix {inherit config pkgs;})}/bin/ironbar_post_start";
               ExecStart = "${(import ./postStart.nix {inherit config pkgs;})}/bin/ironbar_post_start";
               RemainAfterExit = true;
             };
@@ -54,7 +50,7 @@ in {
             };
             Service = {
               Type = "oneshot";
-              ExecStart = "${pkgs.bash}/bin/bash ${./config/customModules/stats/stats.sh}"; #"${pkgs.bash}/bin/bash ${builtins.path {path = ./config/customModules/stats/stats.sh;}}";
+              ExecStart = "${pkgs.bash}/bin/bash ${./config/customModules/stats/stats.sh}";
               RemainAfterExit = true;
             };
             Install = {

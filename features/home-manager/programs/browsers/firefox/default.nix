@@ -207,7 +207,10 @@ in
                     force = true;
                     default = "ddg";
                     order = ["ddg" "google"];
-                    engines = (import ./search-engines.nix {inherit pkgs;}).engines;
+                    engines = let
+                      searchEngines = import ../search-engines.nix {inherit pkgs;};
+                    in
+                      lib.mkMerge [searchEngines.predefined searchEngines.custom];
                   };
                 };
               };

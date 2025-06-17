@@ -71,6 +71,7 @@
     "nvidia"
     "home-manager"
     "desktop"
+    "programs"
   ];
 in {
   imports = lib.mkImports features featuresDir;
@@ -122,9 +123,6 @@ in {
 
       environment.systemPackages = with pkgs; [
         cachix
-        #ssh-to-age
-        #age
-        #sops
         htop
         nix-output-monitor
         openrgb-with-all-plugins

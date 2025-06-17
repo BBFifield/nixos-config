@@ -40,4 +40,20 @@
       };
     };
   };
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "video/mp4" = ["mpv.desktop"];
+      "video/webm" = ["mpv.desktop"];
+      "video/ogg" = ["mpv.desktop"];
+      "video/x-msvideo" = ["mpv.desktop"]; # AVI files
+      "video/quicktime" = ["mpv.desktop"]; # MOV files
+      "video/mpeg" = ["mpv.desktop"];
+      "video/x-matroska" = ["mpv.desktop"]; # MKV files
+      "video/x-flv" = ["mpv.desktop"]; # FLV files
+      "video/3gpp" = ["mpv.desktop"];
+      "video/3gpp2" = ["mpv.desktop"];
+    };
+  };
 }

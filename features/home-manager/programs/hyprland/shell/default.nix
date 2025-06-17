@@ -81,8 +81,8 @@ in {
             exec-once =
               [
                 "uwsm app -t service -u wpaperd.service -- wpaperd -d"
-                "uwsm app -- swaync"
                 "uwsm app -t service -u ironbar.service -- ironbar"
+                "uwsm app -t service -u swaync.service -- swaync"
                 "uwsm app -t service -u walker.service -- walker --gapplication-service"
               ]
               ++ (lib.optionals (config.hm.gBar.enable) ["gBar bar 0"]);
@@ -121,8 +121,17 @@ in {
             ];
 
             windowrule = [
-              #"stayfocused, class:^(dev.benz.walker)$"
-              "opacity 0.90 override 0.85 override, class:^(dev.benz.walker)$"
+              "opacity 1.0 override 0.95 override, class:^(dev.benz.walker)$"
+            ];
+
+            layerrule = [
+              "animation fade, wleave"
+              "blur, wleave"
+              "blur, ironbar"
+              "blurpopups, ironbar"
+              "ignorealpha 0.8, ironbar"
+              "blur, swaync-control-center"
+              "ignorealpha 0.8, swaync-control-center"
             ];
 
             experimental = let
@@ -187,6 +196,7 @@ in {
               hm.ironbar = {
                 enable = true;
               };
+              hm.wleave.enable = true;
               home.packages = with pkgs;
                 [
                   hyprpicker

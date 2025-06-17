@@ -26,7 +26,7 @@ in {
             monitor = "";
             path = "screenshot";
             color = "rgba(25, 20, 20, 1.0)";
-            blur_passes = 2;
+            blur_passes = 3;
           };
         }
         {

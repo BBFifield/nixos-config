@@ -1,6 +1,7 @@
 {
-  pkgs,
   config,
+  lib,
+  pkgs,
   ...
 }: {
   imports = [
@@ -8,6 +9,14 @@
     ./neovim
     ./vscodium
   ];
+
+  options.hm.editors = {
+    defaultEditor = lib.mkOption {
+      type = lib.types.enum ["kate" "nvim" "codium"];
+      default = "nvim";
+    };
+  };
+
   config = {
     home.packages = with pkgs; [
       alejandra

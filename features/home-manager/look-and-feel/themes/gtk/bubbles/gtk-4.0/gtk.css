@@ -1,0 +1,673 @@
+@import url("colors.css");
+
+:root {
+  --shadow-wide: 4px 12px 10px rgba(0, 0, 0, 0.2),
+    7px 18px 14px rgba(0, 0, 0, 0.21), 10px 24px 18px rgba(0, 0, 0, 0.25),
+    14px 30px 24px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  font:
+    normal 16px "JetBrainsMono Nerd Font",
+    sans-serif;
+  outline: none;
+  text-decoration: none;
+  transition:
+    0.1s linear background-color,
+    border-color,
+    opacity,
+    transform,
+    -gtk-icon-transform;
+}
+
+arrow {
+  /*For triangles above popups*/
+  background-color: transparent;
+  border-color: transparent;
+}
+
+entry {
+  background-color: var(--headerbar-border-color);
+  border-radius: 50px;
+  outline: none;
+  box-shadow: var(--shadow-thin);
+}
+entry:focus-within,
+entry button:active,
+entry button:checked {
+  box-shadow: var(--shadow-inset-header);
+}
+
+/*Ex: The back and forward button popover in nautilus*/
+popover modelbutton:focus {
+  background-color: var(--window-fg-color);
+  box-shadow: var(--shadow-thin);
+}
+popover modelbutton:disabled {
+  opacity: 0.5;
+}
+popover modelbutton:selected:focus:not(:hover) {
+  background-color: var(--window-bg-color);
+  box-shadow: var(--shadow-inset-window-bg);
+}
+popover modelbutton:hover *,
+popover modelbutton:focus *,
+popover modelbutton:hover:not(:focus) *,
+button:hover popover modelbutton * {
+  color: var(--window-bg-color);
+}
+popover modelbutton:selected:focus:not(:hover) *,
+button:hover:active popover modelbutton:active *,
+button:hover popover modelbutton *,
+button:hover:active popover modelbutton:focus * {
+  color: var(--window-fg-color);
+}
+
+viewswitcher,
+.linked {
+  border-radius: 50px;
+  background-color: var(--headerbar-border-color);
+  box-shadow: var(--shadow-thin);
+}
+.linked:not(#NautilusPathBar) > button.text-button,
+viewswitcher:not(#NautilusPathBar) > button.flat {
+  background-color: transparent;
+  box-shadow: none;
+}
+.linked:not(#NautilusPathBar) > button.text-button:hover,
+viewswitcher:not(#NautilusPathBar) > button.flat:hover {
+  border-radius: 50px 50px 50px 50px;
+  border-color: transparent;
+  background-color: var(--window-fg-color);
+  box-shadow: var(--shadow-thin);
+}
+.linked:not(#NautilusPathBar) > button.text-button:hover + button.text-button,
+.linked:not(#NautilusPathBar) > button.text-button:active + button.text-button,
+.linked:not(#NautilusPathBar) > button.text-button:checked + button.text-button,
+.linked:not(#NautilusPathBar)
+  > button.text-button:hover:active
+  + button.text-button,
+.linked:not(#NautilusPathBar)
+  > button.text-button:hover:checked
+  + button.text-button,
+viewswitcher:not(#NautilusPathBar) > button.flat:hover + button.flat,
+viewswitcher:not(#NautilusPathBar) > button.flat:active + button.flat,
+viewswitcher:not(#NautilusPathBar) > button.flat:checked + button.flat,
+viewswitcher:not(#NautilusPathBar) > button.flat:hover:active + button.flat,
+viewswitcher:not(#NautilusPathBar) > button.flat:hover:checked + button.flat {
+  border-color: transparent;
+}
+.linked:not(#NautilusPathBar)
+  > button.text-button:nth-child(1):hover:not(:active):not(:checked),
+viewswitcher:not(#NautilusPathBar)
+  > button.flat:nth-child(1):hover:not(:active):not(:checked) {
+  background-color: var(--success-bg-color);
+}
+.linked:not(#NautilusPathBar) > button.text-button:nth-child(1):not(:hover) *,
+.linked:not(#NautilusPathBar) > button.text-button:nth-child(1):active *,
+.linked:not(#NautilusPathBar) > button.text-button:nth-child(1):checked *,
+viewswitcher:not(#NautilusPathBar) > button.flat:nth-child(1):not(:hover) *,
+viewswitcher:not(#NautilusPathBar) > button.flat:nth-child(1):active *,
+viewswitcher:not(#NautilusPathBar) > button.flat:nth-child(1):checked * {
+  color: var(--success-fg-color);
+}
+.linked:not(#NautilusPathBar)
+  > button.text-button:nth-child(2):hover:not(:active):not(:checked),
+viewswitcher:not(#NautilusPathBar)
+  > button.flat:nth-child(2):hover:not(:active):not(:checked) {
+  background-color: var(--error-bg-color);
+}
+.linked:not(#NautilusPathBar) > button.text-button:nth-child(2):not(:hover) *,
+.linked:not(#NautilusPathBar) > button.text-button:nth-child(2):active *,
+.linked:not(#NautilusPathBar) > button.text-button:nth-child(2):checked *,
+viewswitcher:not(#NautilusPathBar) > button.flat:nth-child(2):not(:hover) *,
+viewswitcher:not(#NautilusPathBar) > button.flat:nth-child(2):active *,
+viewswitcher:not(#NautilusPathBar) > button.flat:nth-child(2):checked * {
+  color: var(--error-fg-color);
+}
+.linked:not(#NautilusPathBar)
+  > button.text-button:nth-child(3):hover:not(:active):not(:checked),
+viewswitcher:not(#NautilusPathBar)
+  > button.flat:nth-child(3):hover:not(:active):not(:checked) {
+  background-color: var(--warning-bg-color);
+}
+.linked:not(#NautilusPathBar) > button.text-button:nth-child(3):not(:hover) *,
+.linked:not(#NautilusPathBar) > button.text-button:nth-child(3):active *,
+.linked:not(#NautilusPathBar) > button.text-button:nth-child(3):checked *,
+viewswitcher:not(#NautilusPathBar) > button.flat:nth-child(3):not(:hover) *,
+viewswitcher:not(#NautilusPathBar) > button.flat:nth-child(3):active *,
+viewswitcher:not(#NautilusPathBar) > button.flat:nth-child(3):checked * {
+  color: var(--warning-fg-color);
+}
+.linked:not(#NautilusPathBar)
+  > button.text-button:nth-child(4):hover:not(:active):not(:checked),
+viewswitcher:not(#NautilusPathBar)
+  > button.flat:nth-child(4):hover:not(:active):not(:checked) {
+  background-color: var(--orange);
+}
+.linked:not(#NautilusPathBar) > button.text-button:nth-child(4):not(:hover) *,
+.linked:not(#NautilusPathBar) > button.text-button:nth-child(4):active *,
+.linked:not(#NautilusPathBar) > button.text-button:nth-child(4):checked *,
+viewswitcher:not(#NautilusPathBar) > button.flat:nth-child(4):not(:hover) *,
+viewswitcher:not(#NautilusPathBar) > button.flat:nth-child(4):active *,
+viewswitcher:not(#NautilusPathBar) > button.flat:nth-child(4):checked * {
+  color: var(--orange);
+}
+.linked > :first-child:not(:last-child),
+viewswitcher > :first-child:not(:last-child) {
+  border-radius: 50px 0px 0px 50px;
+}
+.linked > :last-child:not(:first-child),
+viewswitcher > :last-child:not(:first-child) {
+  border-radius: 0px 50px 50px 0px;
+}
+.linked:not(#NautilusPathBar) > * + *,
+viewswitcher:not(#NautilusPathBar) > * + * {
+  border-left: 1px dotted var(--view-bg-color);
+}
+.linked:not(#NautilusPathBar) > * + *:not(:last-child),
+viewswitcher:not(#NautilusPathBar) > * + *:not(:last-child) {
+  border-radius: 0px 0px 0px 0px;
+}
+.linked > button:hover,
+viewswitcher > button:hover {
+  background-color: var(--window-fg-color);
+}
+.linked:not(#NautilusPathBar) > button:active,
+.linked:not(#NautilusPathBar) > button:checked,
+.linked:not(#NautilusPathBar) > button:hover:active,
+.linked:not(#NautilusPathBar) > button:hover:checked,
+viewswitcher:not(#NautilusPathBar) > button:active,
+viewswitcher:not(#NautilusPathBar) > button:checked,
+viewswitcher:not(#NautilusPathBar) > button:hover:active,
+viewswitcher:not(#NautilusPathBar) > button:hover:checked {
+  color: var(--window-fg-color);
+  background-color: var(--headerbar-border-color);
+  border-radius: 50px 50px 50px 50px;
+  border-color: transparent;
+  box-shadow: var(--shadow-inset-header);
+}
+.linked > button:active *,
+.linked > button:checked *,
+.linked > button:hover:active *,
+.linked > button:hover:checked *,
+viewswitcher > button:active *,
+viewswitcher > button:checked *,
+viewswitcher > button:hover:active *,
+viewswitcher > button:hover:checked * {
+  color: var(--window-fg-color);
+}
+selection {
+  color: var(--window-bg-color);
+  background-color: var(--window-fg-color);
+}
+
+scrolledwindow treeview {
+  background-color: var(--window-bg-color);
+}
+scrolledwindow treeview *:hover {
+  border-radius: 50px;
+  color: var(--window-bg-color);
+  background-color: var(--window-fg-color);
+}
+scrolledwindow treeview *:focus {
+  color: var(--window-fg-color);
+  background-color: var(--window-bg-color);
+  box-shadow: var(--shadow-inset-window-bg);
+}
+
+sort-indicator,
+button:active sort-indicator {
+  color: var(--window-fg-color);
+}
+button:hover:not(:active) sort-indicator {
+  color: var(--window-bg-color);
+}
+
+child.activatable {
+  border-radius: 10px;
+}
+child.activatable:hover {
+  background-color: var(--window-fg-color);
+  box-shadow: var(--shadow-thin);
+}
+child.activatable:hover label,
+child.activatable:hover image {
+  color: var(--window-bg-color);
+}
+child.activatable:selected {
+  background-color: inherit;
+  box-shadow: var(--shadow-inset-window-bg);
+}
+child.activatable:selected label,
+child.activatable:selected image {
+  color: var(--window-fg-color);
+}
+row {
+  border-radius: 50px;
+  border-bottom-color: transparent;
+  background-color: transparent;
+}
+row:hover {
+  border-bottom-color: var(--window-fg-color);
+  background-color: var(--window-fg-color);
+  color: var(--window-bg-color);
+  box-shadow: var(--shadow-thin);
+}
+columnview row:selected,
+row.sidebar-row:selected,
+row:selected:backdrop,
+row:selected {
+  color: var(--window-fg-color);
+  background-color: inherit;
+  box-shadow: var(--shadow-inset-window-bg);
+}
+row.activatable:hover:not(:selected) {
+  color: var(--window-bg-color);
+  background-color: var(--window-fg-color);
+  box-shadow: var(--shadow-thin);
+}
+.list {
+  background-color: var(--view-bg-color);
+}
+
+popover listview.view > row.activatable:selected:not(:hover) {
+  box-shadow: unset;
+}
+popover listview.view > row.activatable:hover {
+  background-color: var(--window-fg-color);
+  color: var(--window-bg-color);
+  box-shadow: var(--shadow-thin);
+}
+popover listview.view > row.activatable:focus,
+popover listview.view > row.activatable:focus:selected {
+  background-color: var(--window-bg-color);
+  color: var(--window-fg-color);
+  box-shadow: var(--shadow-inset-window-bg);
+}
+
+.view > row.activatable:selected,
+.view > child.activatable:selected,
+list:not(.navigation-sidebar) > row.activatable:not(.sidebar-row):selected {
+  box-shadow: var(--shadow-inset-view-bg);
+}
+
+.star,
+listview .star image,
+listview row:selected .star:hover:active image,
+listview row:hover:selected .star image {
+  color: var(--warning-bg-color);
+}
+listview row:hover .star image,
+listview row:selected .star:hover image {
+  color: var(--window-bg-color);
+}
+
+stack > button:not(:hover):not(.toggle):not(.image-button) {
+  background-color: var(--headerbar-border-color);
+  box-shadow: var(--shadow-thin);
+}
+stack > button:active {
+  background-color: var(--headerbar-border-color);
+  box-shadow: var(--shadow-inset-header);
+}
+stack > scrolledwindow > viewport {
+  border-radius: 10px;
+  background-color: var(--view-bg-color);
+  box-shadow: var(--shadow-inset-view-bg);
+}
+/*Because list covers the viewport and its box-shadow*/
+stack > scrolledwindow > viewport > list {
+  background-color: transparent;
+}
+stack modelbutton:focus label {
+  color: var(--window-bg-color);
+}
+
+button {
+  border-radius: 50px;
+  background-color: transparent;
+}
+widget.cutout button {
+  background-color: var(--headerbar-border-color);
+}
+button.text-button {
+  color: var(--window-fg-color);
+  background-color: var(--headerbar-border-color);
+  box-shadow: var(--shadow-thin);
+}
+button.text-button:active {
+  background-color: var(--headerbar-border-color);
+  box-shadow: var(--shadow-inset-header);
+}
+button:hover,
+button:hover:checked,
+button:hover:focus:not(:active) {
+  background-color: var(--window-fg-color);
+  box-shadow: var(--shadow-thin);
+}
+button:checked,
+button:active {
+  color: var(--window-fg-color);
+  background-color: inherit;
+  box-shadow: var(--shadow-inset-window-bg);
+}
+button:active *,
+button:checked *,
+button:hover:active * {
+  color: var(--window-fg-color);
+}
+button:hover *,
+button:checked:active * {
+  color: var(--window-bg-color);
+}
+header > button:active {
+  box-shadow: var(--shadow-inset-view-bg);
+}
+row:hover button:hover:active,
+row:hover button.text:hover:active {
+  background-color: var(--window-fg-color);
+  box-shadow: var(--shadow-inset-window-fg);
+}
+row:hover button:hover:active *,
+row:hover button.text:hover:active * {
+  color: var(--window-bg-color);
+}
+
+tooltip {
+  border: 1px solid var(--window-fg-color);
+  border-radius: 50px;
+  color: var(--window-fg-color);
+  background-color: var(--headerbar-border-color);
+  margin: 0px 30px 45px 15px;
+  box-shadow: var(--shadow-wide);
+}
+popover contents {
+  border: 1px solid var(--window-fg-color);
+  box-shadow: var(--shadow-wide);
+}
+
+modelbutton {
+  border-radius: 50px;
+}
+modelbutton:hover,
+modelbutton:selected {
+  background-color: var(--window-fg-color);
+  box-shadow: var(--shadow-thin);
+}
+modelbutton:active,
+modelbutton:hover:active {
+  background-color: inherit;
+  box-shadow: var(--shadow-inset-window-bg);
+}
+
+modelbutton:active *,
+modelbutton:selected:active * {
+  color: var(--window-fg-color);
+}
+modelbutton:hover *,
+modelbutton:selected * {
+  color: var(--window-bg-color);
+}
+
+splitbutton {
+  border-radius: 50px;
+}
+splitbutton > separator {
+  margin-right: 1px;
+}
+splitbutton:hover,
+splitbutton:hover:checked {
+  background-color: var(--window-fg-color);
+  box-shadow: var(--shadow-thin);
+}
+splitbutton:active,
+splitbutton:checked,
+splitbutton:hover:active,
+splitbutton:active:checked {
+  background-color: inherit;
+  box-shadow: var(--shadow-inset-window-bg);
+}
+splitbutton > button:not(#_):hover,
+splitbutton > menubutton > button:not(#_):hover,
+splitbutton > menubutton > button:not(#_):checked {
+  background: none;
+  box-shadow: none;
+}
+splitbutton:active > button > image,
+splitbutton:active arrow,
+splitbutton:checked > button > image,
+splitbutton:checked arrow,
+splitbutton:hover:active > button > image,
+splitbutton:hover:active arrow,
+splitbutton:hover:active:checked > button > image,
+splitbutton:hover:active:checked arrow {
+  color: var(--window-fg-color);
+}
+splitbutton:hover > button > image,
+splitbutton:hover arrow,
+splitbutton:hover:checked > button > image,
+splitbutton:hover:checked arrow {
+  color: var(--window-bg-color);
+}
+splitbutton:hover > separator,
+splitbutton:hover:checked > separator {
+  background-color: var(--window-bg-color);
+}
+splitbutton:checked > separator,
+splitbutton:hover:active > separator {
+  background-color: var(--window-fg-color);
+}
+
+radio {
+  background-color: var(--window-bg-color);
+  border: 1px solid var(--headerbar-border-color);
+  box-shadow: var(--shadow-thin);
+}
+radio:checked {
+  border-color: transparent;
+  color: var(--window-bg-color);
+  background-color: var(--window-fg-color);
+}
+modelbutton:hover > box > radio:checked {
+  color: var(--window-fg-color);
+  background-color: var(--window-bg-color);
+}
+
+.boxed-list {
+  border-radius: 30px;
+  background-color: var(--headerbar-border-color);
+  box-shadow: var(--shadow-thin);
+}
+
+switch {
+  background: var(--headerbar-border-color);
+  border-width: 1px;
+  box-shadow: var(--shadow-inset-header);
+}
+switch:checked {
+  background: var(--window-fg-color);
+  box-shadow: var(--shadow-inset-window-fg);
+}
+switch slider {
+  background: var(--view-bg-color);
+  border-radius: 100%;
+  box-shadow: var(--shadow-thin);
+}
+
+block.empty {
+  border: none;
+  background-color: transparent;
+  box-shadow: var(--shadow-inset-header);
+}
+row:hover block.empty {
+  box-shadow: var(--shadow-inset-window-fg);
+}
+block.filled {
+  background-color: var(--success-bg-color);
+}
+
+scale trough {
+  background-color: transparent;
+  box-shadow: var(--shadow-inset-progress-empty);
+}
+row:hover scale trough {
+  box-shadow: var(--shadow-inset-progress-empty-hover);
+}
+scale highlight {
+  background-color: var(--success-fg-color);
+}
+scale slider {
+  background-color: var(--headerbar-border-color);
+  border-radius: 100%;
+  box-shadow: var(--shadow-thin);
+}
+scale slider:hover {
+  background-color: var(--window-fg-color);
+}
+
+tab {
+  border-radius: 50px;
+  background-color: inherit;
+  margin: 5px 0px 5px 0px;
+}
+tab:hover:not(:checked) {
+  color: var(--window-bg-color);
+  background-color: var(--window-fg-color);
+  box-shadow: var(--shadow-thin);
+}
+tab:checked {
+  box-shadow: var(--shadow-inset-window-bg);
+}
+
+scrolledwindow,
+textview {
+  border-radius: 10px;
+}
+
+check:checked {
+  color: var(--window-bg-color);
+}
+
+#NautilusPathBar,
+.pathbar {
+  background-color: var(--headerbar-border-color);
+  border-radius: 50px;
+  box-shadow: var(--shadow-thin);
+}
+#NautilusPathBar + .linked {
+  box-shadow: none;
+}
+#NautilusPathBar + .linked > button {
+  box-shadow: var(--shadow-thin);
+}
+#NautilusPathBar scrolledwindow {
+  border-radius: 50px;
+}
+#NautilusPathBar > scrolledwindow:hover {
+  background-color: var(--window-fg-color);
+}
+#NautilusPathBar > scrolledwindow:hover,
+#NautilusPathBar > scrolledwindow:hover * {
+  color: var(--window-bg-color);
+}
+#NautilusPathBar > scrolledwindow:active * {
+  color: var(--window-fg-color);
+}
+#NautilusPathBar > scrolledwindow:active {
+  background-color: var(--headerbar-border-color);
+  color: var(--window-fg-color);
+  box-shadow: var(--shadow-inset-header);
+}
+#NautilusPathBar > menubutton > button:active,
+#NautilusPathBar > menubutton > button:checked:not(:hover) {
+  box-shadow: var(--shadow-inset-header);
+}
+#NautilusPathButton:not(.current-dir):active {
+  box-shadow: var(--shadow-inset-header);
+}
+.current-dir:hover,
+.current-dir:hover:checked,
+.current-dir:hover:focus:not(:active) {
+  background-color: inherit;
+  box-shadow: unset;
+}
+.current-dir:hover *,
+.current-dir:hover:checked *,
+.current-dir:hover:focus:not(:active) * {
+  color: var(--window-fg-color);
+}
+
+progresscell {
+  border-radius: 50px;
+  background-color: transparent;
+  box-shadow: var(--shadow-inset-view-bg);
+}
+progresscell progress {
+  background-color: var(--success-bg-color);
+  border-radius: 50px;
+  box-shadow: var(--shadow-thin);
+}
+progresscell trough {
+  background-color: transparent;
+}
+row:hover progresscell {
+  box-shadow: var(--shadow-inset-view-bg);
+}
+label.in-progress {
+  color: var(--window-bg-color);
+}
+
+row:hover entry {
+  background-color: var(--window-fg-color);
+}
+row:hover entry:focus-within {
+  box-shadow: var(--shadow-inset-window-fg);
+}
+row:hover selection:focus {
+  background-color: var(--headerbar-border-color);
+}
+
+/*Inspector global settings dropdowns*/
+stack:hover > row.activatable:hover {
+  box-shadow: none;
+}
+row:hover dropdown > button.toggle:checked,
+row:hover dropdown > button.toggle:checked:hover {
+  box-shadow: var(--shadow-inset-window-fg);
+}
+row:hover dropdown > button.toggle:checked * {
+  color: var(--window-bg-color);
+}
+row:not(:hover) dropdown > button.toggle:checked:not(:hover) {
+  box-shadow: var(--shadow-inset-header);
+}
+
+spinbutton {
+  border-radius: 50px;
+  background-color: inherit;
+}
+spinbutton button.up,
+spinbutton button.down {
+  border-color: transparent;
+}
+
+row:hover button.text-button:checked,
+row:hover button.text-button:checked:hover {
+  box-shadow: var(--shadow-inset-window-fg);
+}
+row:hover button.text-button:checked * {
+  color: var(--window-bg-color);
+}
+row:not(:hover) button.text-button:checked:not(:hover) {
+  background-color: var(--headerbar-border-color);
+  box-shadow: var(--shadow-inset-header);
+}
+
+banner widget {
+  opacity: 1;
+  background-color: var(--window-fg-color);
+}
+banner label.heading {
+  color: var(--window-bg-color);
+}

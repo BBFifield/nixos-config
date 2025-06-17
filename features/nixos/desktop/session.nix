@@ -133,7 +133,7 @@ in {
               gnome-tweaks
               kdePackages.qtwayland #QT apps will not open under wayland mode otherwise
               kdePackages.qt6ct
-              gnome-control-center
+              # gnome-control-center
             ];
 
             security = {

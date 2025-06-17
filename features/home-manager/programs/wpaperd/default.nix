@@ -17,7 +17,7 @@ with lib; {
           mode = "center";
           sorting = "random";
           transition = {
-            hexagonalize = {};
+            doorway = {};
           };
         };
         any = {

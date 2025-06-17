@@ -10,15 +10,44 @@
         orientation = "vertical"
         widgets = [
           { type = "label" class = "header" name = "profile-header" label = "{{echo $(whoami)}}" }
-          {type = "image" name = "profile-pic" src = $profile_picture  size = 80 }
+          {
+            type = "box"
+            orientation = "horizontal"
+            halign = "center"
+            widgets = [
+              {
+                type = "button" name = "profile-pic-button" orientation = "horizontal"
+              }
+            ]
+          }
           {
             type = "box"
             name = "power-actions-box"
             widgets = [
-              { type = "button" class="power-btn" label = "<span font-size='25pt'>󰗽</span>" on_click = "!loginctl terminate-user $(whoami)" }
-              { type = "button" class="power-btn" label = "<span font-size='25pt'>󰌾</span>" on_click = "!loginctl lock-session" }
-              { type = "button" class="power-btn" label = "<span font-size='25pt'>󰐥</span>" on_click = "!poweroff" }
-              { type = "button" class="power-btn" label = "<span font-size='25pt'>󰜉</span>" on_click = "!reboot" }
+              { type = "button" class="power-btn" label = "<span font-size='25pt'>󰗽</span>" on_click = "!${
+    if config.hm.wleave.enable
+    then "wleave -l /home/$(whoami)/.config/wleave/layoutLogout.json -C /home/$(whoami)/.config/wleave/style.css -T 430 -R 850 -B 430 -L 850"
+    else "loginctl terminate-user $(whoami)"
+  }"
+              }
+              { type = "button" class="power-btn" label = "<span font-size='25pt'>󰌾</span>" on_click = "!${
+    if config.hm.wleave.enable
+    then "wleave -l /home/$(whoami)/.config/wleave/layoutLock.json -C /home/$(whoami)/.config/wleave/style.css -T 430 -R 850 -B 430 -L 850"
+    else "loginctl lock-session"
+  }"
+              }
+              { type = "button" class="power-btn" label = "<span font-size='25pt'>󰐥</span>" on_click = "!${
+    if config.hm.wleave.enable
+    then "wleave -l /home/$(whoami)/.config/wleave/layoutShutdown.json -C /home/$(whoami)/.config/wleave/style.css -T 430 -R 850 -B 430 -L 850"
+    else "poweroff"
+  }"
+              }
+              { type = "button" class="power-btn" label = "<span font-size='25pt'>󰜉</span>" on_click = "!${
+    if config.hm.wleave.enable
+    then "wleave -l /home/$(whoami)/.config/wleave/layoutReboot.json -C /home/$(whoami)/.config/wleave/style.css -T 430 -R 850 -B 430 -L 850"
+    else "reboot"
+  }"
+              }
             ]
           }
         ]

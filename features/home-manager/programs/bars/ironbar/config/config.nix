@@ -70,7 +70,7 @@ in ''
     height = 30
     anchor_to_edges = true
     position = "top"
-    popup_gap = -10
+    popup_gap = 0
     icon_theme = "${config.hm.theme.iconTheme}"
 
 
@@ -107,7 +107,8 @@ in ''
       show_bluetooth = "true"
       night_light_icon = "󱩍"
       show_night_light_slider = "false"
-      night_light_value = "6000"
+      night_light_value = "2000"
+      wallpaper_daemon_on = "true"
     }
 
     start = $left

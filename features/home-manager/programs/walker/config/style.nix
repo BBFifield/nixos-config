@@ -1,7 +1,7 @@
 config: ''
   $color_text: var(--base0D);
   $color_text_field: var(--base02);
-  $color_bg: var(--base01);
+  $color_bg: rgba(var(--base01-r), var(--base01-g), var(--base01-b), 0.8);
   $color_btn_hover_bg: var(--base0D);
   $color_btn_hover_fg: var(--base01);
   $color_border: var(--base03);
@@ -12,6 +12,14 @@ config: ''
   $font-family:
     ${config.hm.theme.fonts.defaultMonospace},
     sans-serif;
+  $shadow-inset-header: 1px 2px 2px
+      color-mix(in oklab, var(--base02) 80%, black 20%) inset,
+    2px 4px 4px
+      color-mix(in oklab, var(--base02) 80%, black 20%) inset,
+    -1px -1px 0px 1px
+      color-mix(in oklab, var(--base02) 80%, white 10%) inset,
+    -1px -1px 1px 0px
+      color-mix(in oklab, var(--base02) 80%, black 5%) inset;
 
   @mixin input-field {
     all: unset;
@@ -20,7 +28,6 @@ config: ''
     color: $color_text;
     padding-left: 12px;
     padding-right: 12px;
-    /* background: none;*/
   }
 
   * {
@@ -39,20 +46,24 @@ config: ''
     padding: 16px;
     border-radius: 10px;
     box-shadow:
-      0 19px 38px rgba(0, 0, 0, 0.3),
-      0 15px 12px rgba(0, 0, 0, 0.22);
+      1px 2px 3px rgba(0, 0, 0, 0.17),
+      2px 4px 6px rgba(0, 0, 0, 0.20);
   }
   #search {
     all: unset;
-    border-radius: ${config.hm.hyprland.buttonRounding};
+    border-radius: 50px;
     padding: 8px 0px 8px 0px;
-    background: $color_text_field;
+    background: var(--base02);
+    box-shadow: $shadow-inset-header;
+    margin: 0px 4px 0px 4px;
   }
+
   #password {
     @include input-field;
   }
   #input {
     @include input-field;
+    background: none;
     > * {
       &:first-child {
         color: $color_text;
@@ -69,6 +80,7 @@ config: ''
   #typeahead {
     @include input-field;
     opacity: 0.5;
+    background: none;
     > * {
       &:first-child {
         color: $color_text;
@@ -80,41 +92,38 @@ config: ''
     }
   }
   #spinner {
-    all: unset;
-  }
-  #list {
-    all: unset;
+    color: $color_btn_hover_bg;
   }
 
-  @mixin highlightLabels {
-    background: $color_btn_hover_bg;
-    box-shadow: none;
-    color: $color_btn_hover_fg;
-    label {
-      font-weight: bold;
+  gridview#list {
+    all: unset;
+    child.activatable {
+      margin: 0px 5px 0px 5px;
+      border-radius: ${config.hm.hyprland.buttonRounding};
+      color: var(--base0D);
+      padding: 8px;
+      transition-duration: 0.2s;
+      transition-timing-function: linear;
+      &:first-child {
+        margin-top: 4px;
+      }
+      &:selected {
+        background: var(--window-bg-color);
+        box-shadow: var(--shadow-inset-window-bg);
+        & * {
+          font-weight: bold;
+          color: var(--base0D);
+        }
+      }
     }
   }
 
   #icon {
     -gtk-icon-size: 40px;
-    -gtk-icon-shadow: 0px 1px 6px rgb(0, 0, 0);
+    -gtk-icon-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.20);
   }
-
-  child {
-    all: unset;
-    border-radius: ${config.hm.hyprland.buttonRounding};
-    color: $color_text;
-    padding: 8px;
-    transition-duration: 0.2s;
-    transition-timing-function: linear;
-    &:selected {
-      @include highlightLabels;
-    }
-    &:hover {
-      @include highlightLabels;
-    }
-  }
-
 
   scrollbar {
     all: unset;
