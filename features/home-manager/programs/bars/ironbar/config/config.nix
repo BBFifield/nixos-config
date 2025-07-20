@@ -34,7 +34,7 @@ in ''
       icons.open_dnd = "󱅮"
     }
 
-    $clock = { type = "clock" format = " %d-%h-%Y-%I:%M%P" }
+    $clock = { type = "clock" format = "<span font-size='13pt'></span> %d-%h-%Y-%I:%M%P" }
     $tray = { type = "tray" icon_size = 32 }
 
     $clipboard = {
@@ -70,7 +70,7 @@ in ''
     height = 30
     anchor_to_edges = true
     position = "top"
-    popup_gap = 0
+    popup_gap = -10
     icon_theme = "${config.hm.theme.iconTheme}"
 
 

@@ -17,61 +17,75 @@ config: ''
       sans-serif;
     font-weight: normal;
     font-size: 16px;
-    transition-duration: 0.2s;
+    transition-duration: 0.1s;
     transition-timing-function: linear;
-    transition-property: background-color, color, opacity, transform, box-shadow, -gtk-icon-transform;
+    transition-property:
+      background-color,
+      opacity,
+      transform,
+      box-shadow,
+      -gtk-icon-transform;
   }
 
   #start,
   #center,
   #end {
     background-color: @base02;
+    min-height: 33px;
     box-shadow:
-      1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.20);
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base02, white, 0.1);
   }
+
   #topbar {
     background-color: transparent;
   }
 
   #bar {
-    border: 1px solid @base00;
     margin: 5px 15px 11px 15px;
+    padding: 1px 0px 0px 1px;
     box-shadow:
-      1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.20);
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base01, white, 0.1);
   }
   .background {
     padding: 0px;
   }
   window {
-    border-radius: ${config.hm.hyprland.buttonRounding};
+    border-radius: 50px;
     background-color: transparent;
     opacity: 0.9;
   }
   /* -- Necessary so menu shadows look okay -- */
   decoration {
     box-shadow:
-      4px 12px 10px rgba(0, 0, 0, 0),
-      7px 18px 14px rgba(0, 0, 0, 0),
-      10px 24px 18px rgba(0, 0, 0, 0),
-      14px 30px 24px rgba(0, 0, 0, 0);
+      4px 12px 10px rgba(0, 0, 0, 0.2),
+      7px 18px 14px rgba(0, 0, 0, 0.21),
+      10px 24px 18px rgba(0, 0, 0, 0.25),
+      14px 30px 24px rgba(0, 0, 0, 0.3),
+      -1px -1px 0px mix(@base01, white, 0.1);
   }
   box {
-    border-radius: ${config.hm.hyprland.buttonRounding};
+    border-radius: 50px;
     background-color: @base01;
   }
   menu {
     background-color: @base01;
-    border: ${toString config.wayland.windowManager.hyprland.settings.general.border_size}px solid @base0D;
-    border-radius: ${toString config.wayland.windowManager.hyprland.settings.decoration.rounding}px;
+    border-radius: 10px;
   }
   menuitem {
-    border-radius: ${config.hm.hyprland.buttonRounding};
+    border-radius: 50px;
+    min-height: 24px;
+    padding: 4px 17px 5px 16px;
+    margin: 1px 0px 0px 1px;
   }
   menuitem:hover {
     background-color: @base0D;
   }
-  menuitem:hover label, menuitem:hover cellview {
-    font-weight: bold;
+  menuitem:hover label,
+  menuitem:hover cellview {
     color: @base01;
   }
   separator {
@@ -84,68 +98,143 @@ config: ''
   menubar {
     background-color: @base01;
   }
+  widget > revealer > box {
+    background-color: transparent;
+  }
   button {
-    background-color: @base02;
+    background-color: transparent;
     color: @base0D;
-    border-radius: ${config.hm.hyprland.buttonRounding};
-    padding: 0px 10px 0px 10px;
+    border-radius: 50px;
+    margin: 1px 0px 0px 1px;
+    padding: 4px 17px 5px 16px;
+    min-height: 24px;
+    transition-property:
+      opacity,
+      transform,
+      -gtk-icon-transform;
   }
   button:hover {
     background-color: @base0D;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0D, white, 0.4);
+  }
+  button:hover:active,
+  button.focused:not(:hover),
+  button:focus {
+    background-color: @base02;
+    margin: 0px;
+    padding: 5px 17px 5px 17px;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
   }
   button:hover label {
     color: @base01;
-    font-weight: bold;
+  }
+  button:hover:active label,
+  button:focus label {
+    color: @base0D;
+  }
+  button box {
+    transition: none;
   }
   button:hover box {
-    background-color: @base0D;
+    background-color: transparent;
     color: @base01;
   }
   label {
     color: @base0D;
   }
+
+  scale {
+    min-height: 10px;
+    min-width: 10px;
+    padding: 12px 12px 12px 12px;
+  }
+  scale.marks-after {
+    padding: 12px 12px 0px 12px;
+  }
   scale trough {
-    min-width: 1px;
-    min-height: 2px;
+    background-color: @base02;
+    border-radius: 99px;
+    box-shadow:
+      1px 1px 1px mix(@base02, black, 0.2) inset,
+      2px 2px 2px mix(@base02, black, 0.2) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
+  }
+  scale highlight {
+    border-radius: 99px;
+    background-color: @base0B;
+  }
+  scale slider {
+    background-color: @base02;
+    border-radius: 100%;
+    min-height: 20px;
+    min-width: 20px;
+    margin: -8px;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base02, white, 0.1);
+  }
+  scale slider:hover {
+    background-color: @base0D;
+  }
+  scale value {
+    color: @base0D;
+  }
+  scale.vertical trough {
+    min-width: 4px;
+    min-height: 100px;
+  }
+  scale.horizontal trough {
+    min-height: 100px;
+    min-height: 4px;
+  }
+
+  tooltip decoration {
+    box-shadow: none;
   }
   tooltip {
     background-color: transparent;
     border: 0px;
     text-shadow: none;
+    box-shadow: none;
   }
   tooltip > *:last-child {
-    border: ${toString config.wayland.windowManager.hyprland.settings.general.border_size}px solid @base0D;
+    border: 0px solid @base0D;
     background-color: @base02;
-    margin: 0px 15px 20px 15px;
+    margin: 15px 65px 80px 65px;
+    min-height: 35px;
     box-shadow:
       4px 12px 10px rgba(0, 0, 0, 0.2),
       7px 18px 14px rgba(0, 0, 0, 0.21),
       10px 24px 18px rgba(0, 0, 0, 0.25),
-      14px 30px 24px rgba(0, 0, 0, 0.30);
+      14px 30px 24px rgba(0, 0, 0, 0.3),
+      -1px -1px 0px mix(@base02, white, 0.1);
   }
   .popup {
-    border: ${toString config.wayland.windowManager.hyprland.settings.general.border_size}px solid @base0D;
-    border-radius: ${toString config.wayland.windowManager.hyprland.settings.decoration.rounding}px;
+    border: 0px solid @base0D;
+    border-radius: 10px;
     margin: 15px 65px 80px 65px;
     padding: 15px 15px 10px 15px;
     box-shadow:
       4px 12px 10px rgba(0, 0, 0, 0.2),
       7px 18px 14px rgba(0, 0, 0, 0.21),
       10px 24px 18px rgba(0, 0, 0, 0.25),
-      14px 30px 24px rgba(0, 0, 0, 0.30);
-    }
+      14px 30px 24px rgba(0, 0, 0, 0.3),
+      -1px -1px 0px mix(@base01, white, 0.1);
+  }
 
   /* -- walker button -- */
   #walker box {
-    background-color: @base02;
-  }
-  #walker button:hover {
-    background-color: @base02;
-  }
-  #walker button:hover box {
-    background-color: @base02;
+    background-color: transparent;
   }
   #walker-img {
+    background-color: transparent;
     -gtk-icon-shadow: 0px 0px 2px rgb(0, 0, 0);
     padding: 0px 2px 0px 2px;
   }
@@ -153,46 +242,75 @@ config: ''
     -gtk-icon-transform: rotate(90deg);
   }
 
+  #walker button:hover {
+    background-color: @base02;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base02, white, 0.1);
+  }
+  #walker button:hover:active {
+    background-color: @base02;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
+  }
+
   /* -- workspaces -- */
   .workspaces {
-    background-color: @base02;
+    background-color: transparent;
   }
   .workspaces label {
+    font-size: 17px;
     color: @base0F;
   }
   .workspaces button {
-    border: 1.3px dotted;
+    border-left: 1.3px dotted;
     border-radius: 0px 0px 0px 0px;
     border-color: transparent transparent transparent @base04;
+    transition-property:
+      background-color,
+      opacity,
+      transform,
+      box-shadow,
+      -gtk-icon-transform;
   }
   .workspaces button:last-child {
-    border-radius: 0px ${config.hm.hyprland.buttonRounding} ${config.hm.hyprland.buttonRounding} 0px;
+    border-radius: 0px 50px 50px 0px;
   }
-  .workspaces button:hover {
-    background-color: @base03;
-    border-radius: ${config.hm.hyprland.buttonRounding};
+  .workspaces button:hover,
+  .workspaces button.focused,
+  .workspaces button.focused:hover {
+    border-radius: 50px;
     border-color: transparent;
   }
-  .workspaces button:hover + button {
-    background-color: @base02;
-    border-radius: ${config.hm.hyprland.buttonRounding};
-    border-color: transparent;
+  .workspaces button:hover:not(:active) {
+    background-color: @base0F;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0F, white, 0.4);
   }
+  .workspaces button.focused:not(:hover),
+  .workspaces button:hover:active {
+    border-color: transparent;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
+  }
+
   .workspaces button:hover > label {
+    color: @base01;
+  }
+  .workspaces button:hover:active > label,
+  .workspaces .item.focus > label {
     color: @base0F;
   }
-  .workspaces .item.focused {
-    background-color: @base0F;
-    border-radius: ${config.hm.hyprland.buttonRounding};
-    border: 1px solid @base0F;
-    padding: 0px 30px 0px 30px;
-  }
-  .workspaces .item.focused + button {
+  .workspaces button:hover + button,
+  .workspaces button.focused + button {
     border-left-color: transparent;
-  }
-  .workspaces .item.focused > label {
-    color: @base01;
-    font-weight: bold;
   }
 
   /* -- clock -- */
@@ -203,7 +321,7 @@ config: ''
     color: @base0D;
     font-size: 2.5em;
     margin-bottom: 0.1em;
-    border-bottom: 1px dotted currentColor;
+    border-bottom: 1px solid @base02;
   }
   .popup-clock .calendar {
     background-color: @base01;
@@ -213,17 +331,20 @@ config: ''
   .popup-clock .calendar .header {
     padding-top: 1em;
     border: transparent;
-    font-size: 1.5em;
+    font-size: 17px;
   }
   .popup-clock .calendar:selected {
     background-color: @base0D;
     color: @base01;
-    border-radius: ${config.hm.hyprland.buttonRounding};
+    border-radius: 50px;
   }
 
   /* notifications */
+  .notifications button.text-button > label {
+    font-size: 17px;
+  }
   .notifications .count {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     background-color: @base0D;
     color: @base01;
     border-radius: 100%;
@@ -231,17 +352,63 @@ config: ''
     margin-top: 3px;
     padding-left: 4px;
     padding-right: 4px;
-    opacity: 0.7;
+    opacity: 0.8;
+  }
+  overlay.notifications > button.text-button {
+    box-shadow: none;
+  }
+  overlay.notifications > button:hover {
+    background-color: @base0D;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0D, white, 0.4);
+  }
+  overlay.notifications > button:hover label {
+    color: @base01;
+  }
+  overlay.notifications > button:hover:active {
+    background-color: @base02;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
+  }
+  overlay.notifications > button:active label {
+    color: @base0D;
   }
 
-
   /*-- tools --*/
-  #tools label {
-    margin-left: -3px;
-    color: @base06;
+  #tools {
+    background-color: transparent;
+  }
+  #tools button {
+    background-color: transparent;
+  }
+  #tools button:hover {
+    background-color: @base06;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base06, white, 0.4);
   }
   #tools button:hover label {
     color: @base01;
+  }
+  #tools button:hover:active {
+    background-color: @base02;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
+  }
+  #tools button:active label {
+    color: @base06;
+  }
+  #tools label {
+    font-size: 17px;
+    margin-left: -3px;
+    color: @base06;
   }
   #tools button:hover {
     background-color: @base06;
@@ -249,61 +416,116 @@ config: ''
   #popup-tools {
     border-color: @base06;
   }
-  #popup-tools box widget:not(:first-child) button,
-  #popup-tools box widget:not(:first-child) scale {
-    margin-top: 5px;
-  }
   .tool {
+    padding: 1px 10px 2px 9px;
     margin: 6px 11px 11px 11px;
     background-color: transparent;
   }
   .tool label {
-    font-size: 25px;
+    font-size: 22px;
   }
   .tool:hover {
     box-shadow:
       1px 2px 2px rgba(0, 0, 0, 0.17),
-      2px 4px 4px rgba(0, 0, 0, 0.20);
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0D, white, 0.4);
+  }
+  .tool:hover:active {
+    background-color: @base01;
+    padding: 2px 10px 2px 10px;
+    margin: 5px 11px 11px 10px;
+    box-shadow:
+      1px 2px 2px mix(@base01, black, 0.35) inset,
+      2px 4px 4px mix(@base01, black, 0.35) inset,
+      -1px -1px 0px mix(@base01, white, 0.1) inset;
   }
   #nightLightToggle:hover {
     background-color: @base0A;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0A, white, 0.4);
   }
   #nightLightToggle:hover label {
     color: @base01;
   }
+  #nightLightToggle:hover:active {
+    background-color: @base01;
+    box-shadow:
+      1px 2px 2px mix(@base01, black, 0.35) inset,
+      2px 4px 4px mix(@base01, black, 0.35) inset,
+      -1px -1px 0px mix(@base01, white, 0.1) inset;
+  }
+  #nightLightToggle:hover:active label {
+    color: @base0A;
+  }
   #nightLightToggle label {
     color: @base0A;
   }
-  #nightLightSlider slider,
-  #nightLightSlider .top {
-    color: @base0A;
-    background-color: @base0A;
-  }
-  #screenshotter:hover {
-    background-color: @base08;
-  }
-  #screenshotter:hover label {
-    color: @base01;
-  }
+
   #screenshotter label {
     color: @base08;
     margin-left: -7px;
   }
+  #screenshotter:hover {
+    background-color: @base08;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base08, white, 0.4);
+  }
+  #screenshotter:hover label {
+    color: @base01;
+  }
+  #screenshotter:hover:active {
+    background-color: @base01;
+    box-shadow:
+      1px 2px 2px mix(@base01, black, 0.35) inset,
+      2px 4px 4px mix(@base01, black, 0.35) inset,
+      -1px -1px 0px mix(@base01, white, 0.1) inset;
+  }
+  #screenshotter:hover:active label {
+    color: @base08;
+  }
+
   #wallpaperToggle label {
     color: @base0C;
     margin-left: -5px;
   }
+  #wallpaperToggle:hover {
+    background-color: @base0C;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0C, white, 0.4);
+  }
   #wallpaperToggle:hover label {
     color: @base01;
   }
-  #wallpaperToggle:hover {
-    background-color: @base0C;
+  #wallpaperToggle:hover:active {
+    background-color: @base01;
+    box-shadow:
+      1px 2px 2px mix(@base01, black, 0.35) inset,
+      2px 4px 4px mix(@base01, black, 0.35) inset,
+      -1px -1px 0px mix(@base01, white, 0.1) inset;
+  }
+  #wallpaperToggle:hover:active label {
+    color: @base0C;
   }
   .wallpaperNav {
-    margin: 5px 0px 10px 0px;
+    background-color: @base02;
+    padding: 1px 10px 2px 9px;
   }
   .wallpaperNav:hover {
     background-color: @base0C;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0C, white, 0.4);
+  }
+  .wallpaperNav:hover:active {
+    padding: 2px 10px 2px 10px;
+    margin: 0px;
   }
   .wallpaperNav label {
     color: @base0C;
@@ -311,19 +533,25 @@ config: ''
   .wallpaperNav:hover label {
     color: @base01;
   }
-  #wallpaperNext {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
+  .wallpaperNav:hover:active label {
+    color: @base0C;
   }
-  #wallpaperPrevious {
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+  #popup-tools widget > revealer > box.linked {
+    background-color: @base02;
+    margin: 5px 5px 10px 5px;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base02, white, 0.1);
+  }
+  #popup-tools widget > revealer > box.linked > widget {
+    border: 0px;
   }
 
   /*-- tray -- */
   .tray * {
     background-color: @base02;
-    border-radius: ${config.hm.hyprland.buttonRounding};
+    border-radius: 50px;
   }
   .tray .item {
     padding: 0px 10px 0px 10px;
@@ -336,7 +564,7 @@ config: ''
   }
   .header {
     border-radius: 0px;
-    border-bottom: 1px dotted currentColor;
+    border-bottom: 1px solid @base02;
     margin-bottom: 5px;
   }
   #cpu-label {
@@ -356,14 +584,24 @@ config: ''
   }
 
   .reveal-btn {
+    background-color: @base02;
     margin: 10px 30px 11px 30px;
     box-shadow:
       1px 2px 2px rgba(0, 0, 0, 0.17),
-      2px 4px 4px rgba(0, 0, 0, 0.20);
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base02, white, 0.1);
+  }
+  .reveal-btn:hover:active {
+    background-color: @base02;
+    margin: 9px 30px 11px 29px;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
   }
   .info {
     border-radius: 0px;
-    border-top: 1px dotted @base0D;
+    border-top: 1px solid @base02;
     padding-top: 5px;
     animation-name: generic-slide-down;
     animation-timing-function: linear;
@@ -452,12 +690,29 @@ config: ''
 
   /*-- network --*/
   #network label {
-    font-size: 18px;
+    font-size: 17px;
     color: @base0E;
     margin-right: 2px;
   }
   #network button:hover {
     background-color: @base0E;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0E, white, 0.4);
+  }
+  #network button:hover label {
+    color: @base01;
+  }
+  #network button:hover:active {
+    background-color: @base02;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
+  }
+  #network button:hover:active label {
+    color: @base0E;
   }
   #network button:hover label {
     color: @base01;
@@ -466,49 +721,97 @@ config: ''
   /*-- bluetooth --*/
   #bluetooth button:hover {
     background-color: @base0C;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0C, white, 0.4);
+  }
+  #bluetooth button:hover label {
+    color: @base01;
+  }
+  #bluetooth button:hover:active {
+    background-color: @base02;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
+  }
+  #bluetooth button:active label {
+    color: @base0C;
   }
   #bluetooth label {
     font-size: 17px;
-    background-color: @base02;
+    background-color: transparent;
     color: @base0C;
-  }
-  #bluetooth button:hover label {
-    background-color: @base0C;
-    color: @base01;
   }
   #popup-bluetooth {
     border-color: @base0C;
     padding-bottom: 10px;
   }
+  #popup-bluetooth label {
+    color: @base0C;
+  }
   #popup-bluetooth button {
     background-color: @base02;
+    margin: 21px 6px 11px 7px;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base02, white, 0.1);
   }
   #popup-bluetooth button:hover {
     background-color: @base0C;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0C, white, 0.4);
   }
-  #popup-bluetooth label {
-    color: @base0C;
+  #popup-bluetooth button:hover:active {
+    background-color: @base02;
+    margin: 20px 6px 11px 6px;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
   }
   #popup-bluetooth button:hover label {
     color: @base01;
   }
-  #bluetooth-settings-btn {
-    margin: 20px 6px 11px 6px;
-    box-shadow:
-      1px 2px 2px rgba(0, 0, 0, 0.17),
-      2px 4px 4px rgba(0, 0, 0, 0.20);
+  #popup-bluetooth button:hover:active label {
+    color: @base0C;
   }
 
   /* -- clipboard -- */
   .clipboard {
-    font-size: 1.1em;
+    font-size: 17px;
   }
   .clipboard > label {
+    font-size: 17px;
     color: @base09;
   }
   .clipboard:hover {
     background-color: @base09;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base09, white, 0.4);
   }
+  .clipboard:hover label {
+    color: @base01;
+  }
+  .clipbooard:hover:active {
+    background-color: @base02;
+    margin: 0px;
+    padding: 5px 17px 5px 17px;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
+  }
+  .clipboard:hover:active label {
+    color: @base09;
+  }
+
   .popup-clipboard {
     border-color: @base09;
     color: @base09;
@@ -516,12 +819,35 @@ config: ''
   .popup-clipboard label {
     color: @base09;
   }
+  .popup-clipboard button {
+    background-color: @base02;
+    margin: 10px;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base02, white, 0.1);
+  }
   .popup-clipboard button:hover {
     background-color: @base09;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base09, white, 0.4);
+  }
+  .popup-clipboard button:hover:active {
+    background-color: @base02;
+    margin: 9px 10px 10px 9px;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
+  }
+  .popup-clipboard button:hover:active label {
+    color: @base09;
   }
   .popup-clipboard .item {
     padding-bottom: 0.3em;
-    border-bottom: 1px dotted currentColor;
+    border-bottom: 1px solid @base02;
     border-radius: 0%;
   }
   radio {
@@ -530,29 +856,55 @@ config: ''
     margin: 7px 14px 7px 7px;
     box-shadow:
       1px 2px 2px rgba(0, 0, 0, 0.17),
-      2px 4px 4px rgba(0, 0, 0, 0.20);
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base02, white, 0.1);
   }
   radio:checked {
-    -gtk-icon-source: none;
-    background-image: none;
     background-color: @base09;
     border-color: @base09;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base09, white, 0.4);
   }
   .btn-remove {
     margin: 10px;
     box-shadow:
       1px 2px 2px rgba(0, 0, 0, 0.17),
-      2px 4px 4px rgba(0, 0, 0, 0.20);
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base02, white, 0.1);
   }
 
   /* -- Volume -- */
   .volume > label {
+    font-size: 17px;
     color: @base0A;
     margin-right: 5px;
   }
   .volume:hover {
     background-color: @base0A;
   }
+  .volume:hover {
+    background-color: @base0A;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0A, white, 0.4);
+  }
+  .volume:hover label {
+    color: @base01;
+  }
+  .volume:hover:active {
+    background-color: @base02;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
+  }
+  .volume:hover:active label {
+    color: @base0A;
+  }
+
   .popup-volume {
     border-color: @base0A;
     padding: 20px;
@@ -561,19 +913,27 @@ config: ''
   .popup-volume .slider .top {
     color: @base0A;
   }
-  .popup-volume slider {
-    background-color: @base0A;
-  }
-  .popup-volume highlight {
-    background-color: @base0A;
-  }
   .popup-volume .device-box {
-    border-right: 1px dotted @base0A;
+    border-right: 1px solid @base02;
     border-radius: 0px;
     padding-right: 5px;
   }
+  .popup-volume combobox.device-selector > box {
+    margin-bottom: 10px;
+  }
+  .popup-volume button.combo {
+    padding: 5px 17px 5px 17px;
+    margin: 0;
+    box-shadow: none;
+  }
   .popup-volume .device-box .device-selector .combo:hover {
     background-color: @base0A;
+    padding: 4px 17px 5px 16px;
+    margin: 1px 0px 0px 1px;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0A, white, 0.4);
   }
   .popup-volume .device-box .device-selector .combo box {
     background-color: @base02;
@@ -581,14 +941,12 @@ config: ''
   .popup-volume .device-box .device-selector .combo:hover box {
     background-color: @base0A;
     color: @base01;
-    font-weight: bold;
   }
   .popup-volume cellview {
     color: @base0A;
   }
   .popup-volume .combo:hover cellview {
     color: @base01;
-    font-weight: bold;
   }
   .popup-volume arrow {
     color: @base0A;
@@ -599,34 +957,84 @@ config: ''
   .popup-volume .combo {
     margin-bottom: 10px;
   }
+  .popup-volume button {
+    background-color: @base02;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base02, white, 0.1);
+  }
   .popup-volume button:hover {
     background-color: @base0A;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0A, white, 0.4);
   }
+  .popup-volume button:hover:active,
+  .popup-volume button:hover:checked {
+    background-color: @base02;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
+  }
+  .popup-volume button:hover label {
+    color: @base01;
+  }
+  .popup-volume button:hover:active label {
+    color: @base0A;
+  }
+
   #gtk-combobox-popup-menu {
-    border: ${toString config.wayland.windowManager.hyprland.settings.general.border_size}px solid @base0A;
     background-color: @base01;
     color: @base0A;
   }
   #gtk-combobox-popup-menu menuitem:hover {
     background-color: @base0A;
-  }
-  .btn-mute, .combo {
+    min-height: 24px;
     box-shadow:
       1px 2px 2px rgba(0, 0, 0, 0.17),
-      2px 4px 4px rgba(0, 0, 0, 0.20);
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base0A, white, 0.4);
   }
-
+  .btn-mute {
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base02, white, 0.1);
+  }
 
   /* -- power -- */
+  #power button:hover label {
+    color: @base01;
+  }
   #power button:hover {
     background-color: @base08;
-  }
-  #power label {
-    color: @base08;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base08, white, 0.4);
   }
   #power button:hover label {
     color: @base01;
   }
+  #power button:hover:active {
+    background-color: @base02;
+    box-shadow:
+      1px 2px 2px mix(@base02, black, 0.35) inset,
+      2px 4px 4px mix(@base02, black, 0.35) inset,
+      -1px -1px 0px mix(@base02, white, 0.1) inset;
+  }
+  #power button:active label {
+    color: @base08;
+  }
+  #power label {
+    font-size: 17px;
+    background-color: transparent;
+    color: @base08;
+  }
+
   #popup-power {
     border-color: @base08;
   }
@@ -639,7 +1047,6 @@ config: ''
     margin-bottom: 0.6em;
   }
   #profile-pic-button {
-    border: 1px @base08 solid;
     border-radius: 100%;
     min-height: 120px;
     min-width: 120px;
@@ -647,38 +1054,40 @@ config: ''
     background-size: contain;
     margin: 10px 10px 17px 10px;
     box-shadow:
-      1px 2px 4px rgba(0, 0, 0, 0.17),
-      2px 4px 7px rgba(0, 0, 0, 0.20);
-    background-image: url("/var/lib/AccountsService/icons/${config.home.username}.face.icon");
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base02, white, 0.1);
+    background-image: url("/var/lib/AccountsService/icons/brandon.face.icon");
   }
+
   .power-btn {
-    padding: 0.1em 1em;
     border-radius: 100%;
+    background-color: transparent;
   }
   #power-actions-box button:hover label {
     color: @base01;
   }
+  #power-actions-box button:hover:active label {
+    color: @base08;
+  }
+  #power-actions-box > widget:not(:last-child) .power-btn {
+    margin-right: 8px;
+  }
   .power-btn:hover {
     background-color: @base08;
+    box-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base08, white, 0.4);
   }
   #power-actions-box {
     background-color: @base02;
     margin: 9px 9px 12px 9px;
+    min-height: 35px;
     box-shadow:
-      1px 2px 3px rgba(0, 0, 0, 0.17),
-      2px 4px 6px rgba(0, 0, 0, 0.20);
-  }
-
-  /* Miscellaneous */
-  .inset:active {
-    box-shadow:
-      0px 2px 3px 1px rgba(0, 0, 0, 0.5),
-      0px 5px 3px 5px rgba(0, 0, 0, 0.5) inset;
-  }
-  .inset-no-shadow:active {
-    box-shadow:
-      0px 2px 3px 1px rgba(0, 0, 0, 0.5),
-      0px 5px 3px 5px rgba(0, 0, 0, 0.5) inset;
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px mix(@base02, white, 0.1);
   }
 
   /* prettier-ignore */

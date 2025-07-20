@@ -1,5 +1,6 @@
 {config, ...}: ''
-  $profile_picture = "/var/lib/AccountsService/icons/{{echo $(whoami)}}"
+  $wleave_dir = "/home/$(whoami)/.config/wleave"
+
   $power_popup = {
     type = "custom"
     name = "power"
@@ -26,25 +27,25 @@
             widgets = [
               { type = "button" class="power-btn" label = "<span font-size='25pt'>󰗽</span>" on_click = "!${
     if config.hm.wleave.enable
-    then "wleave -l /home/$(whoami)/.config/wleave/layoutLogout.json -C /home/$(whoami)/.config/wleave/style.css -T 430 -R 850 -B 430 -L 850"
+    then "XDG_CONFIG_HOME=$wleave_dir wleave -l $wleave_dir/layoutLogout.json -T 430 -R 850 -B 430 -L 850"
     else "loginctl terminate-user $(whoami)"
   }"
               }
               { type = "button" class="power-btn" label = "<span font-size='25pt'>󰌾</span>" on_click = "!${
     if config.hm.wleave.enable
-    then "wleave -l /home/$(whoami)/.config/wleave/layoutLock.json -C /home/$(whoami)/.config/wleave/style.css -T 430 -R 850 -B 430 -L 850"
+    then "XDG_CONFIG_HOME=$wleave_dir wleave -l $wleave_dir/layoutLock.json -T 430 -R 850 -B 430 -L 850"
     else "loginctl lock-session"
   }"
               }
               { type = "button" class="power-btn" label = "<span font-size='25pt'>󰐥</span>" on_click = "!${
     if config.hm.wleave.enable
-    then "wleave -l /home/$(whoami)/.config/wleave/layoutShutdown.json -C /home/$(whoami)/.config/wleave/style.css -T 430 -R 850 -B 430 -L 850"
+    then "XDG_CONFIG_HOME=$wleave_dir wleave -l $wleave_dir/layoutShutdown.json -T 430 -R 850 -B 430 -L 850"
     else "poweroff"
   }"
               }
               { type = "button" class="power-btn" label = "<span font-size='25pt'>󰜉</span>" on_click = "!${
     if config.hm.wleave.enable
-    then "wleave -l /home/$(whoami)/.config/wleave/layoutReboot.json -C /home/$(whoami)/.config/wleave/style.css -T 430 -R 850 -B 430 -L 850"
+    then "XDG_CONFIG_HOME=$wleave_dir -l $wleave_dir/layoutReboot.json -T 430 -R 850 -B 430 -L 850"
     else "reboot"
   }"
               }

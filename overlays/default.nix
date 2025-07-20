@@ -37,6 +37,7 @@
   nonFlakeSrcs = f: p: {
     inherit (inputs) neovim-config;
     inherit (inputs) firefox-gnome-theme;
+    tintednix = f.callPackage inputs.tintednix {}; #Just to access the mustache file
   };
 
   # See https://github.com/NixOS/nixpkgs/issues/310755

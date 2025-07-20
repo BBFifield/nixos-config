@@ -74,22 +74,29 @@
                 tooltip = "Toggle Wallpaper Cycle"
               }
               {
-                type = "button"
-                class = "wallpaperNav"
-                name = "wallpaperPrevious"
-                label = ""
+                type = "box"
+                orientation = "horizontal"
+                halign = "center"
                 show_if = "#wallpaper_daemon_on"
-                on_click="!wpaperctl previous;"
-                tooltip = "Previous wallpaper"
-              }
-              {
-                type = "button"
-                class = "wallpaperNav"
-                name = "wallpaperNext"
-                label = ""
-                show_if = "#wallpaper_daemon_on"
-                on_click="!wpaperctl next;"
-                tooltip = "Next wallpaper"
+                class = "linked"
+                widgets = [
+                  {
+                    type = "button"
+                    class = "wallpaperNav"
+                    name = "wallpaperPrevious"
+                    label = ""
+                    on_click="!wpaperctl previous;"
+                    tooltip = "Previous wallpaper"
+                  }
+                  {
+                    type = "button"
+                    class = "wallpaperNav"
+                    name = "wallpaperNext"
+                    label = ""
+                    on_click="!wpaperctl next;"
+                    tooltip = "Next wallpaper"
+                  }
+                ]
               }
             ]
           }

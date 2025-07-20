@@ -46,8 +46,8 @@ in {
         };
 
         color-palette = let
-          colors = config.hm.tintednix.commonColors;
-          defaultScheme = config.hm.tintednix.defaultScheme;
+          colors = config.hm.tintednix.schemeVariantAndColors;
+          defaultScheme = config.hm.tintednix.defaultSchemeName;
         in {
           palette = [
             "#${colors.${defaultScheme}.colors.base08}"

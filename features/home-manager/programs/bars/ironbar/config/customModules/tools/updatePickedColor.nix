@@ -1,13 +1,24 @@
 pkgs:
 pkgs.writeShellScript "update_picked_color" ''
-  new_picked_color=$(hyprpicker -a)
-  pkill .wl-copy-wrappe
-  ironbar var set picked_color $new_picked_color
+  new_picked_color=$(hyprpicker -a | tr -d '[:space:]')
+  if [ -z "$new_picked_color" ]; then
+    echo "No color picked – skipping CSS update."
+    exit 0
+  fi
 
-  css_to_insert="#colorPicker { border-color: $new_picked_color; }"
+  # only runs if new_picked_color is non-empty
+  ironbar var set picked_color "$new_picked_color"
 
-  sed -i '$d' "/home/brandon/.config/ironbar/style.css"
-  gawk -i inplace -v src="$css_to_insert" '{ print } ENDFILE { print src }' "/home/brandon/.config/ironbar/style.css" || echo "Failed to update settings"
+  css_to_insert="#colorPicker { border: 1px solid $new_picked_color; }"
 
-  ironbar load-css "/home/brandon/.config/ironbar/style.css"
+  # remove last line (old rule)
+  sed -i '$d' "$HOME/.config/ironbar/style.css"
+
+  # append new rule
+  gawk -i inplace -v src="$css_to_insert" '
+    { print }
+    ENDFILE { print src }
+  ' "$HOME/.config/ironbar/style.css" || echo "Failed to update settings"
+
+  ironbar load-css "$HOME/.config/ironbar/style.css"
 ''

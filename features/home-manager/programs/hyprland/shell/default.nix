@@ -145,9 +145,9 @@ in {
             bind = "SUPER, T, exec, tintednix update ${color_scheme}";
           };
 
-          schemeAttrs = config.hm.tintednix.commonColors;
+          schemeAttrs = config.hm.tintednix.schemeVariantAndColors;
 
-          defaultName = "${config.hm.tintednix.defaultScheme}";
+          defaultName = "${config.hm.tintednix.defaultSchemeName}";
 
           schemeNames = lib.attrNames schemeAttrs;
 

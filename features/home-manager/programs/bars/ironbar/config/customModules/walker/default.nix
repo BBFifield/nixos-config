@@ -12,7 +12,7 @@
             type = "image"
             name = "walker-img"
             src = "nix-snowflake-white"
-            size = 20
+            size = 19
           }
         ]
       }

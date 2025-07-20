@@ -6,7 +6,7 @@
       {
         type = "button"
         class = "reveal-btn"
-        label = "<span  size='medium' weight='bold'>#theme_info_btn_label</span>"
+        label = "#theme_info_btn_label"
         on_click = "![[ \"$(ironbar var get show_theme_info)\" == \"false\" ]] && (ironbar var set show_theme_info true; ironbar var set theme_info_btn_label \"Hide Theme Info\") || (ironbar var set show_theme_info false; ironbar var set theme_info_btn_label \"Show Theme Info\") &> /dev/null"
       }
       {
@@ -199,7 +199,7 @@
       {
         type = "button"
         class = "reveal-btn"
-        label = "<span  size='medium' weight='bold'>#sys_info_btn_label</span>"
+        label = "#sys_info_btn_label"
         on_click = "![[ \"$(ironbar var get show_system_info)\" == \"false\" ]] && (ironbar var set show_system_info true; ironbar var set sys_info_btn_label \"Hide System Info\") || (ironbar var set show_system_info false; ironbar var set sys_info_btn_label \"Show System Info\") &> /dev/null"
       }
       {
@@ -275,7 +275,7 @@
       {
         type = "label"
         class = "header"
-        label = "<span  size='medium' weight='ultrabold'>Live Stats</span>"
+        label = "Live Stats"
       }
       {
         type = "box"
@@ -347,8 +347,8 @@
     interval.disks = 30
     interval.networks = 2
     format = [
-      "  {cpu_percent}%|{temp_c:k10temp-Tctl}°C"
-      "  {memory_used:2}GiB({memory_percent:2}%)"
+      "<span font-size='13pt'></span> {cpu_percent}%|{temp_c:k10temp-Tctl}°C"
+      "<span font-size='13pt'></span> {memory_used:2}GiB({memory_percent:2}%)"
     ]
   }
   $stats_popup = {

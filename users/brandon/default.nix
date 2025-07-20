@@ -39,7 +39,7 @@ in {
         vscodium.enable = true;
         neovim.enable = true;
         theme = {
-          gtkTheme.name = "adw-gtk3-dark";
+          # gtkTheme.name = "adw-gtk3-dark";
           fonts.defaultMonospace = sysCfg.desktop.theme.fonts.defaultMonospace;
           cursorTheme = {
             name = sysCfg.desktop.theme.cursorTheme.name;
@@ -75,7 +75,6 @@ in {
         browsers.firefox.style = "hyprland";
         dconf.enable = true;
         theme = {
-          gtkTheme.name = "adw-gtk3-dark";
           iconTheme = "Tela";
         };
         hyprland = lib.mkMerge [
@@ -92,8 +91,9 @@ in {
       {
         tintednix = {
           enable = true;
+          gtkTheme.enable = true;
           enabledSchemes = with pkgs.base16; [ashes atelier-cave atelier-heath atelier-sulphurpool ayu-dark bespin blueforest blueish brushtrees-dark catppuccin-frappe catppuccin-latte catppuccin-macchiato catppuccin-mocha codeschool darkviolet dracula everforest everforest-dark-hard gruvbox-dark-hard gruvbox-dark-soft gruvbox-material-dark-hard gruvbox-material-dark-soft katy material-palenight moonlight nord rose-pine rose-pine-moon stella tokyo-night-dark tokyo-night-moon];
-          defaultScheme = "catppuccin-mocha";
+          defaultSchemeName = "catppuccin-mocha";
           targets = {
             firefox = {
               enable = true;
@@ -189,9 +189,10 @@ in {
               live = {
                 enable = true;
               };
-              templateSrc = ../../features/home-manager/look-and-feel/tintednix-templates/walker;
+              templateSrc = ../../features/home-manager/look-and-feel/tintednix;
+              templateName = "base16_gtk4_scss";
               path = ".config/walker/themes";
-              schemeExtension = "css";
+              schemeExtension = "scss";
             };
             swaync = {
               enable = true;
@@ -224,31 +225,30 @@ in {
               live = {
                 enable = true;
               };
-              templateSrc = {
-                url = "https://github.com/tinted-theming/base16-waybar.git";
-                rev = "26d41f3550da17ebdd14b6b2bc4fdf86c543735e";
-                ref = "main";
-              };
-              path = ".config/wleave";
-              schemeExtension = "css";
+              templateSrc = ../../features/home-manager/look-and-feel/tintednix;
+              templateName = "base16_gtk4_scss";
+              path = ".config/wleave/gtk-4.0";
+              schemeExtension = "scss";
             };
             "gtk-3.0" = {
               enable = true;
               live = {
                 enable = true;
               };
-              templateSrc = ../../features/home-manager/look-and-feel/tintednix-templates/gtk;
+              templateSrc = pkgs.tintednix.root;
               path = ".config/gtk-3.0";
-              schemeFilename = "gtk";
-              schemeExtension = "css";
+              templateName = "gtk";
+              schemeFilename = "colors";
+              schemeExtension = "scss";
             };
             "gtk-4.0" = {
               enable = true;
               live = {
                 enable = true;
               };
-              templateSrc = ../../features/home-manager/look-and-feel/tintednix-templates/gtk;
+              templateSrc = pkgs.tintednix.root;
               path = ".config/gtk-4.0";
+              templateName = "gtk";
               schemeFilename = "colors";
               schemeExtension = "scss";
             };
@@ -280,8 +280,6 @@ in {
     packages =
       defaultPkgs;
   };
-
-  xdg.configFile."gtk-4.0/gtk.css".source = ../../features/home-manager/look-and-feel/themes/gtk/bubbles/gtk-4.0/gtk.css;
 
   programs.git = {
     enable = true;

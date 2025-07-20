@@ -1,134 +1,145 @@
-$color_text: var(--base0D);
-$color_text_field: var(--base02);
-$color_bg: var(--base01);
-$color_btn_hover_bg: var(--base0D);
-$color_btn_hover_fg: var(--base0D);
-$color_border: var(--base03);
-$color_active_workspace: var(--base0E);
-$color_inactive_workspace: var(--base0F);
-$color_border_active: var(--base0B);
-$color_urgent: var(--base08);
-$font-family:
-  JetBrainsMono Nerd Font,
-  sans-serif;
+@import "file:///home/brandon/.config/walker/themes/colors.css";
 
-@mixin input-field {
-  all: unset;
-  background: $color_text_field;
-  border-radius: 0px;
-  border-radius: 32px;
-  color: $color_text;
-  padding-left: 12px;
-  padding-right: 12px;
-  /* background: none;*/
+@mixin pill($bg: var(--base02), $padding: 0 9px, $margin: 0 2px 5px 2px) {
+  border-radius: 50px;
+  min-height: 35px;
+  background: $bg;
+  padding: $padding;
+  margin: $margin;
 }
 
 * {
-  font-family: $font-family;
-  font-weight: normal;
-  font-size: 14px;
+  caret-color: var(--base0D);
 }
 
 #window {
-  all: unset;
-  background: none;
+  border-radius: 10px;
+  box-shadow: var(--shadow-wide-base01);
 }
-#box {
-  all: unset;
-  background: $color_bg;
+
+box#box {
+  background: rgba(var(--base01-r), var(--base01-g), var(--base01-b), 0.8);
   padding: 16px;
-  border-radius: 8px;
-  box-shadow:
-    0 19px 38px rgba(0, 0, 0, 0.3),
-    0 15px 12px rgba(0, 0, 0, 0.22);
+  border-radius: 10px;
 }
+
 #search {
-  all: unset;
-  border-radius: 25px;
-  padding: 8px 0px 8px 0px;
-  background: $color_text_field;
-}
-#password {
-  @include input-field;
-}
-#input {
-  @include input-field;
-  > * {
-    &:first-child {
-      color: $color_btn_hover_fg;
-      margin-right: 7px;
-    }
-    &:last-child {
-      color: $color_btn_hover_fg;
-    }
-  }
-  placeholder {
-    opacity: 0.5;
+  @include pill();
+  box-shadow: var(--shadow-inset-base02);
+
+  &:backdrop {
+    box-shadow: var(--shadow-thin-base02);
   }
 }
+
 #typeahead {
-  @include input-field;
-  opacity: 0.5;
-  > * {
-    &:first-child {
-      color: $color_text;
-      margin-right: 7px;
-    }
-    &:last-child {
-      color: $color_text;
-    }
-  }
-}
-#spinner {
-  all: unset;
-}
-#list {
-  all: unset;
-}
-
-@mixin highlightLabels {
-  background: $color_btn_hover_bg;
+  @include pill(transparent, 0, 0);
   box-shadow: none;
-  color: $color_btn_hover_fg;
-  label {
-    font-weight: bold;
+}
+
+#input {
+  @include pill(var(--base02), 0, 0);
+  box-shadow: none;
+}
+
+#spinner {
+  color: var(--base0D);
+  padding: 0;
+}
+
+#icon {
+  -gtk-icon-size: 40px;
+  -gtk-icon-shadow: var(--shadow-thin-base01);
+}
+
+gridview#list {
+  child.activatable {
+    margin: 0 2px;
+    border-radius: 50px;
+    color: var(--base0D);
+    padding: 8px;
+    transition: 0.2s linear;
+
+    &:selected {
+      background: var(--base01);
+      box-shadow: var(--shadow-inset-base01);
+
+      * {
+        font-weight: bold;
+        color: var(--base0D);
+      }
+    }
   }
 }
 
-child {
-  all: unset;
-  border-radius: 25px;
-  color: $color_btn_hover_fg;
-  padding: 8px;
-  transition-duration: 0.2s;
-  transition-timing-function: linear;
-  &:selected {
-    @include highlightLabels;
-  }
-
-  &:hover {
-    @include highlightLabels;
-  }
-}
-
-scrollbar {
-  all: unset;
-  background: none;
-  padding-left: 8px;
-}
-slider {
-  all: unset;
-  min-width: 2px;
-  background: $color_text;
-  opacity: 0.5;
-}
-
-#sub {
-  all: unset;
-  opacity: 0.6;
-}
+#sub,
 #activationlabel {
   all: unset;
   opacity: 0.6;
+}
+
+#activationlabel {
   padding-right: 4px;
+}
+
+scrollbar {
+  color: var(--base0D);
+  padding: 0;
+  margin: 0;
+
+  > range {
+    padding: 0;
+    margin: 0;
+
+    > trough {
+      border-radius: 50px;
+
+      > slider {
+        background-clip: padding-box;
+        border-radius: 50px;
+        border: 8px solid transparent;
+        margin: -8px;
+        min-width: 8px;
+        min-height: 8px;
+        transition: all 200ms linear;
+        background-color: color-mix(in srgb, currentColor 50%, transparent);
+
+        &:disabled {
+          opacity: 0;
+        }
+      }
+    }
+  }
+
+  &.bottom.horizontal > range > trough {
+    margin: 4px 9px;
+  }
+
+  &.right.vertical > range > trough {
+    margin: 9px 4px;
+  }
+
+  &.overlay-indicator {
+    &.horizontal:not(.hovering) > range > trough > slider {
+      min-width: 40px;
+      min-height: 3px;
+    }
+
+    &.vertical:not(.hovering) > range > trough > slider {
+      min-width: 3px;
+      min-height: 40px;
+    }
+
+    &.hovering > range > trough {
+      background-color: color-mix(in srgb, currentColor 10%, transparent);
+    }
+
+    &.horizontal.hovering > range > trough > slider {
+      min-height: 8px;
+    }
+
+    &.vertical.hovering > range > trough > slider {
+      min-height: 40px;
+    }
+  }
 }

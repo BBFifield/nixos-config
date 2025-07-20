@@ -10,7 +10,8 @@
 
   config = lib.mkIf config.hm.wleave.enable {
     xdg.configFile = {
-      "wleave/style.css" = {
+      # XDG_CONFIG_HOME points to wleave directory to stop /.config/gtk-4.0/gtk.css from overriding the css
+      "wleave/gtk-4.0/gtk.css" = {
         text = import ./config/style.nix {inherit config pkgs;};
       };
       "wleave/layoutLock.json" = {

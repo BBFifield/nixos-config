@@ -39,8 +39,12 @@
       #   "DP-2,highres@highrr,3840x0,1"
       #   "HDMI-A-2,highres@highrr,5760x0,1"
       # ];
-      displayManager = "greetd";
+      displayManager = "regreet";
       nautilus.enable = true;
+      theme = {
+        gtkTheme.name = "base16-gtk";
+        iconTheme.name = "Tela";
+      };
     };
     plasma = {
       plasma.enable = true;
@@ -187,6 +191,11 @@ in {
           enable = true;
           powerOnBoot = true;
         };
+      };
+      tintednix = {
+        enable = true;
+        enabledSchemes = with pkgs.base16; [ashes atelier-cave atelier-heath atelier-sulphurpool ayu-dark bespin blueforest blueish brushtrees-dark catppuccin-frappe catppuccin-latte catppuccin-macchiato catppuccin-mocha codeschool darkviolet dracula everforest everforest-dark-hard gruvbox-dark-hard gruvbox-dark-soft gruvbox-material-dark-hard gruvbox-material-dark-soft katy material-palenight moonlight nord rose-pine rose-pine-moon stella tokyo-night-dark tokyo-night-moon];
+        defaultSchemeName = "catppuccin-mocha";
       };
     }
   ];

@@ -25,12 +25,13 @@
   gtkThemeSubmodule = lib.types.submodule {
     options = {
       name = lib.mkOption {
-        type = lib.types.enum gtkThemeEnums;
-        default = defaultGtkTheme;
+        type = lib.types.enum (gtkThemeEnums ++ [config.hm.tintednix.gtkTheme.name]);
+        description = ''Which gtk theme to enable fir the UI. Note that enabling the tintednix gtk theme option will override any declaration you make here.'';
       };
       package = lib.mkOption {
         type = lib.types.package;
         default = pkgs.${gtkThemeAttrs.${defaultGtkTheme}};
+        description = ''Which gtk theme to install mapped from the gtkTheme.name option. Note that enabling the tintednix gtk theme option will override any declaration you make here.'';
       };
     };
   };
@@ -94,31 +95,44 @@ in {
     };
   };
 
-  config = {
-    fonts.fontconfig = {
-      enable = true;
-      defaultFonts.monospace = [cfg.fonts.defaultMonospace];
-    };
-    hm.theme.gtkTheme.package = let
-      pkgNameParts = lib.splitString "." gtkThemeAttrs.${cfg.gtkTheme.name};
-    in
-      lib.mkPkgName {} pkgs pkgNameParts;
+  config = lib.mkMerge [
+    (lib.mkIf config.hm.tintednix.gtkTheme.enable {
+      hm.theme.gtkTheme.name = config.hm.tintednix.gtkTheme.name;
+      hm.theme.gtkTheme.package =
+        config.hm.tintednix.gtkTheme.package;
+    })
+    (lib.mkIf (!config.hm.tintednix.gtkTheme.enable) {
+      hm.theme.gtkTheme.package = let
+        pkgNameParts = lib.splitString "." gtkThemeAttrs.${cfg.gtkTheme.name};
+      in
+        lib.mkPkgName {} pkgs pkgNameParts;
+    })
+    {
+      fonts.fontconfig = {
+        enable = true;
+        defaultFonts.monospace = [cfg.fonts.defaultMonospace];
+      };
+      hm.theme.cursorTheme.package = let
+        pkgNameParts = lib.splitString "." cursorThemeAttrs.${cfg.cursorTheme.name};
+      in
+        lib.mkPkgName {} pkgs pkgNameParts;
 
-    hm.theme.cursorTheme.package = let
-      pkgNameParts = lib.splitString "." cursorThemeAttrs.${cfg.cursorTheme.name};
-    in
-      lib.mkPkgName {} pkgs pkgNameParts;
+      xdg.configFile = {
+        "gtk-4.0/gtk.css".source = "${config.hm.tintednix.gtkTheme.package}/share/themes/${cfg.gtkTheme.name}/gtk-4.0/gtk.css";
+        "gtk-4.0/gtk-dark.css".source = "${config.hm.tintednix.gtkTheme.package}/share/themes/${cfg.gtkTheme.name}/gtk-4.0/gtk-dark.css";
+      };
 
-    home.packages = with pkgs; let
-      filterByValue = value: attrs: builtins.filter (name: attrs.${name} == value) (lib.attrNames attrs); # Get icon package to be installed
-      iconTheme = pkgs.${builtins.head (filterByValue cfg.iconTheme iconThemeAttrs)};
-      dependencies = lib.optionals (cfg.iconTheme == "MoreWaita") [pkgs.adwaita-icon-theme]; #MoreWaita requires Adwaita to also be installed
-      iconThemePkgs = [iconTheme] ++ dependencies;
-      nfPkgs = lib.map (nf: nerd-fonts.${nf}) nfToFetch;
-    in
-      [cfg.gtkTheme.package]
-      ++ iconThemePkgs
-      ++ nfPkgs
-      ++ [cfg.cursorTheme.package]; # custom # Needs to be installed system-wide so sddm has access to it;
-  };
+      home.packages = with pkgs; let
+        filterByValue = value: attrs: builtins.filter (name: attrs.${name} == value) (lib.attrNames attrs); # Get icon package to be installed
+        iconTheme = pkgs.${builtins.head (filterByValue cfg.iconTheme iconThemeAttrs)};
+        iconDependencies = lib.optionals (cfg.iconTheme == "MoreWaita") [pkgs.adwaita-icon-theme]; #MoreWaita requires Adwaita to also be installed
+        iconThemePkgs = [iconTheme] ++ iconDependencies;
+        nfPkgs = lib.map (nf: nerd-fonts.${nf}) nfToFetch;
+      in
+        [cfg.gtkTheme.package]
+        ++ iconThemePkgs
+        ++ nfPkgs
+        ++ [cfg.cursorTheme.package]; # custom # Needs to be installed system-wide so sddm has access to it;
+    }
+  ];
 }

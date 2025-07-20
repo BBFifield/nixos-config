@@ -386,11 +386,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749398372,
-        "narHash": "sha256-tYBdgS56eXYaWVW3fsnPQ/nFlgWi/Z2Ymhyu21zVM98=",
+        "lastModified": 1751413152,
+        "narHash": "sha256-Tyw1RjYEsp5scoigs1384gIg6e0GoBVjms4aXFfRssQ=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "9305fe4e5c2a6fcf5ba6a3ff155720fbe4076569",
+        "rev": "77826244401ea9de6e3bac47c2db46005e1f30b5",
         "type": "github"
       },
       "original": {
@@ -664,17 +664,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1747372008,
-        "narHash": "sha256-8Xsou0nbOPqDeqSxmUF1DCVrgIkSG43eq3XlI6AH5D0=",
-        "owner": "BBFifield",
-        "repo": "neovim-config",
-        "rev": "e8aa5537b4e4d557dd49c405b5251c03ea351b21",
-        "type": "github"
+        "lastModified": 1752972769,
+        "narHash": "sha256-jlZsdpphvQvVE0BQgqhXJfBePtWJRbJ7PdsF+OUrP4o=",
+        "ref": "refs/heads/master",
+        "rev": "2103b6ed42cc6313fecc159d9d4ce6b2963ea2a1",
+        "revCount": 44,
+        "type": "git",
+        "url": "file:///home/brandon/nvim-config"
       },
       "original": {
-        "owner": "BBFifield",
-        "repo": "neovim-config",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/brandon/nvim-config"
       }
     },
     "nixlib": {
@@ -1002,17 +1002,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1749966073,
-        "narHash": "sha256-HbYizlE2n2ULR2CWT83YAMdDjvqx0NHhLhmn/ld52OM=",
-        "owner": "BBFifield",
-        "repo": "tintednix",
-        "rev": "3a08d79fab41b4a0978405e7f666a78e40fd6629",
-        "type": "github"
+        "lastModified": 1752871115,
+        "narHash": "sha256-T0Y3ouQMKEKEjBOXdt+8QwoalePVwgicPk4CWwDjJDc=",
+        "ref": "refs/heads/master",
+        "rev": "126c05d7e2e40fa667d4021af7070bb2f2df940d",
+        "revCount": 15,
+        "type": "git",
+        "url": "file:///home/brandon/tintednix"
       },
       "original": {
-        "owner": "BBFifield",
-        "repo": "tintednix",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/brandon/tintednix"
       }
     },
     "treefmt-nix": {

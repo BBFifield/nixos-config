@@ -12,5 +12,6 @@ with inputs; {
     sops-nix.nixosModules.sops
     home-manager.nixosModules.home-manager
     nixos-generators.nixosModules.all-formats
+    tintednix.nixosModules.default
   ];
 }

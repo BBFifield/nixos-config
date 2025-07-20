@@ -1,116 +1,83 @@
 config: ''
-  $color_text: var(--base0D);
-  $color_text_field: var(--base02);
-  $color_bg: rgba(var(--base01-r), var(--base01-g), var(--base01-b), 0.8);
-  $color_btn_hover_bg: var(--base0D);
-  $color_btn_hover_fg: var(--base01);
-  $color_border: var(--base03);
-  $color_active_workspace: var(--base0E);
-  $color_inactive_workspace: var(--base0F);
-  $color_border_active: var(--base0B);
-  $color_urgent: var(--base08);
+  $buttonRounding: ${toString config.hm.hyprland.buttonRounding};
+  $windowRounding: ${toString config.wayland.windowManager.hyprland.settings.decoration.rounding}px;
   $font-family:
     ${config.hm.theme.fonts.defaultMonospace},
     sans-serif;
-  $shadow-inset-header: 1px 2px 2px
-      color-mix(in oklab, var(--base02) 80%, black 20%) inset,
-    2px 4px 4px
-      color-mix(in oklab, var(--base02) 80%, black 20%) inset,
-    -1px -1px 0px 1px
-      color-mix(in oklab, var(--base02) 80%, white 10%) inset,
-    -1px -1px 1px 0px
-      color-mix(in oklab, var(--base02) 80%, black 5%) inset;
 
-  @mixin input-field {
-    all: unset;
-    background: $color_text_field;
-    border-radius: ${config.hm.hyprland.buttonRounding};
-    color: $color_text;
-    padding-left: 12px;
-    padding-right: 12px;
+  @mixin pill(
+    $bg: var(--base02),
+    $padding: 0 9px,
+    $margin: 0 2px 5px 2px
+  ) {
+    border-radius: $buttonRounding;
+    min-height: 35px;
+    background: $bg;
+    padding: $padding;
+    margin: $margin;
   }
 
   * {
+    caret-color: var(--base0D);
     font-family: $font-family;
     font-weight: normal;
     font-size: 15px;
   }
 
   #window {
-    all: unset;
-    background: none;
-  }
-  #box {
-    all: unset;
-    background: $color_bg;
-    padding: 16px;
-    border-radius: 10px;
-    box-shadow:
-      1px 2px 3px rgba(0, 0, 0, 0.17),
-      2px 4px 6px rgba(0, 0, 0, 0.20);
-  }
-  #search {
-    all: unset;
-    border-radius: 50px;
-    padding: 8px 0px 8px 0px;
-    background: var(--base02);
-    box-shadow: $shadow-inset-header;
-    margin: 0px 4px 0px 4px;
+    background-color: transparent;
+    border-radius: $windowRounding;
+    box-shadow: var(--shadow-wide-base01);
   }
 
-  #password {
-    @include input-field;
+  box#box {
+    background: rgba(var(--base01-r), var(--base01-g), var(--base01-b), 0.8);
+    padding: 16px;
+    border-radius: $windowRounding;
   }
-  #input {
-    @include input-field;
-    background: none;
-    > * {
-      &:first-child {
-        color: $color_text;
-        margin-right: 7px;
-      }
-      &:last-child {
-        color: $color_text;
-      }
-    }
-    placeholder {
-      opacity: 0.5;
+
+  #search {
+    @include pill();
+    box-shadow: var(--shadow-inset-base02);
+
+    &:backdrop {
+      box-shadow: var(--shadow-thin-base02);
     }
   }
+
   #typeahead {
-    @include input-field;
-    opacity: 0.5;
-    background: none;
-    > * {
-      &:first-child {
-        color: $color_text;
-        margin-right: 7px;
-      }
-      &:last-child {
-        color: $color_text;
-      }
-    }
+    @include pill(transparent, 0, 0);
+    box-shadow: none;
   }
+
+  #input {
+    @include pill(transparent, 0, 0);
+    box-shadow: none;
+  }
+
   #spinner {
-    color: $color_btn_hover_bg;
+    color: var(--base0D);
+    padding: 0;
+  }
+
+  #icon {
+    -gtk-icon-size: 40px;
+    -gtk-icon-shadow: var(--shadow-thin-base01);
   }
 
   gridview#list {
-    all: unset;
     child.activatable {
-      margin: 0px 5px 0px 5px;
-      border-radius: ${config.hm.hyprland.buttonRounding};
+      margin: 0 2px;
+      border-radius: $buttonRounding;
       color: var(--base0D);
       padding: 8px;
-      transition-duration: 0.2s;
-      transition-timing-function: linear;
-      &:first-child {
-        margin-top: 4px;
-      }
+      transition: 0.2s linear;
+
       &:selected {
-        background: var(--window-bg-color);
-        box-shadow: var(--shadow-inset-window-bg);
-        & * {
+        background: var(--base01);
+        box-shadow: var(--shadow-inset-base01);
+
+        * {
           font-weight: bold;
           color: var(--base0D);
         }
@@ -118,32 +85,75 @@ config: ''
     }
   }
 
-  #icon {
-    -gtk-icon-size: 40px;
-    -gtk-icon-shadow:
-      1px 2px 2px rgba(0, 0, 0, 0.17),
-      2px 4px 4px rgba(0, 0, 0, 0.20);
-  }
-
-  scrollbar {
-    all: unset;
-    background: none;
-    padding-left: 8px;
-  }
-  slider {
-    all: unset;
-    min-width: 2px;
-    background: $color_text;
-    opacity: 0.5;
-  }
-
-  #sub {
-    all: unset;
-    opacity: 0.6;
-  }
+  #sub,
   #activationlabel {
     all: unset;
     opacity: 0.6;
+  }
+
+  #activationlabel {
     padding-right: 4px;
+  }
+
+  scrollbar {
+    color: var(--base0D);
+    padding: 0;
+    margin: 0;
+
+    > range {
+      padding: 0;
+      margin: 0;
+
+      > trough {
+        border-radius: $buttonRounding;
+
+        > slider {
+          background-clip: padding-box;
+          border-radius: $buttonRounding;
+          border: 8px solid transparent;
+          margin: -8px;
+          min-width: 8px;
+          min-height: 8px;
+          transition: all 200ms linear;
+          background-color: color-mix(in srgb, currentColor 50%, transparent);
+
+          &:disabled {
+            opacity: 0;
+          }
+        }
+      }
+    }
+
+    &.bottom.horizontal > range > trough {
+      margin: 4px 9px;
+    }
+
+    &.right.vertical > range > trough {
+      margin: 9px 4px;
+    }
+
+    &.overlay-indicator {
+      &.horizontal:not(.hovering) > range > trough > slider {
+        min-width: 40px;
+        min-height: 3px;
+      }
+
+      &.vertical:not(.hovering) > range > trough > slider {
+        min-width: 3px;
+        min-height: 40px;
+      }
+
+      &.hovering > range > trough {
+        background-color: color-mix(in srgb, currentColor 10%, transparent);
+      }
+
+      &.horizontal.hovering > range > trough > slider {
+        min-height: 8px;
+      }
+
+      &.vertical.hovering > range > trough > slider {
+        min-height: 40px;
+      }
+    }
   }
 ''

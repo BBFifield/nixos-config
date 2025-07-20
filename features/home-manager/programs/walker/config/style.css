@@ -1,126 +1,69 @@
-@import url('file:///home/brandon/.config/walker/themes/colors.css');
+@import url("file:///home/brandon/.config/walker/themes/colors.css");
 
 * {
-  font-family: JetBrainsMono Nerd Font, sans-serif;
-  font-weight: normal;
-  font-size: 14px;
+  caret-color: var(--base0D);
 }
 
 #window {
-  all: unset;
-  background: none;
+  border-radius: 10px;
+  box-shadow: var(--shadow-wide-base01);
 }
 
-#box {
-  all: unset;
-  background: var(--base01);
+box#box {
+  background: rgba(var(--base01-r), var(--base01-g), var(--base01-b), 0.8);
   padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  border-radius: 10px;
 }
 
-#search {
-  all: unset;
-  border-radius: 25px;
-  padding: 8px 0px 8px 0px;
-  background: var(--base02);
-}
-
-#password {
-  all: unset;
-  background: var(--base02);
-  border-radius: 0px;
-  border-radius: 32px;
-  color: var(--base07);
-  padding-left: 12px;
-  padding-right: 12px;
-  /* background: none;*/
-}
-
+#search,
+#typeahead,
 #input {
-  all: unset;
+  border-radius: 50px;
+  min-height: 35px;
+}
+#search {
   background: var(--base02);
-  border-radius: 0px;
-  border-radius: 32px;
-  color: var(--base0D);
-  padding-left: 12px;
-  padding-right: 12px;
-  /* background: none;*/
+  padding: 0px 0px 0px 9px; /*Stops spinner from floating to the left in the box*/
+  margin: 0px 2px 5px 2px;
+  box-shadow: var(--shadow-inset-base02);
 }
-#input > *:first-child {
-  color: var(--base0D);
-  margin-right: 7px;
+#search:backdrop {
+  box-shadow: var(--shadow-thin-base02);
 }
-#input > *:last-child {
-  color: var(--base0D);
-}
-/*#input placeholder {*/
-/*  opacity: 0.5;*/
-/*}*/
 
+#input,
 #typeahead {
-  all: unset;
-  background: var(--base02);
-  border-radius: 0px;
-  border-radius: 32px;
-  color: var(--base07);
-  padding-left: 12px;
-  padding-right: 12px;
-  /* background: none;*/
-  opacity: 0.5;
-}
-#typeahead > *:first-child {
-  color: var(--base07);
-  margin-right: 7px;
-}
-#typeahead > *:last-child {
-  color: var(--base07);
+  background-color: transparent;
+  box-shadow: none;
 }
 
 #spinner {
-  all: unset;
+  /*animation not working for some reason*/
+  color: var(--base0D);
+  padding: 0px;
 }
 
-#list {
-  all: unset;
-}
-
-child {
-  all: unset;
-  border-radius: 25px;
+gridview#list child.activatable {
+  margin: 0px 2px 0px 2px;
+  border-radius: 50px;
   color: var(--base0D);
   padding: 8px;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
 }
-child:selected {
-  background: var(--base0D);
-  box-shadow: none;
-  color: var(--base01);
+gridview#list child.activatable:selected {
+  background: var(--base01);
+  box-shadow: var(--shadow-inset-base01);
 }
-child:hover {
-  background: var(--base0D);
-  box-shadow: none;
-  color: var(--base01);
-}
-child:selected label, child:hover label {
-  /*color: var(--base01);*/
+gridview#list child.activatable:selected * {
   font-weight: bold;
+  color: var(--base0D);
 }
 
-
-
-scrollbar {
-  all: unset;
-  background: none;
-  padding-left: 8px;
+#icon {
+  -gtk-icon-size: 40px;
+  -gtk-icon-shadow: var(--shadow-thin-base01);
 }
-
-slider {
-  all: unset;
-  min-width: 2px;
-  background: var(--base07);
-  opacity: 0.5;
-}
-
 
 #sub {
   all: unset;
@@ -133,4 +76,54 @@ slider {
   padding-right: 4px;
 }
 
-/*# sourceMappingURL=style.css.map */
+scrollbar {
+  color: var(--base0D);
+  padding: 0px;
+  margin: 0px;
+}
+scrollbar > range {
+  padding: 0px;
+  margin: 0px;
+}
+scrollbar > range > trough {
+  border-radius: 50px;
+}
+scrollbar > range > trough > slider {
+  background-clip: padding-box;
+  border-radius: 50px;
+  border: 8px solid transparent;
+  margin: -8px;
+  min-width: 8px;
+  min-height: 8px;
+  transition: all 200ms linear;
+  background-color: color-mix(in srgb, currentColor 50%, transparent);
+}
+scrollbar.bottom.horizontal > range > trough {
+  margin: 4px 9px 4px 9px;
+}
+scrollbar.right.vertical > range > trough {
+  margin: 9px 4px 9px 4px;
+}
+scrollbar > range > trough > slider:disabled {
+  opacity: 0;
+}
+scrollbar.overlay-indicator.horizontal:not(.hovering)
+  > range
+  > trough
+  > slider {
+  min-width: 40px;
+  min-height: 3px;
+}
+scrollbar.overlay-indicator.vertical:not(.hovering) > range > trough > slider {
+  min-width: 3px;
+  min-height: 40px;
+}
+scrollbar.overlay-indicator.hovering > range > trough {
+  background-color: color-mix(in srgb, currentColor 10%, transparent);
+}
+scrollbar.overlay-indicator.horizontal.hovering > range > trough > slider {
+  min-height: 8px;
+}
+scrollbar.overlay-indicator.vertical.hovering > range > trough > slider {
+  min-height: 40px;
+}

@@ -1,0 +1,111 @@
+frame.background {
+  border-radius: 40px;
+  box-shadow: var(--shadow-wide-base01);
+}
+frame.top {
+  background-color: transparent;
+  box-shadow: none;
+}
+frame.top > label {
+  background-color: var(--base02);
+  margin: 5px 50px 50px 50px;
+  padding: 4px 17px 5px 16px;
+  min-height: 24px;
+  border-radius: 50px;
+  box-shadow: var(--shadow-wide-base02);
+}
+
+.linked > button:active,
+.linked > button:checked {
+  border-radius: 50px;
+}
+
+button.destructive-action:not(:hover) > label,
+button.destructive-action:active > label {
+  color: var(--base08);
+}
+button.destructive-action:hover:not(:active) {
+  background-color: var(--base08);
+  box-shadow: var(--shadow-thin-base08);
+}
+box.bottom > frame {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+infobar.error revealer {
+  border: none;
+  margin: 50px;
+  border-radius: 50px;
+  background-color: var(--base08);
+  box-shadow: var(--shadow-wide-base08);
+}
+infobar.error revealer > box > box > label {
+  color: var(--base01);
+}
+frame {
+  border: none;
+}
+infobar button.close {
+  background-color: var(--base02);
+}
+
+button.text-button {
+  padding: 4px 17px 5px 16px;
+  margin: 1px 0px 0px 1px;
+}
+button.text-button:hover {
+  background-color: var(--base0D);
+  box-shadow: var(--shadow-thin-base0D);
+}
+button.text-button:active,
+button.text-button:hover:active {
+  background-color: var(--base02);
+  margin: 0px;
+  padding: 5px 17px 5px 17px;
+  box-shadow: var(--shadow-inset-base02);
+}
+
+combobox {
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+box.linked {
+  min-height: 24px;
+}
+
+entry {
+  min-height: 24px;
+  margin: 7px 0px 7px 0px;
+  padding: 0px 9px 0px 8px;
+}
+entry:focus-within {
+  margin: 6px 0px 7px -1px;
+  padding: 1px 9px 0px 9px;
+}
+
+entry.password {
+  margin: 6px 0px 5px 0px;
+}
+entry.password:focus-within {
+  margin: 5px 0px 5px -1px;
+}
+
+button.image-button.toggle {
+  min-height: 24px;
+  min-width: 24px;
+  padding: 4px 5px 5px 4px;
+  margin: 8px 0px 7px 2px;
+}
+button.image-button.toggle:hover,
+button.image-button.toggle:hover:checked {
+  box-shadow: var(--shadow-thin-base0D);
+}
+button.image-button.toggle:active,
+button.image-button.toggle:hover:active,
+button.image-button.toggle:checked {
+  margin: 7px 0px 7px 1px;
+  padding: 5px;
+  box-shadow: var(--shadow-inset-base01);
+}
