@@ -13,7 +13,7 @@ config: ''
   /* -- base styles -- */
   * {
     font-family:
-      ${config.hm.theme.fonts.defaultMonospace},
+      JetBrainsMono Nerd Font,
       sans-serif;
     font-weight: normal;
     font-size: 16px;
@@ -410,9 +410,6 @@ config: ''
     margin-left: -3px;
     color: @base06;
   }
-  #tools button:hover {
-    background-color: @base06;
-  }
   #popup-tools {
     border-color: @base06;
   }
@@ -714,9 +711,6 @@ config: ''
   #network button:hover:active label {
     color: @base0E;
   }
-  #network button:hover label {
-    color: @base01;
-  }
 
   /*-- bluetooth --*/
   #bluetooth button:hover {
@@ -883,9 +877,6 @@ config: ''
   }
   .volume:hover {
     background-color: @base0A;
-  }
-  .volume:hover {
-    background-color: @base0A;
     box-shadow:
       1px 2px 2px rgba(0, 0, 0, 0.17),
       2px 4px 4px rgba(0, 0, 0, 0.2),
@@ -1006,9 +997,6 @@ config: ''
   }
 
   /* -- power -- */
-  #power button:hover label {
-    color: @base01;
-  }
   #power button:hover {
     background-color: @base08;
     box-shadow:

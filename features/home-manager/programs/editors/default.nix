@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: let
+  # Mostly to show how an npm package and dependencies can be built
   stylelint-config-standard = pkgs.buildNpmPackage rec {
     pname = "stylelint-config-standard";
     version = "38.0.0"; # match the npm release you want
@@ -35,14 +36,7 @@ in {
   };
 
   config = {
-    xdg.configFile."stylelint.config.js".text = ''
-      module.exports = {
-        extends: ["${stylelint-config-standard}/lib/node_modules/stylelint-config-standard/index.js"],
-        rules: {
-          "no-descending-specificity": null
-        },
-      };
-    '';
+    xdg.configFile."stylelint.config.js".source = ./stylelint.config.js;
 
     home.packages = with pkgs; [
       alejandra
