@@ -176,21 +176,18 @@ in {
                   '';
                 };
               };
-              templateSrc = {
-                url = "https://github.com/tinted-theming/base16-waybar.git";
-                rev = "26d41f3550da17ebdd14b6b2bc4fdf86c543735e";
-                ref = "main";
-              };
+              templateSrc = pkgs.tintednix.root;
+              templateName = "gtk3";
               path = ".config/ironbar";
-              schemeExtension = "css";
+              schemeExtension = "scss";
             };
             walker = {
               enable = true;
               live = {
                 enable = true;
               };
-              templateSrc = ../../features/home-manager/look-and-feel/tintednix;
-              templateName = "base16_gtk4_scss";
+              templateSrc = pkgs.tintednix.root;
+              templateName = "gtk4";
               path = ".config/walker/themes";
               schemeExtension = "scss";
             };
@@ -225,8 +222,8 @@ in {
               live = {
                 enable = true;
               };
-              templateSrc = ../../features/home-manager/look-and-feel/tintednix;
-              templateName = "base16_gtk4_scss";
+              templateSrc = pkgs.tintednix.root;
+              templateName = "gtk4";
               path = ".config/wleave/gtk-4.0";
               schemeExtension = "scss";
             };
@@ -236,8 +233,8 @@ in {
                 enable = true;
               };
               templateSrc = pkgs.tintednix.root;
+              templateName = "gtk3";
               path = ".config/gtk-3.0";
-              templateName = "gtk";
               schemeFilename = "colors";
               schemeExtension = "scss";
             };
@@ -248,7 +245,7 @@ in {
               };
               templateSrc = pkgs.tintednix.root;
               path = ".config/gtk-4.0";
-              templateName = "gtk";
+              templateName = "gtk4";
               schemeFilename = "colors";
               schemeExtension = "scss";
             };

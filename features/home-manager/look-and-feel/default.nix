@@ -132,6 +132,7 @@ in {
         [cfg.gtkTheme.package]
         ++ iconThemePkgs
         ++ nfPkgs
+        ++ [fonts.ds-digital]
         ++ [cfg.cursorTheme.package]; # custom # Needs to be installed system-wide so sddm has access to it;
     }
   ];

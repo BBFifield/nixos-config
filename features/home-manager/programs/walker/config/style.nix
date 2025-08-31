@@ -30,8 +30,8 @@ config: ''
     box-shadow: var(--shadow-wide-base01);
   }
 
-  box#box {
-    background: rgba(var(--base01-r), var(--base01-g), var(--base01-b), 0.8);
+  #box {
+    background: color-mix(in srgb, var(--base01) 100%, transparent 20%);
     padding: 16px;
     border-radius: $windowRounding;
   }
@@ -62,7 +62,9 @@ config: ''
 
   #icon {
     -gtk-icon-size: 40px;
-    -gtk-icon-shadow: var(--shadow-thin-base01);
+    -gtk-icon-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2);
   }
 
   gridview#list {

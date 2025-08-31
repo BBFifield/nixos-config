@@ -45,7 +45,7 @@
               }
               { type = "button" class="power-btn" label = "<span font-size='25pt'>󰜉</span>" on_click = "!${
     if config.hm.wleave.enable
-    then "XDG_CONFIG_HOME=$wleave_dir -l $wleave_dir/layoutReboot.json -T 430 -R 850 -B 430 -L 850"
+    then "XDG_CONFIG_HOME=$wleave_dir wleave -l $wleave_dir/layoutReboot.json -T 430 -R 850 -B 430 -L 850"
     else "reboot"
   }"
               }

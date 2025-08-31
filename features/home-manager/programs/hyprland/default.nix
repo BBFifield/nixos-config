@@ -224,8 +224,8 @@ with lib; let
         enabled = true;
         passes = 3;
         new_optimizations = "on";
-        popups = true;
-        popups_ignorealpha = 0.6;
+        # popups = true;
+        # popups_ignorealpha = 0.7;
       };
     };
 

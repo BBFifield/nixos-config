@@ -151,7 +151,7 @@ in {
       fonts.packages = with pkgs; let
         nfPkgs = lib.map (nf: nerd-fonts.${nf}) nfToFetch;
       in
-        nfPkgs ++ [iosevka];
+        nfPkgs ++ [iosevka fonts.ds-digital];
 
       environment.systemPackages = let
         filterByValue = value: attrs: builtins.filter (name: attrs.${name} == value) (lib.attrNames attrs); # Get icon package to be installed

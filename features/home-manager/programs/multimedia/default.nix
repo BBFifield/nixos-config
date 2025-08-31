@@ -1,8 +1,29 @@
 {
+  pkgs,
   config,
   lib,
   ...
 }: {
+  home.packages = with pkgs; [
+    tauon
+    gnome-music
+    #euphonica #Need to fetch newer nixpkgs version first
+    pwvucontrol
+    tagger
+    celluloid
+    gimp3
+    fragments
+    #nmgui #Need to fetch newer nixpkgs version first
+  ];
+
+  programs = {
+    cmus = {
+      enable = true;
+    };
+    ncmpcpp = {
+      enable = true;
+    };
+  };
   programs.mpv = {
     enable = true;
 

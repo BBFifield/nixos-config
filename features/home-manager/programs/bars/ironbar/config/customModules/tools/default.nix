@@ -78,6 +78,7 @@
                 orientation = "horizontal"
                 halign = "center"
                 show_if = "#wallpaper_daemon_on"
+                name = "wallpaperNavButtons"
                 class = "linked"
                 widgets = [
                   {

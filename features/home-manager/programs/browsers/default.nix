@@ -17,6 +17,9 @@ in {
     };
   };
   config = {
+    home.packages = with pkgs; [
+      epiphany
+    ];
     hm.browsers.qutebrowser.enable = true;
     programs.chromium.enable = true;
     xdg.mimeApps = {

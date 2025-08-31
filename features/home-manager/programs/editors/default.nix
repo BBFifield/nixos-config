@@ -3,25 +3,7 @@
   lib,
   pkgs,
   ...
-}: let
-  # Mostly to show how an npm package and dependencies can be built
-  stylelint-config-standard = pkgs.buildNpmPackage rec {
-    pname = "stylelint-config-standard";
-    version = "38.0.0"; # match the npm release you want
-
-    src = pkgs.fetchFromGitHub {
-      owner = "stylelint";
-      repo = "stylelint-config-standard";
-      tag = version;
-      sha256 = "1gsmqk91a8n063bz9vb9kj6djc0j92pgg7c8ikqbbf8g2xjspyja";
-    };
-    # use the package.json shipped in the repo
-    packageJSON = src + "/package.json";
-    npmDepsHash = "sha256-U1MUaDsZmkNiU7al2OTlDYjVkqzDslXQUZm7bsqqMBA=";
-
-    dontNpmBuild = true;
-  };
-in {
+}: {
   imports = [
     ./kate
     ./neovim
@@ -36,7 +18,7 @@ in {
   };
 
   config = {
-    xdg.configFile."stylelint.config.js".source = ./stylelint.config.js;
+    xdg.configFile."stylelint.config.js".text = import ./stylelint.config.nix pkgs.nodePackagesCustom.stylelint-config-clean-order pkgs.nodePackagesCustom.stylelint-high-performance-animation;
 
     home.packages = with pkgs; [
       alejandra
@@ -44,7 +26,8 @@ in {
       lua-language-server
       stylua
       stylelint
-      stylelint-config-standard
+      nodePackagesCustom.stylelint-config-clean-order
+      nodePackagesCustom.stylelint-high-performance-animation
       prettierd
       dart-sass
       rust-analyzer

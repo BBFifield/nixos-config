@@ -13,13 +13,9 @@ in ''
     ${lib.concatStrings (map (module: import ./customModules/${module} {inherit config pkgs;}) cfg.customModules)}
     $workspaces = {
       type = "workspaces"
+      class = "linked"
       all_monitors = false
-      name_map = {
-        1 = " "
-        2 = "󰖟"
-        3 = ""
-      }
-      favorites = [ "1" "2" "3" ]
+      favorites = [ "1" "2" "3" "4" "5" ]
     }
 
     $notifications = {
@@ -34,7 +30,7 @@ in ''
       icons.open_dnd = "󱅮"
     }
 
-    $clock = { type = "clock" format = "<span font-size='13pt'></span> %d-%h-%Y-%I:%M%P" }
+    $clock = { type = "clock" format = "<span font-size='13pt'></span> %d-%h-%Y <span font-size='16pt' font-family='DS-Digital'>%I:%M%P</span>" }
     $tray = { type = "tray" icon_size = 32 }
 
     $clipboard = {

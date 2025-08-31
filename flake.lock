@@ -184,11 +184,11 @@
         "fromYaml": "fromYaml"
       },
       "locked": {
-        "lastModified": 1746562888,
-        "narHash": "sha256-YgNJQyB5dQiwavdDFBMNKk1wyS77AtdgDk/VtU6wEaI=",
+        "lastModified": 1755819240,
+        "narHash": "sha256-qcMhnL7aGAuFuutH4rq9fvAhCpJWVHLcHVZLtPctPlo=",
         "owner": "SenchoPens",
         "repo": "base16.nix",
-        "rev": "806a1777a5db2a1ef9d5d6f493ef2381047f2b89",
+        "rev": "75ed5e5e3fce37df22e49125181fa37899c3ccd6",
         "type": "github"
       },
       "original": {
@@ -386,11 +386,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1751413152,
-        "narHash": "sha256-Tyw1RjYEsp5scoigs1384gIg6e0GoBVjms4aXFfRssQ=",
+        "lastModified": 1754487366,
+        "narHash": "sha256-pHYj8gUBapuUzKV/kN/tR3Zvqc7o6gdFB9XKXIp1SQ8=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "77826244401ea9de6e3bac47c2db46005e1f30b5",
+        "rev": "af66ad14b28a127c5c0f3bbb298218fc63528a18",
         "type": "github"
       },
       "original": {
@@ -664,11 +664,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753081165,
-        "narHash": "sha256-Mss1VDOi1rQ+FnTH2YYGum/uWIVxXPaibnEwx94ASg0=",
+        "lastModified": 1753596609,
+        "narHash": "sha256-6Bp6O+x5IvD/GB0l5QS71kzBgZDJvo3qq2JIo5waKMo=",
         "ref": "refs/heads/master",
-        "rev": "6f283b2941cdbff87611d7e6404ee6d52d80a35c",
-        "revCount": 47,
+        "rev": "7a00520308b23bee9488c98380a828785b910778",
+        "revCount": 49,
         "type": "git",
         "url": "file:///home/brandon/nvim-config"
       },
@@ -1002,11 +1002,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752871115,
-        "narHash": "sha256-T0Y3ouQMKEKEjBOXdt+8QwoalePVwgicPk4CWwDjJDc=",
+        "lastModified": 1756603015,
+        "narHash": "sha256-LnxxQOUr/gXnZpVJZrTOHXQgik4xJvHb3N4n60Ce9x8=",
         "ref": "refs/heads/master",
-        "rev": "126c05d7e2e40fa667d4021af7070bb2f2df940d",
-        "revCount": 15,
+        "rev": "1e4a1b4359caef2c2311e8061d9145a178ab95e6",
+        "revCount": 72,
         "type": "git",
         "url": "file:///home/brandon/tintednix"
       },

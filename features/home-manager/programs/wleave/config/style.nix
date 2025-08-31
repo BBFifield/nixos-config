@@ -6,8 +6,8 @@
 
   /* -- base styles -- */
   * {
-      font-family:
-        ${config.hm.theme.fonts.defaultMonospace},
+    font-family:
+      ${config.hm.theme.fonts.defaultMonospace},
       sans-serif;
     font-weight: normal;
     font-size: 100px;
