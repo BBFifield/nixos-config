@@ -386,11 +386,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1754487366,
-        "narHash": "sha256-pHYj8gUBapuUzKV/kN/tR3Zvqc7o6gdFB9XKXIp1SQ8=",
+        "lastModified": 1756770412,
+        "narHash": "sha256-+uWLQZccFHwqpGqr2Yt5VsW/PbeJVTn9Dk6SHWhNRPw=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "af66ad14b28a127c5c0f3bbb298218fc63528a18",
+        "rev": "4524271976b625a4a605beefd893f270620fd751",
         "type": "github"
       },
       "original": {
@@ -1002,11 +1002,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1756603015,
-        "narHash": "sha256-LnxxQOUr/gXnZpVJZrTOHXQgik4xJvHb3N4n60Ce9x8=",
+        "lastModified": 1757575342,
+        "narHash": "sha256-0CqGDyvZejTsZXMNO7wTNfghi60XIlSBI15MwVdRTh0=",
         "ref": "refs/heads/master",
-        "rev": "1e4a1b4359caef2c2311e8061d9145a178ab95e6",
-        "revCount": 72,
+        "rev": "be7e9be61cc378a79ad2ebe99466d42d4b3daf84",
+        "revCount": 38,
         "type": "git",
         "url": "file:///home/brandon/tintednix"
       },

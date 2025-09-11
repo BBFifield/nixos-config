@@ -124,7 +124,6 @@ with lib; let
       (f "Color Picker")
       (f "xdg-desktop-portal")
       (f "xdg-desktop-portal-gnome")
-      (f "de.haeckerfelix.Fragments")
       (f "com.github.Aylur.ags")
       (f "dev.benz.walker")
       "workspace 3, class:^(org.gnome.Nautilus)$"

@@ -19,6 +19,9 @@ in {
   config = {
     home.packages = with pkgs; [
       epiphany
+      #hardware acceleration in epiphany
+      gst_all_1.gst-vaapi
+      gst_all_1.gst-plugins-bad
     ];
     hm.browsers.qutebrowser.enable = true;
     programs.chromium.enable = true;
