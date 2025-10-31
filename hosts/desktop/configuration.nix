@@ -147,10 +147,9 @@ in {
           overlays."x86_64-linux".defaults
           ++ (with overlays."x86_64-linux"; [
             nonFlakeSrcs
-            vivaldiFixed
             firefox-native-base16
             customPkgs
-            asztalOverlay
+            # ytDlp
           ]);
         config = {
           allowUnfree = true;

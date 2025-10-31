@@ -8,7 +8,11 @@ pkgs.writeShellApplication {
   text = ''
     handle() {
       case $1 in
-        monitoradded*) systemctl --user restart wpaperd.service ironbar.service ;;
+        monitoradded*) systemctl --user restart ${
+      if (config.hm.wallpaper.daemon == "wpaperd")
+      then "wpaperd.service"
+      else ""
+    } ironbar.service ;;
       esac
     }
 

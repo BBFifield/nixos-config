@@ -66,9 +66,9 @@
     # Automatically enable extensions
     "extensions.autoDisableScopes" = 0;
     # For vaapi support
-    "media.hardware-video-decoding.force-enabled" = true; #https://github.com/elFarto/nvidia-vaapi-driver#firefox
-    "gfx.x11-egl.force-enabled" = true;
-    "widget.dmabuf.force-enabled" = true;
+    "media.hardware-video-decoding.force-enabled" = true; #https://github.com/elFarto/nvidia-vaapi-driver#firefox #nvidia-smi pmon
+    # "gfx.x11-egl.force-enabled" = true; #not required cuz we use wayland
+    # "widget.dmabuf.force-enabled" = true; #only required on 470 series drivers
   };
 in
   with lib; {
@@ -100,7 +100,7 @@ in
               force = true;
             }
             (lib.mkIf (cfg.style == "plasma" || cfg.style == "hyprland") {
-              source = pkgs.nur.repos.slaier.wavefox;
+              source = "${pkgs.wavefox}/chrome";
             })
             (lib.mkIf (cfg.style == "gnome") {
               source = pkgs.firefox-gnome-theme;

@@ -7,13 +7,14 @@
   home.packages = with pkgs; [
     tauon
     gnome-music
-    #euphonica #Need to fetch newer nixpkgs version first
+    euphonica
     pwvucontrol
-    tagger
-    celluloid
+    easytag
     gimp3
-    fragments
-    #nmgui #Need to fetch newer nixpkgs version first
+    amberol
+    recordbox
+    yt-dlp
+    deno #required by yt-dlp these days, fuck google
   ];
 
   programs = {
@@ -26,18 +27,29 @@
   };
   programs.mpv = {
     enable = true;
-
+    package = (
+      pkgs.mpv-unwrapped.wrapper {
+        mpv = pkgs.mpv-unwrapped;
+        scripts = with pkgs.mpvScripts; [
+          uosc
+          sponsorblock
+          thumbfast
+        ];
+      }
+    );
     # Global settings that apply to all profiles
     config = {
-      hwdec = "auto";
+      hwdec = "auto-safe";
       scale = "ewa_lanczossharp";
       cscale = "mitchell";
       sigmoid-upscaling = "yes";
       dither-depth = "auto";
       save-position-on-quit = "yes";
       sub-font-size = 50;
-      sub-color = "#FFFFFF";
+      sub-color = ''#FFFFFF'';
       sub-border-size = 2.5;
+      ytdl = "yes";
+      ytdl-format = "best[protocol!=m3u8][vcodec!=av1]/best"; #Prefer hw-decodable streams (avoid AV1 WebM since there's no hwdec for it on 1070 ti)
     };
 
     # Profile-specific settings, applied conditionally
@@ -55,12 +67,14 @@
         # HDR-specific video settings
         vo = "gpu-next";
         target-colorspace-hint = "yes";
+        # target-colorspace-hint-mode = "source";
         gpu-api = "vulkan";
         gpu-context = "waylandvk";
         target-trc = "pq";
       };
     };
   };
+  xdg.configFile."mpv/script-opts/uosc.conf".source = ./uosc.conf;
 
   xdg.mimeApps = {
     enable = true;
@@ -75,6 +89,13 @@
       "video/x-flv" = ["mpv.desktop"]; # FLV files
       "video/3gpp" = ["mpv.desktop"];
       "video/3gpp2" = ["mpv.desktop"];
+      "inode/directory" = ["yazi.desktop"];
     };
+  };
+
+  services.udiskie = {
+    enable = true;
+    automount = true;
+    notify = true;
   };
 }

@@ -9,7 +9,7 @@ frame.top {
 frame.top > label {
   font-size: 50px;
   font-family: "DS-Digital", sans-serif;
-  color: @base0C;
+  color: var(--base0C);
   background-color: var(--base02);
   margin: 25px 50px 50px 50px;
   padding: 4px 17px 5px 16px;

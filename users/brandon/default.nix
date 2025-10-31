@@ -9,7 +9,6 @@
   homeDirectory = "/home/${username}";
 
   defaultPkgs = with pkgs; [
-    git
     gh
     efibootmgr
     gptfdisk
@@ -18,7 +17,9 @@
     _1password-gui
     shellcheck
     fastfetch
-    bluetui
+    bluetui # bluetooth
+    nmgui #wifi ui
+    fragments
   ];
 in {
   imports = [../../features/home-manager];
@@ -83,8 +84,6 @@ in {
             displayOutputs = sysCfg.desktop.hyprland.displayOutputs;
           }
           (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "tintednix") {shell.name = "tintednix";})
-          (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "asztal") {shell = "asztal";})
-          (lib.optionalAttrs (sysCfg.desktop.hyprland.shell == "hyprpanel") {shell = "hyprpanel";})
         ];
         vscodium.theme = "gnome";
       })
@@ -151,33 +150,22 @@ in {
                 enable = true;
                 hooks = {
                   hotReload = ''
-                    ironbar load-css "$directory/ironbar/style.css"
-                    ironbar var set color_scheme "$arg2"
-                    ironbar var set base00 "$($tintednix get base00)"
-                    ironbar var set base01 "$($tintednix get base01)"
-                    ironbar var set base02 "$($tintednix get base02)"
-                    ironbar var set base03 "$($tintednix get base03)"
-                    ironbar var set base04 "$($tintednix get base04)"
-                    ironbar var set base05 "$($tintednix get base05)"
-                    ironbar var set base06 "$($tintednix get base06)"
-                    ironbar var set base07 "$($tintednix get base07)"
-                    ironbar var set base08 "$($tintednix get base08)"
-                    ironbar var set base09 "$($tintednix get base09)"
-                    ironbar var set base0A "$($tintednix get base0A)"
-                    ironbar var set base0B "$($tintednix get base0B)"
-                    ironbar var set base0C "$($tintednix get base0C)"
-                    ironbar var set base0D "$($tintednix get base0D)"
-                    ironbar var set base0E "$($tintednix get base0E)"
-                    ironbar var set base0F "$($tintednix get base0F)"
+                    ironbar style load-css "$config_dir/ironbar/style.css"
+
+                    for base in {00..0F}; do
+                      val="$($tintednix --get "base0''${base}")"
+                      ironbar var set b"ase0''${base}" "$val"
+                    done
+                    ironbar var set color_scheme "$_theme"
                   '';
                   onActivation = ''
-                    ${(import ../../features/home-manager/programs/bars/ironbar/postStart.nix {inherit config pkgs;})}/bin/ironbar_post_start
-                    ${config.programs.ironbar.package}/bin/ironbar load-css "/home/$(whoami)/.config/ironbar/style.css"
+                    ${(import ../../features/home-manager/programs/ironbar/postStart.nix {inherit config pkgs;})}/bin/ironbar_post_start
+                    ${config.programs.ironbar.package}/bin/ironbar style load-css "/home/$(whoami)/.config/ironbar/style.css"
                   '';
                 };
               };
               templateSrc = pkgs.tintednix.root;
-              templateName = "gtk3";
+              templateName = "gtk4";
               path = ".config/ironbar";
               schemeExtension = "scss";
             };
@@ -188,7 +176,7 @@ in {
               };
               templateSrc = pkgs.tintednix.root;
               templateName = "gtk4";
-              path = ".config/walker/themes";
+              path = ".config/walker/themes/style";
               schemeExtension = "scss";
             };
             swaync = {
@@ -197,7 +185,7 @@ in {
                 enable = true;
                 hooks = {
                   hotReload = ''
-                    swaync-client -rs
+                    ${pkgs.swaynotificationcenter}/bin/swaync-client -rs
                   '';
                   onActivation = ''
                     if [[ $(systemctl --user status swaync.service | grep 'active (running)') ]]; then
@@ -209,13 +197,10 @@ in {
                   '';
                 };
               };
-              templateSrc = {
-                url = "https://github.com/tinted-theming/base16-waybar.git";
-                rev = "26d41f3550da17ebdd14b6b2bc4fdf86c543735e";
-                ref = "main";
-              };
+              templateSrc = pkgs.tintednix.root;
+              templateName = "gtk4";
               path = ".config/swaync";
-              schemeExtension = "css";
+              schemeExtension = "scss";
             };
             wleave = {
               enable = true;
@@ -247,6 +232,17 @@ in {
               path = ".config/gtk-4.0";
               templateName = "gtk4";
               schemeFilename = "colors";
+              schemeExtension = "scss";
+            };
+            "epiphany" = {
+              enable = true;
+              live = {
+                enable = true;
+              };
+              templateSrc = pkgs.tintednix.root;
+              path = ".local/share/epiphany";
+              templateName = "epiphany";
+              schemeFilename = "user-stylesheet";
               schemeExtension = "scss";
             };
             shell = {

@@ -28,7 +28,7 @@
     options = ["fmask=0022" "dmask=0022"];
   };
 
-  fileSystems."/run/media/brandon/Intel\ 660p" = {
+  fileSystems."/run/media/Intel\ 660p" = {
     device = "/dev/disk/by-uuid/D62668A0266882FB";
     fsType = "ntfs-3g";
   };

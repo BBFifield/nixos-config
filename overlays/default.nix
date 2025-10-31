@@ -37,23 +37,22 @@
   nonFlakeSrcs = f: p: {
     inherit (inputs) neovim-config;
     inherit (inputs) firefox-gnome-theme;
+    inherit (inputs) wavefox;
     tintednix = f.callPackage inputs.tintednix {}; #Just to access the mustache file
   };
-
-  # See https://github.com/NixOS/nixpkgs/issues/310755
-  vivaldiFixed = f: p: {
-    vivaldi = p.vivaldi.overrideAttrs (oldAttrs: {
-      dontWrapQtApps = false;
-      dontPatchELF = true;
-      nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [p.kdePackages.wrapQtAppsHook];
+  ytDlp = f: p: {
+    yt-dlp = p.yt-dlp.overrideAttrs (oldAttrs: {
+      src = p.fetchFromGitHub {
+        owner = "yt-dlp";
+        repo = "yt-dlp";
+        rev = "2025.10.22"; # new tag/commit
+        sha256 = "sha256-jQaENEflaF9HzY/EiMXIHgUehAJ3nnDT9IbaN6bDcac=";
+      };
     });
   };
 
-  asztalOverlay = import ./asztalOverlay.nix {inherit inputs;};
-
   defaults = [
     inputs.nurpkgs.overlays.default
-    inputs.hyprpanel.overlay
     inputs.alacritty-theme.overlays.default
     inputs.tintednix.overlays.default
   ];

@@ -1,59 +1,59 @@
-{
-  config,
-  pkgs,
-}: ''
+config: pkgs: ''
+  @use "${pkgs.tintednix.root}/pkgs/themes/gtk/base16-gtk/common/helpers" as h with (
+    $token-mode: "css-var"
+  );
+  @use "${pkgs.tintednix.root}/pkgs/themes/gtk/base16-gtk/common/shadows" as s with (
+    $gtk-version: "gtk4"
+  );
+
   @import url("colors.css");
 
-  /* -- base styles -- */
-  * {
-    font-family:
-      ${config.hm.theme.fonts.defaultMonospace},
-      sans-serif;
-    font-weight: normal;
-    font-size: 100px;
-    transition-duration: 0.2s;
-    transition-timing-function: linear;
-    transition-property:
-      background-color,
-      color,
-      font-size,
-      opacity,
-      transform,
-      box-shadow,
-      -gtk-icon-transform;
-    border: none;
+  window {
+    background-color: rgba(0, 0, 0, 0.2);
     background-image: none;
     box-shadow: none;
   }
 
-  window {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-
   button {
+    border: none;
+    border-radius: 50%;
+
     color: var(--base08);
-    background-color: var(--base02);
-    margin: 1px 0px 0px 1px;
-    box-shadow: var(--shadow-wide-base02);
+
+    background-color: var(--base03);
+    background-image: none;
+    @include s.apply-shadow(wide, base03);
+
+    transition-timing-function: linear;
+    transition-duration: 0.2s;
+    transition-property: background-color, color, box-shadow;
   }
   button:hover {
     background-color: var(--base08);
-    box-shadow: var(--shadow-wide-base08);
+    @include s.apply-shadow(wide, base08);
   }
-  button:active,
-  button:hover:active {
-    background-color: var(--base02);
-    margin: 0px;
-    box-shadow: var(--shadow-inset-base02);
+  button:active {
+    background-color: var(--base03);
+    @include s.apply-shadow(inset, base03);
   }
-
-  button:active label,
-  button:hover:active label {
-    color: var(--base08);
-  }
-
   button:hover label {
-    color: var(--base02);
-    outline-style: none;
+    color: var(--base03);
+    text-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px var(--base03-white-90-dark);
+  }
+  button label,
+  button:active label {
+    font-family:
+      JetBrainsMono Nerd Font,
+      sans-serif;
+    font-size: 100px;
+    font-weight: normal;
+    color: var(--base08);
+    text-shadow:
+      1px 2px 2px rgba(0, 0, 0, 0.17),
+      2px 4px 4px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px var(--base08-white-65-dark);
   }
 ''

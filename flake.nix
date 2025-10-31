@@ -27,37 +27,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    gBar = {
-      url = "github:scorpion-26/gBar";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    astal = {
-      url = "github:aylur/astal";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    ags = {
-      url = "github:aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    matugen.url = "github:InioX/matugen?ref=v2.2.0";
-
-    asztal = {
-      url = "github:Aylur/dotfiles";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
     firefox-gnome-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
     };
 
-    hyprpanel = {
-      url = "github:Jas-SinghFSU/HyprPanel";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.ags.follows = "ags";
+    wavefox = {
+      url = "github:QNetITQ/WaveFox";
+      flake = false;
     };
 
     walker = {
@@ -65,25 +42,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-config = {
-      url = "github:BBFifield/neovim-config";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # neovim-config = {
-    #   url = "git+file:///home/brandon/nvim-config";
+    #   url = "github:BBFifield/neovim-config";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    tintednix = {
-      url = "github:BBFifield/tintednix";
+    neovim-config = {
+      url = "git+file:///home/brandon/nvim-config";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # tintednix = {
-    #   url = "git+file:///home/brandon/tintednix";
+    #   url = "github:BBFifield/tintednix";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
+
+    tintednix = {
+      url = "git+file:///home/brandon/tintednix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     ironbar = {
       url = "github:JakeStanger/ironbar";

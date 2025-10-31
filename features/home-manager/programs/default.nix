@@ -1,10 +1,10 @@
 [
-  ./bars
   ./browsers
   ./dconf
   ./editors
   ./gnome-shell
   ./hyprland
+  ./ironbar
   ./klassy
   ./multimedia
   ./plasma
@@ -14,7 +14,7 @@
   ./swaync
   ./terminal
   ./walker
+  ./wallpaper
   ./wleave
-  ./wpaperd
   ./yazi
 ]

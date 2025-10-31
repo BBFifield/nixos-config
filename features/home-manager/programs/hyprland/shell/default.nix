@@ -5,11 +5,10 @@
   ...
 }:
 with lib; let
-  cfg = config.hm.hyprland.shell;
   shellSubmodule = lib.types.submodule {
     options = {
       name = mkOption {
-        type = with types; nullOr (enum ["tintednix" "asztal" "hyprpanel"]);
+        type = with types; nullOr (enum ["tintednix"]);
         default = null;
         description = "Choose a customized shell.";
       };
@@ -29,48 +28,6 @@ in {
 
   config = mkIf config.hm.hyprland.enable (
     mkMerge [
-      (mkIf (config.hm.hyprland.shell.name == "hyprpanel") {
-        home = {
-          packages = with pkgs; [
-            hyprpanel
-          ];
-        };
-
-        wayland.windowManager.hyprland = {
-          settings = {
-            exec-once = [
-              "${pkgs.hyprpanel}/bin/hyprpanel"
-            ];
-          };
-        };
-      })
-      (mkIf (config.hm.hyprland.shell.name == "asztal") {
-        home = {
-          packages = with pkgs; [
-            asztal
-          ];
-        };
-
-        wayland.windowManager.hyprland = {
-          settings = {
-            exec-once = [
-              "asztal -b hypr"
-            ];
-
-            bind = let
-              e = "exec, asztal -b hypr";
-            in [
-              "CTRL SHIFT, R,  ${e} quit; asztal -b hypr"
-              "SUPER, R,       ${e} -t launcher"
-              "SUPER, Tab,     ${e} -t overview"
-              ",XF86PowerOff,  ${e} -r 'powermenu.shutdown()'"
-              ",XF86Launch4,   ${e} -r 'recorder.start()'"
-              ",Print,         ${e} -r 'recorder.screenshot()'"
-              "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
-            ];
-          };
-        };
-      })
       (mkIf (config.hm.hyprland.shell.name == "tintednix" && config.hm.tintednix.targets.hyprland.enable) (
         let
           settings = {
@@ -78,14 +35,12 @@ in {
               "${config.home.homeDirectory}/.config/hypr/${config.hm.tintednix.targets.hyprland.schemeFilename}.conf"
               "${config.home.homeDirectory}/.config/hypr/tintednix_binding.conf"
             ];
-            exec-once =
-              [
-                "uwsm app -t service -u wpaperd.service -- wpaperd -d"
-                "uwsm app -t service -u ironbar.service -- ironbar"
-                "uwsm app -t service -u swaync.service -- swaync"
-                "uwsm app -t service -u walker.service -- walker --gapplication-service"
-              ]
-              ++ (lib.optionals (config.hm.gBar.enable) ["gBar bar 0"]);
+            exec-once = [
+              # "uwsm app -t service -u wpaperd.service -- wpaperd -d"
+              "uwsm app -t service -u ironbar.service -- ironbar"
+              "uwsm app -t service -u swaync.service -- swaync"
+              "uwsm app -t service -u walker.service -- walker --gapplication-service"
+            ];
 
             general = {
               "col.active_border" = "$base0E $base0D 45deg";
@@ -111,7 +66,7 @@ in {
               "SUPER, N, exec, wpaperctl next"
               "SUPER, P, exec, ${
                 if config.hm.ironbar.enable
-                then "${import ../../bars/ironbar/config/customModules/tools/updatePickedColor.nix pkgs}"
+                then "${import ../../ironbar/config/customModules/tools/updatePickedColor.nix pkgs}"
                 else "hyprpicker -a"
               }"
               ''SUPER, S, exec, grim -g "$(slurp -o -c $(echo $base0D | sed 's/^....\(......\)/\1/'))" -t ppm - | satty --filename -''
@@ -128,8 +83,10 @@ in {
               "animation fade, wleave"
               "blur, wleave"
               "blur, ironbar"
+              "blur, walker"
               "blurpopups, ironbar"
               "ignorealpha 0.8, ironbar"
+              "ignorealpha 0.8, walker"
               "blur, swaync-control-center"
               "ignorealpha 0.8, swaync-control-center"
             ];
@@ -142,7 +99,7 @@ in {
             };
           };
           mkScriptBinding = color_scheme: {
-            bind = "SUPER, T, exec, tintednix update ${color_scheme}";
+            bind = "SUPER, T, exec, tintednix --update ${color_scheme}";
           };
 
           schemeAttrs = config.hm.tintednix.schemeVariantAndColors;
@@ -187,7 +144,7 @@ in {
         in
           lib.mkMerge [
             {
-              hm.wpaperd.enable = true;
+              hm.wallpaper.daemon = "wpaperd";
               hm.hyprland.hyprlock.enable = true;
               hm.walker = {
                 enable = true;
@@ -215,7 +172,7 @@ in {
               {
                 hm.tintednix.live.hooks.hotReload = lib.mkMerge [
                   ''
-                    cp -rf "$directory/hypr/tintednix_bindings/$arg2.conf" "$directory/hypr/tintednix_binding.conf"
+                    cp -rf "$config_dir/hypr/tintednix_bindings/$_theme.conf" "$config_dir/hypr/tintednix_binding.conf"
                   ''
                 ];
               }

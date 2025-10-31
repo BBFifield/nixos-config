@@ -75,43 +75,6 @@ in {
             )
           ];
         })
-        (lib.mkIf (cfg.hyprland.shell == "asztal" && cfg.displayManager == "greetd") {
-          services.greetd = {
-            settings.default_session.command = lib.mkForce pkgs.writeShellScript "greeter" ''
-              export WLR_NO_HARDWARE_CURSORS=1
-              export XKB_DEFAULT_LAYOUT=${config.services.xserver.xkb.layout}
-              export XCURSOR_THEME= ${cfg.theme.cursorTheme.name}
-              export XCURSOR_SIZE= ${cfg.cursorTheme.size}
-              ${pkgs.asztal}/bin/greeter
-            '';
-          };
-
-          systemd.tmpfiles.rules = [
-            "d '/var/cache/greeter' - greeter greeter - -"
-          ];
-
-          system.activationScripts.wallpaper = let
-            wp = pkgs.writeShellScript "wp" ''
-              CACHE="/var/cache/greeter"
-              OPTS="$CACHE/options.json"
-              HOME="/home/$(find /home -maxdepth 1 -printf '%f\n' | tail -n 1)"
-
-              mkdir -p "$CACHE"
-              chown greeter:greeter $CACHE
-
-              if [[ -f "$HOME/.cache/ags/options.json" ]]; then
-                cp $HOME/.cache/ags/options.json $OPTS
-                chown greeter:greeter $OPTS
-              fi
-
-              if [[ -f "$HOME/.config/background" ]]; then
-                cp "$HOME/.config/background" $CACHE/background
-                chown greeter:greeter "$CACHE/background"
-              fi
-            '';
-          in
-            builtins.readFile wp;
-        })
       ]
     ))
   ];

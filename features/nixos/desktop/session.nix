@@ -21,10 +21,10 @@ with lib; let
     options = {
       enable = mkEnableOption "Enable Hyprland Window Manager.";
       shell = mkOption {
-        type = types.enum ["asztal" "tintednix" "hyprpanel"];
+        type = types.enum ["tintednix"];
         default = "tintednix";
         description = "Choose your preferred Hyprland shell";
-        example = "asztal";
+        example = "tintednix";
       };
       displayOutputs = mkOption {
         description = "Monitor options";
@@ -136,10 +136,7 @@ in {
               # gnome-control-center
             ];
 
-            security = {
-              polkit.enable = true;
-              # pam.services.ags = {};
-            };
+            security.polkit.enable = true;
 
             services = {
               gvfs.enable = true;
@@ -156,8 +153,8 @@ in {
               };
             };
           }
-          # Hyprlock doesn't work without this
           (mkIf (cfg.hyprland.shell == "tintednix") {
+            # Hyprlock doesn't work without this
             security.pam.services.hyprlock = {};
           })
         ]

@@ -39,10 +39,15 @@ with lib; let
     mvtows = binding "SUPER SHIFT" "movetoworkspace";
     arr = [1 2 3 4 5 6 7];
   in {
-    exec-once = [
-      "uwsm app -- ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
-      "uwsm app -t service -u hypr-displays.service -- ${(import ./hyprDisplays.nix {inherit config pkgs;})}/bin/hypr_displays"
-    ];
+    exec-once =
+      [
+        "uwsm app -- ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+        "uwsm app -t service -u hypr-displays.service -- ${(import ./hyprDisplays.nix {inherit config pkgs;})}/bin/hypr_displays"
+      ]
+      ++ (lib.optionals (config.hm.wallpaper.daemon == "hyprpaper") [
+        "uwsm app -t service -u wprand.service -- ${(import ../wallpaper/hyprpaper/hyprpaperCycle.nix.nix {inherit pkgs;})}/bin/wprand ${config.home.homeDirectory}/Pictures/wallpapers 20"
+        "uwsm app -t service -u wprandctl.service -- ${(import ../wallpaper/hyprpaper/hyprpaperCycleCtl.nix {inherit pkgs;})}/bin/wprandctl"
+      ]);
 
     monitor = lib.mapAttrsToList (name: value: "${name}, ${lib.concatStringsSep "," value.displayProps}") cfg.displayOutputs;
 
@@ -55,9 +60,10 @@ with lib; let
       "GDK_BACKEND,wayland,x11,*"
       "GDK_SCALE,2"
 
-      "XDG_CURRENT_DESKTOP,Hyprland"
-      "XDG_SESSION_TYPE,wayland"
-      "XDG_SESSION_DESKTOP,Hyprland"
+      # "XDG_CURRENT_DESKTOP,Hyprland"
+      # "XDG_SESSION_TYPE,wayland"
+      # "XDG_SESSION_DESKTOP,Hyprland"
+      #uwsm users don’t need to explicitly set XDG environment variables, as uwsm sets them automatically.
 
       "QT_QPA_PLATFORM,wayland;xcb"
       "QT_QPA_PLATFORMTHEME,qt6ct"
@@ -108,11 +114,6 @@ with lib; let
       preserve_split = "yes";
     };
 
-    gestures = {
-      workspace_swipe = true;
-      workspace_swipe_use_r = true;
-    };
-
     windowrule = let
       f = regex: "float, class:^(${regex})$";
     in [
@@ -126,6 +127,7 @@ with lib; let
       (f "xdg-desktop-portal-gnome")
       (f "com.github.Aylur.ags")
       (f "dev.benz.walker")
+      (f "com.network.manager")
       "workspace 3, class:^(org.gnome.Nautilus)$"
       "workspace 2, class:${config.hm.browsers.defaultBrowser}"
       "workspace 1, class:^(VSCodium)$"
@@ -246,6 +248,8 @@ with lib; let
         "fade, 1, 10, default"
         "workspaces, 1, 5, wind"
         "layers, 1, 5, wind, slide"
+        # "zoomFactor, 1"
+        # "monitorAdded, 1"
       ];
     };
   };

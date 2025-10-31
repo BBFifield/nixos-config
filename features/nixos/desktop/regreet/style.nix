@@ -1,0 +1,82 @@
+config: pkgs: ''
+  @use "${pkgs.tintednix.root}/pkgs/themes/gtk/base16-gtk/common/helpers" as h with (
+    $token-mode: "css-var"
+  );
+  @use "${pkgs.tintednix.root}/pkgs/themes/gtk/base16-gtk/common/shadows" as s with (
+    $gtk-version: "gtk4"
+  );
+
+  frame.background {
+    border-radius: 10px;
+    @include s.apply-shadow(wide, base01);
+  }
+  frame.top {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  frame.top > label {
+    font-size: 50px;
+    font-family: "DS-Digital", sans-serif;
+    color: var(--base0C);
+    background-color: var(--base02);
+    margin: 25px 50px 50px 50px;
+    padding: 4px 17px 5px 16px;
+    min-height: 24px;
+    border-radius: 5px;
+    @include s.apply-shadow(inset, base02);
+  }
+
+  box.bottom > frame {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  infobar.error revealer {
+    margin: 50px;
+    border-radius: 50px;
+    background-color: var(--base08);
+    @include s.apply-shadow(wide, base08);
+  }
+  infobar.error revealer > box > box > label {
+    color: var(--base01);
+  }
+  infobar button.close {
+    background-color: var(--base02);
+  }
+
+  combobox {
+    margin-top: 6px;
+    margin-bottom: 7px;
+    margin-left: -1px;
+  }
+
+  box.linked {
+    min-height: 24px;
+  }
+
+  entry {
+    min-height: 24px;
+    margin: 7px 0px 7px 0px;
+  }
+  entry.password {
+    margin: 8px 0px 7px 0px;
+    padding: 4px 9px 5px 8px;
+  }
+  entry.password:focus-within {
+    margin: 7px 0px 7px -1px;
+    padding: 5px 9px 5px 9px;
+  }
+
+  button.image-button.toggle {
+    min-height: 24px;
+    min-width: 24px;
+    padding: 4px 5px 5px 4px;
+    margin: 8px 0px 7px 2px;
+  }
+  button.image-button.toggle:active,
+  button.image-button.toggle:checked,
+  button.image-button.toggle:hover:active {
+    margin: 7px 0px 7px 1px;
+    padding: 5px;
+  }
+''

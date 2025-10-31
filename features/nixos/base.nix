@@ -25,14 +25,16 @@
   nix.settings.max-call-depth = 10000000;
 
   # Enable networking
-  networking.networkmanager.enable = lib.mkDefault true;
-
-  networking.hostName = hostname;
+  networking = {
+    networkmanager.enable = lib.mkDefault true;
+    hostName = hostname;
+  };
 
   # Set your time zone.
-  time.timeZone = "America/St_Johns";
-
-  time.hardwareClockInLocalTime = false;
+  time = {
+    timeZone = "America/St_Johns";
+    hardwareClockInLocalTime = false;
+  };
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";

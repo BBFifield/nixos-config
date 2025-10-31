@@ -21,9 +21,7 @@ with inputs; {
 
     # These modules are imported into all home-manager configs
     home-manager.sharedModules = [
-      plasma-manager.homeManagerModules.plasma-manager
-      gBar.homeManagerModules.x86_64-linux.default
-      ags.homeManagerModules.default
+      plasma-manager.homeModules.plasma-manager
       sops-nix.homeManagerModules.sops
       walker.homeManagerModules.default
       ironbar.homeManagerModules.default
