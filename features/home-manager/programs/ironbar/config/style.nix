@@ -8,6 +8,14 @@ config: pkgs: ''
 
   @import url("colors.css");
 
+  :root {
+    --night-light-color: #{h.token-resolve(base04)};
+    --night-light-shadow: #{s.shadow-value(thin, base04)};
+
+    --wallpaper-cycle-color: #{h.token-resolve(base0C)};
+    --wallpaper-cycle-shadow: #{s.shadow-value(thin, base0C)};
+  }
+
   @keyframes popover-slide-down {
     from { transform: translateY(-500px); }
     to   { transform: translateY(0px); }
@@ -34,18 +42,18 @@ config: pkgs: ''
   }
   @keyframes ripple-out-base09 {
     from {
-      background-image: radial-gradient(circle farthest-corner at center, unquote("alpha(@base09, 1)") 0%, transparent 0%);
+      background-image: radial-gradient(circle farthest-corner at center, unquote("alpha(var(--base09), 1)") 0%, transparent 0%);
     }
     to {
-      background-image: radial-gradient(circle farthest-corner at center, unquote("alpha(@base09, 1)") 100%, transparent 0%);
+      background-image: radial-gradient(circle farthest-corner at center, unquote("alpha(var(--base09), 1)") 100%, transparent 0%);
     }
   }
   @keyframes ripple-in-base09 {
     from {
-      background-image: radial-gradient(circle farthest-corner at center, unquote("alpha(@base09, 1)") 100%, transparent 0%);
+      background-image: radial-gradient(circle farthest-corner at center, unquote("alpha(var(--base09), 1)") 100%, transparent 0%);
     }
     to {
-      background-image: radial-gradient(circle farthest-corner at center, unquote("alpha(@base09, 1)") 0%, transparent 0%);
+      background-image: radial-gradient(circle farthest-corner at center, unquote("alpha(var(--base09), 1)") 0%, transparent 0%);
     }
   }
 
@@ -172,13 +180,9 @@ config: pkgs: ''
   .calendar-clock {
     margin-bottom: 1px;
     padding: 0px 29px;
-    border-bottom: 1px solid h.token-resolve(base01-black-80-dark);
-
     font-family: "DS-Digital", sans-serif;
     font-size: 50px;
     color: h.token-resolve(base08);
-    /* shadow-separator-mimic-bottom-horizontal-base01 */
-    @include s.apply-shadow(separator-bottom-horizontal, base01);
   }
 
   /* notifications */
@@ -238,13 +242,20 @@ config: pkgs: ''
     @include s.apply-shadow(inset, base01);
   }
 
+  .nightLightOn {
+    --night-light-color: #{h.token-resolve(base0A)};
+    --night-light-shadow: #{s.shadow-value(thin, base0A)};
+  }
   #nightLightToggle {
-    color: h.token-resolve(base0A);
+    color: var(--night-light-color);
   }
   #nightLightToggle:hover:not(:active) {
     color: h.token-resolve(base01);
-    background-color: h.token-resolve(base0A);
-    @include s.apply-shadow(thin, base0A);
+    background-color: var(--night-light-color);
+    box-shadow: var(--night-light-shadow);
+  }
+  #nightLightSlider {
+    padding: 0px 30px;
   }
 
   #screenshotter {
@@ -259,13 +270,17 @@ config: pkgs: ''
     margin-left: -5px;
   }
 
+  .wallpaperCycleOn {
+    --wallpaper-cycle-color: #{h.token-resolve(base04)};
+    --wallpaper-cycle-shadow: #{s.shadow-value(thin, base04)};
+  }
   #wallpaperCycleToggle {
-    color: h.token-resolve(base0C);
+    color: var(--wallpaper-cycle-color);
   }
   #wallpaperCycleToggle:hover:not(:active) {
     color: h.token-resolve(base01);
-    background-color: h.token-resolve(base0C);
-    @include s.apply-shadow(thin, base0C);
+    background-color: var(--wallpaper-cycle-color);
+    box-shadow: var(--wallpaper-cycle-shadow);
   }
   #wallpaperCycleToggle > label {
     margin-left: -3px;

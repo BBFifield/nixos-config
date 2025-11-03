@@ -10,7 +10,7 @@
     else "";
 in ''
   let {
-    ${lib.concatStrings (map (module: import ./customModules/${module} {inherit config pkgs;}) cfg.customModules)}
+    ${lib.concatStrings (map (module: import ./customModules/${module} {inherit config lib pkgs;}) cfg.customModules)}
     $workspaces = {
       type = "workspaces"
       class = "linked"
@@ -67,6 +67,7 @@ in ''
       truncate.mode = "end"
       truncate.length = 50
       truncate.max_length = 50
+      on_click_right = "!wl-copy -c"
     }
 
     $volume = {
@@ -93,9 +94,8 @@ in ''
     height = 30
     anchor_to_edges = true
     position = "top"
-    popup_gap = -10
+    popup_gap = 20
     icon_theme = "${config.hm.theme.iconTheme}"
-
 
     ironvar_defaults = {
       cpu_stats = "default"
@@ -128,8 +128,8 @@ in ''
       base0E = "default"
       base0F = "default"
       night_light_icon = "󱩍"
-      show_night_light_slider = "true"
-      night_light_value = "6000"
+      night_light_status = "OFF"
+      show_night_light_slider = "false"
       is_wallpaper_cycle_on = "${
     if (config.hm.wallpaper.cycle)
     then "true"
@@ -140,7 +140,7 @@ in ''
     then "ON"
     else "OFF"
   }"
-      network_status  = "Not connected to internet"
+      network_status = "Not connected to internet"
     }
 
     start = $left

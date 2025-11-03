@@ -1,7 +1,11 @@
 {
   config,
+  lib,
   pkgs,
-}: ''
+}: let
+  hyprsunsetToggle = (import ./../../../../hyprland/hyprsunset/hyprsunsetToggle.nix) {inherit config lib pkgs;};
+  wallpaperCycleToggle = (import ../../../../wallpaper/${config.hm.wallpaper.daemon}/${config.hm.wallpaper.daemon}CycleToggle.nix) {inherit config pkgs;};
+in ''
   $tools_popup = {
     type = "custom"
     name = "tools"
@@ -35,20 +39,19 @@
                 name = "nightLightToggle"
                 class = "tool"
                 label = "#night_light_icon"
-                on_click = "!${(import ./../../../../hyprland/hyprsunset.nix) {inherit config pkgs;}}"
-                tooltip = "Night Light"
+                on_click = "!${hyprsunsetToggle}"
+                tooltip = "Night Light #night_light_status"
               }
               {
                 type = "slider"
                 name = "nightLightSlider"
-                show_label = false
+                show_label = true
                 show_if = "#show_night_light_slider"
                 length = 100
-                min = 2000
-                max = 8000
-                on_change="!hyprctl hyprsunset temperature \"''${0%.*}\"; ironbar var set night_light_value \"''${0%.*}\";"
-                value = "#night_light_value"
-                tooltip = "#night_light_value"
+                min = ${lib.elemAt config.hm.hyprland.hyprsunset.range 0}
+                max = ${lib.elemAt config.hm.hyprland.hyprsunset.range 1}
+                on_change="!hyprctl hyprsunset temperature \"''${0%.*}\";"
+                value = "5000:hyprctl hyprsunset temperature"
               }
             ]
           }
@@ -70,7 +73,7 @@
                 name = "wallpaperCycleToggle"
                 class = "tool"
                 label = "󰸉"
-                on_click = "!${(import ../../../../wallpaper/${config.hm.wallpaper.daemon}/${config.hm.wallpaper.daemon}CycleToggle.nix) {inherit config pkgs;}}"
+                on_click = "!${wallpaperCycleToggle}"
                 tooltip = "#wallpaper_cycle_status"
               }
               ${

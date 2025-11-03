@@ -7,6 +7,7 @@
 }:
 with lib; let
   cfg = config.nixos.desktop;
+  cage = "${pkgs.cage}/bin/cage";
 in {
   options.nixos.desktop = {
     displayManager = mkOption {
@@ -77,7 +78,9 @@ in {
         enable = true;
         settings = {
           default_session = {
-            command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --time-format %d-%h-%Y-%I:%M%P --user-menu --remember --remember-session --asterisks --cmd ${pkgs.cage}/bin/cage";
+            command = let
+              tuigreet = "${pkgs.tuigreet}/bin/tuigreet";
+            in "${tuigreet} --time --time-format %d-%h-%Y-%I:%M%P --user-menu --remember --remember-session --asterisks --cmd ${cage}";
             user = "greeter";
           };
         };
@@ -130,7 +133,10 @@ in {
           settings = {
             default_session = {
               # command = lib.mkForce "${pkgs.hyprland}/bin/hyprland --config /etc/greetd/hyprland.conf";
-              command = "${pkgs.cage}/bin/cage -m last -s -d -- sh -c '${pkgs.wlr-randr}/bin/wlr-randr --output HDMI-A-1 --mode 3840x2160 --scale 2 && ${pkgs.regreet}/bin/regreet'";
+              command = let
+                wlr-randr = "${pkgs.wlr-randr}/bin/wlr-randr";
+                regreet = "${pkgs.regreet}/bin/regreet";
+              in "${cage} -m last -s -d -- sh -c '${wlr-randr} --output HDMI-A-1 --mode 3840x2160 --scale 2 && ${regreet}'";
               user = "greeter";
             };
           };

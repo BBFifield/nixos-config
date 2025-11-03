@@ -149,7 +149,6 @@ in {
             nonFlakeSrcs
             firefox-native-base16
             customPkgs
-            # ytDlp
           ]);
         config = {
           allowUnfree = true;

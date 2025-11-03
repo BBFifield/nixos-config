@@ -1,19 +1,19 @@
 {pkgs}:
 pkgs.writeShellApplication {
-  name = "hyprpaper-cycle";
+  name = "hyprpapercycle";
   runtimeInputs = with pkgs; [jq];
   text = ''
     # cycle DIRECTORY [INTERVAL]
     # Run inside Hyprland session (autostart). Writes a PID file for status queries.
-    # set -euo pipefail
+    set -euo pipefail
 
     DIR="''${1:?Usage: $0 DIRECTORY [INTERVAL]}"
     INTERVAL="''${2:-300}"
 
     # Paths
     RUNTIME_DIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
-    PIDFILE="$RUNTIME_DIR/hyprpaper-cycle.pid"
-    LOGFILE="$RUNTIME_DIR/hyprpaper-cycle.log"
+    PIDFILE="$RUNTIME_DIR/hyprpapercycle.pid"
+    LOGFILE="$RUNTIME_DIR/hyprpapercycle.log"
 
     # state
     stop_requested=0
@@ -41,7 +41,7 @@ pkgs.writeShellApplication {
     }
     trap cleanup EXIT
 
-    log "starting hyprpaper-cycle for $DIR (interval=''${INTERVAL}s)"
+    log "starting hyprpapercycle for $DIR (interval=''${INTERVAL}s)"
 
     while [ $stop_requested -eq 0 ]; do
       # build shuffled list (NUL-safe)
@@ -63,7 +63,6 @@ pkgs.writeShellApplication {
 
       while [ "$idx" -lt "$total" ] && [ "$stop_requested" -eq 0 ]; do
         img="''${images[$idx]}"
-        # echo $(hyprctl monitors -j 2>/dev/null | jq -r '.[]?.name' 2>/dev/null || printf 'default\n')
         # get monitors once per image
         mapfile -t monitors < <(hyprctl monitors -j 2>/dev/null | jq -r '.[]?.name' 2>/dev/null || printf 'default\n')
 
@@ -85,7 +84,7 @@ pkgs.writeShellApplication {
       done
     done
 
-    log "stopping hyprpaper-cycle"
+    log "stopping hyprpapercycle"
     exit 0
   '';
 }

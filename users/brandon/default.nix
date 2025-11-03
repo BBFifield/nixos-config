@@ -150,17 +150,22 @@ in {
                 enable = true;
                 hooks = {
                   hotReload = ''
-                    ironbar style load-css "$config_dir/ironbar/style.css"
+                    if systemctl --user is-active ironbar.service; then
+                      ironbar style load-css "$config_dir/ironbar/style.css"
 
-                    for base in {00..0F}; do
-                      val="$($tintednix --get "base0''${base}")"
-                      ironbar var set b"ase0''${base}" "$val"
-                    done
-                    ironbar var set color_scheme "$_theme"
+                      for i in $(seq 0 15); do
+                        base=$(printf "%02X" "$i")   # 00 .. 0F
+                        val="$(tintednix --get "base''${base}")"
+                        [ -n "$val" ] && ironbar var set "base''${base}" "$val"
+                      done
+                      ironbar var set color_scheme "$_theme"
+                    fi
                   '';
                   onActivation = ''
                     ${(import ../../features/home-manager/programs/ironbar/postStart.nix {inherit config pkgs;})}/bin/ironbar_post_start
-                    ${config.programs.ironbar.package}/bin/ironbar style load-css "/home/$(whoami)/.config/ironbar/style.css"
+                    if systemctl --user is-active ironbar.service; then
+                      ${config.programs.ironbar.package}/bin/ironbar style load-css "/home/$(whoami)/.config/ironbar/style.css"
+                    fi
                   '';
                 };
               };
@@ -188,10 +193,7 @@ in {
                     ${pkgs.swaynotificationcenter}/bin/swaync-client -rs
                   '';
                   onActivation = ''
-                    if [[ $(systemctl --user status swaync.service | grep 'active (running)') ]]; then
-                      systemctl --user stop swaync.service;
-                      ${pkgs.swaynotificationcenter}/bin/swaync -s "/home/$(whoami)/.config/swaync/style.css"
-                    else
+                    if systemctl --user is-active swaync.service; then
                       ${pkgs.swaynotificationcenter}/bin/swaync-client -rs
                     fi
                   '';

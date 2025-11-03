@@ -19,6 +19,8 @@ with lib; let
     };
   };
 in {
+  imports = [../hyprsunset];
+
   options.hm.hyprland = {
     shell = mkOption {
       type = shellSubmodule;
@@ -71,8 +73,8 @@ in {
               }"
               ''SUPER, S, exec, grim -g "$(slurp -o -c $(echo $base0D | sed 's/^....\(......\)/\1/'))" -t ppm - | satty --filename -''
             ];
-            bindl = [
-              "SUPER, B, exec, ${(import ../hyprsunset.nix) {inherit config pkgs;}}"
+            bindl = lib.optionals (config.hm.hyprland.hyprsunset.enable) [
+              "SUPER, B, exec, ${(import ../hyprsunset/hyprsunsetToggle.nix) {inherit config lib pkgs;}}"
             ];
 
             windowrule = [
@@ -145,10 +147,10 @@ in {
           lib.mkMerge [
             {
               hm.wallpaper.daemon = "wpaperd";
+              hm.hyprland.hyprsunset.enable = true;
               hm.hyprland.hyprlock.enable = true;
-              hm.walker = {
-                enable = true;
-              };
+              hm.walker.enable = true;
+
               hm.satty.enable = true;
               hm.ironbar = {
                 enable = true;
@@ -158,7 +160,6 @@ in {
                 [
                   hyprpicker
                   clipse #TUI clipboard manager
-                  hyprsunset #Blue light filter
                   slurp #For selecting region of the screen
                   grim #Screenshotter
                 ]

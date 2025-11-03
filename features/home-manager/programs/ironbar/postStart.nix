@@ -4,7 +4,7 @@
 }:
 pkgs.writeShellApplication {
   name = "ironbar_post_start";
-  runtimeInputs = with pkgs; [config.programs.ironbar.package coreutils socat];
+  runtimeInputs = with pkgs; [config.programs.ironbar.package coreutils socat libnotify];
   text = ''
     # Maximum number of retries
     MAX_RETRIES=20
@@ -13,19 +13,76 @@ pkgs.writeShellApplication {
     # Counter for retries
     RETRIES=0
 
-    tintednix=/etc/profiles/per-user/$(whoami)/bin/tintednix
+    tintednix="$(command -v tintednix || true)"
     XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
+
+    # Hyprsunset state file
+    STATEFILE="$XDG_RUNTIME_DIR/hyprsunset.state"
+
+    # Resolve ironbar binary once
+    IRONBAR_BIN="$(command -v ironbar || true)"
+
+    ironbar_set_var() {
+      "$IRONBAR_BIN" var set "$1" "$2" >/dev/null 2>&1 || true
+    }
+    ironbar_add_class() {
+      "$IRONBAR_BIN" style add-class tools nightLightOn >/dev/null 2>&1 || true
+    }
+    ironbar_remove_class() {
+      "$IRONBAR_BIN" style remove-class tools nightLightOn >/dev/null 2>&1 || true
+    }
+
+    read_statefile() {
+      if [ -f "$STATEFILE" ]; then
+        cat "$STATEFILE" 2>/dev/null || echo ""
+      else
+        echo ""
+      fi
+    }
 
     until [ $RETRIES -ge $MAX_RETRIES ]
     do
       # Check if the Ironbar IPC socket is available and accepting connections
       if socat - UNIX-CONNECT:"$XDG_RUNTIME_DIR/ironbar-ipc.sock" 2>/dev/null; then
         echo "Connected to Ironbar IPC server"
-        ironbar var set color_scheme "$($tintednix --get color_scheme)"
-        for base in {00..0F}; do
-          val="$($tintednix --get "base0''${base}")"
-          ironbar var set "base0''${base}" "$val"
+
+        # Set tintednix related ironvars
+        ironbar_set_var color_scheme "$($tintednix --get color_scheme)"
+        for i in $(seq 0 15); do
+          base=$(printf "%02X" "$i")   # 00 .. 0F
+          val="$($tintednix --get "base''${base}")"
+          [ -n "$val" ] && ironbar_set_var "base''${base}" "$val"
         done
+
+        # Determine states of hyprsunset ironvars by reading state file
+        cur="$(read_statefile)"
+        if [ -n "$cur" ]; then
+          case "$cur" in
+            temp:*)
+              state_type="temp"
+              ;;
+            identity)
+              state_type="identity"
+              ;;
+            *)
+              state_type="unknown"
+              ;;
+          esac
+        else
+          state_type="unknown"
+        fi
+
+        # Apply minimal, idempotent changes
+        if [ "$state_type" = "temp" ]; then
+          ironbar_set_var show_night_light_slider "true"
+          ironbar_set_var night_light_status "ON"
+          ironbar_add_class
+        else
+          ironbar_set_var show_night_light_slider "false"
+          ironbar_set_var night_light_status "OFF"
+          ironbar_remove_class
+        fi
+
         exit 0
       else
         echo "Ironbar IPC server not available. Retrying in $DELAY seconds..."

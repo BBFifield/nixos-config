@@ -91,10 +91,16 @@ config: pkgs: ''
   }
 
   .notification-content image {
+    color: var(--base0D);
+    border-radius: 0px;
+    margin-right: 10px;
     padding: 8px 6px 8px 0px;
     -gtk-icon-shadow:
       1px 2px 2px rgba(0, 0, 0, 0.17),
       2px 4px 4px rgba(0, 0, 0, 0.2);
+  }
+  .notification:hover .notification-content image {
+    color: var(--base01);
   }
   .notification {
     border-width: 0px;

@@ -1,13 +1,13 @@
 {pkgs}:
 pkgs.writeShellApplication {
-  name = "hyprpaper-cyclectl";
+  name = "hyprpapercyclectl";
   runtimeInputs = with pkgs; [socat];
   text = ''
-    # hyprpaper-cyclectl status|stop
+    # hyprpapercyclectl status|stop
     set -euo pipefail
 
     RUNTIME_DIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
-    PIDFILE="$RUNTIME_DIR/hyprpaper-cycle.pid"
+    PIDFILE="$RUNTIME_DIR/hyprpapercycle.pid"
 
     status() {
       if [ -e "$PIDFILE" ]; then

@@ -6,6 +6,8 @@
 }: let
   cfg = config.hm.ironbar;
 
+  ironbar = "${config.programs.ironbar.package}/bin/ironbar";
+
   sassFile = import ./config/style.nix config pkgs;
   compiledSassFile =
     pkgs.runCommand "style_ironbar" {nativeBuildInputs = with pkgs; [dart-sass jq];}
@@ -31,14 +33,24 @@ in {
     lib.mkMerge [
       {
         home.packages = [compiledSassFile pkgs.networkmanagerapplet pkgs.networkmanager];
-        xdg.configFile."ironbar/style.css" = {
-          source = "${compiledSassFile}/.config/ironbar/style.css";
-          # source = compiledSassFile;
-          onChange = ''
-            ${config.programs.ironbar.package}/bin/ironbar style load-css "/home/$(whoami)/.config/ironbar/style.css"
-          '';
+        xdg.configFile = {
+          "ironbar/style.css" = {
+            source = "${compiledSassFile}/.config/ironbar/style.css";
+            onChange = ''
+              if systemctl --user is-active ironbar.service; then
+                ${ironbar} style load-css "/home/$(whoami)/.config/ironbar/style.css"
+              fi
+            '';
+          };
+          "ironbar/config.corn" = {
+            text = import ./config/config.nix {inherit config pkgs lib;};
+            onChange = ''
+              if systemctl --user is-active ironbar.service; then
+                ${ironbar} reload
+              fi
+            '';
+          };
         };
-        xdg.configFile."ironbar/config.corn".text = import ./config/config.nix {inherit config pkgs lib;};
       }
       {
         systemd.user.services = {
@@ -47,11 +59,14 @@ in {
               Description = "Run post-start setup for Ironbar";
               Requires = ["ironbar.service"];
               After = ["ironbar.service"];
+              # Stop this unit when ironbar stops
+              PartOf = "ironbar.service";
             };
             Service = {
               Type = "oneshot";
               ExecStart = "${(import ./postStart.nix {inherit config pkgs;})}/bin/ironbar_post_start";
-              RemainAfterExit = true;
+              RemainAfterExit = false;
+              TimeoutStartSec = "30s";
             };
             Install = {
               WantedBy = ["ironbar.service"];
@@ -65,7 +80,7 @@ in {
             };
             Service = {
               Type = "oneshot";
-              ExecStart = "${pkgs.bash}/bin/bash ${./config/customModules/stats/stats.sh}";
+              ExecStart = "${./config/customModules/stats/stats.sh}";
               RemainAfterExit = true;
             };
             Install = {

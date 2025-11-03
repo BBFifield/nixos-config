@@ -45,8 +45,8 @@ with lib; let
         "uwsm app -t service -u hypr-displays.service -- ${(import ./hyprDisplays.nix {inherit config pkgs;})}/bin/hypr_displays"
       ]
       ++ (lib.optionals (config.hm.wallpaper.daemon == "hyprpaper") [
-        "uwsm app -t service -u wprand.service -- ${(import ../wallpaper/hyprpaper/hyprpaperCycle.nix.nix {inherit pkgs;})}/bin/wprand ${config.home.homeDirectory}/Pictures/wallpapers 20"
-        "uwsm app -t service -u wprandctl.service -- ${(import ../wallpaper/hyprpaper/hyprpaperCycleCtl.nix {inherit pkgs;})}/bin/wprandctl"
+        "uwsm app -t service -u hyprpapercycle.service -- ${(import ../wallpaper/hyprpaper/hyprpaperCycle.nix {inherit pkgs;})}/bin/hyprpapercycle ${config.home.homeDirectory}/Pictures/wallpapers 20"
+        "uwsm app -t service -u hyprpapercyclectl.service -- ${(import ../wallpaper/hyprpaper/hyprpaperCycleCtl.nix {inherit pkgs;})}/bin/hyprpapercyclectl"
       ]);
 
     monitor = lib.mapAttrsToList (name: value: "${name}, ${lib.concatStringsSep "," value.displayProps}") cfg.displayOutputs;

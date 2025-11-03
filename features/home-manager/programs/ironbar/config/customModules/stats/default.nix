@@ -259,7 +259,7 @@
           {
             type = "script"
             class = "info-script"
-            cmd = "bash ${./sys_info.sh}"
+            cmd = "${./sys_info.sh}"
             mode = "poll"
             interval = 600000
           }
