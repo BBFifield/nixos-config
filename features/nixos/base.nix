@@ -63,7 +63,7 @@
       hashedPasswordFile = config.sops.secrets.brandonPwd.path;
       isNormalUser = true;
       description = "Brandon";
-      extraGroups = ["networkmanager" "wheel" "dialout" "adbusers"];
+      extraGroups = ["networkmanager" "wheel" "dialout" "adbusers" "storage"]; # storage group grants udisks2 permissions
     };
     root = {
       hashedPasswordFile = config.sops.secrets.rootPwd.path;

@@ -24,8 +24,7 @@ in {
     enable = lib.mkEnableOption "Enable ironbar statusbar.";
     customModules = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      # default = ["walker" "tools" "stats" "network" "power"];
-      default = ["walker" "tools" "stats" "power"];
+      default = ["walker" "tray-revealer" "tools" "network" "stats" "power"];
     };
   };
 
@@ -101,6 +100,11 @@ in {
           systemd = false;
         };
       }
+      (
+        (lib.mkIf (builtins.elem "network" cfg.customModules)) {
+          home.packages = with pkgs; [nmgui];
+        }
+      )
     ]
   );
 }

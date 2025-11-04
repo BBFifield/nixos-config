@@ -28,10 +28,11 @@ in ''
       icons.open_none = "󰍡"
       icons.open_some = "󱥁"
       icons.open_dnd = "󱅮"
+      show_if = "systemctl --user is-active --quiet swaync.service"
     }
 
     $clock = { type = "clock" format = "<span font-size='13pt'></span> %d-%h-%Y <span font-size='16pt' font-family='DS-Digital'>%I:%M%P</span>" }
-    $tray = { type = "tray" icon_size = 32 }
+    $tray = { type = "tray" icon_size = 32 ${isEnabled "tray-revealer" ''show_if = "#show_tray"''} }
 
     $bluetooth = {
       type = "bluetooth"
@@ -86,7 +87,7 @@ in ''
 
     $left = [ ${isEnabled "walker" "$walker_popup"} $workspaces ]
     $center = [ $clock $notifications ]
-    $right = [ $tray ${isEnabled "tools" "$tools_popup"} ${isEnabled "stats" "$stats_popup"} ${isEnabled "network" "$network_popup"} $bluetooth $clipboard $volume ${isEnabled "power" "$power_popup"} ]
+    $right = [ ${isEnabled "tray-revealer" "$tray_revealer"} $tray ${isEnabled "tools" "$tools_popup"} ${isEnabled "stats" "$stats_popup"} ${isEnabled "network" "$network_popup"} $bluetooth $clipboard $volume ${isEnabled "power" "$power_popup"} ]
   }
 
   in {
@@ -98,18 +99,34 @@ in ''
     icon_theme = "${config.hm.theme.iconTheme}"
 
     ironvar_defaults = {
+      show_tray = "false"
+      tray_icon = ""
+      night_light_icon = "󱩍"
+      night_light_status = "OFF"
+      show_night_light_slider = "false"
+      is_wallpaper_cycle_on = "${
+    if (config.hm.wallpaper.cycle)
+    then "true"
+    else "false"
+  }"
+      wallpaper_cycle_status = "Wallpaper cycle ${
+    if (config.hm.wallpaper.cycle)
+    then "ON"
+    else "OFF"
+  }"
+      network_status = "Not connected to internet"
       cpu_stats = "default"
       ram_stats = "default"
       disk_stats = "default"
       gpu_stats = "default"
       uptime_stats = "default"
       show_system_info = "false"
-      sys_info_btn_label = "Show System Info"
+      sys_info_btn_label = " System Info"
       cpu_info = "default"
       root_partition_info = "default"
       gpu_info = "default"
       show_theme_info = "false"
-      theme_info_btn_label = "Show Theme Info"
+      theme_info_btn_label = " Theme Info"
       color_scheme = "default"
       base00 = "default"
       base01 = "default"
@@ -127,20 +144,6 @@ in ''
       base0D = "default"
       base0E = "default"
       base0F = "default"
-      night_light_icon = "󱩍"
-      night_light_status = "OFF"
-      show_night_light_slider = "false"
-      is_wallpaper_cycle_on = "${
-    if (config.hm.wallpaper.cycle)
-    then "true"
-    else "false"
-  }"
-      wallpaper_cycle_status = "Wallpaper cycle ${
-    if (config.hm.wallpaper.cycle)
-    then "ON"
-    else "OFF"
-  }"
-      network_status = "Not connected to internet"
     }
 
     start = $left

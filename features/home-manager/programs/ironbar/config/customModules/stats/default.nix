@@ -7,7 +7,7 @@
         type = "button"
         class = "reveal-btn"
         label = "#theme_info_btn_label"
-        on_click = "![[ \"$(ironbar var get show_theme_info)\" == \"false\" ]] && (ironbar var set show_theme_info true; ironbar var set theme_info_btn_label \"Hide Theme Info\") || (ironbar var set show_theme_info false; ironbar var set theme_info_btn_label \"Show Theme Info\") &> /dev/null"
+        on_click = "![[ \"$(ironbar var get show_theme_info)\" == \"false\" ]] && (ironbar var set show_theme_info true; ironbar var set theme_info_btn_label \" Theme Info\") || (ironbar var set show_theme_info false; ironbar var set theme_info_btn_label \" Theme Info\") &> /dev/null"
       }
       {
         type = "box"
@@ -200,7 +200,7 @@
         type = "button"
         class = "reveal-btn"
         label = "#sys_info_btn_label"
-        on_click = "![[ \"$(ironbar var get show_system_info)\" == \"false\" ]] && (ironbar var set show_system_info true; ironbar var set sys_info_btn_label \"Hide System Info\") || (ironbar var set show_system_info false; ironbar var set sys_info_btn_label \"Show System Info\") &> /dev/null"
+        on_click = "![[ \"$(ironbar var get show_system_info)\" == \"false\" ]] && (ironbar var set show_system_info true; ironbar var set sys_info_btn_label \" System Info\") || (ironbar var set show_system_info false; ironbar var set sys_info_btn_label \" System Info\") &> /dev/null"
       }
       {
         type = "box"

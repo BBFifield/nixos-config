@@ -154,6 +154,7 @@ in {
               hm.satty.enable = true;
               hm.ironbar = {
                 enable = true;
+                customModules = ["walker" "tray-revealer" "tools" "stats" "power"];
               };
               hm.wleave.enable = true;
               home.packages = with pkgs;

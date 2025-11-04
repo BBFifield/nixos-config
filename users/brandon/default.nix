@@ -18,8 +18,6 @@
     shellcheck
     fastfetch
     bluetui # bluetooth
-    nmgui #wifi ui
-    fragments
   ];
 in {
   imports = [../../features/home-manager];
@@ -91,6 +89,7 @@ in {
         tintednix = {
           enable = true;
           gtkTheme.enable = true;
+          enableGimpTheme = true;
           enabledSchemes = with pkgs.base16; [ashes atelier-cave atelier-heath atelier-sulphurpool ayu-dark bespin blueforest blueish brushtrees-dark catppuccin-frappe catppuccin-latte catppuccin-macchiato catppuccin-mocha codeschool darkviolet dracula everforest everforest-dark-hard gruvbox-dark-hard gruvbox-dark-soft gruvbox-material-dark-hard gruvbox-material-dark-soft katy material-palenight moonlight nord rose-pine rose-pine-moon stella tokyo-night-dark tokyo-night-moon];
           defaultSchemeName = "catppuccin-mocha";
           targets = {

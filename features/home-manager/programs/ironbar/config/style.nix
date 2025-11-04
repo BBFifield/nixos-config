@@ -310,6 +310,14 @@ config: pkgs: ''
   .tray > .item > box > picture {
     -gtk-icon-shadow: 0px 0px 2px rgb(0, 0, 0);
   }
+  #trayRevealer {
+    > revealer > button {
+      padding: 1px 9px 2px 8px;
+      &:active {
+        padding: 2px 9px 2px 9px;
+      }
+    }
+  }
 
   /* -- sys_info -- */
   #stats-btn {
@@ -394,35 +402,11 @@ config: pkgs: ''
   #colors-label {
     color: h.token-resolve(base0F);
   }
-  #base00 {
-    color: h.token-resolve(base00);
-  }
-  #base01 {
-    color: h.token-resolve(base01);
-  }
-  #base02 {
-    color: h.token-resolve(base02);
-  }
-  #base03 {
-    color: h.token-resolve(base03);
-  }
-  #base04 {
-    color: h.token-resolve(base04);
-  }
-  #base05 {
-    color: h.token-resolve(base05);
-  }
-  #base06 {
-    color: h.token-resolve(base06);
-  }
-  #base07 {
-    color: h.token-resolve(base07);
-  }
-  #base08 {
-    color: h.token-resolve(base08);
-  }
-  #base09 {
-    color: h.token-resolve(base09);
+
+  @for $i from 0 through 9 {
+    #base0#{$i} {
+      color: h.token-resolve(base0#{$i});
+    }
   }
   #base0A {
     color: h.token-resolve(base0A);

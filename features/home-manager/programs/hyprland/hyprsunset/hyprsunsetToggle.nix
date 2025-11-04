@@ -70,7 +70,7 @@ in
     STATEFILE="$XDG_RUNTIME_DIR/hyprsunset.state"
 
     write_state_identity() {
-      printf '%s\n' "identity" > "$STATEFILE" 2>/dev/null || true
+      printf '%s\n' "identity\n" > "$STATEFILE" 2>/dev/null || true
     }
     write_state_temp() {
       printf 'temp:%s\n' "$1" > "$STATEFILE" 2>/dev/null || true
@@ -118,22 +118,19 @@ in
 
       # set identity to ensure no filter applied
       if hyprctl_wait_request identity; then
-        write_state_identity
         ironbar_toggle_icon "󱩍"
         ironbar_set_slider_visibility "false"
         ironbar_set_status "OFF"
         ironbar_remove_class
-      else
-        # best-effort: still record identity if hyprctl didn't respond yet
-        write_state_identity
       fi
     }
 
     # Main toggle behavior:
     # - If service is active AND current state file says temp:<n> (i.e. bluelight is applied) ->
     #     set identity, update state to identity, notify/ironbar, leave service running (so the daemon still exists)
-    # - If service is active AND current state is identity -> apply last known temperature from hyprsunset (probe) or fallback to cfg.initTemp
-    # - If service inactive -> start service and ensure identity, then apply temperature if requested
+    # - If service is active AND current state is identity:init -> apply cfg.initTemp
+    # - If service is active AND current state is identity -> apply last known temperature from hyprsunset (probe)
+    # - If service inactive -> start service and ensure identity:init, then apply temperature if requested
 
     # Read current observed state
     CUR_STATE="$(read_state)"
@@ -165,12 +162,14 @@ in
         ;;
 
       identity)
-        # Try to retrieve the last used temperature from hyprsunset itself
-        probed="$(probe_hyprctl_temp_once)"
-        if [ -n "$probed" ]; then
-          temp="$probed"
-        else
+        # Determine which temperature value to use. Either initTemp or last used by hyprsunset
+        if  [ ! -f "$STATE_FILE" ]; then
           temp=${cfg.initTemp}
+        else
+          probed="$(probe_hyprctl_temp_once)"
+          if [ -n "$probed" ]; then
+            temp="$probed"
+          fi
         fi
 
         if hyprctl_wait_request temperature "$temp"; then
@@ -189,8 +188,8 @@ in
 
       *)
         # unknown state file contents; reset to identity and continue
-        write_state_identity
-        echo "Unknown state; resetting to identity" >&2
+        write_state_identity "init"
+        echo "Unknown state; resetting to initial identity" >&2
         exit 1
         ;;
     esac
