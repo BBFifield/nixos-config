@@ -5,7 +5,6 @@ pkgs.writeShellApplication {
   text = ''
     # cycle DIRECTORY [INTERVAL]
     # Run inside Hyprland session (autostart). Writes a PID file for status queries.
-    set -euo pipefail
 
     DIR="''${1:?Usage: $0 DIRECTORY [INTERVAL]}"
     INTERVAL="''${2:-300}"

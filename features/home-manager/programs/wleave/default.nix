@@ -4,16 +4,13 @@
   lib,
   ...
 }: let
-  sassFile = import ./config/style.nix config pkgs;
+  imports = "${pkgs.tintednix.root}/pkgs/themes/gtk/base16-gtk";
   compiledSassFile =
     pkgs.runCommand "style_wleave" {nativeBuildInputs = with pkgs; [dart-sass jq];}
     ''
       #!/usr/bin/env bash
-      mkdir -p $out
-      cat > "$out/styleWleave.scss" <<'EOF'
-      ${sassFile}
-      EOF
-      sass "$out/styleWleave.scss" "$out/.config/wleave/gtk-4.0/gtk.css"
+      set -euo pipefail
+      sass --load-path="${imports}" "${./config/style.scss}" "$out/.config/wleave/gtk-4.0/gtk.css"
     '';
 in {
   options.hm.wleave = {

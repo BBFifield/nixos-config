@@ -120,6 +120,10 @@ in {
       xdg.configFile = {
         "gtk-4.0/gtk.css".source = "${config.hm.tintednix.gtkTheme.package}/share/themes/${cfg.gtkTheme.name}/gtk-4.0/gtk.css";
         "gtk-4.0/gtk-dark.css".source = "${config.hm.tintednix.gtkTheme.package}/share/themes/${cfg.gtkTheme.name}/gtk-4.0/gtk-dark.css";
+        "gtk-4.0/assets" = {
+          source = "${config.hm.tintednix.gtkTheme.package}/share/themes/${cfg.gtkTheme.name}/gtk-4.0/assets";
+          recursive = true;
+        };
       };
 
       home.packages = with pkgs; let

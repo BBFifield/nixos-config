@@ -88,9 +88,11 @@ in {
       {
         tintednix = {
           enable = true;
-          gtkTheme.enable = true;
-          enableGimpTheme = true;
-          enabledSchemes = with pkgs.base16; [ashes atelier-cave atelier-heath atelier-sulphurpool ayu-dark bespin blueforest blueish brushtrees-dark catppuccin-frappe catppuccin-latte catppuccin-macchiato catppuccin-mocha codeschool darkviolet dracula everforest everforest-dark-hard gruvbox-dark-hard gruvbox-dark-soft gruvbox-material-dark-hard gruvbox-material-dark-soft katy material-palenight moonlight nord rose-pine rose-pine-moon stella tokyo-night-dark tokyo-night-moon];
+          gtkTheme = {
+            enable = true;
+            enableGimpTheme = true;
+          };
+          enabledSchemes = with pkgs.base16; [ashes atelier-cave atelier-heath atelier-sulphurpool ayu-dark bespin blueish brushtrees-dark catppuccin-frappe catppuccin-latte catppuccin-macchiato catppuccin-mocha codeschool darkviolet dracula everforest everforest-dark-hard gruvbox-dark-hard gruvbox-dark-soft gruvbox-material-dark-hard gruvbox-material-dark-soft katy material-palenight moonlight nord rose-pine rose-pine-moon stella tokyo-night-dark tokyo-night-moon];
           defaultSchemeName = "catppuccin-mocha";
           targets = {
             firefox = {
@@ -130,6 +132,17 @@ in {
               path = ".config/qutebrowser";
               schemeFilename = "colors";
               schemeExtension = "py";
+            };
+            tauon = {
+              enable = true;
+              live = {
+                enable = true;
+              };
+              templateSrc = pkgs.tintednix.root;
+              templateName = "tauon";
+              path = ".local/share/TauonMusicBox/theme";
+              schemeFilename = "base16";
+              schemeExtension = "ttheme";
             };
             alacritty = {
               enable = true;

@@ -271,6 +271,26 @@
         "type": "github"
       }
     },
+    "hyprland-contrib": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1759613406,
+        "narHash": "sha256-PzgQJydp+RlKvwDi807pXPlURdIAVqLppZDga3DwPqg=",
+        "owner": "hyprwm",
+        "repo": "contrib",
+        "rev": "32e1a75b65553daefb419f0906ce19e04815aa3a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hyprwm",
+        "repo": "contrib",
+        "type": "github"
+      }
+    },
     "ironbar": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -281,11 +301,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761424517,
-        "narHash": "sha256-9PF3RbzPOPRPifOXhVsJw3aU9OK8UUZpEXhbkIqhPLE=",
+        "lastModified": 1761691056,
+        "narHash": "sha256-SmeeAOxVqY/IENqyuOB5KFTHjQSXeem6JjjmTrQ+YK0=",
         "owner": "JakeStanger",
         "repo": "ironbar",
-        "rev": "70b218e2656ccdd3984f57cee42c692d4f09c6ce",
+        "rev": "954271d2e7f3d0992c8efacd0d71a1853d99d7af",
         "type": "github"
       },
       "original": {
@@ -515,6 +535,7 @@
         "firefox-gnome-theme": "firefox-gnome-theme",
         "firefox-native-base16": "firefox-native-base16",
         "home-manager": "home-manager",
+        "hyprland-contrib": "hyprland-contrib",
         "ironbar": "ironbar",
         "neovim-config": "neovim-config",
         "nixos-generators": "nixos-generators",
@@ -589,11 +610,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762036143,
-        "narHash": "sha256-jvGYOAWBgo9ZWOaPNzT6qRNgNe0Kk8p5cEFjMZ6Y2b8=",
+        "lastModified": 1763166012,
+        "narHash": "sha256-z3L4bomr+v5VLFfoAxeF//fGVXf8d9DUjqjWP0dI8f0=",
         "ref": "refs/heads/master",
-        "rev": "ae9d1f9661d9a04a71ca02575d969c1f5b334532",
-        "revCount": 66,
+        "rev": "cba4552dcee5c3ee9cc0a3edda270721e62b6711",
+        "revCount": 79,
         "type": "git",
         "url": "file:///home/brandon/tintednix"
       },

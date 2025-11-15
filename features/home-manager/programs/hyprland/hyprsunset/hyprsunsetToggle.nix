@@ -8,7 +8,6 @@
   notify-send = "${pkgs.libnotify}/bin/notify-send";
 in
   pkgs.writeShellScript "hyprsunsetToggle" ''
-    #!/usr/bin/env bash
     set -euo pipefail
 
     # hyprsunset toggle with persistent state file
@@ -70,7 +69,7 @@ in
     STATEFILE="$XDG_RUNTIME_DIR/hyprsunset.state"
 
     write_state_identity() {
-      printf '%s\n' "identity\n" > "$STATEFILE" 2>/dev/null || true
+      printf '%s\n' "identity" > "$STATEFILE" 2>/dev/null || true
     }
     write_state_temp() {
       printf 'temp:%s\n' "$1" > "$STATEFILE" 2>/dev/null || true
@@ -163,7 +162,7 @@ in
 
       identity)
         # Determine which temperature value to use. Either initTemp or last used by hyprsunset
-        if  [ ! -f "$STATE_FILE" ]; then
+        if  [ ! -f "$STATEFILE" ]; then
           temp=${cfg.initTemp}
         else
           probed="$(probe_hyprctl_temp_once)"
@@ -184,13 +183,6 @@ in
           echo "Failed to apply temperature $temp via hyprctl" >&2
           exit 1
         fi
-        ;;
-
-      *)
-        # unknown state file contents; reset to identity and continue
-        write_state_identity "init"
-        echo "Unknown state; resetting to initial identity" >&2
-        exit 1
         ;;
     esac
   ''

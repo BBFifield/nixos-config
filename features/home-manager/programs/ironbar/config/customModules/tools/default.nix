@@ -3,8 +3,8 @@
   lib,
   pkgs,
 }: let
-  hyprsunsetToggle = (import ./../../../../hyprland/hyprsunset/hyprsunsetToggle.nix) {inherit config lib pkgs;};
-  wallpaperCycleToggle = (import ../../../../wallpaper/${config.hm.wallpaper.daemon}/${config.hm.wallpaper.daemon}CycleToggle.nix) {inherit config pkgs;};
+  hyprsunsetToggle = import ./../../../../hyprland/hyprsunset/hyprsunsetToggle.nix {inherit config lib pkgs;};
+  wallpaperCycleToggle = import ../../../../wallpaper/${config.hm.wallpaper.daemon}/cycleToggle.nix {inherit config pkgs;};
 in ''
   $tools_popup = {
     type = "custom"
@@ -60,7 +60,7 @@ in ''
             name = "screenshotter"
             class = "tool"
             label = "󰹑"
-            on_click = "!grim -g \"$(slurp -o -c $(echo $(ironbar var get base0D) | sed 's/^....\\(......\\)/\\1/'))\" -t ppm - | satty --filename -"
+            on_click = "!grim -g \"$(slurp -o -c $(echo $(ironbar var get base0D) | sed 's/^....\\(......\\)/\\1/') && sleep 0.3)\" -t ppm - | satty --filename -"
             tooltip = "Take Screenshot"
           }
           {

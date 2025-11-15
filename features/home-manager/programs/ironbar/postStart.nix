@@ -15,9 +15,29 @@ pkgs.writeShellApplication {
 
     tintednix="$(command -v tintednix || true)"
     XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
-
     # Hyprsunset state file
-    STATEFILE="$XDG_RUNTIME_DIR/hyprsunset.state"
+    HYPRSUNSET_STATEFILE="$XDG_RUNTIME_DIR/hyprsunset.state"
+
+    WP_DAEMON="${config.hm.wallpaper.daemon}"
+    WP_DAEMON_DIR="/home/$(whoami)/.config/$WP_DAEMON"
+    # shellcheck disable=SC2034
+    WP_DAEMON_STATEFILE="$WP_DAEMON_DIR/configs/$WP_DAEMON.state"
+
+    read_statefile() {
+      if [ -f "$1" ]; then
+        cat "$1" 2>/dev/null || echo ""
+      else
+        echo ""
+      fi
+    }
+
+    # returns filename without the final extension
+    filename_no_ext() {
+      local path="''${1:-}"
+      local name
+      name="$(basename -- "$path")"
+      printf '%s\n' "''${name%.*}"
+    }
 
     # Resolve ironbar binary once
     IRONBAR_BIN="$(command -v ironbar || true)"
@@ -32,13 +52,6 @@ pkgs.writeShellApplication {
       "$IRONBAR_BIN" style remove-class tools nightLightOn >/dev/null 2>&1 || true
     }
 
-    read_statefile() {
-      if [ -f "$STATEFILE" ]; then
-        cat "$STATEFILE" 2>/dev/null || echo ""
-      else
-        echo ""
-      fi
-    }
 
     until [ $RETRIES -ge $MAX_RETRIES ]
     do
@@ -54,10 +67,14 @@ pkgs.writeShellApplication {
           [ -n "$val" ] && ironbar_set_var "base''${base}" "$val"
         done
 
+        # Wallpaper ironvars
+        wallpaper_name=$(filename_no_ext "$(readlink -f -- "${config.home.homeDirectory}/.local/state/wpaperd/wallpapers"/* | head -n1)")
+        ironbar_set_var wallpaper_name "$wallpaper_name"
+
         # Determine states of hyprsunset ironvars by reading state file
-        cur="$(read_statefile)"
-        if [ -n "$cur" ]; then
-          case "$cur" in
+        cur_hyprsunset_state="$(read_statefile "$HYPRSUNSET_STATEFILE")"
+        if [ -n "$cur_hyprsunset_state" ]; then
+          case "$cur_hyprsunset_state" in
             temp:*)
               state_type="temp"
               ;;

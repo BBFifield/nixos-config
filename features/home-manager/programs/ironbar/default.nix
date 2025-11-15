@@ -8,16 +8,16 @@
 
   ironbar = "${config.programs.ironbar.package}/bin/ironbar";
 
-  sassFile = import ./config/style.nix config pkgs;
+  imports = "${pkgs.tintednix.root}/pkgs/themes/gtk/base16-gtk";
+  pathVars = import ./config/pathVars.nix config pkgs;
   compiledSassFile =
     pkgs.runCommand "style_ironbar" {nativeBuildInputs = with pkgs; [dart-sass jq];}
     ''
       #!/usr/bin/env bash
-      mkdir -p $out
-      cat > "$out/styleIronbar.scss" <<'EOF'
-      ${sassFile}
-      EOF
-      sass "$out/styleIronbar.scss" "$out/.config/ironbar/style.css"
+      set -euo pipefail
+      mkdir -p "$out/.config"
+      cp "${pathVars}" "$out/.config/_path-vars.scss"
+      sass --load-path="${imports}" --load-path="$out/.config" "${./config/style.scss}" "$out/.config/ironbar/style.css"
     '';
 in {
   options.hm.ironbar = {
@@ -36,15 +36,15 @@ in {
           "ironbar/style.css" = {
             source = "${compiledSassFile}/.config/ironbar/style.css";
             onChange = ''
-              if systemctl --user is-active ironbar.service; then
-                ${ironbar} style load-css "/home/$(whoami)/.config/ironbar/style.css"
+              if ${pkgs.systemd}/bin/systemctl --user is-active ironbar.service; then
+                ${ironbar} style load-css /home/$(whoami)/.config/ironbar/style.css
               fi
             '';
           };
           "ironbar/config.corn" = {
             text = import ./config/config.nix {inherit config pkgs lib;};
             onChange = ''
-              if systemctl --user is-active ironbar.service; then
+              if ${pkgs.systemd}/bin/systemctl --user is-active ironbar.service; then
                 ${ironbar} reload
               fi
             '';

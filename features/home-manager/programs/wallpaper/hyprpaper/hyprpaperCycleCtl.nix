@@ -4,7 +4,6 @@ pkgs.writeShellApplication {
   runtimeInputs = with pkgs; [socat];
   text = ''
     # hyprpapercyclectl status|stop
-    set -euo pipefail
 
     RUNTIME_DIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
     PIDFILE="$RUNTIME_DIR/hyprpapercycle.pid"

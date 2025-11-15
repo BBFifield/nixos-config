@@ -4,19 +4,16 @@
   lib,
   ...
 }: let
-  sassFile = import ./config/style.nix config pkgs;
+  walker = "${config.programs.walker.package}/bin/walker";
+
+  imports = "${pkgs.tintednix.root}/pkgs/themes/gtk/base16-gtk";
   compiledSassFile =
     pkgs.runCommand "style_walker" {nativeBuildInputs = with pkgs; [dart-sass jq];}
     ''
       #!/usr/bin/env bash
-      mkdir -p $out
-      cat > "$out/styleWalker.scss" <<'EOF'
-      ${sassFile}
-      EOF
-      sass "$out/styleWalker.scss" "$out/.config/walker/themes/style/style.css"
+      set -euo pipefail
+      sass --load-path="${imports}" "${./config/style.scss}" "$out/.config/walker/themes/style/style.css"
     '';
-  # CSS_FILE="$out/.config/walker/themes/style.css"
-  # { echo "@import url('file://${config.home.homeDirectory}/.config/walker/themes/colors.css');"; cat "$CSS_FILE"; } > temp_file && mv temp_file "$CSS_FILE"
 in {
   # imports = [./elephant];
 
@@ -35,36 +32,36 @@ in {
   config = lib.mkIf config.hm.walker.enable (
     lib.mkMerge [
       {
-        xdg.configFile = {
-          "elephant/menus/tintednix.toml".source =
-            (pkgs.formats.toml {}).generate "tintednix.toml"
-            {
-              name = "color scheme";
-              name_pretty = "Color Scheme";
-              action = "tintednix --update %VALUE%";
-              entries = let
-                entries =
-                  lib.mapAttrsToList (schemeName: schemeValue: {
-                    text = "${schemeName}";
-                    # value = "tintednix --update ${schemeName} ${schemeValue.variant}";
-                    value = "${schemeName}";
-                  })
-                  config.hm.tintednix.schemeVariantAndColors;
-              in
-                entries;
-            };
-          "elephant/menus/wallpapers.toml".source =
-            (pkgs.formats.toml {}).generate "wallpapers.toml"
-            {
-              name = "wallpapers";
-              name_pretty = "Wallpapers";
-              icon = "applications-other";
-              lua = "fetch_wallpapers";
-              lua_cache = true;
-              action = "notify-send %VALUE%";
-            };
-          "elephant/menus/fetch_wallpapers.lua".source = import ./elephant/fetch_wallpapers.nix {inherit config pkgs;};
-        };
+        # xdg.configFile = {
+        #   "elephant/menus/tintednix.toml".source =
+        #     (pkgs.formats.toml {}).generate "tintednix.toml"
+        #     {
+        #       name = "color scheme";
+        #       name_pretty = "Color Scheme";
+        #       action = "tintednix --update %VALUE%";
+        #       entries = let
+        #         entries =
+        #           lib.mapAttrsToList (schemeName: schemeValue: {
+        #             text = "${schemeName}";
+        #             # value = "tintednix --update ${schemeName} ${schemeValue.variant}";
+        #             value = "${schemeName}";
+        #           })
+        #           config.hm.tintednix.schemeVariantAndColors;
+        #       in
+        #         entries;
+        #     };
+        # "elephant/menus/wallpapers.toml".source =
+        #   (pkgs.formats.toml {}).generate "wallpapers.toml"
+        #   {
+        #     name = "wallpapers";
+        #     name_pretty = "Wallpapers";
+        #     icon = "applications-other";
+        #     lua = "fetch_wallpapers";
+        #     lua_cache = true;
+        #     action = "notify-send %VALUE%";
+        #   };
+        # "elephant/menus/fetch_wallpapers.lua".source = import ./elephant/fetch_wallpapers.nix {inherit config pkgs;};
+        # };
         # {
         #   name = "bookmarks";
         #   name_pretty = "Bookmarks";
@@ -220,17 +217,9 @@ in {
           source = "${compiledSassFile}/.config/walker/themes/style/style.css";
           # source = ./config/style.css;
           onChange = ''
-            (
-              log_file="${config.home.homeDirectory}/walker-reload.log"
-              echo "Checking for walker..." >> $log_file
-              XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
-              if [[ -S "$XDG_RUNTIME_DIR/walker-dmenu.sock" ]]; then
-                echo "ipc file exists" >> $log_file 2>&1
-                ${config.programs.walker.package}/bin/walker --theme style
-              else
-                echo "ipc file doesn't exist" >> $log_file
-              fi
-            )
+            if ${pkgs.systemd}/bin/systemctl --user is-active walker.service; then
+              ${walker} --theme style
+            fi
           '';
         };
         xdg.configFile."walker/themes/style/layout.xml".source = ./config/layout.xml;

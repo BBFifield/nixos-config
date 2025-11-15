@@ -5,8 +5,7 @@
 }: let
   notify-send = "${pkgs.libnotify}/bin/notify-send";
 in
-  pkgs.writeShellScript "wpaperdcycletoggle" ''
-    #!/usr/bin/env bash
+  pkgs.writeShellScript "wallpapercycletoggle" ''
     set -euo pipefail
 
     # Toggle wpaperd via wpaperctl (assumes wpaperctl is available)
@@ -32,10 +31,10 @@ in
     }
 
     notify_off() {
-      ${notify-send} -a wpaperd -t 5000 -i preferences-desktop-wallpaper-symbolic 'Wallpaper Cycle Paused' 'Wallpaper cycle paused'
+      ${notify-send} -a wpaperd -t 5000 -i preferences-desktop-wallpaper-symbolic 'Wallpaper Cycle Paused' ""
     }
     notify_on() {
-      ${notify-send} -a wpaperd -t 5000 -i preferences-desktop-wallpaper-symbolic 'Wallpaper Cycle Resumed' 'Wallpaper cycle resumed'
+      ${notify-send} -a wpaperd -t 5000 -i preferences-desktop-wallpaper-symbolic 'Wallpaper Cycle Resumed' 'Current sort method: Random'
     }
 
     ironbar_do_off() {

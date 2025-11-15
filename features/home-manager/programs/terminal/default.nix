@@ -15,7 +15,7 @@ in {
 
   options.hm.terminal = {
     default = mkOption {
-      type = with types; nullOr enum ["alacritty" "konsole"];
+      type = with types; enum ["alacritty" "konsole"];
       default = "alacritty";
     };
   };

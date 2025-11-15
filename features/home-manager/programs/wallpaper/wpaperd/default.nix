@@ -4,36 +4,33 @@
   pkgs,
   ...
 }:
-with lib; {
+with lib; let
+  configTemplate = sortMethod: {
+    default = {
+      duration = "30m";
+      mode = "center";
+      sorting = sortMethod;
+      transition = {
+        doorway = {};
+      };
+      exec = import ./onChange.nix {inherit config pkgs;};
+    };
+    any = {
+      path = "${config.home.homeDirectory}/Pictures/wallpapers";
+    };
+  };
+in {
   config = mkIf (config.hm.wallpaper.daemon == "wpaperd") {
-    xdg.configFile."wpaperd/chosen-wallpaper.toml".source = (pkgs.formats.toml {}).generate "chosen-wallpaper.toml" {
-      default = {
-        mode = "center";
-        transition = {
-          doorway = {};
-        };
-      };
-      any = {
-        path = "${config.home.homeDirectory}/.cache/wpaperd/wallpaper/current";
-      };
+    xdg.configFile = {
+      "wpaperd/configs/random.toml".source = (pkgs.formats.toml {}).generate "random.toml" (configTemplate "random");
+      "wpaperd/configs/ordered.toml".source = (pkgs.formats.toml {}).generate "ordered.toml" (configTemplate "ascending");
+      "wpaperd/configs/wpaperd.state".text = ''${config.hm.wallpaper.defaultSortMethod}'';
     };
 
     services.wpaperd = {
       enable = true;
       settings = lib.mkMerge [
-        (lib.mkIf (config.hm.wallpaper.cycle) {
-          default = {
-            duration = "30m";
-            mode = "center";
-            sorting = "random";
-            transition = {
-              doorway = {};
-            };
-          };
-          any = {
-            path = "${config.home.homeDirectory}/Pictures/wallpapers";
-          };
-        })
+        (lib.mkIf (config.hm.wallpaper.cycle) (configTemplate "${config.hm.wallpaper.defaultSortMethod}"))
         (lib.mkIf (!config.hm.wallpaper.cycle) {
           default = {
             mode = "center";

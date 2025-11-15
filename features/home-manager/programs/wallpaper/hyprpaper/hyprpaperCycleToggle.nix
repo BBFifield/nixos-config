@@ -9,9 +9,6 @@
   notify-send = "${pkgs.libnotify}/bin/notify-send";
 in
   pkgs.writeShellScript "hyprpapercycletoggle" ''
-    #!/usr/bin/env bash
-    set -euo pipefail
-
     # Toggle hyprpapercycle status
     # - Prefer hyprpapercyclectl when available (queries PID in XDG_RUNTIME_DIR)
     # - Otherwise start/stop hyprpapercycle directly

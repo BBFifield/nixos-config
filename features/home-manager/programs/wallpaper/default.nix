@@ -16,6 +16,10 @@
       default = "hyprpaper";
     };
     cycle = lib.mkEnableOption "Enable toggle script for cycling the wallpaper";
+    defaultSortMethod = lib.mkOption {
+      type = lib.types.enum ["random" "ordered"];
+      default = "random";
+    };
   };
 
   config = {

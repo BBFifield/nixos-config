@@ -88,16 +88,13 @@ in {
     })
 
     (let
-      sassFile = import ./regreet/style.nix config pkgs;
+      imports = "${pkgs.tintednix.root}/pkgs/themes/gtk/base16-gtk";
       compiledSassFile =
         pkgs.runCommand "style_regreet" {nativeBuildInputs = with pkgs; [dart-sass jq];}
         ''
           #!/usr/bin/env bash
-          mkdir -p $out
-          cat > "$out/styleRegreet.scss" <<'EOF'
-          ${sassFile}
-          EOF
-          sass "$out/styleRegreet.scss" "$out/.config/regreet/style.css"
+          set -euo pipefail
+          sass --load-path="${imports}" "${./regreet/style.scss}" "$out/.config/regreet/style.css"
         '';
     in
       mkIf (cfg.displayManager == "regreet") {
@@ -132,43 +129,46 @@ in {
           enable = true;
           settings = {
             default_session = {
-              # command = lib.mkForce "${pkgs.hyprland}/bin/hyprland --config /etc/greetd/hyprland.conf";
-              command = let
-                wlr-randr = "${pkgs.wlr-randr}/bin/wlr-randr";
-                regreet = "${pkgs.regreet}/bin/regreet";
-              in "${cage} -m last -s -d -- sh -c '${wlr-randr} --output HDMI-A-1 --mode 3840x2160 --scale 2 && ${regreet}'";
+              command = lib.mkForce "${pkgs.hyprland}/bin/hyprland --config /etc/greetd/hyprland.conf";
+              # command = let
+              #   wlr-randr = "${pkgs.wlr-randr}/bin/wlr-randr";
+              #   regreet = "${pkgs.regreet}/bin/regreet";
+              # in "${cage} -m last -s -d -- sh -c '${wlr-randr} --output HDMI-A-1 --mode 3840x2160 --scale 2 && ${regreet}'";
               user = "greeter";
             };
           };
         };
-        # environment.etc."greetd/hyprland.conf".text = ''
-        #   exec-once = ${pkgs.regreet}/bin/regreet; hyprctl dispatch exit
-        #   animations {
-        #     enabled=false
-        #   }
-        #   monitor=DP-1, highres@highrr,1920x0,1
-        #   monitor=DP-2, highres@highrr,3840x0,1
-        #   monitor=HDMI-A-1, 3840x2160@60,0x0,2,bitdepth,10
-        #   monitor=HDMI-A-2, highres@highrr,5760x0,1
-        #   misc {
-        #     disable_hyprland_logo = true
-        #     disable_splash_rendering = true
-        #     disable_hyprland_qtutils_check = true
-        #   }
-        #   decoration {
-        #     blur {
-        #       enabled = false;
-        #     }
-        #   }
-        #   dwindle {
-        #     preserve_split=yes
-        #     pseudotile=yes
-        #   }
-        #   general {
-        #     layout=dwindle
-        #     resize_on_border=true
-        #   }
+        environment.etc."greetd/hyprland.conf".text = ''
+          exec-once = ${pkgs.regreet}/bin/regreet; hyprctl dispatch exit
+          animations {
+            enabled=false
+          }
+          env = "HYPRCURSOR_THEME,${config.nixos.desktop.theme.cursorTheme.name}"
+          env = "XCURSOR_THEME,${config.nixos.desktop.theme.cursorTheme.name}"
 
+          monitor=DP-1, highres@highrr,1920x0,1
+          monitor=DP-2, highres@highrr,3840x0,1
+          monitor=HDMI-A-1, 3840x2160@60,0x0,2,bitdepth,10
+          monitor=HDMI-A-2, highres@highrr,5760x0,1
+          misc {
+            disable_hyprland_logo = true
+            disable_splash_rendering = true
+            disable_hyprland_qtutils_check = true
+          }
+          decoration {
+            blur {
+              enabled = false;
+            }
+          }
+          dwindle {
+            preserve_split=yes
+            pseudotile=yes
+          }
+          general {
+            layout=dwindle
+            resize_on_border=true
+          }
+        '';
         # Otherwise drives will be automounted by the greeter user
         environment.etc."polkit-1/rules.d/10-udisks2-seat-local.rules".text = ''
           polkit.addRule(function(action, subject) {

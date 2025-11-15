@@ -1,13 +1,39 @@
+@use "./common/helpers" as h with (
+  $token-mode: "css-var"
+);
+@use "./common/shadows" as s with (
+  $gtk-version: "gtk4"
+);
+
 @import url("colors.css");
 
+.mpris-overlay > box > button.circular.flat:active {
+  --shadow-inset: #{s.shadow-value(inset, transparent)};
+}
+stack > scrolledwindow > viewport > list {
+  --shadow-separator-mimic-bottom-horizontal: #{s.shadow-value(separator-bottom-horizontal, base01)};
+  --border-color: var(--base01-black-80-dark);
+}
+
+.notification-action button.text-button {
+  color: var(--base0D);
+  border-radius: 50px;
+}
+.notification-action button.text-button:hover:not(:active) {
+  color: var(--base01);
+}
+flowboxchild {
+  background-color: transparent;
+}
+
 .control-center {
-  margin: 20px;
+  margin: 1px 38px 54px 38px; // total shadow size
   border-radius: 10px;
 
   color: var(--base0D);
   /* The Control Center which contains the old notifications + widgets */
   background: var(--base01);
-  box-shadow: var(--shadow-wide-base01);
+  @include s.apply-shadow(wide, base01);
 }
 
 .notification-group-header {
@@ -24,70 +50,76 @@
 .notification-group-collapse-button {
   color: var(--base0A);
   background-color: var(--base0A-black-60);
-  box-shadow: var(--shadow-thin-base0A-dull);
+  @include s.apply-shadow(thin, base0A-dull);
 }
 .notification-group-collapse-button:hover:not(:active) {
   color: var(--base01);
   background-color: var(--base0A);
-  box-shadow: var(--shadow-thin-base0A);
+  @include s.apply-shadow(thin, base0A);
 }
 .notification-group-collapse-button:active {
-  box-shadow: var(--shadow-inset-base0A-dull);
+  @include s.apply-shadow(inset, base0A-dull);
 }
 
 .notification-group-close-all-button,
 .control-center-clear-all {
   color: var(--base08);
   background-color: var(--base08-black-60);
-  box-shadow: var(--shadow-thin-base08-dull);
+  @include s.apply-shadow(thin, base08-dull);
 }
 .notification-group-close-all-button:hover:not(:active),
 .control-center-clear-all:hover:not(:active) {
   color: var(--base01);
   background-color: var(--base08);
-  box-shadow: var(--shadow-thin-base08);
+  @include s.apply-shadow(thin, base08);
 }
 .notification-group-close-all-button:active,
 .control-center-clear-all:active {
-  box-shadow: var(--shadow-inset-base08-dull);
+  @include s.apply-shadow(inset, base08-dull);
 }
 
 widget.right.top {
   background-color: transparent;
 }
 .close-button {
-  margin: 1px 10px 8px 6px;
+  margin: 1px 2px 8px 1px;
   color: var(--base08);
   background-color: var(--base08-black-60);
-  box-shadow: var(--shadow-thin-base08-dull);
+  @include s.apply-shadow(thin, base08-dull);
 }
 .close-button:hover {
   color: var(--base01);
   background-color: var(--base08);
-  box-shadow: var(--shadow-thin-base08);
+  @include s.apply-shadow(thin, base08);
 }
 .close-button:active {
   color: var(--base08);
   background-color: var(--base08-black-60);
-  box-shadow: var(--shadow-inset-thin-base08-dull);
+  @include s.apply-shadow(inset-thin, base08-dull);
 }
 
 .notification-content image {
+  color: var(--base0D);
+  border-radius: 0px;
+  margin-right: 10px;
   padding: 8px 6px 8px 0px;
   -gtk-icon-shadow:
     1px 2px 2px rgba(0, 0, 0, 0.17),
     2px 4px 4px rgba(0, 0, 0, 0.2);
 }
+.notification:hover .notification-content image {
+  color: var(--base01);
+}
 .notification {
   border-width: 0px;
-  border-radius: 50px;
+  border-radius: 10px;
   margin: 0px;
   background-color: var(--base02);
-  box-shadow: var(--shadow-thin-base02);
+  @include s.apply-shadow(thin, base02);
 }
 .notification:hover {
   background-color: var(--base0D);
-  box-shadow: var(--shadow-thin-base0D);
+  @include s.apply-shadow(thin, base0D);
 }
 .notification-background {
   margin: 1px 6px 8px 6px;
@@ -100,64 +132,76 @@ widget.right.top {
 .notification-row .notification-background .notification .notification-default-action .notification-content {
   margin: 0px 6px;
 }
-.notification-row .notification-background .notification .notification-default-action .notification-content .text-box .summary {
-  /* Notification summary/title */
-  font-size: 19px;
-  color: var(--base0D);
+
+.notification-row {
+  > revealer > widget > .notification-background > .notification > .notification-default-action > .notification-content .text-box {
+    color: var(--base0D);
+    .summary {
+      font-size: 19px;
+      color: inherit;
+    }
+    .time {
+      margin-right: 20px;
+      color: var(--base0A);
+    }
+    .body {
+      font-size: 16px;
+      color: inherit;
+    }
+  }
 }
-.notification-row .notification-background .notification .notification-default-action .notification-content .text-box .time {
-  margin-right: 10px;
-  color: var(--base0A);
+
+/* Notification summary/title */
+.notification-row {
+  > revealer > widget > .notification-background > .notification:hover > .notification-default-action > .notification-content {
+    color: var(--base01);
+    .text-box {
+      .summary,
+      .time,
+      .body {
+        color: var(--base01);
+      }
+    }
+  }
 }
-.notification-row .notification-background .notification .notification-default-action .notification-content .text-box .body {
-  /* Notification body */
-  font-size: 16px;
-  color: var(--base0D);
-}
-.notification-row > revealer > widget > .notification-background > .notification > .notification-default-action:hover > .notification-content,
-.notification-row > revealer > widget > .notification-background > .notification > .notification-default-action:hover > .notification-content .text-box .summary,
-.notification-row > revealer > widget > .notification-background > .notification > .notification-default-action:hover > .notification-content .text-box .time,
-.notification-row > revealer > widget > .notification-background > .notification > .notification-default-action:hover > .notification-content .text-box .body {
-  /* Notification summary/title */
-  color: var(--base01);
-}
+
 .floating-notifications .notification-row .notification-background {
   margin: 1px 38px 55px 1px;
 }
 .floating-notifications .notification-row .notification-background .notification {
   margin: 0px;
-  box-shadow: var(--shadow-wide-base02);
+  @include s.apply-shadow(wide, base02);
 }
 .floating-notifications animatedlistitem:first-child > .notification-row .notification-background {
   margin: 20px 38px 55px 1px;
 }
 .floating-notifications animatedlistitem:first-child > .notification-row .notification-background .notification {
   margin: 0px;
-  box-shadow: var(--shadow-wide-base02);
+  @include s.apply-shadow(wide, base02);
 }
 .floating-notifications .notification-row .notification-background .notification:hover {
-  box-shadow: var(--shadow-wide-base0D);
+  @include s.apply-shadow(wide, base0D);
 }
 .floating-notifications animatedlistitem:first-child > .notification-row .notification-background .notification:hover {
-  box-shadow: var(--shadow-wide-base0D);
+  @include s.apply-shadow(wide, base0D);
+}
+
+.notification-row:disabled,
+.notification-row:disabled *:disabled,
+row.notification-group > widget > overlay > box > widget:disabled {
+  opacity: 1;
+  filter: opacity(1);
 }
 
 .widget-title > button {
   border-radius: 50px;
 }
-/* box.widget-notifications viewport { */
-/*   margin: 0px; */
-/*   background-color: transparent; */
-/*   box-shadow: none; */
-/* } */
+
 list.control-center-list > row {
   background-color: transparent;
 }
 list > row {
   background-color: var(--base02);
-}
-row.notification-group > widget > overlay > box > widget:disabled {
-  --disabled-opacity: 0.9;
 }
 row.notification-group {
   padding-top: 8px;
@@ -183,22 +227,40 @@ box.widget-title {
   margin: 0px 6px 6px 6px;
   padding: 6px;
   border-radius: 0px;
-  border-bottom: 1px solid var(--base01-black-80);
-  box-shadow: var(--shadow-separator-mimic-bottom-horizontal-base01);
 }
 box.widget-dnd {
-  margin: 0px 6px;
+  margin: 6px 6px 0px 6px;
   padding: 0px 6px;
 }
 box.widget-dnd > label {
   font-size: 16px;
   color: var(--base0D);
 }
-
 .notification-group-icon {
   color: var(--base0D);
 }
+switch.control-center-dnd {
+  border-radius: 50px;
+}
 switch.control-center-dnd:not(:checked) {
   border-radius: 50px;
-  box-shadow: var(--shadow-inset-base01);
+  @include s.apply-shadow(inset, base01);
+}
+
+.widget-mpris-player {
+  box-shadow: s.shadow-value(thin, transparent);
+}
+.mpris-overlay > box {
+  > button.circular {
+    &:hover,
+    &.flat:hover {
+      background-color: var(--base0D);
+    }
+    &:active {
+      background-color: var(--base0D-black-60);
+    }
+    &.flat:active {
+      background-color: transparent;
+    }
+  }
 }

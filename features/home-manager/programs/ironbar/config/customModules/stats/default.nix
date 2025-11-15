@@ -187,6 +187,23 @@
               }
             ]
           }
+          {
+            type = "box"
+            orientation = "horizontal"
+            show_if = "#show_theme_info"
+            widgets = [
+              {
+                type = "label"
+                class = "wallpaper-label"
+                label = "󰸉  "
+                tooltip = "Current Wallpaper"
+              }
+              {
+                type = "label"
+                label = "#wallpaper_name"
+              }
+            ]
+          }
         ]
       }
     ]

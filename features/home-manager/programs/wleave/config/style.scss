@@ -1,0 +1,57 @@
+@use "./common/helpers" as h with (
+  $token-mode: "css-var"
+);
+@use "./common/shadows" as s with (
+  $gtk-version: "gtk4"
+);
+
+@import url("colors.css");
+
+window {
+  background-color: rgba(0, 0, 0, 0.2);
+  background-image: none;
+  box-shadow: none;
+}
+
+button {
+  border: none;
+  border-radius: 50%;
+
+  color: var(--base08);
+
+  background-color: var(--base03);
+  background-image: none;
+  @include s.apply-shadow(wide, base03);
+
+  transition-timing-function: linear;
+  transition-duration: 0.2s;
+  transition-property: background-color, color, box-shadow;
+}
+button:hover {
+  background-color: var(--base08);
+  @include s.apply-shadow(wide, base08);
+}
+button:active {
+  background-color: var(--base03);
+  @include s.apply-shadow(inset, base03);
+}
+button:hover label {
+  color: var(--base03);
+  text-shadow:
+    1px 2px 2px rgba(0, 0, 0, 0.17),
+    2px 4px 4px rgba(0, 0, 0, 0.2),
+    -1px -1px 0px var(--base03-white-90-dark);
+}
+button label,
+button:active label {
+  font-family:
+    JetBrainsMono Nerd Font,
+    sans-serif;
+  font-size: 100px;
+  font-weight: normal;
+  color: var(--base08);
+  text-shadow:
+    1px 2px 2px rgba(0, 0, 0, 0.17),
+    2px 4px 4px rgba(0, 0, 0, 0.2),
+    -1px -1px 0px var(--base08-white-65-dark);
+}

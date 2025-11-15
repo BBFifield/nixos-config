@@ -84,8 +84,23 @@ in ''
       on_scroll_down = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
     }
 
+    $bindmode = {
+      type = "bindmode"
+      truncate = "start"
+    }
 
-    $left = [ ${isEnabled "walker" "$walker_popup"} $workspaces ]
+    $music = {
+      type = "music"
+      player_type = "mpris"
+      format = "{title} / {artist}"
+      truncate.mode = "end"
+      truncate.max_length = 20
+      icons.play = ""
+      icons.pause = ""
+      music_dir = "${config.home.homeDirectory}/Music"
+    }
+
+    $left = [ ${isEnabled "walker" "$walker_popup"} $bindmode $workspaces ]
     $center = [ $clock $notifications ]
     $right = [ ${isEnabled "tray-revealer" "$tray_revealer"} $tray ${isEnabled "tools" "$tools_popup"} ${isEnabled "stats" "$stats_popup"} ${isEnabled "network" "$network_popup"} $bluetooth $clipboard $volume ${isEnabled "power" "$power_popup"} ]
   }
@@ -95,7 +110,7 @@ in ''
     height = 30
     anchor_to_edges = true
     position = "top"
-    popup_gap = 20
+    popup_gap = 10
     icon_theme = "${config.hm.theme.iconTheme}"
 
     ironvar_defaults = {
@@ -144,6 +159,7 @@ in ''
       base0D = "default"
       base0E = "default"
       base0F = "default"
+      wallpaper_name = "default"
     }
 
     start = $left
