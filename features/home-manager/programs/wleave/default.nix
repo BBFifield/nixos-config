@@ -21,10 +21,6 @@ in {
     home.packages = [compiledSassFile pkgs.wleave];
 
     xdg.configFile = {
-      # XDG_CONFIG_HOME points to wleave directory to stop /.config/gtk-4.0/gtk.css from overriding the css
-      # "wleave/gtk-4.0/gtk.css" = {
-      #   text = import ./config/style.nix {inherit config pkgs;};
-      # };
       "wleave/gtk-4.0/gtk.css" = {
         source = "${compiledSassFile}/.config/wleave/gtk-4.0/gtk.css";
         onChange = '''';

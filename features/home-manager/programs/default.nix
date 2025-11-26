@@ -1,14 +1,12 @@
 [
   ./browsers
-  ./dconf
   ./editors
-  ./gnome-shell
+  ./gaming
+  ./gnome
   ./hyprland
   ./ironbar
-  ./klassy
   ./multimedia
   ./plasma
-  ./satty
   ./source-control
   ./ssh
   ./swaync

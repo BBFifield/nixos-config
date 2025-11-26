@@ -21,6 +21,7 @@
     theme = "Klassy";
   };
 in {
+  imports = [./klassy];
   options.hm.plasma = {
     enable = lib.mkEnableOption "Enable plasma configuration";
   };

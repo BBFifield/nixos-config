@@ -162,7 +162,7 @@
                 type = "label"
                 class = "gtk-label"
                 label = "  "
-                tooltip = "GTK3 Theme"
+                tooltip = "GTK Theme"
               }
               {
                 type = "label"

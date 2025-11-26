@@ -22,7 +22,7 @@ in {
   in
     lib.mkIf (config.hm.tintednix.targets.firefox.enable)
     {
-      home.activation.firefox_base16 = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      home.activation.firefoxBase16 = lib.hm.dag.entryAfter ["writeBoundary"] ''
         if ! test -f ${manifestFile}; then
           mkdir -p ${config.home.homeDirectory}/.mozilla/native-messaging-hosts
           jq ".path = \"${launcherScript}\"" "${repo}/manifest.json" >"${manifestFile}"

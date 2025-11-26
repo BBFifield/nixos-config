@@ -1,6 +1,6 @@
 {}: {
   theme = {
-    manager = {
+    mgr = {
       cwd = {fg = "green";};
       hovered = {
         fg = "black";

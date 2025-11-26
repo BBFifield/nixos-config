@@ -2,15 +2,16 @@
 
 # Function to get CPU usage
 get_cpu_usage() {
-    top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
+  top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
 }
 
 # Function to get memory usage
 get_memory_usage() {
-  local usage=$(free | grep Mem | awk '{print $3*0.000001"GB"}')
-  local percentage=$(free | grep Mem | awk '{print $3/$2 * 100}')
-  local formatted=$(printf "%.2fGiB (%.0f%%)" "$usage" "$percentage")
-  echo $formatted
+  # free outputs kB on many systems; adjust if your free reports differently
+  read -r mem_used mem_total < <(free --kilo | awk '/Mem:/ {print $3, $2}')
+  local used_gib=$(awk "BEGIN {printf \"%.2f\", $mem_used/1024/1024}")
+  local percent=$(awk "BEGIN {printf \"%.0f\", $mem_used/$mem_total*100}")
+  printf "%.2fGiB (%s%%)\n" "$used_gib" "$percent"
 }
 
 # Function to get disk usage

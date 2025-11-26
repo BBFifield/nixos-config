@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  ...
 }: let
   notify-send = "${pkgs.libnotify}/bin/notify-send";
 in
@@ -20,7 +19,6 @@ in
     ironbar_set_status() {
       if command -v ironbar >/dev/null 2>&1; then
         ironbar var set wallpaper_cycle_status "$1"
-        ironbar var set is_wallpaper_cycle_on "$2"
       fi
     }
 
@@ -31,20 +29,20 @@ in
     }
 
     notify_off() {
-      ${notify-send} -a wpaperd -t 5000 -i preferences-desktop-wallpaper-symbolic 'Wallpaper Cycle Paused' ""
+      ${notify-send} -a wpaperd -e -t 5000 -i preferences-desktop-wallpaper-symbolic 'Wallpaper Cycle [OFF]' ""
     }
     notify_on() {
-      ${notify-send} -a wpaperd -t 5000 -i preferences-desktop-wallpaper-symbolic 'Wallpaper Cycle Resumed' 'Current sort method: Random'
+      ${notify-send} -a wpaperd -e -t 5000 -i preferences-desktop-wallpaper-symbolic 'Wallpaper Cycle [ON]' 'Sort method: random'
     }
 
     ironbar_do_off() {
       [ "$ironbar_enabled" = "true" ] || return 0
-      ironbar_set_status 'wpaperdcycle OFF' 'false'
+      ironbar_set_status 'Wallpaper Cycle [OFF]' 'false'
       ironbar_toggle_icon_class
     }
     ironbar_do_on() {
       [ "$ironbar_enabled" = "true" ] || return 0
-      ironbar_set_status 'wpaperdcycle ON' 'true'
+      ironbar_set_status 'Wallpaper Cycle [ON]' 'true'
       ironbar_toggle_icon_class
     }
 
@@ -62,14 +60,14 @@ in
 
     # Main logic (use wpaperctl exclusively)
     if wpaperctl_running; then
-      # If running -> toggle-pause (preferred), falling back to pause variants
-      "$WPAPERCTL_CMD" toggle-pause 2>/dev/null || "$WPAPERCTL_CMD" pause-wallpaper 2>/dev/null || "$WPAPERCTL_CMD" pause 2>/dev/null || true
+      # If running -> toggle-pause (preferred)
+      "$WPAPERCTL_CMD" toggle-pause 2>/dev/null || true
       ironbar_do_off
       notify_off
       exit 0
     else
       # Not running -> try resume first
-      "$WPAPERCTL_CMD" resume-wallpaper 2>/dev/null || "$WPAPERCTL_CMD" resume 2>/dev/null || true
+      "$WPAPERCTL_CMD" resume-wallpaper 2>/dev/null || true
 
       # Poll for running status briefly
       tries=0

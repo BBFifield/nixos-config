@@ -16,8 +16,8 @@ in {
           "uwsm app -t service -u walker.service -- walker --gapplication-service"
         ]
         ++ (lib.optionals (config.hm.wallpaper.daemon == "hyprpaper") [
-          "uwsm app -t service -u hyprpapercycle.service -- ${(import ../../wallpaper/hyprpaper/hyprpaperCycle.nix {inherit pkgs;})}/bin/hyprpapercycle ${config.home.homeDirectory}/Pictures/wallpapers 20"
-          "uwsm app -t service -u hyprpapercyclectl.service -- ${(import ../../wallpaper/hyprpaper/hyprpaperCycleCtl.nix {inherit pkgs;})}/bin/hyprpapercyclectl"
+          "uwsm app -t service -u hyprpapercycle.service -- ${(import ../../wallpaper/hyprpaper/cycle.nix {inherit config pkgs;})}/bin/hyprpapercycle 300 random"
+          "uwsm app -t service -u hyprpapercyclectl.service -- ${(import ../../wallpaper/hyprpaper/cycleCtl.nix {inherit pkgs;})}/bin/hyprpapercyclectl"
         ]);
     };
     # Currently necessary systemd unit to restart script whenever shellevents exits due to unbound variable

@@ -8,7 +8,7 @@ with lib; {
   config = mkIf (config.hm.wallpaper.daemon == "hyprpaper") (
     lib.mkMerge [
       (mkIf (config.hm.wallpaper.cycle) {
-        home.packages = [(import ./hyprpaperCycleCtl.nix {inherit pkgs;})];
+        home.packages = [(import ./cycleCtl.nix {inherit pkgs;})];
       })
 
       {

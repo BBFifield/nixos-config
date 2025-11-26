@@ -4,8 +4,12 @@
   lib,
   ...
 }: let
-  cfg = config.hm.yazi;
+  plugins = import ./plugins.nix {inherit pkgs;};
+
+  setWallpaper = "${import ../wallpaper/hyprpaper/setWallpaper.nix {inherit pkgs;}}/bin/apply-wallpaper";
 in {
+  imports = [./filechooser.nix];
+
   options.hm.yazi = {
     enable = lib.mkEnableOption "Enable Yazi, the terminal file manager.";
   };
@@ -14,121 +18,94 @@ in {
     {
       home.packages = with pkgs; [
         ueberzugpp
+        trash-cli # for recycle-bin plugin
+        mediainfo # for mediainfo plugin
+        imagemagick # for mediainfo plugin
+        ouch # for ouch plugin
+        dragon-drop # for drag and drop
       ];
-      programs.yazi = let
-        pluginPaths = [
-          {
-            url = "https://github.com/Rolv-Apneseth/starship.yazi.git";
-            ref = "main";
-            rev = "6c639b474aabb17f5fecce18a4c97bf90b016512";
-          }
-          {
-            url = "https://github.com/DreamMaoMao/keyjump.yazi.git";
-            ref = "main";
-            rev = "4fb2bc3ae51993c7196b32bc781b5c5d0ae1e437";
-          }
-        ];
-      in {
+      programs.yazi = {
         enable = true;
         enableBashIntegration = true;
         keymap = {
-          manager = {
-            prepend_keymap = [
-              {
-                on = ["i"];
-                run = "plugin keyjump keep";
-                desc = "Keyjump (Keep mode)";
-              }
-              {
-                on = ["i"];
-                run = "plugin keyjump";
-                desc = "Keyjump (Normal mode)";
-              }
-              {
-                on = ["i"];
-                run = "plugin keyjump select";
-                desc = "Keyjump (Select mode)";
-              }
-              {
-                on = ["i"];
-                run = "plugin keyjump global";
-                desc = "Keyjump (Global mode)";
-              }
-              {
-                on = ["i"];
-                run = "plugin keyjump 'global once'";
-                desc = "Keyjump (once Global mode)";
-              }
-            ];
+          mgr = {
+            prepend_keymap =
+              builtins.concatLists (lib.mapAttrsToList (name: value: value.prepend_keymap) plugins)
+              ++ [
+                {
+                  on = "!";
+                  for = "unix";
+                  run = ''shell "$SHELL" --block'';
+                  desc = "Open $SHELL here";
+                }
+                {
+                  on = "<C-n>";
+                  run = ''shell -- dragon -x -i -T "$0"'';
+                  desc = "Drag and drop";
+                }
+                {
+                  on = ["g" "r"];
+                  run = ''shell -- ya emit cd "$(git rev-parse --show-toplevel)"'';
+                  desc = "Go to top-level of git repo";
+                }
+                {
+                  on = "y";
+                  run = [''shell -- for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list'' "yank"];
+                  desc = "Copy selected files to the system clipboard while yanking";
+                }
+              ];
           };
         };
         theme = (import ./theme.nix {}).theme;
-        settings = {
-          manager = {
-            show_hidden = true;
-          };
-        };
-        plugins = let
-          plugins' = lib.listToAttrs (lib.map (path: {
-              name = let
-                name = lib.removePrefix "https://github.com/" (lib.removeSuffix ".yazi" (lib.removeSuffix ".git" path.url));
-              in
-                name;
-              value = builtins.fetchGit path;
-            })
-            pluginPaths);
-        in
-          plugins';
+        settings = lib.mkMerge [
+          {
+            mgr = {
+              show_hidden = true;
+            };
+            plugin = {
+              prepend_preloaders =
+                builtins.concatLists (lib.mapAttrsToList (name: value: value.settings.prepend_preloaders) plugins);
+              prepend_previewers =
+                builtins.concatLists (lib.mapAttrsToList (name: value: value.settings.prepend_previewers) plugins);
+            };
+          }
+          (lib.mkIf (config.hm.wallpaper.daemon == "hyprpaper") {
+            opener = {
+              set-wallpaper = [
+                {
+                  run = ''${setWallpaper} $1'';
+                  for = "linux";
+                  desc = "Set as wallpaper 󰸉";
+                }
+              ];
+              edit-image-satty = [
+                {
+                  run = ''satty --filename $1'';
+                  for = "linux";
+                  desc = "Edit image with Satty 󱇣";
+                }
+              ];
+              edit-image-gimp = [
+                {
+                  run = ''gimp -s $1'';
+                  for = "linux";
+                  desc = "Edit image with GIMP 󱇣";
+                }
+              ];
+            };
+            open = {
+              prepend_rules = [
+                {
+                  mime = "image/*";
+                  use = ["open" "set-wallpaper" "edit-image-satty" "edit-image-gimp"];
+                }
+              ];
+            };
+          })
+        ];
+        plugins = builtins.mapAttrs (name: _: pkgs.yaziPlugins.${name}) plugins;
 
-        initLua = let
-          requireStrings = lib.map (path: let
-            name = lib.removePrefix "https://github.com/" (lib.removeSuffix ".yazi" (lib.removeSuffix ".git" path.url));
-          in ''require("${name}"):setup()'')
-          pluginPaths;
-        in
-          (lib.mkIf (config.hm.starship.enable)) (lib.concatLines (requireStrings
-            ++ [
-              ''
-                local old_build = Tab.build
-
-                Tab.build = function(self, ...)
-                  local bar = function(c, x, y)
-                    if x <= 0 or x == self._area.w - 1 then
-                      return ui.Bar(ui.Bar.TOP):area(ui.Rect.default)
-                    end
-
-                    return ui.Bar(ui.Bar.TOP)
-                      :area(ui.Rect({
-                        x = x,
-                        y = math.max(0, y),
-                        w = ya.clamp(0, self._area.w - x, 1),
-                        h = math.min(1, self._area.h),
-                      }))
-                      :symbol(c)
-                  end
-
-                  local c = self._chunks
-                  self._chunks = {
-                    c[1]:pad(ui.Pad.y(1)),
-                    c[2]:pad(ui.Pad(1, c[3].w > 0 and 0 or 1, 1, c[1].w > 0 and 0 or 1)),
-                    c[3]:pad(ui.Pad.y(1)),
-                  }
-
-                  local style = th.mgr.border_style
-                  self._base = ya.list_merge(self._base or {}, {
-                    ui.Bar(ui.Bar.RIGHT):area(self._chunks[1]):style(style),
-                    ui.Bar(ui.Bar.LEFT):area(self._chunks[1]):style(style),
-
-                    bar("┬", c[1].right - 1, c[1].y),
-                    bar("┴", c[1].right - 1, c[1].bottom - 1),
-                    bar("┬", c[2].right, c[2].y),
-                    bar("┴", c[2].right, c[2].bottom - 1),
-                  })
-
-                  old_build(self, ...)
-                end
-              ''
-            ]));
+        initLua = lib.concatStrings (lib.mapAttrsToList (name: value: value.init) plugins);
       };
     }
   ];

@@ -15,6 +15,16 @@ in ''
       type = "workspaces"
       class = "linked"
       all_monitors = false
+      name_map = {
+        1 = "󰖟"
+        2 = "󰅩"
+        3 = "󰷏"
+        5 = "󱠓"
+        6 = "󰝚"
+        7 = "󰤚"
+        8 = "󰊗"
+        9 = "󰻞"
+      }
       favorites = [ "1" "2" "3" "4" "5" ]
     }
 
@@ -117,18 +127,14 @@ in ''
       show_tray = "false"
       tray_icon = ""
       night_light_icon = "󱩍"
-      night_light_status = "OFF"
+      night_light_status = "[OFF]"
       show_night_light_slider = "false"
-      is_wallpaper_cycle_on = "${
+      wallpaper_cycle_status = "Wallpaper Cycle ${
     if (config.hm.wallpaper.cycle)
-    then "true"
-    else "false"
+    then "[ON]"
+    else "[OFF]"
   }"
-      wallpaper_cycle_status = "Wallpaper cycle ${
-    if (config.hm.wallpaper.cycle)
-    then "ON"
-    else "OFF"
-  }"
+      gamemode_status = "Gamemode [OFF]"
       network_status = "Not connected to internet"
       cpu_stats = "default"
       ram_stats = "default"

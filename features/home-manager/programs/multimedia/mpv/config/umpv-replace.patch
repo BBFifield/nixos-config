@@ -1,0 +1,11 @@
+--- a/TOOLS/umpv
++++ b/TOOLS/umpv
+@@ -79,6 +79,8 @@ def start_mpv(files: Iterable[str], socket_path: str) -> None:
+     mpv_command.extend([
+         "--profile=builtin-pseudo-gui",
+         f"--input-ipc-server={socket_path}",
++        "--force-window=immediate",
++        "--keep-open=always",
+         "--",
+     ])
+     mpv_command.extend(files)

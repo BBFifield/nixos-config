@@ -3,6 +3,6 @@
   pkgs,
   ...
 }: {
-  services.transmission.enable = true;
+  # services.transmission.enable = true;
   environment.systemPackages = with pkgs; [stig];
 }

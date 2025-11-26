@@ -36,9 +36,9 @@ in {
 
     xdg.portal = {
       enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-hyprland
-        pkgs.xdg-desktop-portal-gtk
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-hyprland
+        xdg-desktop-portal-gtk
       ];
       config.common.default = [
         "hyprland"
@@ -47,7 +47,7 @@ in {
     };
 
     hm = {
-      wallpaper.daemon = "wpaperd";
+      wallpaper.daemon = "hyprpaper";
       hyprland.hyprsunset.enable = true;
       hyprland.hyprlock.enable = true;
       walker.enable = true;

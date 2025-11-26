@@ -7,6 +7,7 @@
     ./mpv
     ./tauon
     ./fragments
+    ./satty
   ];
   config = {
     home.packages = with pkgs; [
@@ -17,12 +18,20 @@
       gimp3
       amberol
       recordbox
+      loupe
     ];
 
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {
         "inode/directory" = ["yazi.desktop"];
+        "image/gif" = ["org.gnome.Loupe.desktop"];
+        "image/jpeg" = ["org.gnome.Loupe.desktop"];
+        "image/pjpeg" = ["org.gnome.Loupe.desktop"];
+        "image/png" = ["org.gnome.Loupe.desktop"];
+        "image/vnd.adobe.photoshop" = ["gimp.desktop"];
+        "image/webp" = ["firefox.desktop"];
+        "image/x-adobe-dng" = ["gimp.desktop"];
       };
     };
 

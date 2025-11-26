@@ -16,8 +16,8 @@
     name = config.hm.theme.iconTheme;
   };
   font = {
-    name = "Cantarell"; #"Sans";
-    size = lib.mkForce 10;
+    name = config.hm.theme.fonts.defaultMonospace; #"Sans";
+    size = lib.mkForce 16;
   };
 in {
   options.hm.hyprland = {
@@ -70,7 +70,7 @@ in {
             enabled = true;
             passes = 3;
             new_optimizations = "on";
-            # popups = true;
+            popups = true;
             # popups_ignorealpha = 0.7;
           };
         };
@@ -131,21 +131,33 @@ in {
           f = regex: "float, class:^(${regex})$";
         in [
           (f "org.gnome.Calculator")
-          (f "pavucontrol")
           (f "nm-connection-editor")
-          (f "blueberry.py")
           (f "org.gnome.design.Palette")
           (f "Color Picker")
           (f "xdg-desktop-portal")
           (f "xdg-desktop-portal-gnome")
           (f "dev.benz.walker")
           (f "com.network.manager")
+
+          "workspace 0, initialClass:^(Slack)$"
+          "workspace 0, initialClass:^(discord)$"
+          "workspace 9, initialClass:^(steam)$"
+          "workspace 8, initialClass:^(mpv)$"
+          "workspace 7, initialClass:^(com.saivert.pwvucontrol)$"
+          "workspace 7, initialClass:^(tauonmb)$"
+          "workspace 7, initialClass:^(ca.edestcroix.Recordbox)$"
+          "workspace 7, initialClass:^(org.gnome.Music)$"
+          "workspace 6, initialClass:^(org.gnome.Loupe)$"
+          "workspace 6, initialClass:^(gimp)$"
+          "workspace 3, initialClass:^(de.haeckerfelix.Fragments)$"
           "workspace 3, class:^(org.gnome.Nautilus)$"
-          "workspace 2, class:^(.*${config.hm.browsers.defaultBrowser}.*)$"
-          "workspace 1, class:^(VSCodium)$"
-          "opacity 0.95 override 0.9 override, class:^(Alacritty)$"
           "workspace 3, initialTitle:^(Yazi)$"
-          "workspace 1, initialTitle:^(NVIM)$"
+          "workspace 2, class:^(VSCodium)$"
+          "workspace 2, initialTitle:^(NVIM)$"
+          "workspace 1, class:^(.*${config.hm.browsers.defaultBrowser}.*)$"
+
+          "opacity 0.95 override 0.90 override, initialTitle:^(NVIM)$"
+          "opacity 1.0 override 0.95 override, class:^(Alacritty)$"
           "opacity 1.0 override 0.95 override, class:^(dev.benz.walker)$"
         ];
         layerrule = [
@@ -159,6 +171,7 @@ in {
           "blur, swaync-control-center"
           "ignorealpha 0.8, swaync-control-center"
           "animation slide top, swaync-control-center"
+          "animation popin, hyprpaper"
         ];
 
         xwayland = {

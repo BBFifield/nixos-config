@@ -58,10 +58,10 @@ in
     }
 
     notify_on() {
-      command -v "$NOTIFY" >/dev/null 2>&1 && "$NOTIFY" -a hyprsunset -t 5000 -i "$ICON_ON" 'Night Light On' 'Night light has been switched on'
+      command -v "$NOTIFY" >/dev/null 2>&1 && "$NOTIFY" -a hyprsunset -e -t 5000 -i "$ICON_ON" 'Night Light [ON]' 'Night light has been switched on'
     }
     notify_off() {
-      command -v "$NOTIFY" >/dev/null 2>&1 && "$NOTIFY" -a hyprsunset -t 5000 -i "$ICON_OFF" 'Night Light Off' 'Night light has been switched off'
+      command -v "$NOTIFY" >/dev/null 2>&1 && "$NOTIFY" -a hyprsunset -e -t 5000 -i "$ICON_OFF" 'Night Light [OFF]' 'Night light has been switched off'
     }
 
     # runtime dir + state file
@@ -119,7 +119,7 @@ in
       if hyprctl_wait_request identity; then
         ironbar_toggle_icon "󱩍"
         ironbar_set_slider_visibility "false"
-        ironbar_set_status "OFF"
+        ironbar_set_status "[OFF]"
         ironbar_remove_class
       fi
     }
@@ -130,6 +130,8 @@ in
     # - If service is active AND current state is identity:init -> apply cfg.initTemp
     # - If service is active AND current state is identity -> apply last known temperature from hyprsunset (probe)
     # - If service inactive -> start service and ensure identity:init, then apply temperature if requested
+    # Note: Ironbar retrieves temp from hyprsunset via an inline script to remain consistent. Could make ironbar reflect init value
+    #   instantly with the right mix of ironvars and setters + getters order
 
     # Read current observed state
     CUR_STATE="$(read_state)"
@@ -150,7 +152,7 @@ in
           write_state_identity
           ironbar_toggle_icon "󱩍"
           ironbar_set_slider_visibility "false"
-          ironbar_set_status "OFF"
+          ironbar_set_status "[OFF]"
           ironbar_remove_class
           notify_off
           exit 0
@@ -175,7 +177,7 @@ in
           write_state_temp "$temp"
           ironbar_toggle_icon "󱩌"
           ironbar_set_slider_visibility "true"
-          ironbar_set_status "ON"
+          ironbar_set_status "[ON]"
           ironbar_add_class
           notify_on
           exit 0

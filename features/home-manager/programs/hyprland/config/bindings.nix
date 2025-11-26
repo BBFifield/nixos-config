@@ -4,11 +4,7 @@
   lib,
   ...
 }: let
-  youtube = pkgs.writeShellScript "yt" ''
-    notify-send "Opening video" "$(wl-paste)"
-    mpv "$(wl-paste)"
-  '';
-
+  umpvFromClipboard = import ../../multimedia/mpv/wrappers/umpvFromClipboard.nix {inherit pkgs;};
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
 
@@ -19,18 +15,23 @@
   ws = binding mod "workspace";
   resizeactive = binding "${mod} SHIFT" "resizeactive";
   mv2ws = binding "${mod} SHIFT" "movetoworkspace";
-  wsarr = [1 2 3 4 5 6 7];
+  wsarr = [1 2 3 4 5 6 7 8 9 0];
   resetZoom = binding "${mod} SHIFT" "exec";
+
+  gamemode = "${import ../../gaming/gamemode.nix {inherit config pkgs;}}/bin/gamemode";
 
   hyprsunsetToggle = import ../hyprsunset/hyprsunsetToggle.nix {inherit config lib pkgs;};
 
   wallpaperCycleToggle = import ../../wallpaper/${config.hm.wallpaper.daemon}/cycleToggle.nix {inherit config pkgs;};
   wallpaperSortToggle = import ../../wallpaper/${config.hm.wallpaper.daemon}/sortToggle.nix {inherit config pkgs;};
+  wallpaperCycleStep =
+    if config.hm.wallpaper.daemon == "hyprpaper"
+    then "${import ../../wallpaper/${config.hm.wallpaper.daemon}/cycleStep.nix {inherit pkgs;}}/bin/hyprpapercyclestep"
+    else "wpaperctl";
 in {
   config = lib.mkIf config.hm.hyprland.enable {
     home.packages = with pkgs; [
       hyprpicker
-      clipse #TUI clipboard manager
       slurp #For selecting region of the screen
       grim #Screenshotter
       adw-gtk3
@@ -51,15 +52,20 @@ in {
             "${mod}, F, exec, uwsm app -- alacritty -T Yazi -e yazi"
             "${mod}, E, exec, uwsm app -- alacritty"
             "${mod}, C, exec, uwsm app -- alacritty -T NVIM -e nvim"
+
+            ''${mod} ALT, C, exec, uwsm app -- alacritty -T NVIM -e sh -c "wl-paste | nvim -"''
             "${mod}, R, exec, walker"
             "${mod}, N, exec, swaync-client -t" #Show sway control-center
-            "${mod}, P, exec, ${
-              if config.hm.ironbar.enable
-              then "${import ../../ironbar/config/customModules/tools/updatePickedColor.nix pkgs}"
-              else "hyprpicker -a"
-            }"
-            ''${mod}, S, exec, grim -g "$(slurp -o -c $(echo $base0D | sed 's/^....\(......\)/\1/') && sleep 0.3)" -t ppm - | satty --filename -''
-            ", XF86Launch1,  exec, ${youtube}"
+
+            ''${mod}, P, exec, ${
+                if config.hm.ironbar.enable
+                then "${import ../../ironbar/config/customModules/tools/updatePickedColor.nix pkgs}"
+                else "hyprpicker -a"
+              }''
+
+            ''${mod}, S, exec, uwsm app -- grim -g "$(slurp -o -c $(echo $base0D | sed 's/^....\(......\)/\1/') && sleep 0.3)" -t ppm - | satty --filename -''
+            "${mod}, V, exec, uwsm app -- ${umpvFromClipboard}/bin/umpv-from-clipboard"
+            "${mod}, M, exec, uwsm app -- tauon"
 
             "ALT, Q, killactive"
 
@@ -127,9 +133,10 @@ in {
             ",XF86AudioPrev,    exec, ${playerctl} previous"
             ",XF86AudioNext,    exec, ${playerctl} next"
             ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle"
+            "SUPER, F1, exec, ${gamemode}"
           ]
           ++ lib.optionals (config.hm.hyprland.hyprsunset.enable) [
-            "SUPER, B, exec, ${hyprsunsetToggle}"
+            "${mod} ALT, B, submap, Nightlight "
           ];
       };
 
@@ -154,11 +161,24 @@ in {
           settings = {
             bind = [
               "SUPER, W, exec, ${wallpaperCycleToggle}"
-              "SUPER, left, exec, wpaperctl previous"
-              "SUPER, right, exec, wpaperctl next"
+              "SUPER, left, exec, ${wallpaperCycleStep} previous"
+              "SUPER, right, exec, ${wallpaperCycleStep} next"
               "SUPER, S, exec, ${wallpaperSortToggle}"
               "SUPER ALT, W, submap, reset"
               "SUPER, ESCAPE, submap, reset"
+            ];
+          };
+        };
+        "Nightlight " = {
+          settings = {
+            bindl = [
+              "SUPER, B, exec, ${hyprsunsetToggle}"
+              "SUPER ALT, B, submap, reset"
+              "SUPER, ESCAPE, submap, reset"
+            ];
+            bindle = [
+              "SUPER, left, exec, hyprctl hyprsunset temperature -100))"
+              "SUPER, right, exec, hyprctl hyprsunset temperature +100))"
             ];
           };
         };

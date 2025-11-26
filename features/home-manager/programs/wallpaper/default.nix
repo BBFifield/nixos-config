@@ -15,10 +15,15 @@
       type = lib.types.enum ["hyprpaper" "wpaperd"];
       default = "hyprpaper";
     };
-    cycle = lib.mkEnableOption "Enable toggle script for cycling the wallpaper";
+    cycle = lib.mkEnableOption "Enable toggle script for automatic cycling of the wallpaper";
     defaultSortMethod = lib.mkOption {
       type = lib.types.enum ["random" "ordered"];
       default = "random";
+    };
+    interval = lib.mkOption {
+      type = lib.types.int;
+      default = 300;
+      description = "The interval between wallpaper changes";
     };
   };
 

@@ -5,8 +5,6 @@
   ...
 }: let
   family = config.hm.theme.fonts.defaultMonospace;
-  cfg = config.hm.alacritty;
-  tomlFormat = pkgs.formats.toml {};
 
   settings = {
     font = {
@@ -33,20 +31,18 @@
     };
   };
 in {
-  config = lib.mkMerge [
-    {
-      programs.alacritty = {
-        enable = true;
-        settings = lib.mkMerge [
-          {
-            general.import = ["${config.home.homeDirectory}/.config/alacritty/${config.hm.tintednix.targets.alacritty.schemeFilename}.toml"];
-            env = {
-              TERM = "xterm-256color";
-            };
-          }
-          settings
-        ];
-      };
-    }
-  ];
+  config = {
+    programs.alacritty = {
+      enable = true;
+      settings = lib.mkMerge [
+        {
+          general.import = ["${config.home.homeDirectory}/.config/alacritty/${config.hm.tintednix.targets.alacritty.schemeFilename}.toml"];
+          env = {
+            TERM = "xterm-256color";
+          };
+        }
+        settings
+      ];
+    };
+  };
 }

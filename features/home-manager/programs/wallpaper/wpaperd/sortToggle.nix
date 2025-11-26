@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  ...
 }: let
   cfg = config.hm.wallpaper;
   notify-send = "${pkgs.libnotify}/bin/notify-send";
@@ -16,19 +15,6 @@ in
       if config.hm.ironbar.enable
       then "true"
       else "false"
-    }
-
-    ironbar_set_status() {
-      if command -v ironbar >/dev/null 2>&1; then
-        ironbar var set wallpaper_cycle_status "$1"
-        ironbar var set is_wallpaper_cycle_on "$2"
-      fi
-    }
-
-    ironbar_toggle_icon_class() {
-      if command -v ironbar >/dev/null 2>&1; then
-        ironbar style toggle-class tools wallpaperCycleOn
-      fi
     }
 
     notify_method() {
@@ -73,10 +59,12 @@ in
     }
 
     switch_method() {
-      cp -f "$WPAPERD_DIR/configs/$1.toml" "$WPAPERD_DIR/wallpaper.toml"
+      # cp -P copies the symlink’s stored text exactly, preserving relative link text so the recreated symlink points the same way relative to the destination path.
+      # This is okay for us as the link text in our symlinks are absolute, otherwise use ln -sfn "$(readlink "$1")" "$WPAPERD_DIR/wallpaper.toml".
+      cp -Pf "$WPAPERD_DIR/configs/$1.toml" "$WPAPERD_DIR/wallpaper.toml"
     }
 
-    # Determine whether hyprsunset service is active; if not, start it but keep identity
+    # Determine whether wpaperd service is active; if not, start it but keep identity
     if ! service_running; then
       ensure_service_started
     fi

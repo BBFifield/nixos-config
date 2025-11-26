@@ -7,18 +7,46 @@
   profilesPath = ".mozilla/firefox";
   cfg = config.hm.browsers.firefox;
   #Profile specific extensions
-  extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-    ublock-origin
-    reddit-enhancement-suite
-    betterttv
-    darkreader
-    istilldontcareaboutcookies
-    privacy-badger
-    unpaywall
-    vimium
-  ];
+  extensions = {
+    force = true;
+    packages = with pkgs.nur.repos.rycee.firefox-addons; [
+      ublock-origin
+      reddit-enhancement-suite
+      betterttv
+      darkreader
+      istilldontcareaboutcookies
+      privacy-badger
+      unpaywall
+      vimium
+    ];
+    # Will need to wait for this to be implemented: https://github.com/nix-community/home-manager/issues/8094
+    # settings = {
+    #   "{d7742d87-e61d-4b78-b8a1-b469842139fa}".settings = {
+    #     searchEngine = let
+    #       seAttrs = import ../searchEngines.nix {inherit pkgs;};
+    #
+    #       seComposedList = builtins.attrValues (builtins.mapAttrs (name: value: let
+    #         engineName = name;
+    #         url = builtins.head value.urls;
+    #         alias = lib.removePrefix "@" (builtins.head value.definedAliases);
+    #       in
+    #         lib.foldr (nextParam: accu: let
+    #           nextParamVal =
+    #             if (nextParam.value == "{searchTerms}")
+    #             then "%s"
+    #             else nextParam.value;
+    #         in
+    #           accu + "?" + nextParam.name + "=" + nextParamVal + " ${engineName}") "${alias}: ${url.template}"
+    #         url.params)
+    #       seAttrs.custom);
+    #
+    #       searchEngines = lib.concatStringsSep "\n" seComposedList;
+    #     in
+    #       "g: https://www.google.com/search?q=%s Google\n" + searchEngines;
+    #   };
+    # };
+  };
 
-  #System-wide extensions. Will probably update to a list to concatenate with ${extensions} if I can figure out a way.
   mkExtension = shortID: uuid: {
     name = uuid;
     value = {
@@ -72,7 +100,7 @@
   };
 in
   with lib; {
-    imports = [./firefox-base16.nix];
+    imports = [./firefoxBase16.nix];
 
     options.hm.browsers.firefox = {
       enable = lib.mkEnableOption "Enable home-manager firefox configuration";
@@ -90,6 +118,11 @@ in
         "WaveFox.Tabs.SelectedTabIndicator.Enabled" = false;
         "WaveFox.Tabs.Separators" = 1;
         "WaveFox.TabsBelowURL.Enabled" = true;
+        "WaveFox.WebPage.Background.Saturation" = 1;
+        "WaveFox.WebPage.Transparency" = 2;
+        "browser.tabs.allow_transparent_browser" = true;
+        "WaveFox.Toolbar.Roundings" = 2;
+        "WaveFox.WebPage.Floating.Enabled" = true;
       };
     in
       lib.mkIf cfg.enable (lib.mkMerge [
@@ -208,7 +241,7 @@ in
                     default = "ddg";
                     order = ["ddg" "google"];
                     engines = let
-                      searchEngines = import ../search-engines.nix {inherit pkgs;};
+                      searchEngines = import ../searchEngines.nix {inherit pkgs;};
                     in
                       lib.mkMerge [searchEngines.predefined searchEngines.custom];
                   };

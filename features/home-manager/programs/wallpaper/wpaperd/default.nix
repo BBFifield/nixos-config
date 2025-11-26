@@ -13,7 +13,7 @@ with lib; let
       transition = {
         doorway = {};
       };
-      exec = import ./onChange.nix {inherit config pkgs;};
+      exec = import ../common/onChange.nix {inherit pkgs;};
     };
     any = {
       path = "${config.home.homeDirectory}/Pictures/wallpapers";
@@ -24,7 +24,10 @@ in {
     xdg.configFile = {
       "wpaperd/configs/random.toml".source = (pkgs.formats.toml {}).generate "random.toml" (configTemplate "random");
       "wpaperd/configs/ordered.toml".source = (pkgs.formats.toml {}).generate "ordered.toml" (configTemplate "ascending");
-      "wpaperd/configs/wpaperd.state".text = ''${config.hm.wallpaper.defaultSortMethod}'';
+      "wpaperd/configs/wpaperd.state" = {
+        text = ''${config.hm.wallpaper.defaultSortMethod}'';
+        force = true;
+      };
     };
 
     services.wpaperd = {

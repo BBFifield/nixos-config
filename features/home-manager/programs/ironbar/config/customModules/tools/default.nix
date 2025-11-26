@@ -3,8 +3,13 @@
   lib,
   pkgs,
 }: let
+  gamemode = "${import ../../../../gaming/gamemode.nix {inherit config pkgs;}}/bin/gamemode";
   hyprsunsetToggle = import ./../../../../hyprland/hyprsunset/hyprsunsetToggle.nix {inherit config lib pkgs;};
   wallpaperCycleToggle = import ../../../../wallpaper/${config.hm.wallpaper.daemon}/cycleToggle.nix {inherit config pkgs;};
+  wallpaperCycleStep =
+    if config.hm.wallpaper.daemon == "hyprpaper"
+    then "${import ../../../../wallpaper/${config.hm.wallpaper.daemon}/cycleStep.nix {inherit pkgs;}}/bin/hyprpapercyclestep"
+    else "wpaperctl";
 in ''
   $tools_popup = {
     type = "custom"
@@ -76,36 +81,46 @@ in ''
                 on_click = "!${wallpaperCycleToggle}"
                 tooltip = "#wallpaper_cycle_status"
               }
-              ${
-    if (config.hm.wallpaper.daemon == "wpaperd")
-    then ''      {
-                        type = "box"
-                        orientation = "horizontal"
-                        halign = "center"
-                        show_if = "#is_wallpaper_cycle_on"
-                        name = "wallpaperNavButtons"
-                        class = "linked"
-                        widgets = [
-                          {
-                            type = "button"
-                            class = "wallpaperNav"
-                            name = "wallpaperPrevious"
-                            label = ""
-                            on_click="!wpaperctl previous;"
-                            tooltip = "Previous wallpaper"
-                          }
-                          {
-                            type = "button"
-                            class = "wallpaperNav"
-                            name = "wallpaperNext"
-                            label = ""
-                            on_click="!wpaperctl next;"
-                            tooltip = "Next wallpaper"
-                          }
-                        ]
-                      }''
-    else ""
-  }
+              {
+                type = "box"
+                orientation = "horizontal"
+                halign = "center"
+                name = "wallpaperNavButtons"
+                class = "linked"
+                widgets = [
+                  {
+                    type = "button"
+                    class = "wallpaperNav"
+                    name = "wallpaperPrevious"
+                    label = ""
+                    on_click="!${wallpaperCycleStep} previous"
+                    tooltip = "Previous wallpaper"
+                  }
+                  {
+                    type = "button"
+                    class = "wallpaperNav"
+                    name = "wallpaperNext"
+                    label = ""
+                    on_click="!${wallpaperCycleStep} next"
+                    tooltip = "Next wallpaper"
+                  }
+                ]
+              }
+            ]
+          }
+          {
+            type = "box"
+            orientation = "horizontal"
+            halign = "center"
+            widgets = [
+              {
+                type = "button"
+                name = "gamemodeToggle"
+                class = "tool"
+                label = ""
+                on_click = "!${gamemode}"
+                tooltip = "Gamemode #gamemode_status"
+              }
             ]
           }
         ]

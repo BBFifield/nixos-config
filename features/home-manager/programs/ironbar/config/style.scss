@@ -14,6 +14,9 @@
   --wallpaper-cycle-color: var(--base0C);
   --wallpaper-cycle-shadow: #{s.shadow-value(thin, base0C)};
 
+  --gamemode-color: var(--base04);
+  --gamemode-shadow: #{s.shadow-value(thin, base04)};
+
   --text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
   --text-shadow-hover: 1px 2px 2px rgba(0, 0, 0, 0.2);
 }
@@ -93,6 +96,10 @@ box {
 
 button box {
   transition: none;
+}
+
+button.text-button:not(.reveal-btn):not(.item):not(:hover):not(:active) {
+  box-shadow: none;
 }
 
 .container.horizontal {
@@ -183,6 +190,16 @@ popover separator.horizontal {
   border-left-color: transparent;
   box-shadow: none;
 }
+.workspaces > button > label {
+  font-size: 18px;
+  margin-left: -2px;
+}
+.workspaces > button:nth-child(6) > label {
+  margin-left: -4px;
+}
+.workspaces > button:nth-child(8) > label {
+  margin-left: -4px;
+}
 
 /* -- walker button -- */
 #walker-btn label {
@@ -192,15 +209,17 @@ popover separator.horizontal {
 }
 
 /* -- clock -- */
-.clock > label {
-  font-size: 17px;
-  text-shadow: var(--text-shadow);
-}
-.clock:hover > label {
-  text-shadow: var(--text-shadow-hover);
-}
-.clock:active > label {
-  text-shadow: var(--text-shadow);
+.clock {
+  > label {
+    font-size: 17px;
+    text-shadow: var(--text-shadow);
+  }
+  &:hover > label {
+    text-shadow: var(--text-shadow-hover);
+  }
+  &:active > label {
+    text-shadow: var(--text-shadow);
+  }
 }
 .calendar-clock {
   margin-bottom: 1px;
@@ -215,28 +234,30 @@ calendar > grid > label:hover:not(:selected) {
 }
 
 /* notifications */
-.notifications > button {
-  padding: 1px 17px 2px 16px;
-}
-.notifications > button:active {
-  padding: 2px 17px 2px 17px;
-}
-.notifications > button > label {
-  font-size: 20px;
-  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
-}
-.notifications > .count {
-  margin-top: 3px;
-  margin-right: 3px;
-  padding-right: 4px;
-  padding-left: 4px;
-  border-radius: 50%;
+.notifications {
+  > .count {
+    margin-top: 3px;
+    margin-right: 3px;
+    padding-right: 4px;
+    padding-left: 4px;
+    border-radius: 50%;
 
-  font-size: 0.9rem;
-  color: var(--base01);
+    font-size: 12px;
+    color: var(--base01);
 
-  opacity: 0.8;
-  background-color: var(--base0B);
+    opacity: 0.8;
+    background-color: var(--base0B);
+  }
+  > button {
+    padding: 1px 17px 2px 16px;
+    &:active {
+      padding: 2px 17px 2px 17px;
+    }
+    > label {
+      font-size: 20px;
+      text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
+    }
+  }
 }
 overlay.notifications > button.text-button:not(:hover) {
   box-shadow: none;
@@ -246,29 +267,41 @@ overlay.notifications > button:hover:active {
 }
 
 /*-- tools --*/
-#tools {
-  color: var(--base06);
-}
-#tools > revealer > button > label {
-  margin-left: -4px;
-  font-size: 19px;
-  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
-}
-#tools > revealer > button:hover:not(:active) {
-  background-color: var(--base06);
-  @include s.apply-shadow(thin, base06);
+#tools > revealer {
+  > button {
+    color: var(--base06);
+    &:hover:not(:active) {
+      color: var(--base01);
+      background-color: var(--base06);
+      @include s.apply-shadow(thin, base06);
+    }
+    > label {
+      margin-left: -4px;
+      font-size: 19px;
+      text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
+    }
+  }
 }
 .tool {
   margin: 6px 11px 11px 11px;
   padding: 1px 10px 2px 9px;
-}
-.tool > label {
-  font-size: 22px;
-}
-.tool:hover:active {
-  margin: 5px 11px 11px 10px;
-  padding: 2px 10px 2px 10px;
-  @include s.apply-shadow(inset, base01);
+  background-color: transparent;
+  &:active,
+  &:not(:hover) {
+    background-color: transparent;
+  }
+  &:hover:active {
+    margin: 5px 11px 11px 10px;
+    padding: 2px 10px 2px 10px;
+    background-color: transparent;
+    @include s.apply-shadow(inset, base01);
+  }
+  &:hover:not(:active) {
+    background-color: var(--base0D);
+  }
+  > label {
+    font-size: 22px;
+  }
 }
 
 .nightLightOn {
@@ -277,11 +310,11 @@ overlay.notifications > button:hover:active {
 }
 #nightLightToggle {
   color: var(--night-light-color);
-}
-#nightLightToggle:hover:not(:active) {
-  color: var(--base01);
-  background-color: var(--night-light-color);
-  box-shadow: var(--night-light-shadow);
+  &:hover:not(:active) {
+    color: var(--base01);
+    background-color: var(--night-light-color);
+    box-shadow: var(--night-light-shadow);
+  }
 }
 #nightLightSlider {
   padding: 0px 30px;
@@ -289,30 +322,30 @@ overlay.notifications > button:hover:active {
 
 #screenshotter {
   color: var(--base08);
-}
-#screenshotter:hover:not(:active) {
-  color: var(--base01);
-  background-color: var(--base08);
-  @include s.apply-shadow(thin, base08);
-}
-#screenshotter > label {
-  margin-left: -5px;
+  &:hover:not(:active) {
+    color: var(--base01);
+    background-color: var(--base08);
+    @include s.apply-shadow(thin, base08);
+  }
+  > label {
+    margin-left: -5px;
+  }
 }
 
-.wallpaperCycleOn {
+.wallpaperCycleOff {
   --wallpaper-cycle-color: var(--base04);
   --wallpaper-cycle-shadow: #{s.shadow-value(thin, base04)};
 }
 #wallpaperCycleToggle {
   color: var(--wallpaper-cycle-color);
-}
-#wallpaperCycleToggle:hover:not(:active) {
-  color: var(--base01);
-  background-color: var(--wallpaper-cycle-color);
-  box-shadow: var(--wallpaper-cycle-shadow);
-}
-#wallpaperCycleToggle > label {
-  margin-left: -3px;
+  &:hover:not(:active) {
+    color: var(--base01);
+    background-color: var(--wallpaper-cycle-color);
+    box-shadow: var(--wallpaper-cycle-shadow);
+  }
+  > label {
+    margin-left: -3px;
+  }
 }
 #wallpaperNavButtons.linked {
   margin: 5px 5px 10px 5px;
@@ -321,23 +354,41 @@ overlay.notifications > button:hover:active {
 .wallpaperNav {
   padding: 1px 10px 2px 9px;
   color: var(--base0C);
+  &:hover:not(:active) {
+    color: var(--base01);
+    background-color: var(--base0C);
+    @include s.apply-shadow(thin, base0C);
+  }
+  &:active {
+    margin: 0px;
+    padding: 2px 10px 2px 10px;
+  }
 }
-.wallpaperNav:hover:not(:active) {
-  color: var(--base01);
-  background-color: var(--base0C);
-  @include s.apply-shadow(thin, base0C);
+
+.gamemodeOff {
+  --gamemode-color: var(--base0E);
+  --gamemode-shadow: #{s.shadow-value(thin, base0E)};
 }
-.wallpaperNav:active {
-  margin: 0px;
-  padding: 2px 10px 2px 10px;
+#gamemodeToggle {
+  color: var(--gamemode-color);
+  &:hover:not(:active) {
+    color: var(--base01);
+    background-color: var(--gamemode-color);
+    box-shadow: var(--gamemode-shadow);
+  }
+  > label {
+    margin-left: -11px;
+  }
 }
 
 /*-- tray -- */
-.tray > .item:active {
-  @include s.apply-shadow(inset, base02);
-}
-.tray > .item > box > picture {
-  -gtk-icon-shadow: 0px 0px 2px rgb(0, 0, 0);
+.tray > .item {
+  &:active {
+    @include s.apply-shadow(inset, base02);
+  }
+  > box > picture {
+    -gtk-icon-shadow: 0px 0px 2px rgb(0, 0, 0);
+  }
 }
 #trayRevealer {
   > revealer > button {
@@ -400,16 +451,15 @@ overlay.notifications > button:hover:active {
   margin: 10px 30px 11px 30px;
   background-color: var(--base02);
   @include s.apply-shadow(thin, base02);
-}
-.reveal-btn:hover:not(:active) {
-  background-color: var(--base0D);
-  /*shadow-thin-base0D*/
-  @include s.apply-shadow(thin, base0D);
-}
-.reveal-btn:active {
-  margin: 9px 30px 11px 29px;
-  background-color: var(--base02);
-  @include s.apply-shadow(inset, base02);
+  &:hover:not(:active) {
+    background-color: var(--base0D);
+    @include s.apply-shadow(thin, base0D);
+  }
+  &:active {
+    margin: 9px 30px 11px 29px;
+    background-color: var(--base02);
+    @include s.apply-shadow(inset, base02);
+  }
 }
 .info {
   padding-top: 5px;
@@ -573,16 +623,16 @@ radio:checked {
 /* -- Volume -- */
 .volume {
   color: var(--base0A);
-}
-.volume > label {
-  margin-right: 5px;
-  font-size: 19px;
-  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
-}
-.volume:hover:not(:active) {
-  color: var(--base01);
-  background-color: var(--base0A);
-  @include s.apply-shadow(thin, base0A);
+  &:hover:not(:active) {
+    color: var(--base01);
+    background-color: var(--base0A);
+    @include s.apply-shadow(thin, base0A);
+  }
+  > label {
+    margin-right: 5px;
+    font-size: 19px;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
+  }
 }
 
 .popup-volume {
@@ -640,17 +690,22 @@ button.btn-mute:checked {
 }
 
 /* -- power -- */
-#power,
-#power > revealer > button:active {
-  color: var(--base08);
+#power > revealer {
+  > button {
+    color: var(--base08);
+    &:active {
+      color: var(--base08);
+      font-size: 19px;
+      text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
+    }
+    &:hover:not(:active) {
+      color: var(--base01);
+      background-color: var(--base08);
+      @include s.apply-shadow(thin, base08);
+    }
+  }
 }
-#power > revealer > button:hover:not(:active) {
-  color: var(--base01);
-  background-color: var(--base08);
-  @include s.apply-shadow(thin, base08);
-}
-#power label,
-#power > revealer > button:active {
+#power label {
   font-size: 19px;
   text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
 }

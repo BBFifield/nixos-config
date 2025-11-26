@@ -32,12 +32,14 @@
       {
         configFile."hypr/tintednix_binding.conf" = {
           text = mkScriptBindingText defaultName;
-          onChange = ''
+          onChange = let
+            hyprctl = "${pkgs.hyprland}/bin/hyprctl";
+          in ''
             (
               XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
               if [[ -d "/tmp/hypr" || -d "$XDG_RUNTIME_DIR/hypr" ]]; then
-                for i in $(${pkgs.hyprland}/bin/hyprctl instances -j | jq ".[].instance" -r); do
-                  ${pkgs.hyprland}/bin/hyprctl -i "$i" reload config-only
+                for i in $(${hyprctl} instances -j | jq ".[].instance" -r); do
+                  ${hyprctl} -i "$i" reload config-only
                 done
               fi
             )
@@ -88,7 +90,7 @@ in {
           };
           hm.tintednix.live.hooks.hotReload = lib.mkMerge [
             ''
-              cp -rf "$config_dir/hypr/tintednix_bindings/$_theme.conf" "$config_dir/hypr/tintednix_binding.conf"
+              cp -Pf "$config_dir/hypr/tintednix_bindings/$_theme.conf" "$config_dir/hypr/tintednix_binding.conf"
             ''
           ];
         }

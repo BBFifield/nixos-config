@@ -5,6 +5,8 @@
   ...
 }:
 with lib; {
+  imports = [./dconf];
+
   options.hm.gnome-shell = {
     enable = mkEnableOption "Enable Gnome-Shell packages.";
   };

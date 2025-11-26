@@ -19,6 +19,11 @@ in {
       grim #Screenshotter
     ];
 
+    # Confirm this works or not
+    home.activation.mkScreenshotsDir = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      mkdir -p ${config.home.homeDirectory}/Pictures/Screenshots
+    '';
+
     xdg.configFile."satty/config.toml" = {
       source = tomlFormat.generate "satty-config" {
         general = {
