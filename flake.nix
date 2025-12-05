@@ -47,22 +47,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # neovim-config = {
-    #   url = "github:BBFifield/neovim-config";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
     neovim-config = {
+      #url = "github:BBFifield/neovim-config";
       url = "git+file:///home/brandon/nvim-config";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # tintednix = {
-    #   url = "github:BBFifield/tintednix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
     tintednix = {
+      #url = "github:BBFifield/tintednix";
       url = "git+file:///home/brandon/tintednix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -75,8 +67,7 @@
     alacritty-theme.url = "github:alexghr/alacritty-theme.nix";
 
     firefox-native-base16 = {
-      url = "github:BBFifield/firefox-native-base16";
-      # url = "github:GnRlLeclerc/firefox-native-base16";
+      url = "github:GnRlLeclerc/firefox-native-base16";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

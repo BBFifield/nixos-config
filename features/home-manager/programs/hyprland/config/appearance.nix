@@ -71,7 +71,7 @@ in {
             passes = 3;
             new_optimizations = "on";
             popups = true;
-            # popups_ignorealpha = 0.7;
+            popups_ignorealpha = 0.7;
           };
         };
 
@@ -139,16 +139,16 @@ in {
           (f "dev.benz.walker")
           (f "com.network.manager")
 
-          "workspace 0, initialClass:^(Slack)$"
-          "workspace 0, initialClass:^(discord)$"
-          "workspace 9, initialClass:^(steam)$"
-          "workspace 8, initialClass:^(mpv)$"
-          "workspace 7, initialClass:^(com.saivert.pwvucontrol)$"
-          "workspace 7, initialClass:^(tauonmb)$"
-          "workspace 7, initialClass:^(ca.edestcroix.Recordbox)$"
-          "workspace 7, initialClass:^(org.gnome.Music)$"
-          "workspace 6, initialClass:^(org.gnome.Loupe)$"
-          "workspace 6, initialClass:^(gimp)$"
+          "workspace 9, initialClass:^(Slack)$"
+          "workspace 9, initialClass:^(discord)$"
+          "workspace 8, initialClass:^(steam)$"
+          "workspace 7, initialClass:^(mpv)$"
+          "workspace 6, initialClass:^(com.saivert.pwvucontrol)$"
+          "workspace 6, initialClass:^(tauonmb)$"
+          "workspace 6, initialClass:^(ca.edestcroix.Recordbox)$"
+          "workspace 6, initialClass:^(org.gnome.Music)$"
+          "workspace 5, initialClass:^(org.gnome.Loupe)$"
+          "workspace 5, initialClass:^(gimp)$"
           "workspace 3, initialClass:^(de.haeckerfelix.Fragments)$"
           "workspace 3, class:^(org.gnome.Nautilus)$"
           "workspace 3, initialTitle:^(Yazi)$"

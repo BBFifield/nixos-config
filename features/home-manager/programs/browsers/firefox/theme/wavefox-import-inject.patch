@@ -1,0 +1,22 @@
+From c866850c7dbc8ef359e2cfcf528d064a4d23b010 Mon Sep 17 00:00:00 2001
+From: BBFifield <bb.fifield@gmail.com>
+Date: Thu, 4 Dec 2025 02:11:57 -0330
+Subject: [PATCH] Add custom userChrome import
+
+---
+ chrome/userChrome.css | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/chrome/userChrome.css b/chrome/userChrome.css
+index b8c05da..eab2637 100644
+--- a/chrome/userChrome.css
++++ b/chrome/userChrome.css
+@@ -41,3 +41,5 @@
+ @import "modules/vertical_tabs/wavefox_toolbar_buttons.css"          layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", true);
+ 
+ /* ---------------------------------------- Third-party styles (Maximum priority) ---------------------------------------- */
++
++@import "customUserChrome.css";
+-- 
+2.51.2
+

@@ -47,6 +47,7 @@ in ''
     $bluetooth = {
       type = "bluetooth"
       icon_size = 32
+      on_click_right = "alacritty -e bluetui"
       format.not_found = ""
       format.disabled = "󰂲"
       format.enabled = ""
@@ -66,7 +67,7 @@ in ''
       adapter_status.disabling = "Disabling Bluetooth..."
       device_status.connected = "Connected"
       device_status.connecting = "Connecting..."
-      device_status.disconnected = "Disconnect"
+      device_status.disconnected = "Disconnected"
       device_status.disconnecting = "Disconnecting..."
     }
 

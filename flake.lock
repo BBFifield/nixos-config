@@ -125,15 +125,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1732777044,
-        "narHash": "sha256-ODlnjh0YiD1zorkj+XNDAfOcbW6ADoWOrqDjyGnqjd0=",
-        "owner": "BBFifield",
+        "lastModified": 1726957368,
+        "narHash": "sha256-fpUcf9G/iSqG9a9yKlsPuOUTqzpj8g+VgrUkjituBUI=",
+        "owner": "GnRlLeclerc",
         "repo": "firefox-native-base16",
-        "rev": "9f72a3caa05901f90849ed32da5c9e489b10f679",
+        "rev": "6f2d7e4142975f10234bd43d6870c0e85d0650ac",
         "type": "github"
       },
       "original": {
-        "owner": "BBFifield",
+        "owner": "GnRlLeclerc",
         "repo": "firefox-native-base16",
         "type": "github"
       }
@@ -610,11 +610,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764186039,
-        "narHash": "sha256-8hbHz2JTpfvSF9VrBQNZCc0EhsUH4ziTh9VzwVnIn9U=",
+        "lastModified": 1764290399,
+        "narHash": "sha256-sXLlpiHlIdcvEyWxaL5hSPh1Ef8wsEIE6SCLgZdX07o=",
         "ref": "refs/heads/master",
-        "rev": "7ae5d09c48a27e5d96e22fa483e60fc981f3ae8a",
-        "revCount": 85,
+        "rev": "b04f2116a3203eb2ead30b248026d8c4e65941f4",
+        "revCount": 89,
         "type": "git",
         "url": "file:///home/brandon/tintednix"
       },

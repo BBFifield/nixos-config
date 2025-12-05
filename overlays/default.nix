@@ -1,5 +1,6 @@
 {
   self,
+  system,
   lib,
   inputs,
   ...
@@ -31,7 +32,7 @@
     lib.pathToAttrs "${self}/pkgs" (full_path: _: p.callPackage full_path {});
 
   firefox-native-base16 = f: p: {
-    firefox-base16 = inputs.firefox-native-base16.packages.x86_64-linux.default;
+    firefox-base16 = inputs.firefox-native-base16.packages.${system}.default;
   };
 
   nonFlakeSrcs = f: p: {

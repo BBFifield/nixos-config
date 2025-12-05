@@ -6,6 +6,7 @@
   ./hyprland
   ./ironbar
   ./multimedia
+  ./peripherals
   ./plasma
   ./source-control
   ./ssh

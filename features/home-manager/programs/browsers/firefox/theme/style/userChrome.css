@@ -1,0 +1,735 @@
+@import "colors.css";
+@import "./parts/commonDialog.css";
+
+#main-window {
+  --base00: var(--toolbarbutton-active-background);
+  --base01: var(--lwt-accent-color);
+  --base02: var(--toolbar-field-background-color);
+  --base03: var(--toolbar-field-border-color);
+  --base0C: var(--tab-loading-fill);
+  --base0D: var(--toolbarbutton-hover-background);
+  --base0C-black-60: color-mix(in oklab, var(--base0C) 60%, black);
+  --base0D-black-60: color-mix(in oklab, var(--base0D) 60%, black);
+}
+:root {
+  --shadow-inset-extra-thin-base01: 1px 1px 1px color-mix(in oklab, var(--base01) 55%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base01) 90%, white) inset;
+
+  --shadow-inset-thin-base0D: 1px 1px 1px var(--base0D-black-60) inset, 2px 2px 2px var(--base0D-black-60) inset, -1px -1px 0px color-mix(in oklab, var(--base0D) 65%, white) inset;
+
+  --shadow-inset-base01:
+    1px 2px 2px color-mix(in oklab, var(--base01) 80%, black) inset, 2px 4px 4px color-mix(in oklab, var(--base01) 80%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base01) 90%, white) inset;
+  --shadow-inset-base02:
+    1px 2px 2px color-mix(in oklab, var(--base02) 80%, black) inset, 2px 4px 4px color-mix(in oklab, var(--base02) 80%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base02) 90%, white) inset;
+  --shadow-inset-base0C: 1px 2px 2px var(--base0C-black-60) inset, 2px 4px 4px var(--base0C-black-60) inset, -1px -1px 0px color-mix(in oklab, var(--base0C) 65%, white) inset;
+  --shadow-inset-base0D: 1px 2px 2px var(--base0D-black-60) inset, 2px 4px 4px var(--base0D-black-60) inset, -1px -1px 0px color-mix(in oklab, var(--base0D) 65%, white) inset;
+  --shadow-inset-dull-base0C:
+    1px 2px 2px color-mix(in oklab, var(--base0C) 40%, black) inset, 2px 4px 4px color-mix(in oklab, var(--base0C) 40%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base0C) 80%, black) inset;
+  --shadow-inset-dull-base0D:
+    1px 2px 2px color-mix(in oklab, var(--base0D) 40%, black) inset, 2px 4px 4px color-mix(in oklab, var(--base0D) 40%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base0D) 80%, black) inset;
+
+  --shadow-thin-base02: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base02) 90%, white);
+  --shadow-thin-base0C: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base0C) 65%, white);
+  --shadow-thin-base0D: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base0D) 65%, white);
+  --shadow-thin-dull-base0C: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base0C) 80%, black);
+  --shadow-thin-dull-base0D: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base0D) 80%, black);
+
+  --shadow-wide-base01:
+    4px 12px 10px rgba(0, 0, 0, 0.2), 7px 18px 14px rgba(0, 0, 0, 0.21), 10px 24px 18px rgba(0, 0, 0, 0.25), 14px 30px 24px rgba(0, 0, 0, 0.3),
+    -1px -1px 0px color-mix(in oklab, var(--base01) 90%, white);
+  --shadow-wide-base02:
+    4px 12px 10px rgba(0, 0, 0, 0.2), 7px 18px 14px rgba(0, 0, 0, 0.21), 10px 24px 18px rgba(0, 0, 0, 0.25), 14px 30px 24px rgba(0, 0, 0, 0.3),
+    -1px -1px 0px color-mix(in oklab, var(--base02) 90%, white);
+  --shadow-wide-base03:
+    4px 12px 10px rgba(0, 0, 0, 0.2), 7px 18px 14px rgba(0, 0, 0, 0.21), 10px 24px 18px rgba(0, 0, 0, 0.25), 14px 30px 24px rgba(0, 0, 0, 0.3),
+    -1px -1px 0px color-mix(in oklab, var(--base03) 90%, white);
+
+  --link-color: var(--base0C) !important;
+  --urlbar-inner-border-radius: 50px !important;
+
+  #nav-bar-customization-target,
+  #TabsToolbar,
+  .browser-toolbar {
+    --shadow-inset: var(--shadow-inset-base01);
+  }
+
+  .urlbar,
+  popupnotification,
+  hbox.editBMPanel_folderRow.hideable {
+    --shadow-inset-extra-thin: 1px 1px 1px color-mix(in oklab, var(--base02) 60%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base02) 90%, white) inset;
+    --shadow-inset-thin:
+      1px 1px 1px color-mix(in oklab, var(--base02) 80%, black) inset, 2px 2px 2px color-mix(in oklab, var(--base02) 80%, black) inset,
+      -1px -1px 0px color-mix(in oklab, var(--base02) 90%, white) inset;
+    --shadow-inset: var(--shadow-inset-base02);
+    --shadow-thin: var(--shadow-thin-base02);
+    --shadow-wide: var(--shadow-wide-base02);
+    --shadow-separator-mimic-vertical: -1px 0px 0px color-mix(in oklab, var(--base02) 75%, black), 1px 0px 0px color-mix(in oklab, var(--base02) 90%, white) inset;
+    --shadow-separator-mimic-horizontal: 0px -1px 0px color-mix(in oklab, var(--base02) 75%, black), 0px 1px 0px color-mix(in oklab, var(--base02) 90%, white) inset;
+    --shadow-separator-mimic-bottom-horizontal: 0px -1px 0px color-mix(in oklab, var(--base02) 75%, black) inset, 0px 1px 0px color-mix(in oklab, var(--base02) 90%, white);
+    --border-color: color-mix(in oklab, var(--base02) 90%, black);
+  }
+}
+.browser-toolbox-background {
+  margin: 0px 6px 0px 6px;
+}
+
+.urlbar {
+  --urlbar-height: 35px !important;
+}
+.urlbar-background {
+  margin: 1px 0px 0px 1px !important;
+  border: 0px solid transparent !important;
+  border-radius: 50px !important;
+  box-shadow: var(--shadow-thin);
+}
+[focused]:not([supress-focus-border]) > .urlbar-background {
+  margin: 0px !important;
+  padding: 1px 0px 0px 1px !important;
+  outline: none !important;
+  box-shadow: var(--shadow-inset);
+}
+
+.toolbarbutton-icon,
+.toolbarbutton-badge-stack {
+  border-radius: 0px !important;
+  background-color: transparent !important; /*Icon image backgrounds are highlighted by default instead of the actual buttons otherwise*/
+}
+
+.tab-close-button,
+.close-button {
+  box-sizing: content-box !important;
+  min-width: 16px;
+  min-height: 16px;
+  margin: 1px 0px 0px 1px !important;
+  margin-inline: var(--urlbar-searchmodeswitcher-inline-padding) !important;
+  padding: 2px 3px 3px 2px !important;
+  border-radius: 50px !important;
+}
+.tab-close-button:active,
+.close-button:active {
+  margin: 0px !important;
+  margin-inline: 5px 6px !important;
+  padding: 3px !important;
+}
+
+.toolbarbutton-1 {
+  /*33x33px*/
+  box-sizing: content-box;
+  margin: 6px 0px 5px 1px !important;
+  padding: 0px 1px 1px 0px !important;
+  border-radius: 50px !important;
+}
+.toolbarbutton-1:active,
+toolbarbutton[open="true"] {
+  /*34x34px*/
+  margin: 5px 0px 5px 0px !important;
+  padding: 1px 1px 0px 1px !important;
+}
+
+.tab-close-button:hover:not(:active),
+toolbarbutton:hover:not(:active):not([disabled="true"]) {
+  color: var(--base01) !important; /*Ex: tab number badge, menu labels*/
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+  fill: var(--base01) !important; /*Ex: toolbarbutton icons*/
+}
+.tab-close-button:active,
+toolbarbutton:active,
+toolbarbutton:hover:active,
+toolbarbutton:not(:hover):where([checked="true"], [open="true"]) {
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset) !important;
+}
+.tabbrowser-tab:hover:not([selected="true"]) .tab-close-button:active {
+  box-shadow: var(--shadow-inset-thin-base0D) !important;
+}
+.tabbrowser-tab:hover:not([selected="true"]) .tab-icon-overlay {
+  fill: var(--base01) !important;
+}
+toolbarbutton:hover:not(:active):is([checked="true"], [open="true"]) {
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-inset-base0D) !important;
+}
+/*Ex: Appmenu rows*/
+toolbarbutton.subviewbutton {
+  box-sizing: content-box;
+  min-height: 30px !important;
+  margin: 1px 0px 0px 1px !important;
+  padding: 1px 9px 2px 8px !important;
+  border-radius: 50px !important;
+}
+toolbarbutton.subviewbutton:active {
+  box-sizing: content-box;
+  margin: 0px !important;
+  padding: 2px 9px !important;
+  box-shadow: var(--shadow-inset-base01) !important;
+}
+
+.searchmode-switcher,
+.identity-box-button,
+.urlbar-page-action,
+.tab-background {
+  border-radius: 50px !important;
+}
+.searchmode-switcher:hover:not(:active),
+.identity-box-button:hover:not(:active),
+.anchor-root:hover:not(:active),
+.urlbar-page-action:hover:not(:active) {
+  color: var(--base01) !important;
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D);
+}
+#tracking-protection-icon-container:not(:hover),
+#urlbar-searchmode-switcher:not(:hover),
+.identity-box-button:not(:hover),
+.anchor-root:not(:hover),
+#urlbar-zoom-button:not(:hover),
+.urlbar-page-action:not(:hover),
+#urlbar-searchmode-switcher:hover:active,
+#tracking-protection-icon-container:hover:active,
+.identity-box-button:hover:active,
+.anchor-root:hover:active,
+#urlbar-zoom-button:hover:active,
+.urlbar-page-action:hover:active {
+  background-color: transparent !important;
+}
+#urlbar-searchmode-switcher:active,
+#urlbar-searchmode-switcher:not(:hover):where([open="true"]),
+.identity-box-button:active,
+.anchor-root:active,
+.urlbar-page-action:active {
+  color: var(--base0D) !important;
+  box-shadow: var(--shadow-inset) !important;
+}
+#urlbar-searchmode-switcher {
+  box-sizing: content-box;
+  min-height: 30px !important;
+  margin: 1px 0px 0px 1px !important;
+  margin-inline-end: var(--urlbar-searchmodeswitcher-margin-inline-end) !important; /*Needs to be defined here with the regular margin some reason*/
+  padding: 1px 9px 2px 8px !important;
+}
+#urlbar-searchmode-switcher:active,
+#urlbar-searchmode-switcher[open="true"] {
+  margin: 0px !important;
+  margin-inline-end: var(--urlbar-searchmodeswitcher-margin-inline-end) !important; /*Needs to be defined here with the regular margin some reason*/
+  padding: 2px 9px !important;
+}
+#tracking-protection-icon-container,
+.identity-box-button,
+.anchor-root,
+#urlbar-zoom-button,
+.urlbar-page-action {
+  align-items: center !important;
+
+  box-sizing: content-box !important;
+  min-width: 16px !important;
+  height: unset !important;
+  min-height: 30px !important;
+  margin: 1px 0px 0px 1px !important;
+  padding: 1px 9px 2px 8px !important;
+  border-radius: 50px !important;
+}
+.urlbar-page-action {
+  width: 16px !important;
+}
+#tracking-protection-icon-container:hover:not(:active),
+.identity-box-button:hover:not(:active),
+.urlbar-page-action:hover:not(:active) {
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D);
+  fill: var(--base01) !important;
+}
+#tracking-protection-icon-container:active,
+#tracking-protection-icon-container[open="true"],
+.identity-box-button[open="true"],
+.anchor-root[open="true"],
+.urlbar-page-action[open="true"] {
+  margin: 0px !important;
+  padding: 2px 9px !important;
+  box-shadow: var(--shadow-inset);
+}
+#tracking-protection-icon-container:hover:not(:active):is([open="true"]),
+.identity-box-button:hover:not(:active):is([open="true"]),
+.anchor-root:hover:not(:active):is([open="true"]),
+.urlbar-page-action:hover:not(:active):is([open="true"]) {
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-inset-base0D);
+  fill: var(--base01) !important;
+}
+.urlbar-icon {
+  /* width: unset !important; */
+  height: 16px !important;
+}
+.notification-anchor-icon {
+  padding: unset !important;
+}
+
+.searchmode-switcher-chicklet {
+  background-color: transparent !important;
+}
+
+.urlbar-container {
+  --urlbar-container-height: 34px !important;
+}
+.urlbar-input-container {
+  border-width: 0px !important;
+}
+[open] > .urlbar-background {
+  border-radius: 10px !important;
+  box-shadow: var(--shadow-thin-base02) !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-background {
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset) !important;
+}
+.tabbrowser-tab:hover:not([selected="true"]) .tab-background {
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+}
+.tabbrowser-tab:hover:not([selected="true"]) .tab-text.tab-label,
+.tabbrowser-tab:hover:not([selected="true"]) .tab-close-button {
+  color: var(--base01) !important;
+}
+.tabbrowser-tab:hover:not([selected="true"]) .tab-icon-image {
+  fill: var(--base01) !important;
+}
+.tab-background:is([selected], [multiselected]) {
+  outline: none !important;
+}
+
+arrowscrollbox > tab > .tab-stack::after {
+  inset-inline-start: calc(100% + 0px);
+  border-inline-end: 0px solid currentColor !important;
+}
+#pinned-tabs-container > tab > .tab-stack::after,
+#tabbrowser-arrowscrollbox > tab:not(:last-of-type) > .tab-stack::after {
+  width: 3px;
+  border-radius: 50px;
+  opacity: 1; /*Originally defined at 0.25*/
+  box-shadow: var(--shadow-inset-extra-thin-base01);
+}
+
+/*Range: Context menu background*/
+/* ,cui-widget-panel panel-no-padding */
+menupopup,
+panel {
+  --panel-padding: 6px !important;
+  --panel-border-radius: 10px !important;
+  --panel-border-color: transparent !important;
+  --panel-shadow-margin: 1px 38px 54px 15px !important;
+  --panel-shadow: var(--shadow-wide-base01) !important;
+}
+panelmultiview {
+  padding: 6px !important;
+  border: none !important;
+}
+#editBookmarkPanel,
+#tab-preview-panel {
+  padding: 0px !important;
+}
+
+.panel-subview-body {
+  padding: 0px !important;
+}
+.panel-header {
+  min-height: unset !important;
+  padding: 4px 0px !important;
+}
+/*END*/
+
+/* html|input[type="text"] = { */
+#editBMPanel_namePicker {
+  min-height: 30px !important;
+  margin: 1px 0px 0px 1px !important;
+  padding: 1px 9px 2px 8px !important;
+  border-width: 0px !important;
+  border-radius: 50px !important;
+
+  background-color: var(--base02) !important;
+  box-shadow: var(--shadow-thin-base02) !important;
+}
+#editBMPanel_namePicker:focus-visible {
+  margin: 0px !important;
+  padding: 2px 9px !important;
+
+  background-color: var(--base02) !important;
+  outline: none !important;
+  box-shadow: var(--shadow-inset-base02) !important;
+}
+
+menu,
+menuitem {
+  box-sizing: content-box;
+  min-height: 30px;
+  margin: 1px 0px 0px 1px !important;
+  padding: 1px 9px 2px 8px !important;
+  border-radius: 50px !important;
+}
+/*Be careful, could make places context menu text blend with background when hovered*/
+menu:hover,
+menuitem:hover {
+  color: var(--base01) !important;
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+}
+menu:active,
+menu:hover:active,
+menuitem:active,
+menuitem:hover:active {
+  margin: 0px !important;
+  padding: 2px 9px !important;
+
+  color: var(--base0D) !important;
+
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset-base01) !important;
+}
+/*END*/
+
+menuseparator::before,
+toolbarseparator {
+  height: 3px;
+  margin: 6px 0px;
+  padding: 0px !important;
+  border-top: none !important;
+  border-radius: 50px;
+
+  box-shadow: var(--shadow-inset-extra-thin-base01);
+}
+toolbarseparator::before {
+  content: none !important;
+}
+toolbarbutton.webextension-browser-action:not(.toolbarbutton-1) {
+  border-radius: 10px !important;
+}
+.unified-extensions-item {
+  margin: 0px !important;
+}
+.unified-extensions-item-menu-button {
+  width: 29px;
+  margin: auto !important;
+  padding: 1px 9px 2px 8px !important;
+}
+.unified-extensions-item-menu-button > .toolbarbutton-icon {
+  margin: auto !important;
+  padding: unset !important;
+}
+
+tooltip {
+  margin: 1px 38px 54px 15px !important;
+  padding: 6px;
+  border: 1px solid color-mix(in oklab, var(--base03) 90%, white) !important;
+  border-radius: 10px !important;
+
+  background-color: var(--base03);
+  /* box-shadow: var(--shadow-wide-base03); */
+}
+
+button,
+#appMenu-fxa-label2, /*Sign-in button in appmenu*/
+.urlbarView-button, /*button at end of urlbar row entry*/
+menulist /*Ex: permission popup for youtube video*/ {
+  align-items: center !important;
+
+  box-sizing: content-box !important;
+  min-width: 16px !important;
+  min-height: 30px !important;
+  margin: 1px 0px 0px 1px !important;
+  padding: 1px 9px 2px 8px !important;
+  border-width: 0px !important;
+  border-radius: 50px !important;
+}
+button,
+#appMenu-fxa-label2,
+menulist {
+  color: var(--base0D) !important;
+  background-color: var(--base02) !important;
+  box-shadow: var(--shadow-thin-base02);
+}
+.urlbarView-button {
+  background-color: transparent !important;
+}
+button:hover,
+#appMenu-fxa-label2:hover,
+.urlbarView-button:hover,
+menulist:hover {
+  color: var(--base01) !important;
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D);
+}
+button.primary.footer-button,
+button.footer-button[default="true"] {
+  color: var(--base0C) !important;
+  background-color: var(--base0C-black-60) !important;
+  box-shadow: var(--shadow-thin-dull-base0C);
+}
+button.footer-button {
+  color: var(--base0D) !important;
+  background-color: var(--base0D-black-60) !important;
+  box-shadow: var(--shadow-thin-dull-base0D);
+}
+button.primary.footer-button:hover:not(:active),
+button.footer-button[default="true"]:hover:not(:active) {
+  color: var(--base01) !important;
+  background-color: var(--base0C) !important;
+  box-shadow: var(--shadow-thin-base0C);
+}
+button.footer-button:hover:not(:active) {
+  color: var(--base01) !important;
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D);
+}
+button:active,
+button:hover:active,
+#appMenu-fxa-label2:active,
+#appMenu-fxa-label2:hover:active,
+.urlbarView-button:active,
+.urlbarView-button:hover:active,
+menulist:active,
+menulist:hover:active,
+menulist[open="true"] {
+  margin: 0px !important;
+  padding: 2px 9px !important;
+
+  color: var(--base0D) !important;
+
+  background-color: var(--base02) !important;
+  box-shadow: var(--shadow-inset-base02) !important;
+}
+menulist[open="true"]:hover:not(:active) {
+  color: var(--base01) !important;
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-inset-base0D) !important;
+}
+button.primary.footer-button:active,
+button.primary.footer-button:hover:active,
+button.footer-button[default="true"]:active,
+button.footer-button[default="true"]:hover:active {
+  color: var(--base0C) !important;
+  background-color: var(--base0C-black-60) !important;
+  box-shadow: var(--shadow-inset-dull-base0C) !important;
+}
+button.footer-button:active,
+button.footer-button:hover:active {
+  background-color: var(--base0D-black-60) !important;
+  box-shadow: var(--shadow-inset-dull-base0D) !important;
+}
+
+.panel-footer > button:not(:last-of-type) {
+  margin-right: 6px !important;
+}
+
+.urlbarView-row {
+  margin: 1px 3px 0px 3px !important;
+  padding: 1px 9px 2px 8px !important;
+  border-width: 0px !important;
+}
+.urlbarView-row:hover {
+  color: var(--base01);
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+}
+.urlbarView-row[selected] {
+  margin: 0px 3px 0px 2px !important;
+  padding: 2px 9px 2px 9px !important;
+
+  color: var(--base0D) !important;
+
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset-base02) !important;
+}
+.urlbarView-url {
+  .urlbarView-row[selected] & {
+    color: var(--link-color);
+  }
+}
+.urlbarView-row:hover:not([selected]) .urlbarView-url {
+  color: var(--base01) !important;
+}
+/*Recent Searches label*/
+.urlbarView-row[label] {
+  margin-block-start: var(--urlbarView-labeled-row-margin-top) !important;
+}
+.urlbarView-row[label][selected] {
+  /*To balance the top padding*/
+  margin-block-start: calc(var(--urlbarView-labeled-row-margin-top) - 1px) !important;
+}
+.urlbarView-row[label][selected]::before {
+  /*Don't know why, but this offsets the margin-block-start adjustment for the label*/
+  top: calc(var(--urlbarView-labeled-row-label-top) + 1px) !important;
+}
+
+.urlbarView-action,
+.urlbarView-action-btn {
+  border-radius: 50px !important;
+}
+.urlbarView-action-btn {
+  min-height: 30px !important;
+  margin: 1px 0px 0px 1px !important;
+  padding: 1px 9px 2px 8px !important;
+  border: 0px !important;
+
+  background-color: var(--base02) !important;
+  outline: none !important;
+  box-shadow: var(--shadow-thin) !important;
+}
+.urlbarView-action-btn:hover {
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+}
+.urlbarView-action-btn:active,
+.urlbarView-action-btn:hover:active {
+  color: var(--base0D) !important;
+  background-color: var(--base02) !important;
+  box-shadow: var(--shadow-inset) !important;
+}
+.urlbarView-action-btn:not(:hover) {
+  color: var(--base0D) !important;
+}
+
+/*Linked*/
+hbox.editBMPanel_folderRow.hideable {
+  min-height: 35px;
+  margin: 1px 0px 0px 1px !important;
+  border-radius: 50px !important;
+
+  background-color: var(--base02) !important;
+  box-shadow: var(--shadow-thin) !important;
+}
+
+/* first-child radii */
+#editBMPanel_folderMenuList {
+  border-radius: inherit 0px 0px inherit !important;
+}
+/* last-child radii */
+#editBMPanel_foldersExpander {
+  border-left: 1px solid var(--border-color) !important;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: inherit !important;
+  border-bottom-right-radius: inherit !important;
+  border-bottom-left-radius: 0px !important;
+
+  box-shadow: var(--shadow-separator-mimic-vertical) !important;
+}
+
+#editBMPanel_folderMenuList:hover,
+#editBMPanel_foldersExpander:hover {
+  border-radius: 50px !important;
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+}
+#editBMPanel_folderMenuList:active,
+#editBMPanel_folderMenuList[open="true"],
+#editBMPanel_foldersExpander:active,
+#editBMPanel_foldersExpander.expander-up {
+  border-radius: 50px !important;
+  background-color: var(--base02) !important;
+  box-shadow: var(--shadow-inset-base02) !important;
+}
+#editBMPanel_folderMenuList[open="true"]:hover:not(:active),
+#editBMPanel_foldersExpander.expander-up:hover:not(:active) {
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-inset-base0D) !important;
+}
+
+#editBMPanel_folderMenuList + #editBMPanel_foldersExpander {
+  margin: 1px 0px 0px 2px !important;
+  padding: 1px 9px 2px 8px !important;
+  border-left: 1px solid var(--border-color) !important;
+}
+#editBMPanel_folderMenuList + #editBMPanel_foldersExpander:hover {
+  border-color: transparent !important;
+}
+#editBMPanel_folderMenuList + #editBMPanel_foldersExpander:active,
+#editBMPanel_folderMenuList + #editBMPanel_foldersExpander.expander-up {
+  margin: 0px 0px 0px 2px !important;
+  padding: 2px 9px 2px 9px !important;
+  border-left-width: 0px !important;
+  box-shadow: var(--shadow-inset) !important;
+}
+#editBMPanel_folderMenuList,
+#editBMPanel_folderMenuList:hover + #editBMPanel_foldersExpander.expander-down,
+#editBMPanel_folderMenuList:active + #editBMPanel_foldersExpander.expander-down,
+#editBMPanel_folderMenuList[open="true"] + #editBMPanel_foldersExpander:not(:hover) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+#editBMPanel_folderMenuList:hover + #editBMPanel_foldersExpander,
+#editBMPanel_folderMenuList:active + #editBMPanel_foldersExpander,
+#editBMPanel_folderMenuList[open="true"] + #editBMPanel_foldersExpander,
+#editBMPanel_foldersExpander:hover,
+#editBMPanel_foldersExpander:active,
+#editBMPanel_foldersExpander.expander-up {
+  border: 0px !important;
+}
+
+#appMenu-zoomReduce-button2,
+#appMenu-zoomEnlarge-button2 {
+  & > .toolbarbutton-icon {
+    stroke: transparent !important;
+  }
+}
+
+/* Protections button popup in Urlbar */
+.panel-info-button {
+  min-width: 30px !important;
+  min-height: 30px !important;
+  border-radius: 50px !important;
+}
+.toggle-button,
+.toggle-button:hover,
+.toggle-button:active,
+.toggle-button:hover:active {
+  box-sizing: border-box !important;
+  min-width: 46px !important;
+  min-height: 26px !important;
+  margin: 0px 10px !important;
+  /* padding: 0px 7px 0px 6px !important; */
+
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset-base01) !important;
+}
+.toggle-button[aria-pressed="true"],
+.toggle-button:hover:active[aria-pressed="true"] {
+  padding: 0px 0px 0px 6px !important;
+  background-color: var(--base0C) !important;
+  box-shadow: var(--shadow-inset-base0C) !important;
+}
+.toggle-button[aria-pressed="false"],
+.toggle-button:hover:active[aria-pressed="false"] {
+  padding: 0px 0px 0px 2px !important;
+}
+.toggle-button::before {
+  min-width: 20px !important;
+  min-height: 20px !important;
+  border-radius: 100% !important;
+
+  background: var(--base02) !important;
+  box-shadow: var(--shadow-thin-base02) !important;
+}
+/*    END    */
+#input {
+  vertical-align: middle !important;
+}
+
+/* Menubar */
+menubar > menu {
+  min-height: unset !important;
+  margin: 4px 3px 3px 4px !important;
+  padding: 3px 8px 4px 7px !important;
+  border-radius: 10px !important;
+}
+menubar > menu:active,
+menubar > menu:hover:active,
+menubar > menu[open="true"] {
+  margin: 3px 3px 3px 3px !important;
+  padding: 4px 8px 4px 8px !important;
+  border-bottom-width: 0px !important;
+
+  color: var(--base0D) !important;
+
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset-base01) !important;
+}
+/* END */

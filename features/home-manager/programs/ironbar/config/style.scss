@@ -553,6 +553,16 @@ $letters: A, B, C, D, E, F;
   min-width: 250px;
   padding-bottom: 0px;
 }
+.popup-bluetooth > .devices {
+  min-height: 150px;
+}
+.popup-bluetooth > .devices .footer-label {
+  font-size: 13px;
+  color: var(--base0E);
+}
+.device {
+  padding: 6px;
+}
 .popup-bluetooth,
 .popup-bluetooth .device > .spinner {
   color: var(--base0C);

@@ -1,6 +1,6 @@
 {config, ...}: {
   programs.git = {
-    extraConfig = {
+    settings = {
       core = {
         editor = "nvim";
       };

@@ -16,10 +16,9 @@
     _1password-gui
     shellcheck
     fastfetch
-    bluetui # bluetooth
   ];
 in {
-  imports = [../../features/home-manager ./config/tintednix.nix];
+  imports = [../../features/home-manager ./config/tintednix.nix ./config/firefox.nix];
 
   # lib.mergeAttrsList or // does not work here instead of lib.mkMerge because firefox for example, is
   # defined in both the base config and one of the optionals to be merged. The attribute sets only merge nicely if both contain distinct attribute keys,
@@ -47,7 +46,6 @@ in {
       }
       ###### PLASMA CONFIG ######
       (lib.optionalAttrs (sysCfg.desktop.plasma.enable) {
-        browsers.firefox.style = "plasma";
         plasma.enable = true;
         konsole.enable = true;
         klassy.enable = true;
@@ -59,7 +57,6 @@ in {
       })
       ###### GNOME-SHELL CONFIG ######
       (lib.optionalAttrs (sysCfg.desktop.gnome.enable) {
-        browsers.firefox.style = "gnome";
         gnome-shell.enable = true;
         dconf.enable = true;
         vscodium.theme = "gnome";
@@ -70,7 +67,6 @@ in {
       })
       ###### HYPRLAND CONFIG ######
       (lib.optionalAttrs (sysCfg.desktop.hyprland.enable) {
-        browsers.firefox.style = "hyprland";
         mpv = {
           enable = true;
           enableScripts = true;
@@ -101,8 +97,10 @@ in {
 
   programs.git = {
     enable = true;
-    userName = "BBFifield";
-    userEmail = "bb.fifield@gmail.com";
+    settings.user = {
+      name = "BBFifield";
+      email = "bb.fifield@gmail.com";
+    };
   };
 
   # restart services on change

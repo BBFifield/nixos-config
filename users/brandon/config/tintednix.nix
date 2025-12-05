@@ -12,7 +12,7 @@
     enabledSchemes = with pkgs.base16; [ashes atelier-cave atelier-heath atelier-sulphurpool ayu-dark bespin blueish brushtrees-dark catppuccin-frappe catppuccin-latte catppuccin-macchiato catppuccin-mocha codeschool darkviolet dracula everforest everforest-dark-hard gruvbox-dark-hard gruvbox-dark-soft gruvbox-material-dark-hard gruvbox-material-dark-soft katy material-palenight moonlight nord rose-pine rose-pine-moon stella tokyo-night-dark tokyo-night-moon];
     defaultSchemeName = "catppuccin-mocha";
     targets = {
-      firefox = {
+      firefox-dynamic = {
         enable = true;
         live.enable = true;
         templateSrc = {
@@ -22,6 +22,14 @@
         };
         path = ".mozilla";
         schemeExtension = "toml";
+      };
+      firefox-userChrome = {
+        enable = true;
+        live.enable = true;
+        templateSrc = pkgs.tintednix.root;
+        templateName = "gtk4";
+        path = ".mozilla/firefox/default/chrome";
+        schemeExtension = "scss";
       };
       hyprland = {
         enable = true;

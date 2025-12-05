@@ -15,7 +15,7 @@
   ws = binding mod "workspace";
   resizeactive = binding "${mod} SHIFT" "resizeactive";
   mv2ws = binding "${mod} SHIFT" "movetoworkspace";
-  wsarr = [1 2 3 4 5 6 7 8 9 0];
+  wsarr = [1 2 3 4 5 6 7 8 9];
   resetZoom = binding "${mod} SHIFT" "exec";
 
   gamemode = "${import ../../gaming/gamemode.nix {inherit config pkgs;}}/bin/gamemode";
@@ -48,7 +48,7 @@ in {
 
         bind =
           [
-            "${mod}, W, exec, [workspace 2] uwsm app -- ${config.hm.browsers.defaultBrowser}"
+            "${mod}, W, exec, [workspace 1] uwsm app -- ${config.hm.browsers.defaultBrowser}"
             "${mod}, F, exec, uwsm app -- alacritty -T Yazi -e yazi"
             "${mod}, E, exec, uwsm app -- alacritty"
             "${mod}, C, exec, uwsm app -- alacritty -T NVIM -e nvim"
