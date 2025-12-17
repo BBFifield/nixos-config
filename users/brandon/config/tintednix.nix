@@ -28,7 +28,7 @@
         live.enable = true;
         templateSrc = pkgs.tintednix.root;
         templateName = "gtk4";
-        path = ".mozilla/firefox/default/chrome";
+        path = ".mozilla/firefox/default/chrome/base16";
         schemeExtension = "scss";
       };
       hyprland = {
@@ -69,6 +69,17 @@
         schemeFilename = "base16";
         schemeExtension = "ttheme";
       };
+      vencord = {
+        enable = true;
+        live = {
+          enable = true;
+        };
+        templateSrc = pkgs.tintednix.root;
+        templateName = "vencord";
+        path = ".config/vesktop/themes";
+        schemeFilename = "colors";
+        schemeExtension = "css";
+      };
       uosc = {
         enable = true;
         live = {
@@ -84,11 +95,11 @@
         enable = true;
         live.enable = true;
         templateSrc = {
-          url = "https://github.com/aarowill/base16-alacritty.git";
-          rev = "c95c200b3af739708455a03b5d185d3d2d263c6e";
-          ref = "master";
+          url = "https://github.com/tinted-theming/tinted-terminal.git";
+          rev = "d34c828c037ebaa7e871994376ed049f39075686";
+          ref = "main";
         };
-        templateName = "default-256";
+        templateName = "alacritty-base16";
         path = ".config/alacritty";
         schemeExtension = "toml";
       };
@@ -195,6 +206,20 @@
         schemeFilename = "user-stylesheet";
         schemeExtension = "scss";
       };
+      btop = {
+        enable = true;
+        live = {
+          enable = true;
+        };
+        templateSrc = {
+          url = "https://git.sr.ht/~blueingreen/base16-btop";
+          rev = "69fd5f822cb3b144f6e4563c55422df81ef44733";
+          ref = "main";
+        };
+        templateName = "body";
+        path = ".config/btop/themes";
+        schemeExtension = "theme";
+      };
       shell = {
         enable = true;
         live = {
@@ -203,8 +228,8 @@
         };
         templateSrc = {
           url = "https://github.com/tinted-theming/tinted-shell.git";
-          rev = "60c80f53cd3d97c25eb0580e40f0b9de84dac55f";
-          ref = "main";
+          rev = "4b8579d356de78b4e7af5ea0b6a06a4cb464a016";
+          ref = "refs/heads/main";
         };
         templateName = "base16";
         path = ".config/shell";

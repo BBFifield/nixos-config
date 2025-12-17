@@ -112,28 +112,16 @@ in {
       (mkIf (cfg.hyprland.enable) (
         mkMerge [
           {
-            programs.uwsm = {
-              enable = true;
-              waylandCompositors = {
-                hyprland = {
-                  prettyName = "Hyprland";
-                  comment = "Hyprland compositor managed by UWSM";
-                  binPath = "/run/current-system/sw/bin/Hyprland";
-                };
-              };
-            };
             # Enable the hyprland "desktop environment"
             programs.hyprland = {
               enable = true;
-              # withUWSM = true;
-              #systemd.setPath.enable = true;
+              withUWSM = true;
             };
             environment.systemPackages = with pkgs; [
               bun
               gnome-tweaks
               kdePackages.qtwayland #QT apps will not open under wayland mode otherwise
               kdePackages.qt6ct
-              # gnome-control-center
             ];
 
             security.polkit.enable = true;

@@ -22,11 +22,11 @@
 
   hyprsunsetToggle = import ../hyprsunset/hyprsunsetToggle.nix {inherit config lib pkgs;};
 
-  wallpaperCycleToggle = import ../../wallpaper/${config.hm.wallpaper.daemon}/cycleToggle.nix {inherit config pkgs;};
-  wallpaperSortToggle = import ../../wallpaper/${config.hm.wallpaper.daemon}/sortToggle.nix {inherit config pkgs;};
+  wallpaperCycleToggle = import ../../utilities/wallpaper/${config.hm.wallpaper.daemon}/cycleToggle.nix {inherit config pkgs;};
+  wallpaperSortToggle = import ../../utilities/wallpaper/${config.hm.wallpaper.daemon}/sortToggle.nix {inherit config pkgs;};
   wallpaperCycleStep =
     if config.hm.wallpaper.daemon == "hyprpaper"
-    then "${import ../../wallpaper/${config.hm.wallpaper.daemon}/cycleStep.nix {inherit pkgs;}}/bin/hyprpapercyclestep"
+    then "${import ../../utilities/wallpaper/${config.hm.wallpaper.daemon}/cycleStep.nix {inherit pkgs;}}/bin/hyprpapercyclestep"
     else "wpaperctl";
 in {
   config = lib.mkIf config.hm.hyprland.enable {

@@ -28,9 +28,18 @@
     options = ["fmask=0022" "dmask=0022"];
   };
 
+  /*
+  Makes sure steam pfx directories are owned by user uid=1000
+  */
   fileSystems."/run/media/Intel\ 660p" = {
     device = "/dev/disk/by-uuid/D62668A0266882FB";
     fsType = "ntfs-3g";
+    options = ["uid=1000" "gid=1000" "fmask=022" "dmask=022"];
+  };
+  fileSystems."/run/media/Windows\ 11" = {
+    device = "/dev/disk/by-uuid/0E16342416340EE9";
+    fsType = "ntfs-3g";
+    options = ["uid=1000" "gid=1000" "fmask=022" "dmask=022"];
   };
 
   swapDevices = [];

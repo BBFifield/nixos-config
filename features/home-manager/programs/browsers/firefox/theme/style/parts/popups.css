@@ -1,0 +1,112 @@
+menupopup,
+panel {
+  --panel-padding: 6px !important;
+  --panel-border-radius: 10px !important;
+  --panel-border-color: transparent !important;
+  --panel-shadow-margin: 1px 38px 54px 15px !important;
+  --panel-shadow: var(--shadow-wide-base01) !important;
+}
+/*Range: Context menu background*/
+menu,
+menuitem {
+  box-sizing: content-box;
+  min-height: 30px;
+  margin: 1px 0px 0px 1px !important;
+  padding: 1px 9px 2px 8px !important;
+  border-radius: 50px !important;
+
+  transition-duration: 0.2s !important;
+  transition-property: background-color, box-shadow !important;
+}
+/*Be careful, could make places context menu text blend with background when hovered*/
+:is(menu, menuitem):hover:not([disabled="true"]) {
+  color: var(--base01) !important;
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+}
+:is(menu, menuitem):is(:active, hover:active):not([disabled="true"]) {
+  margin: 0px !important;
+  padding: 2px 9px !important;
+
+  color: var(--base0D) !important;
+
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset-base01) !important;
+}
+/*END*/
+
+menubar > menu {
+  min-height: unset !important;
+  margin: 4px 3px 3px 4px !important;
+  padding: 3px 8px 4px 7px !important;
+  border-radius: 10px !important;
+}
+menubar > menu:is(:active, :hover:active, [open="true"]) {
+  margin: 3px 3px 3px 3px !important;
+  padding: 4px 8px 4px 8px !important;
+  border-bottom-width: 0px !important;
+
+  color: var(--base0D) !important;
+
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset-base01) !important;
+}
+
+panel[type="autocomplete-richlistbox"] {
+  --panel-background: var(--base01) !important;
+}
+panelmultiview {
+  padding: 6px !important;
+  border: none !important;
+}
+#editBookmarkPanel,
+#tab-preview-panel {
+  padding: 0px !important;
+}
+
+.panel-subview-body {
+  padding: 0px !important;
+}
+.panel-header {
+  min-height: unset !important;
+  padding: 4px 0px !important;
+}
+/*END*/
+
+menuseparator::before,
+toolbarseparator {
+  height: 3px;
+  margin: 6px 0px;
+  padding: 0px !important;
+  border-top: none !important;
+  border-radius: 50px;
+
+  box-shadow: var(--shadow-inset-extra-thin-base01);
+}
+toolbarseparator::before {
+  content: none !important;
+}
+
+tooltip {
+  margin: 1px 38px 54px 15px !important;
+  padding: 6px;
+  border: 1px solid color-mix(in oklab, var(--base03) 90%, white) !important;
+  border-radius: 10px !important;
+
+  background-color: var(--base03);
+}
+
+#fxa-menu-header-title {
+  color: unset !important;
+}
+
+/*Ex: Dialog to confirm opening of magnet link*/
+dialog {
+  color: var(--base0D) !important;
+  background-color: var(--base01) !important;
+}
+.dialogBox {
+  margin: 1px 38px 24px 38px !important;
+  border-radius: 10px !important;
+  box-shadow: var(--shadow-wide-base01) !important;
+}

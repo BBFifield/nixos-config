@@ -1,0 +1,358 @@
+:root {
+  /* numeric tokens (colors/shadows/border-colors left unchanged) */
+  --sz-min-w: 16px;
+  --sz-min-h: 16px;
+  --sz-min-h-lg: 30px;
+  --sz-panel-info-min: 30px;
+  --radius-pill: 50px;
+  --gap-small: 1px;
+  --pad-default: 1px 9px 2px 8px;
+  --pad-active: 2px 9px;
+  --transition-duration: 0.2s;
+  --transition-props: background-color, box-shadow;
+}
+
+/* Icon image backgrounds */
+.toolbarbutton-icon,
+.toolbarbutton-badge-stack {
+  border-radius: 0px !important;
+  background-color: transparent !important; /*Icon image backgrounds are highlighted by default instead of the actual buttons otherwise*/
+}
+
+/* Tab close and generic close buttons */
+.close-button,
+.close-icon {
+  box-sizing: content-box !important;
+  width: var(--sz-min-w) !important;
+  height: var(--sz-min-h) !important;
+  margin: var(--gap-small) 0 0 var(--gap-small) !important;
+  margin-inline: var(--urlbar-searchmodeswitcher-inline-padding) !important;
+  padding: 2px 3px 3px 2px !important;
+  border-radius: var(--radius-pill) !important;
+
+  color: var(--base08) !important;
+
+  fill: currentColor !important;
+
+  transition-duration: var(--transition-duration) !important;
+  transition-property: var(--transition-props) !important;
+  &:active {
+    margin: 0px !important;
+    margin-inline: 5px 6px !important;
+    padding: 3px !important;
+  }
+  &:hover:not(:active) {
+    color: var(--base01) !important;
+    background-color: var(--base08) !important;
+    box-shadow: var(--shadow-thin-base08) !important;
+    fill: var(--base01) !important;
+  }
+}
+
+/* toolbarbutton-1 */
+.toolbarbutton-1 {
+  /*33x33px*/
+  box-sizing: content-box;
+  margin: 6px 0px 5px 1px !important;
+  padding: 0px 1px 1px 0px !important;
+  border-radius: var(--radius-pill) !important;
+
+  transition-duration: var(--transition-duration) !important;
+  transition-property: var(--transition-props) !important;
+}
+.toolbarbutton-1:active,
+toolbarbutton[open="true"] {
+  /*34x34px*/
+  margin: 5px 0px 5px 0px !important;
+  padding: 1px 1px 0px 1px !important;
+}
+
+/* hover / active states for tab-close and toolbarbutton */
+:where(toolbarbutton:not([disabled="true"])):hover:not(:active) {
+  color: var(--base01) !important; /*Ex: tab number badge, menu labels*/
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+  fill: var(--base01) !important; /*Ex: toolbarbutton icons*/
+}
+.tab-close-button:active,
+toolbarbutton:where(:active, :hover:active, :not(:hover):where([checked="true"], [open="true"])) {
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset) !important;
+}
+
+toolbarbutton:hover:not(:active):is([checked="true"], [open="true"]) {
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-inset-base0D) !important;
+}
+
+/* subviewbutton */
+toolbarbutton.subviewbutton {
+  box-sizing: content-box;
+  min-height: var(--sz-min-h-lg) !important;
+  margin: var(--gap-small) 0 0 var(--gap-small) !important;
+  padding: var(--pad-default) !important;
+  border-radius: var(--radius-pill) !important;
+
+  transition-duration: var(--transition-duration) !important;
+  transition-property: var(--transition-props) !important;
+}
+toolbarbutton.subviewbutton:active {
+  box-sizing: content-box;
+  margin: 0px !important;
+  padding: var(--pad-active) !important;
+  box-shadow: var(--shadow-inset-base01) !important;
+}
+
+/* rounded controls group */
+.searchmode-switcher,
+.identity-box-button,
+.urlbar-page-action,
+.tab-background {
+  border-radius: var(--radius-pill) !important;
+  transition-duration: var(--transition-duration) !important;
+  transition-property: var(--transition-props) !important;
+}
+:is(.searchmode-switcher, .identity-box-button, .anchor-root, .urlbar-page-action):hover:not(:active) {
+  color: var(--base01) !important;
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+}
+
+/* transparent when not hovered or when active (preserve original selectors) */
+:where(#tracking-protection-icon-container, #urlbar-searchmode-switcher, .identity-box-button, .anchor-root, #urlbar-zoom-button, .urlbar-page-action):not(:hover),
+:where(#tracking-protection-icon-container, #urlbar-searchmode-switcher, .identity-box-button, .anchor-root, #urlbar-zoom-button, .urlbar-page-action):hover:active {
+  background-color: transparent !important;
+}
+
+/* active / open states for searchmode and related */
+#urlbar-searchmode-switcher:where(:active, :not(:hover):where([open="true"])),
+:is(.identity-box-button, .anchor-root, .urlbar-page-action):active {
+  color: var(--base0D) !important;
+  box-shadow: var(--shadow-inset) !important;
+}
+
+/* urlbar searchmode switcher specifics */
+#urlbar-searchmode-switcher {
+  box-sizing: content-box;
+  min-height: var(--sz-min-h-lg) !important;
+  margin: var(--gap-small) 0 0 var(--gap-small) !important;
+  margin-inline-end: var(--urlbar-searchmodeswitcher-margin-inline-end) !important; /*Needs to be defined here with the regular margin some reason*/
+  padding: var(--pad-default) !important;
+
+  transition-duration: var(--transition-duration) !important;
+  transition-property: var(--transition-props) !important;
+}
+#urlbar-searchmode-switcher:is(:active, [open="true"]) {
+  margin: 0px !important;
+  margin-inline-end: var(--urlbar-searchmodeswitcher-margin-inline-end) !important; /*Needs to be defined here with the regular margin some reason*/
+  padding: var(--pad-active) !important;
+}
+
+/* tracking/identity/zoom/page-action group */
+#tracking-protection-icon-container,
+.identity-box-button,
+.anchor-root,
+#urlbar-zoom-button,
+.urlbar-page-action {
+  align-items: center !important;
+
+  box-sizing: content-box !important;
+  min-width: var(--sz-min-w) !important;
+  height: unset !important;
+  min-height: var(--sz-min-h-lg) !important;
+  margin: var(--gap-small) 0 0 var(--gap-small) !important;
+  padding: var(--pad-default) !important;
+  border-radius: var(--radius-pill) !important;
+
+  transition-duration: var(--transition-duration) !important;
+  transition-property: var(--transition-props) !important;
+}
+.urlbar-page-action {
+  width: var(--sz-min-w) !important;
+}
+:where(#tracking-protection-icon-container, .identity-box-button.urlbar-page-action):hover {
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+  fill: var(--base01) !important;
+}
+#tracking-protection-icon-container:is(:active, [open="true"]),
+:is(.identity-box-button, .anchor-root, .urlbar-page-action)[open="true"] {
+  margin: 0px !important;
+  padding: var(--pad-active) !important;
+  box-shadow: var(--shadow-inset) !important;
+  fill: var(--base0D) !important;
+}
+#tracking-protection-icon-container:is(:hover:not(:active)[open="true"]),
+:is(.identity-box-button, .anchor-root, .urlbar-page-action):hover:not(:active)[open="true"] {
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-inset-base0D) !important;
+  fill: var(--base01) !important;
+}
+
+/* generic button-like controls */
+button,
+button.downloadsPanelFooterButton,
+#appMenu-fxa-label2, /*Sign-in button in appmenu*/
+.urlbarView-button, /*button at end of urlbar row entry*/
+menulist /*Ex: permission popup for youtube video*/ {
+  align-items: center !important;
+
+  box-sizing: content-box !important;
+  min-width: var(--sz-min-w) !important;
+  min-height: var(--sz-min-h-lg) !important;
+  margin: var(--gap-small) 0 0 var(--gap-small) !important;
+  padding: var(--pad-default) !important;
+  border-width: 0px !important;
+  border-radius: var(--radius-pill) !important;
+
+  transition-duration: var(--transition-duration) !important;
+  transition-property: var(--transition-props) !important;
+}
+button,
+#appMenu-fxa-label2,
+menulist {
+  color: var(--base0D) !important;
+  background-color: var(--base02) !important;
+  box-shadow: var(--shadow-thin-base02);
+}
+.urlbarView-button {
+  background-color: transparent !important;
+}
+:where(button, #appMenu-fxa-label2, .urlbarView-button, menulist):hover {
+  color: var(--base01) !important;
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+}
+
+.dialog-button-box button:not(:first-child):not(:last-child) {
+  margin-right: 6px !important;
+}
+/* footer buttons */
+button.footer-button:is(.primary, [default="true"]),
+button[dlgtype="accept"] {
+  color: var(--base0B) !important;
+  background-color: var(--base0B-black-60) !important;
+  box-shadow: var(--shadow-thin-dull-base0B) !important;
+}
+button.footer-button {
+  color: var(--base0D) !important;
+  background-color: var(--base0D-black-60) !important;
+  box-shadow: var(--shadow-thin-dull-base0D) !important;
+}
+button.footer-button:is(.primary:not(:active), [default="true"]):hover:not(:active),
+button[dlgtype="accept"]:hover:not(:active) {
+  color: var(--base01) !important;
+  background-color: var(--base0B) !important;
+  box-shadow: var(--shadow-thin-base0B) !important;
+}
+button.footer-button:hover:not(:active) {
+  color: var(--base01) !important;
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+}
+button:is(:active, :hover:active),
+#appMenu-fxa-label2:is(:active, :hover:active),
+.urlbarView-button:is(:active, :hover:active),
+menulist:is(:active, :hover:active, [open="true"]) {
+  margin: 0px !important;
+  padding: var(--pad-active) !important;
+
+  color: var(--base0D) !important;
+
+  background-color: var(--base02) !important;
+  box-shadow: var(--shadow-inset-base02) !important;
+}
+menulist[open="true"]:hover:not(:active) {
+  color: var(--base01) !important;
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-inset-base0D) !important;
+}
+button.primary.footer-button:is(:active, :hover:active),
+button.footer-button[default="true"]:is(:active, :hover:active),
+button[dlgtype="accept"]:is(:active, :hover:active) {
+  color: var(--base0B) !important;
+  background-color: var(--base0B-black-60) !important;
+  box-shadow: var(--shadow-inset-dull-base0B) !important;
+}
+button.footer-button:is(:active, :hover:active) {
+  background-color: var(--base0D-black-60) !important;
+  box-shadow: var(--shadow-inset-dull-base0D) !important;
+}
+button:is([dlgtype="cancel"], .downloadIconCancel) {
+  color: var(--base08) !important;
+  background-color: var(--base08-black-60) !important;
+  box-shadow: var(--shadow-thin-dull-base08) !important;
+}
+button:is([dlgtype="cancel"], .downloadIconCancel):hover:not(:active) {
+  color: var(--base01) !important;
+  background-color: var(--base08) !important;
+  box-shadow: var(--shadow-thin-base08) !important;
+}
+button:is([dlgtype="cancel"], .downloadIconCancel):is(:active, :hover:active) {
+  color: var(--base08) !important;
+  background-color: var(--base08-black-60) !important;
+  box-shadow: var(--shadow-inset-dull-base08) !important;
+}
+
+/* panel footer spacing */
+.panel-footer > button:not(:last-of-type) {
+  margin-right: 6px !important;
+}
+
+/* app menu zoom buttons icon stroke (expanded) */
+#appMenu-zoomReduce-button2 > .toolbarbutton-icon,
+#appMenu-zoomEnlarge-button2 > .toolbarbutton-icon {
+  stroke: transparent !important;
+}
+
+/* Protections button popup in Urlbar */
+.panel-info-button {
+  min-width: var(--sz-panel-info-min) !important;
+  min-height: var(--sz-panel-info-min) !important;
+  border-radius: var(--radius-pill) !important;
+}
+
+.toggle-button,
+.toggle-button:is(:hover, :active, :hover:active) {
+  box-sizing: border-box !important;
+  min-width: 46px !important;
+  min-height: 26px !important;
+  margin: 0px 10px !important;
+
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset-base01) !important;
+}
+.toggle-button {
+  &::before {
+    min-width: 20px !important;
+    min-height: 20px !important;
+    border-radius: 100% !important;
+
+    background: var(--base02) !important;
+    box-shadow: var(--shadow-thin-base02) !important;
+  }
+  &:is([aria-pressed="true"], :hover:active[aria-pressed="true"]) {
+    padding: 0px 0px 0px 6px !important;
+    background-color: var(--base0B) !important;
+    box-shadow: var(--shadow-inset-base0B) !important;
+  }
+  &:is([aria-pressed="false"], :hover:active[aria-pressed="false"]) {
+    padding: 0px 0px 0px 2px !important;
+  }
+}
+
+toolbarbutton.webextension-browser-action:not(.toolbarbutton-1) {
+  border-radius: 10px !important;
+}
+.unified-extensions-item {
+  margin: 0px !important;
+}
+.unified-extensions-item-menu-button {
+  width: 29px;
+  margin: auto !important;
+  padding: 1px 9px 2px 8px !important;
+}
+.unified-extensions-item-menu-button > .toolbarbutton-icon {
+  margin: auto !important;
+  padding: unset !important;
+}

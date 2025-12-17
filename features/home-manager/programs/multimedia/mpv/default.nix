@@ -12,6 +12,7 @@ in {
   };
   config = lib.mkIf config.hm.mpv.enable {
     home.packages = with pkgs; [
+      mpvHDRwrapper
       yt-dlp
       deno #required by yt-dlp these days, fuck google
     ];

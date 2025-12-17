@@ -16,7 +16,7 @@
     name = config.hm.theme.iconTheme;
   };
   font = {
-    name = config.hm.theme.fonts.defaultMonospace; #"Sans";
+    name = config.hm.theme.fonts.defaultMonospace;
     size = lib.mkForce 16;
   };
 in {
@@ -32,10 +32,6 @@ in {
       packages = with pkgs; [
         adw-gtk3
       ];
-      sessionVariables = {
-        XCURSOR_THEME = cursorTheme.name;
-        XCURSOR_SIZE = "${toString cursorTheme.size}";
-      };
       pointerCursor = cursorTheme // {gtk.enable = true;};
     };
     gtk = {
@@ -44,9 +40,6 @@ in {
     };
 
     wayland.windowManager.hyprland = {
-      systemd.variables = [
-        "GDK_SCALE"
-      ];
       settings = {
         decoration = {
           rounding = 10;
@@ -140,8 +133,9 @@ in {
           (f "com.network.manager")
 
           "workspace 9, initialClass:^(Slack)$"
-          "workspace 9, initialClass:^(discord)$"
+          "workspace 9, initialClass:^(vesktop)$"
           "workspace 8, initialClass:^(steam)$"
+          "workspace 8, initialClass:^(dolphin-emu)$"
           "workspace 7, initialClass:^(mpv)$"
           "workspace 6, initialClass:^(com.saivert.pwvucontrol)$"
           "workspace 6, initialClass:^(tauonmb)$"
@@ -155,6 +149,7 @@ in {
           "workspace 2, class:^(VSCodium)$"
           "workspace 2, initialTitle:^(NVIM)$"
           "workspace 1, class:^(.*${config.hm.browsers.defaultBrowser}.*)$"
+          "workspace 1, class:^(1password)$"
 
           "opacity 0.95 override 0.90 override, initialTitle:^(NVIM)$"
           "opacity 1.0 override 0.95 override, class:^(Alacritty)$"
@@ -189,17 +184,6 @@ in {
           force_default_wallpaper = 1;
           font_family = config.hm.theme.fonts.defaultMonospace;
         };
-
-        env = [
-          "XCURSOR_SIZE,${toString cursorTheme.size}"
-          "HYPRCURSOR_SIZE,${toString cursorTheme.size}"
-          "HYPRCURSOR_THEME,${cursorTheme.name}"
-          "XCURSOR_THEME,${cursorTheme.name}"
-
-          "GDK_SCALE,2"
-
-          "QT_QPA_PLATFORMTHEME,qt6ct"
-        ];
       };
     };
   };

@@ -1,18 +1,11 @@
 {pkgs}: {
   git = {
-    prepend_keymap = [];
-    settings = {
-      prepend_preloaders = [];
-      prepend_previewers = [];
-    };
     init = ''
       require("git"):setup({})
     '';
   };
   piper = {
-    prepend_keymap = [];
     settings = {
-      prepend_preloaders = [];
       prepend_previewers = [
         {
           url = "*.csv";
@@ -32,7 +25,6 @@
         }
       ];
     };
-    init = '''';
   };
   ouch = {
     prepend_keymap = [
@@ -43,7 +35,6 @@
       }
     ];
     settings = {
-      prepend_preloaders = [];
       prepend_previewers = [
         # Archive previewer
         {
@@ -92,7 +83,6 @@
         }
       ];
     };
-    init = '''';
   };
   mount = {
     prepend_keymap = [
@@ -101,11 +91,6 @@
         run = "plugin mount";
       }
     ];
-    settings = {
-      prepend_preloaders = [];
-      prepend_previewers = [];
-    };
-    init = '''';
   };
   mediainfo = {
     prepend_keymap = [
@@ -152,7 +137,6 @@
         # https://mediaarea.net/en/MediaInfo/Support/Formats];
       ];
     };
-    init = '''';
   };
   recycle-bin = {
     prepend_keymap = [
@@ -162,11 +146,6 @@
         desc = "Open Recycle Bin menu";
       }
     ];
-    settings = {
-      prepend_preloaders = [];
-      prepend_previewers = [];
-    };
-    init = '''';
   };
   restore = {
     prepend_keymap = [
@@ -176,10 +155,7 @@
         desc = "Restore deleted files/folders (Interactive)";
       }
     ];
-    settings = {
-      prepend_preloaders = [];
-      prepend_previewers = [];
-    };
+
     init = ''
       require("restore"):setup({
         -- Set the position for confirm and overwrite prompts.
@@ -216,11 +192,6 @@
     '';
   };
   starship = {
-    prepend_keymap = [];
-    settings = {
-      prepend_preloaders = [];
-      prepend_previewers = [];
-    };
     init = ''
       require("starship"):setup({
         -- Hide flags (such as filter, find and search). This is recommended for starship themes which
@@ -234,11 +205,6 @@
     '';
   };
   full-border = {
-    prepend_keymap = [];
-    settings = {
-      prepend_preloaders = [];
-      prepend_previewers = [];
-    };
     init = ''
       require("full-border"):setup {
         -- Available values: ui.Border.PLAIN, ui.Border.ROUNDED
@@ -274,10 +240,5 @@
         desc = "Archive selected files (password+header+level)";
       }
     ];
-    settings = {
-      prepend_preloaders = [];
-      prepend_previewers = [];
-    };
-    init = '''';
   };
 }

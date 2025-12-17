@@ -42,13 +42,28 @@ in {
     }
     {
       home.file = lib.mkIf (config.hm.browsers.firefox.enableCustomUserChrome) {
-        ".mozilla/firefox/default/chrome/customUserChrome.css".source = ./style/userChrome.css;
-        ".mozilla/firefox/default/chrome/parts/commonDialog.css".source = ./style/parts/commonDialog.css;
+        ".mozilla/firefox/default/chrome/base16/customUserChrome.css".source = ./style/customUserChrome.css;
+        ".mozilla/firefox/default/chrome/base16/pages" = {
+          source = ./style/pages;
+          recursive = true;
+        };
+        ".mozilla/firefox/default/chrome/base16/parts" = {
+          source = ./style/parts;
+          recursive = true;
+        };
+        ".mozilla/firefox/default/chrome/base16/icons" = {
+          source = ./style/icons;
+          recursive = true;
+        };
       };
 
       programs.firefox.profiles.default = {
         id = 0; # 0 is the default profile; see also option "isDefault"
-        inherit settings;
+        settings =
+          settings
+          //
+          #This preference is required to recolor the icons, otherwise you will get black icons everywhere.
+          {"svg.context-properties.content.enabled" = true;};
       };
     }
   ];

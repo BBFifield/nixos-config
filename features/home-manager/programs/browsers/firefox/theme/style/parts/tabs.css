@@ -1,0 +1,35 @@
+.tabbrowser-tab:hover:not([selected="true"]) .tab-close-button:active {
+  box-shadow: var(--shadow-inset-thin-base0D) !important;
+}
+.tabbrowser-tab:hover:not([selected="true"]) .tab-icon-overlay {
+  fill: var(--base01) !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-background {
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset) !important;
+}
+.tabbrowser-tab:hover:not([selected="true"]) .tab-background {
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+}
+.tabbrowser-tab:hover:not([selected="true"]) :is(.tab-text.tab-label, .tab-close-button) {
+  color: var(--base01) !important;
+}
+.tabbrowser-tab:hover:not([selected="true"]) .tab-icon-image {
+  fill: var(--base01) !important;
+}
+.tab-background:is([selected], [multiselected]) {
+  outline: none !important;
+}
+
+arrowscrollbox > tab > .tab-stack::after {
+  inset-inline-start: calc(100% + 0px);
+  border-inline-end: 0px solid currentColor !important;
+}
+:is(#pinned-tabs-container > tab, #tabbrowser-arrowscrollbox > tab:not(:last-of-type)) > .tab-stack::after {
+  width: 3px;
+  border-radius: 50px;
+  opacity: 1; /*Originally defined at 0.25*/
+  box-shadow: var(--shadow-inset-extra-thin-base01);
+}

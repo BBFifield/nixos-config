@@ -1,0 +1,58 @@
+findbar {
+  align-items: center !important;
+
+  height: 50px !important;
+  margin-top: 1px !important;
+  border: none !important;
+
+  box-shadow: var(--shadow-thin-base01) !important;
+  .findbar-container {
+    height: 50px !important;
+  }
+  .findbar-textbox {
+    box-sizing: content-box !important;
+    min-height: 30px !important;
+    margin: 1px 0px 0px 1px !important;
+    padding: 1px 9px 2px 8px !important;
+    border: none !important;
+    border-radius: 50px !important;
+
+    outline: none !important;
+    box-shadow: var(--shadow-thin-base02) !important;
+    &[status="notfound"] {
+      color: var(--base08) !important;
+      background-color: var(--base08-black-60) !important;
+      box-shadow: var(--shadow-thin-dull-base08) !important;
+    }
+    &:focus {
+      margin: 0px !important;
+      padding: 2px 9px !important;
+      box-shadow: var(--shadow-inset-base02) !important;
+    }
+    &:focus[status="notfound"] {
+      box-shadow: var(--shadow-inset-dull-base08) !important;
+    }
+  }
+  toolbarbutton {
+    border-radius: 50px !important;
+  }
+}
+
+#statuspanel > label {
+  align-content: center !important;
+
+  min-height: 30px !important;
+  margin: 6px !important;
+  padding: 1px 9px 2px 8px !important;
+  border: none !important;
+  border-radius: 50px !important;
+
+  background-color: var(--base03) !important;
+  box-shadow: var(--shadow-thin-base03) !important;
+}
+
+#autoscroller {
+  --panel-border-radius: 100% !important;
+  --panel-shadow-margin: 4px !important;
+  --panel-shadow: 0 0 var(--panel-shadow-margin) rgba(0, 0, 0, 0.2) !important;
+}

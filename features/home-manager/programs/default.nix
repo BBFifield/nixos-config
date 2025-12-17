@@ -6,14 +6,11 @@
   ./hyprland
   ./ironbar
   ./multimedia
-  ./peripherals
   ./plasma
-  ./source-control
-  ./ssh
   ./swaync
-  ./terminal
+  ./utilities
+  ./vesktop
   ./walker
-  ./wallpaper
   ./wleave
   ./yazi
 ]

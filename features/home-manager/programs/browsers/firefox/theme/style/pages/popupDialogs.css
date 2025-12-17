@@ -1,0 +1,51 @@
+@-moz-document url-prefix("chrome://global/content/commonDialog"),
+               url-prefix("chrome://mozapps/content/downloads/unknownContentType")
+{
+  :root {
+    --shadow-inset-dull-base08: 1px 2px 2px var(--base08-black-40) inset, 2px 4px 4px var(--base08-black-40) inset, -1px -1px 0px var(--base08-black-80) inset;
+    --shadow-inset-dull-base0B: 1px 2px 2px var(--base0B-black-40) inset, 2px 4px 4px var(--base0B-black-40) inset, -1px -1px 0px var(--base0B-black-80) inset;
+
+    --shadow-thin-base08: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px var(--base08-white-65-dark);
+    --shadow-thin-base0B: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px var(--base0B-white-65-dark);
+
+    --shadow-thin-dull-base08: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px var(--base08-black-80);
+    --shadow-thin-dull-base0B: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px var(--base0B-black-80);
+  }
+
+  button {
+    appearance: unset !important;
+  }
+  /* button[dlgtype="accept"] { */
+  /*   color: var(--base0B) !important; */
+  /*   background-color: var(--base0B-black-60) !important; */
+  /*   box-shadow: var(--shadow-thin-dull-base0B) !important; */
+  /* } */
+  /**/
+  /* button[dlgtype="accept"]:hover:not(:active) { */
+  /*   color: var(--base01) !important; */
+  /*   background-color: var(--base0B) !important; */
+  /*   box-shadow: var(--shadow-thin-base0B) !important; */
+  /* } */
+  /* button[dlgtype="accept"]:is(:active, :hover:active) { */
+  /*   color: var(--base0B) !important; */
+  /*   background-color: var(--base0B-black-60) !important; */
+  /*   box-shadow: var(--shadow-inset-dull-base0B) !important; */
+  /* } */
+  /**/
+  /* button[dlgtype="cancel"] { */
+  /*   color: var(--base08) !important; */
+  /*   background-color: var(--base08-black-60) !important; */
+  /*   box-shadow: var(--shadow-thin-dull-base08) !important; */
+  /* } */
+  /**/
+  /* button[dlgtype="cancel"]:hover:not(:active) { */
+  /*   color: var(--base01) !important; */
+  /*   background-color: var(--base08) !important; */
+  /*   box-shadow: var(--shadow-thin-base08) !important; */
+  /* } */
+  /* button[dlgtype="cancel"]:is(:active, :hover:active) { */
+  /*   color: var(--base08) !important; */
+  /*   background-color: var(--base08-black-60) !important; */
+  /*   box-shadow: var(--shadow-inset-dull-base08) !important; */
+  /* } */
+}

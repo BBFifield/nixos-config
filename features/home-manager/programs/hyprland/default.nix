@@ -14,6 +14,7 @@ in {
     ./config/bindings.nix
     ./config/displays.nix
     ./config/tintednix.nix
+    ./config/envVars.nix
 
     ./hypridle
     ./hyprlock
@@ -62,15 +63,6 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
-
-      settings = {
-        env = [
-          "GDK_BACKEND,wayland,x11,*"
-          #uwsm users don’t need to explicitly set XDG environment variables, as uwsm sets them automatically.
-
-          "QT_QPA_PLATFORM,wayland;xcb"
-        ];
-      };
     };
   };
 }

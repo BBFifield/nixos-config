@@ -5,10 +5,10 @@
 }: let
   gamemode = "${import ../../../../gaming/gamemode.nix {inherit config pkgs;}}/bin/gamemode";
   hyprsunsetToggle = import ./../../../../hyprland/hyprsunset/hyprsunsetToggle.nix {inherit config lib pkgs;};
-  wallpaperCycleToggle = import ../../../../wallpaper/${config.hm.wallpaper.daemon}/cycleToggle.nix {inherit config pkgs;};
+  wallpaperCycleToggle = import ../../../../utilities/wallpaper/${config.hm.wallpaper.daemon}/cycleToggle.nix {inherit config pkgs;};
   wallpaperCycleStep =
     if config.hm.wallpaper.daemon == "hyprpaper"
-    then "${import ../../../../wallpaper/${config.hm.wallpaper.daemon}/cycleStep.nix {inherit pkgs;}}/bin/hyprpapercyclestep"
+    then "${import ../../../../utilities/wallpaper/${config.hm.wallpaper.daemon}/cycleStep.nix {inherit pkgs;}}/bin/hyprpapercyclestep"
     else "wpaperctl";
 in ''
   $tools_popup = {

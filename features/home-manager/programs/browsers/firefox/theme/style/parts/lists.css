@@ -1,0 +1,79 @@
+richlistbox:not(#downloadsListBox):not(.autocomplete-richlistbox),
+tree {
+  border-width: 0px !important;
+  border-radius: 10px !important;
+  background-color: var(--base00) !important;
+  box-shadow: var(--shadow-inset-base00) !important;
+}
+richlistbox:not(.autocomplete-richlistbox) {
+  padding: 6px !important;
+}
+
+richlistitem {
+  margin: 1px 0px 0px 1px !important;
+  padding: 0px 4px 0px 0px !important;
+  border-radius: 10px !important;
+
+  color: var(--base0D);
+
+  transition-duration: 0.2s !important;
+  transition-property: background-color, box-shadow !important;
+}
+richlistitem:hover {
+  color: var(--base01) !important;
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+}
+richlistitem:is(:active, :hover:active, [selected="true"], :hover:is([selected="true"])) {
+  margin: 0px !important;
+  padding: 1px 4px 0px 1px !important;
+
+  color: var(--base0D) !important;
+
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset-base00) !important;
+}
+richlistbox:where(#downloadsListBox, .autocomplete-richlistbox) > richlistitem:is(:active, :hover:active, [selected="true"], :hover:is([selected="true"])) {
+  box-shadow: var(--shadow-inset-base01) !important;
+}
+
+.urlbarView-row {
+  margin: 1px 3px 0px 3px !important;
+  padding: 1px 9px 2px 8px !important;
+  border-width: 0px !important;
+  border-radius: 10px !important;
+}
+.urlbarView-row:hover {
+  color: var(--base01);
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+}
+.urlbarView-row[selected] {
+  margin: 0px 3px 0px 2px !important;
+  padding: 2px 9px 2px 9px !important;
+
+  color: var(--base0D) !important;
+
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset-base02) !important;
+}
+.urlbarView-url {
+  .urlbarView-row[selected] & {
+    color: var(--link-color);
+  }
+}
+.urlbarView-row:hover:not([selected]) .urlbarView-url {
+  color: var(--base01) !important;
+}
+/*Recent Searches label*/
+.urlbarView-row[label] {
+  margin-block-start: var(--urlbarView-labeled-row-margin-top) !important;
+}
+.urlbarView-row[label][selected] {
+  /*To balance the top padding*/
+  margin-block-start: calc(var(--urlbarView-labeled-row-margin-top) - 1px) !important;
+}
+.urlbarView-row[label][selected]::before {
+  /*Don't know why, but this offsets the margin-block-start adjustment for the label*/
+  top: calc(var(--urlbarView-labeled-row-label-top) + 1px) !important;
+}

@@ -16,7 +16,7 @@ index b8c05da..eab2637 100644
  
  /* ---------------------------------------- Third-party styles (Maximum priority) ---------------------------------------- */
 +
-+@import "customUserChrome.css";
++@import "./base16/customUserChrome.css";
 -- 
 2.51.2
 

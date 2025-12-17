@@ -6,7 +6,7 @@
 }: let
   plugins = import ./plugins.nix {inherit pkgs;};
 
-  setWallpaper = "${import ../wallpaper/hyprpaper/setWallpaper.nix {inherit pkgs;}}/bin/apply-wallpaper";
+  setWallpaper = "${import ../utilities/wallpaper/hyprpaper/setWallpaper.nix {inherit pkgs;}}/bin/set-wallpaper";
 in {
   imports = [./filechooser.nix];
 
@@ -30,7 +30,13 @@ in {
         keymap = {
           mgr = {
             prepend_keymap =
-              builtins.concatLists (lib.mapAttrsToList (name: value: value.prepend_keymap) plugins)
+              (lib.foldlAttrs (acc: name: value: let
+                item = plugins."${name}";
+              in
+                if (item?prepend_keymap)
+                then (item.prepend_keymap ++ acc)
+                else acc) []
+              plugins)
               ++ [
                 {
                   on = "!";
@@ -62,16 +68,17 @@ in {
             mgr = {
               show_hidden = true;
             };
-            plugin = {
-              prepend_preloaders =
-                builtins.concatLists (lib.mapAttrsToList (name: value: value.settings.prepend_preloaders) plugins);
-              prepend_previewers =
-                builtins.concatLists (lib.mapAttrsToList (name: value: value.settings.prepend_previewers) plugins);
-            };
+            plugin = lib.foldlAttrs (acc: name: value: let
+              item = plugins."${name}";
+            in
+              if (item?settings)
+              then (item.settings // acc)
+              else acc) {}
+            plugins;
           }
-          (lib.mkIf (config.hm.wallpaper.daemon == "hyprpaper") {
+          {
             opener = {
-              set-wallpaper = [
+              set-wallpaper = lib.mkIf (config.hm.wallpaper.daemon == "hyprpaper") [
                 {
                   run = ''${setWallpaper} $1'';
                   for = "linux";
@@ -92,20 +99,42 @@ in {
                   desc = "Edit image with GIMP 󱇣";
                 }
               ];
+              edit-nvim = [
+                {
+                  run = ''nvim $1'';
+                  for = "linux";
+                  desc = "Edit in Neovim";
+                  block = true;
+                }
+              ];
             };
             open = {
               prepend_rules = [
                 {
+                  mime = "image/svg+xml";
+                  use = ["open" "edit-nvim"];
+                }
+                {
                   mime = "image/*";
                   use = ["open" "set-wallpaper" "edit-image-satty" "edit-image-gimp"];
                 }
+                {
+                  mime = "video/*";
+                  use = ["open"];
+                }
               ];
             };
-          })
+          }
         ];
         plugins = builtins.mapAttrs (name: _: pkgs.yaziPlugins.${name}) plugins;
 
-        initLua = lib.concatStrings (lib.mapAttrsToList (name: value: value.init) plugins);
+        initLua = lib.foldlAttrs (acc: name: value: let
+          item = plugins."${name}";
+        in
+          if (item?init)
+          then (item.init + acc)
+          else acc) ''''
+        plugins;
       };
     }
   ];

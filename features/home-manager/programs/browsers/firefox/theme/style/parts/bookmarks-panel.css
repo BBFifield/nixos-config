@@ -1,0 +1,98 @@
+:root {
+  /* numeric tokens */
+  --bm-min-h: 30px;
+  --bm-min-h-linked: 35px;
+  --bm-gap: 1px;
+  --bm-adj-gap: 2px;
+  --bm-pad: 1px 9px 2px 8px;
+  --bm-pad-active: 2px 9px;
+  --bm-radius: 50px;
+}
+
+/* base picker */
+#editBMPanel_namePicker {
+  min-height: var(--bm-min-h) !important;
+  margin: var(--bm-gap) 0 0 var(--bm-gap) !important;
+  padding: var(--bm-pad) !important;
+  border-width: 0 !important;
+  border-radius: var(--bm-radius) !important;
+
+  background-color: var(--base02) !important;
+  box-shadow: var(--shadow-thin-base02) !important;
+}
+#editBMPanel_namePicker:focus-visible {
+  margin: 0 !important;
+  padding: var(--bm-pad-active) !important;
+
+  background-color: var(--base02) !important;
+  outline: none !important;
+  box-shadow: var(--shadow-inset-base02) !important;
+}
+
+/* linked row */
+hbox.editBMPanel_folderRow.hideable {
+  min-height: var(--bm-min-h-linked);
+  margin: var(--bm-gap) 0 0 var(--bm-gap) !important;
+  border-radius: var(--bm-radius) !important;
+
+  background-color: var(--base02) !important;
+  box-shadow: var(--shadow-thin) !important;
+}
+
+/* first/last child radii and expander base */
+#editBMPanel_folderMenuList {
+  border-radius: inherit 0 0 inherit !important;
+}
+
+#editBMPanel_foldersExpander {
+  border-left: 1px solid var(--border-color) !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: inherit !important;
+  border-bottom-right-radius: inherit !important;
+  border-bottom-left-radius: 0 !important;
+
+  box-shadow: var(--shadow-separator-mimic-vertical) !important;
+}
+
+/* grouped interactive states */
+:is(#editBMPanel_folderMenuList, #editBMPanel_foldersExpander):hover {
+  border-radius: var(--bm-radius) !important;
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-thin-base0D) !important;
+}
+#editBMPanel_folderMenuList:is(:active, [open="true"]),
+#editBMPanel_foldersExpander:is(:active, .expander-up) {
+  border-radius: var(--bm-radius) !important;
+  background-color: var(--base02) !important;
+  box-shadow: var(--shadow-inset-base02) !important;
+}
+
+:is(#editBMPanel_folderMenuList[open="true"], #editBMPanel_foldersExpander.expander-up:not(#_)):hover:not(:active) {
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-inset-base0D) !important;
+}
+
+#editBMPanel_folderMenuList + #editBMPanel_foldersExpander {
+  margin: var(--bm-gap) 0 0 var(--bm-adj-gap) !important;
+  padding: var(--bm-pad) !important;
+  border-left: 1px solid var(--border-color) !important;
+}
+#editBMPanel_folderMenuList + #editBMPanel_foldersExpander:hover {
+  border-color: transparent !important;
+}
+#editBMPanel_folderMenuList + #editBMPanel_foldersExpander:is(:active, .expander-up) {
+  margin: 0 0 0 var(--bm-adj-gap) !important;
+  padding: 2px 9px 2px 9px !important;
+  border-left-width: 0 !important;
+  box-shadow: var(--shadow-inset) !important;
+}
+#editBMPanel_folderMenuList,
+#editBMPanel_folderMenuList:is(:hover, :active) + #editBMPanel_foldersExpander.expander-down,
+#editBMPanel_folderMenuList[open="true"] + #editBMPanel_foldersExpander:not(:hover) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+#editBMPanel_folderMenuList:is(:hover, :active, [open="true"]) + #editBMPanel_foldersExpander,
+#editBMPanel_foldersExpander:is(:hover, :active, .expander-up) {
+  border: 0 !important;
+}

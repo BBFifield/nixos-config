@@ -127,7 +127,6 @@ in {
 
       environment.systemPackages = with pkgs; [
         cachix
-        htop
         nix-output-monitor
         openrgb-with-all-plugins
       ];

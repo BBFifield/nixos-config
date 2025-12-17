@@ -2,8 +2,8 @@
   # SSH stuff
   config = {
     home.file = {
-      ".ssh/id_ed25519.pub".source = ../../../../users/${config.home.username}/ssh/id_ed25519.pub;
-      ".ssh/known_hosts".source = ../../../../users/${config.home.username}/ssh/known_hosts;
+      ".ssh/id_ed25519.pub".source = ../../../../../users/${config.home.username}/ssh/id_ed25519.pub;
+      ".ssh/known_hosts".source = ../../../../../users/${config.home.username}/ssh/known_hosts;
     };
 
     # Hmmm, where should the age key be placed if this is the first time running the script
@@ -13,7 +13,7 @@
       # This is the actual specification of the secrets.
       secrets = {
         sshSecret = {
-          sopsFile = ../../../../secrets/.ssh/id_ed25519.sops;
+          sopsFile = ../../../../../secrets/.ssh/id_ed25519.sops;
           path = "${config.home.homeDirectory}/.ssh/id_ed25519";
           key = "data";
         };

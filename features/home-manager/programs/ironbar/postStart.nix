@@ -2,7 +2,7 @@
   config,
   pkgs,
 }: let
-  onWallpaperChange = import ../wallpaper/common/onChange.nix {inherit pkgs;};
+  onWallpaperChange = import ../utilities/wallpaper/common/onChange.nix {inherit pkgs;};
 in
   pkgs.writeShellApplication {
     name = "ironbar_post_start";

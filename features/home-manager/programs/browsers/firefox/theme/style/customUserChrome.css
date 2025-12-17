@@ -1,0 +1,144 @@
+/*Variables*/
+@import "colors.css";
+@import "./icons/icons.css";
+
+/*Pages*/
+@import "./pages/popupDialogs.css";
+
+/*Core*/
+@import "./parts/buttons.css";
+@import "./parts/lists.css";
+@import "./parts/bookmarks-panel.css";
+@import "./parts/tabs.css";
+@import "./parts/urlbar.css";
+@import "./parts/controls.css";
+@import "./parts/icons.css";
+@import "./parts/popups.css";
+@import "./parts/misc.css";
+
+#main-window {
+  --base00: var(--toolbarbutton-active-background);
+  --base01: var(--lwt-accent-color);
+  --base02: var(--toolbar-field-background-color);
+  --base03: var(--toolbar-field-border-color);
+  --base08: var(--tab-selected-bgcolor);
+  --base0A: var(--toolbarbutton-icon-fill-attention);
+  --base0B: var(--lwt-tab-line-color);
+  --base0C: var(--tab-loading-fill);
+  --base0D: var(--toolbarbutton-hover-background);
+  --base08-black-60: color-mix(in oklab, var(--base08) 60%, black);
+  --base0B-black-60: color-mix(in oklab, var(--base0B) 60%, black);
+  --base0D-black-60: color-mix(in oklab, var(--base0D) 60%, black);
+}
+:root {
+  --shadow-inset-extra-thin-base01: 1px 1px 1px color-mix(in oklab, var(--base01) 55%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base01) 90%, white) inset;
+  --shadow-inset-extra-thin-base02: 1px 1px 1px color-mix(in oklab, var(--base02) 60%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base02) 90%, white) inset;
+
+  --shadow-inset-thin-base01:
+    1px 1px 1px color-mix(in oklab, var(--base01) 80%, black) inset, 2px 2px 2px color-mix(in oklab, var(--base01) 80%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base01) 90%, white) inset;
+  --shadow-inset-thin-base02:
+    1px 1px 1px color-mix(in oklab, var(--base02) 80%, black) inset, 2px 2px 2px color-mix(in oklab, var(--base02) 80%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base02) 90%, white) inset;
+  --shadow-inset-thin-base0D: 1px 1px 1px var(--base0D-black-60) inset, 2px 2px 2px var(--base0D-black-60) inset, -1px -1px 0px color-mix(in oklab, var(--base0D) 65%, white) inset;
+
+  --shadow-inset-base00:
+    1px 2px 2px color-mix(in oklab, var(--base00) 80%, black) inset, 2px 4px 4px color-mix(in oklab, var(--base00) 80%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base00) 90%, white) inset;
+  --shadow-inset-base01:
+    1px 2px 2px color-mix(in oklab, var(--base01) 80%, black) inset, 2px 4px 4px color-mix(in oklab, var(--base01) 80%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base01) 90%, white) inset;
+  --shadow-inset-base02:
+    1px 2px 2px color-mix(in oklab, var(--base02) 80%, black) inset, 2px 4px 4px color-mix(in oklab, var(--base02) 80%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base02) 90%, white) inset;
+  --shadow-inset-base0B: 1px 2px 2px var(--base0B-black-60) inset, 2px 4px 4px var(--base0B-black-60) inset, -1px -1px 0px color-mix(in oklab, var(--base0B) 65%, white) inset;
+  --shadow-inset-base0D: 1px 2px 2px var(--base0D-black-60) inset, 2px 4px 4px var(--base0D-black-60) inset, -1px -1px 0px color-mix(in oklab, var(--base0D) 65%, white) inset;
+  --shadow-inset-dull-base08:
+    1px 2px 2px color-mix(in oklab, var(--base08) 40%, black) inset, 2px 4px 4px color-mix(in oklab, var(--base08) 40%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base08) 80%, black) inset;
+  --shadow-inset-dull-base0B:
+    1px 2px 2px color-mix(in oklab, var(--base0B) 40%, black) inset, 2px 4px 4px color-mix(in oklab, var(--base0B) 40%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base0B) 80%, black) inset;
+  --shadow-inset-dull-base0D:
+    1px 2px 2px color-mix(in oklab, var(--base0D) 40%, black) inset, 2px 4px 4px color-mix(in oklab, var(--base0D) 40%, black) inset, -1px -1px 0px color-mix(in oklab, var(--base0D) 80%, black) inset;
+
+  --shadow-thin-base01: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base01) 90%, white);
+  --shadow-thin-base02: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base02) 90%, white);
+  --shadow-thin-base03: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base03) 90%, white);
+  --shadow-thin-base08: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base08) 65%, white);
+  --shadow-thin-base0A: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base0A) 65%, white);
+  --shadow-thin-base0B: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base0B) 65%, white);
+  --shadow-thin-base0D: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base0D) 65%, white);
+  --shadow-thin-dull-base08: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base08) 80%, black);
+  --shadow-thin-dull-base0B: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base0B) 80%, black);
+  --shadow-thin-dull-base0D: 1px 2px 2px rgba(0, 0, 0, 0.17), 2px 4px 4px rgba(0, 0, 0, 0.2), -1px -1px 0px color-mix(in oklab, var(--base0D) 80%, black);
+
+  --shadow-wide-base01:
+    4px 12px 10px rgba(0, 0, 0, 0.2), 7px 18px 14px rgba(0, 0, 0, 0.21), 10px 24px 18px rgba(0, 0, 0, 0.25), 14px 30px 24px rgba(0, 0, 0, 0.3),
+    -1px -1px 0px color-mix(in oklab, var(--base01) 90%, white);
+  --shadow-wide-base02:
+    4px 12px 10px rgba(0, 0, 0, 0.2), 7px 18px 14px rgba(0, 0, 0, 0.21), 10px 24px 18px rgba(0, 0, 0, 0.25), 14px 30px 24px rgba(0, 0, 0, 0.3),
+    -1px -1px 0px color-mix(in oklab, var(--base02) 90%, white);
+  --shadow-wide-base03:
+    4px 12px 10px rgba(0, 0, 0, 0.2), 7px 18px 14px rgba(0, 0, 0, 0.21), 10px 24px 18px rgba(0, 0, 0, 0.25), 14px 30px 24px rgba(0, 0, 0, 0.3),
+    -1px -1px 0px color-mix(in oklab, var(--base03) 90%, white);
+
+  --shadow-separator-mimic-vertical-base01: -1px 0px 0px color-mix(in oklab, var(--base01) 65%, black), 1px 0px 0px color-mix(in oklab, var(--base01) 90%, white) inset;
+  --shadow-separator-mimic-vertical-base02: -1px 0px 0px color-mix(in oklab, var(--base02) 75%, black), 1px 0px 0px color-mix(in oklab, var(--base02) 90%, white) inset;
+
+  --shadow-separator-mimic-horizontal-base01: 0px -1px 0px color-mix(in oklab, var(--base01) 65%, black), 0px 1px 0px color-mix(in oklab, var(--base01) 90%, white) inset;
+  --shadow-separator-mimic-horizontal-base02: 0px -1px 0px color-mix(in oklab, var(--base02) 75%, black), 0px 1px 0px color-mix(in oklab, var(--base02) 90%, white) inset;
+
+  --shadow-separator-mimic-bottom-horizontal-base01: 0px -1px 0px color-mix(in oklab, var(--base01) 65%, black) inset, 0px 1px 0px color-mix(in oklab, var(--base01) 90%, white);
+  --shadow-separator-mimic-bottom-horizontal-base02: 0px -1px 0px color-mix(in oklab, var(--base02) 75%, black) inset, 0px 1px 0px color-mix(in oklab, var(--base02) 90%, white);
+
+  --link-color: var(--base0C) !important;
+  --urlbar-inner-border-radius: 50px !important;
+
+  button.base00 {
+    --shadow-inset-thin: var(--shadow-inset-thin-base00);
+    --shadow-inset: var(--shadow-inset-base00);
+    --shadow-separator-mimic-vertical: var(--shadow-separator-mimic-vertical-base00);
+    --shadow-separator-mimic-horizontal: var(--shadow-separator-mimic-horizontal-base00);
+    --shadow-separator-mimic-bottom-horizontal: var(--shadow-separator-mimic-bottom-horizontal-base00);
+    --border-color: color-mix(in oklab, var(--base00) 80%, black);
+  }
+
+  panel,
+  #nav-bar-customization-target,
+  #TabsToolbar,
+  .browser-toolbar,
+  findbar {
+    --shadow-inset-extra-thin: var(--shadow-inset-extra-thin-base01);
+    --shadow-inset-thin: var(--shadow-inset-thin-base01);
+    --shadow-inset: var(--shadow-inset-base01);
+    --shadow-wide: var(--shadow-wide-base01);
+    --shadow-separator-mimic-vertical: var(--shadow-separator-mimic-vertical-base01);
+    --shadow-separator-mimic-horizontal: var(--shadow-separator-mimic-horizontal-base01);
+    --shadow-separator-mimic-bottom-horizontal: var(--shadow-separator-mimic-bottom-horizontal-base01);
+    --border-color: color-mix(in oklab, var(--base01) 80%, black);
+  }
+
+  .urlbar,
+  popupnotification,
+  hbox.editBMPanel_folderRow.hideable {
+    --shadow-inset-extra-thin: var(--shadow-inset-extra-thin-base02);
+    --shadow-inset-thin: var(--shadow-inset-thin-base02);
+    --shadow-inset: var(--shadow-inset-base02);
+    --shadow-thin: var(--shadow-thin-base02);
+    --shadow-wide: var(--shadow-wide-base02);
+    --shadow-separator-mimic-vertical: var(--shadow-separator-mimic-vertical-base02);
+    --shadow-separator-mimic-horizontal: var(--shadow-separator-mimic-horizontal-base02);
+    --shadow-separator-mimic-bottom-horizontal: var(--shadow-separator-mimic-bottom-horizontal-base02);
+    --border-color: color-mix(in oklab, var(--base02) 90%, black);
+  }
+
+  .urlbarView-row:hover:not([selected]) {
+    --shadow-inset-thin: var(--shadow-inset-thin-base0D);
+    --shadow-inset: var(--shadow-inset-base0D);
+  }
+}
+.browser-toolbox-background {
+  margin: 0px 6px 0px 6px;
+}
+
+.notification-anchor-icon {
+  padding: unset !important;
+}
+
+.searchmode-switcher-chicklet {
+  background-color: transparent !important;
+}

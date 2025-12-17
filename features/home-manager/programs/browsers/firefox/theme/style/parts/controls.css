@@ -1,0 +1,65 @@
+/*Based off https://github.com/rafaelmardojai/firefox-gnome-theme/blob/f7ffd917ac0d253dbd6a3bf3da06888f57c69f92/theme/parts/controls.css*/
+
+/* Controls */
+/* Switchers, Checkboxes, etc. */
+
+/* Checkbox */
+input[type="checkbox"],
+checkbox:not(.treenode-checkbox) > .checkbox-check {
+  width: 20px !important;
+  height: 20px !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+
+  appearance: none !important;
+}
+input[type="checkbox"]:not(:checked),
+checkbox:not(.treenode-checkbox) > .checkbox-check:not([checked]) {
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset-thin-base01);
+}
+input[type="checkbox"]:checked,
+checkbox:not(.treenode-checkbox) > .checkbox-check[checked] {
+  background-color: var(--base0D) !important;
+  /* NOTE: var(--gnome-icon-select-symbolic) doesn't load in modal dialogs */
+  background-image: url("../icons/custom/select-fixed-symbolic.svg") !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px !important;
+  box-shadow: var(--shadow-inset-thin-base0D) !important;
+
+  fill: var(--base01) !important;
+
+  -moz-context-properties: fill;
+}
+
+/* Radio */
+input[type="radio"],
+radio > .radio-check {
+  appearance: none !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  height: 20px !important;
+  padding: 3px !important;
+  width: 20px !important;
+}
+input[type="radio"][aria-checked="false"],
+radio > .radio-check:not([selected]) {
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset-thin-base01);
+}
+input[type="radio"][aria-checked="true"],
+radio > .radio-check[selected] {
+  background-color: var(--base0D) !important;
+  /* NOTE: var(--gnome-icon-bullet-symbolic) doesn't load in modal dialogs */
+  background-image: url("../icons/custom/bullet-fixed-symbolic.svg") !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: var(--shadow-inset-thin-base0D) !important;
+  fill: var(--base01) !important;
+  -moz-context-properties: fill;
+}
+
+#input {
+  vertical-align: middle !important;
+}

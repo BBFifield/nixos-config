@@ -11,7 +11,6 @@
     gh
     efibootmgr
     gptfdisk
-    discord
     slack
     _1password-gui
     shellcheck
@@ -32,6 +31,10 @@ in {
       {
         hidpi.enable = sysCfg.desktop.hidpi.enable;
 
+        steam = {
+          userID = "121315676";
+          shortcutsFile = ./config/shortcuts.vdf;
+        };
         browsers.firefox.enable = true;
         vscodium.enable = true;
         neovim.enable = true;

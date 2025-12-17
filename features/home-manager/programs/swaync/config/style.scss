@@ -166,14 +166,14 @@ widget.right.top {
 }
 
 .floating-notifications .notification-row .notification-background {
-  margin: 1px 38px 55px 1px;
+  margin: 1px 38px 55px 24px;
 }
 .floating-notifications .notification-row .notification-background .notification {
   margin: 0px;
   @include s.apply-shadow(wide, base02);
 }
 .floating-notifications animatedlistitem:first-child > .notification-row .notification-background {
-  margin: 20px 38px 55px 1px;
+  margin: 20px 38px 55px 24px;
 }
 .floating-notifications animatedlistitem:first-child > .notification-row .notification-background .notification {
   margin: 0px;

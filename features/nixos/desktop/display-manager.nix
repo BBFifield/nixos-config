@@ -108,21 +108,21 @@ in {
             };
           };
           theme = {
-            name = config.nixos.desktop.theme.gtkTheme.name;
-            package = config.nixos.desktop.theme.gtkTheme.package;
+            name = cfg.theme.gtkTheme.name;
+            package = cfg.theme.gtkTheme.package;
           };
           extraCss = builtins.readFile "${compiledSassFile}/.config/regreet/style.css";
           # builtins.readFile ./regreet/style.css;
           iconTheme = {
-            name = config.nixos.desktop.theme.iconTheme.name;
-            package = config.nixos.desktop.theme.iconTheme.package;
+            name = cfg.theme.iconTheme.name;
+            package = cfg.theme.iconTheme.package;
           };
           cursorTheme = {
-            name = config.nixos.desktop.theme.cursorTheme.name;
-            package = config.nixos.desktop.theme.cursorTheme.package;
+            name = cfg.theme.cursorTheme.name;
+            package = cfg.theme.cursorTheme.package;
           };
           font = {
-            name = config.nixos.desktop.theme.fonts.defaultMonospace;
+            name = cfg.theme.fonts.defaultMonospace;
           };
         };
         services.greetd = {
@@ -143,8 +143,10 @@ in {
           animations {
             enabled=false
           }
-          env = "HYPRCURSOR_THEME,${config.nixos.desktop.theme.cursorTheme.name}"
-          env = "XCURSOR_THEME,${config.nixos.desktop.theme.cursorTheme.name}"
+          env = "HYPRCURSOR_THEME,${cfg.theme.cursorTheme.name}"
+          env = "XCURSOR_THEME,${cfg.theme.cursorTheme.name}"
+          env = "XCURSOR_SIZE,${toString cfg.theme.cursorTheme.size}"
+          env = "HYPRCURSOR_SIZE,${toString cfg.theme.cursorTheme.size}"
 
           monitor=DP-1, highres@highrr,1920x0,1
           monitor=DP-2, highres@highrr,3840x0,1

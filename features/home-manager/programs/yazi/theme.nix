@@ -38,14 +38,6 @@
         bg = "blue";
       };
 
-      tab_active = {
-        fg = "black";
-        bg = "gray";
-      };
-      tab_inactive = {
-        fg = "gray";
-        bg = "darkgray";
-      };
       tab_width = 1;
 
       count_copied = {
@@ -63,6 +55,22 @@
 
       border_symbol = "│";
       border_style = {fg = "blue";};
+    };
+
+    tabs = {
+      active = {
+        bg = "darkgray";
+        fg = "lightmagenta";
+      };
+
+      inactive = {
+        bg = "reset";
+        fg = "darkgray";
+      };
+      sep_outer = {
+        open = "";
+        close = "";
+      };
     };
 
     mode = {
