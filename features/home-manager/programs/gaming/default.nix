@@ -13,6 +13,7 @@
   config = {
     home.packages = with pkgs; [
       cartridges
+      shipwright
     ];
 
     programs.lutris.enable = true;
