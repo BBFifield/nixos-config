@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content>
+    <logflag>0</logflag>
+    <advanced_ppc_logging>false</advanced_ppc_logging>
+    <mlc_path>/run/media/brandon/EAEC2CF7EC2CBFA5/backups/Applications/Cemu2/mlc01</mlc_path>
+    <permanent_storage>true</permanent_storage>
+    <language>0</language>
+    <use_discord_presence>true</use_discord_presence>
+    <fullscreen_menubar>false</fullscreen_menubar>
+    <feral_gamemode>false</feral_gamemode>
+    <check_update>true</check_update>
+    <receive_untested_updates>false</receive_untested_updates>
+    <save_screenshot>true</save_screenshot>
+    <vk_warning>false</vk_warning>
+    <gp_download>false</gp_download>
+    <macos_disclaimer>false</macos_disclaimer>
+    <fullscreen>false</fullscreen>
+    <proxy_server></proxy_server>
+    <disable_screensaver>true</disable_screensaver>
+    <play_boot_sound>false</play_boot_sound>
+    <console_language>1</console_language>
+    <window_position>
+        <x>-1</x>
+        <y>-1</y>
+    </window_position>
+    <window_size>
+        <x>-1</x>
+        <y>-1</y>
+    </window_size>
+    <window_maximized>false</window_maximized>
+    <open_pad>false</open_pad>
+    <pad_position>
+        <x>-1</x>
+        <y>-1</y>
+    </pad_position>
+    <pad_size>
+        <x>-1</x>
+        <y>-1</y>
+    </pad_size>
+    <pad_maximized>false</pad_maximized>
+    <show_icon_column>true</show_icon_column>
+    <GameList>
+        <style>0</style>
+        <order></order>
+        <name_width>500</name_width>
+        <version_width>60</version_width>
+        <dlc_width>50</dlc_width>
+        <game_time_width>140</game_time_width>
+        <game_started_width>160</game_started_width>
+        <region_width>944</region_width>
+        <title_id>0</title_id>
+    </GameList>
+    <RecentLaunchFiles>
+        <Entry>/run/media/brandon/EAEC2CF7EC2CBFA5/backups/Applications/Cemu2/mlc01/usr/title/00050000/1010ec00</Entry>
+    </RecentLaunchFiles>
+    <RecentNFCFiles/>
+    <GamePaths>
+        <Entry>/run/media/brandon/EAEC2CF7EC2CBFA5/backups/roms/wiiu</Entry>
+    </GamePaths>
+    <GameCache/>
+    <GraphicPack>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/SuperSmashBros/Enhancements/Contrasty/rules.txt">
+            <Preset>
+                <preset>Default</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/NewSuperMarioBrosU/Graphics/rules.txt">
+            <Preset>
+                <category>TV Resolution</category>
+                <preset>3840x2160</preset>
+            </Preset>
+            <Preset>
+                <category>Shadow Quality</category>
+                <preset>Ultra</preset>
+            </Preset>
+            <Preset>
+                <category>Gamepad Resolution</category>
+                <preset>854x480</preset>
+            </Preset>
+            <Preset>
+                <category>Blur Quality</category>
+                <preset>Medium</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/MarioKart8/Graphics/rules.txt">
+            <Preset>
+                <category>Aspect Ratio</category>
+                <preset>16:9 (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>TV Resolution</category>
+                <preset>1920x1080 (Full HD)</preset>
+            </Preset>
+            <Preset>
+                <category>Shadows</category>
+                <preset>Medium (100%, Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Gamepad Resolution</category>
+                <preset>854x480 (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Anisotropic Filtering</category>
+                <preset>1x (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Bloom Intensity</category>
+                <preset>50%</preset>
+            </Preset>
+            <Preset>
+                <category>Advanced Options</category>
+                <preset>Enabled</preset>
+            </Preset>
+            <Preset>
+                <category>Anti-Aliasing</category>
+                <preset>On (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Level of Detail</category>
+                <preset>Normal (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Motion Blur Quality</category>
+                <preset>Normal (Default)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/MarioKart8/Mods/60FPSMultiplayer/rules.txt"/>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/YoshisWoollyWorld_60fpsMap/rules.txt"/>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/MarioKart8/Enhancements/Contrasty/rules.txt">
+            <Preset>
+                <preset>Some Contrast</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/PokkenTournament_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160 (Native Render)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/BreathOfTheWild/Enhancements/rules.txt">
+            <Preset>
+                <category>Clarity</category>
+                <preset>Serfrost's Preset (Recommended)</preset>
+            </Preset>
+            <Preset>
+                <category>Reflection Range</category>
+                <preset>Extreme (64 samples)</preset>
+            </Preset>
+            <Preset>
+                <category>Depth Of Field</category>
+                <preset>Enabled</preset>
+            </Preset>
+            <Preset>
+                <category>Reflections</category>
+                <preset>Enhanced Reflections</preset>
+            </Preset>
+            <Preset>
+                <category>Anisotropic Filtering</category>
+                <preset>Extreme (16x)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/BreathOfTheWild/Graphics/rules.txt">
+            <Preset>
+                <category>Aspect Ratio</category>
+                <preset>16:9 (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Resolution</category>
+                <preset>3840x2160 (4K)</preset>
+            </Preset>
+            <Preset>
+                <category>Shadow Draw Distance</category>
+                <preset>Extreme (Higher Draw Distance, Blurry Shadows)</preset>
+            </Preset>
+            <Preset>
+                <category>Ultrawide HUD Mode</category>
+                <preset>Edge HUD (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Anti-Aliasing</category>
+                <preset>NVIDIA FXAA</preset>
+            </Preset>
+            <Preset>
+                <category>Shadows</category>
+                <preset>Ultra (300%)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/DonkeyKongTropicalFreeze_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/BreathOfTheWild/Mods/FPS++/rules.txt">
+            <Preset>
+                <category>Mode</category>
+                <preset>Advanced Settings</preset>
+            </Preset>
+            <Preset>
+                <category>FPS Limit</category>
+                <preset>60FPS Limit (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Debug Options</category>
+                <preset>Disabled (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Framerate Limit</category>
+                <preset>40FPS (ideal for 240/120/60Hz displays)</preset>
+            </Preset>
+            <Preset>
+                <category>Cutscene FPS Limit</category>
+                <preset>Automatically Limit In Few Cutscenes (Recommended)</preset>
+            </Preset>
+            <Preset>
+                <category>Fence Type</category>
+                <preset>Accurate Fence</preset>
+            </Preset>
+            <Preset>
+                <category>Static Mode</category>
+                <preset>Disabled (Default, dynamically adjust game speed)</preset>
+            </Preset>
+            <Preset>
+                <category>Frame Average</category>
+                <preset>8 Frames Averaged (Default)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/SkylandersSwapForce/Workarounds/PortalStabilityFix/rules.txt"/>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/KirbyRainbow_InvisibleLineFix/rules.txt"/>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/NewSuperMarioBrosU/Workarounds/CrashFix/rules.txt"/>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/SuperMario3DWorld_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/TwilightPrincessHD_Performance_Resolution/rules.txt">
+            <Preset>
+                <preset>1280x720</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/BreathOfTheWild/Mods/DrawDistance/rules.txt">
+            <Preset>
+                <category>NPC, Enemies And Other Entities</category>
+                <preset>Extreme (2x, requires Extended Memory pack!)</preset>
+            </Preset>
+            <Preset>
+                <category>Terrain, Buildings, Bushes And Other Objects</category>
+                <preset>Ultra (1.5x, requires Extended Memory pack!)</preset>
+            </Preset>
+            <Preset>
+                <category>Trees (2D Billboards)</category>
+                <preset>Extreme</preset>
+            </Preset>
+            <Preset>
+                <category>Grass Blades Density</category>
+                <preset>Extreme (experimental)</preset>
+            </Preset>
+            <Preset>
+                <category>Texture Distance Detail (LOD)</category>
+                <preset>Highest (-16, Not Recommended)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/SuperMario3DWorld_Shadows/rules.txt">
+            <Preset>
+                <preset>Ultra (300%)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/YoshisWoollyWorld_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/YoshisWoollyWorld_Shadows/rules.txt">
+            <Preset>
+                <preset>Ultra (300%)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/SuperSmashBros/Graphics/rules.txt">
+            <Preset>
+                <category>Additional Downsampling Resolutions</category>
+                <preset>Enabled</preset>
+            </Preset>
+            <Preset>
+                <category>Aspect Ratio</category>
+                <preset>16:9 (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Resolution</category>
+                <preset>5120x2880 (5K)</preset>
+            </Preset>
+            <Preset>
+                <category>Shadows</category>
+                <preset>Ultra (300%)</preset>
+            </Preset>
+            <Preset>
+                <category>Anisotropic Filtering</category>
+                <preset>16x</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/TwilightPrincessHD_NegativeLOD/rules.txt">
+            <Preset>
+                <preset>LOD Default</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/BreathOfTheWild/Mods/ExtendedMemory/rules.txt"/>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/TwilightPrincessHD_Contrasty/rules.txt">
+            <Preset>
+                <preset>default</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/SuperMario3DWorld_Contrasty/rules.txt">
+            <Preset>
+                <preset>Default</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/PokkenTournament_Shadows/rules.txt">
+            <Preset>
+                <preset>Ultra (300%)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/TwilightPrincessHD_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160 (4k - Native x2)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/MarioTennis_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/MarioTennis_Shadows/rules.txt">
+            <Preset>
+                <preset>Ultra (300%)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/XenobladeChroniclesX/Mods/HudChangeTimeFromEmanual/rules.txt"/>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/XenobladeChroniclesX/Mods/HideOfflineLabel/rules.txt"/>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/XenobladeChroniclesX/Workarounds/Brightness/rules.txt">
+            <Preset>
+                <category>Standard presets</category>
+                <preset>WiiU default - Brightness fix only</preset>
+            </Preset>
+            <Preset>
+                <category>Exposure and brightness fix</category>
+                <preset>No extra exposure - Only brightness fix</preset>
+            </Preset>
+            <Preset>
+                <category>Saturation - Darkens image</category>
+                <preset>No extra saturation (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Contrast</category>
+                <preset>No extra contrast (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Exposure after colour grading</category>
+                <preset>Default post exposure</preset>
+            </Preset>
+        </Entry>
+    </GraphicPack>
+    <Graphic>
+        <api>1</api>
+        <device>15e1daa25ee7ab12c42fbc7140bedcbd</device>
+        <VSync>0</VSync>
+        <GX2DrawdoneSync>true</GX2DrawdoneSync>
+        <UpscaleFilter>0</UpscaleFilter>
+        <DownscaleFilter>0</DownscaleFilter>
+        <FullscreenScaling>0</FullscreenScaling>
+        <AsyncCompile>true</AsyncCompile>
+        <vkAccurateBarriers>true</vkAccurateBarriers>
+        <Overlay>
+            <Position>0</Position>
+            <TextColor>4294967295</TextColor>
+            <TextScale>100</TextScale>
+            <FPS>true</FPS>
+            <DrawCalls>false</DrawCalls>
+            <CPUUsage>false</CPUUsage>
+            <CPUPerCoreUsage>false</CPUPerCoreUsage>
+            <RAMUsage>false</RAMUsage>
+            <VRAMUsage>false</VRAMUsage>
+            <Debug>false</Debug>
+        </Overlay>
+        <Notification>
+            <Position>1</Position>
+            <TextColor>4294967295</TextColor>
+            <TextScale>100</TextScale>
+            <ControllerProfiles>true</ControllerProfiles>
+            <ControllerBattery>false</ControllerBattery>
+            <ShaderCompiling>true</ShaderCompiling>
+            <FriendService>true</FriendService>
+        </Notification>
+    </Graphic>
+    <Audio>
+        <api>3</api>
+        <delay>2</delay>
+        <TVChannels>1</TVChannels>
+        <PadChannels>1</PadChannels>
+        <InputChannels>0</InputChannels>
+        <TVVolume>50</TVVolume>
+        <PadVolume>0</PadVolume>
+        <InputVolume>50</InputVolume>
+        <TVDevice></TVDevice>
+        <PadDevice></PadDevice>
+        <InputDevice></InputDevice>
+    </Audio>
+    <Account>
+        <PersistentId>2147483649</PersistentId>
+        <OnlineEnabled>false</OnlineEnabled>
+        <ActiveService>0</ActiveService>
+    </Account>
+    <AccountService/>
+    <Debug>
+        <CrashDumpUnix>0</CrashDumpUnix>
+        <GDBPort>1337</GDBPort>
+    </Debug>
+    <Input>
+        <DSUC host="127.0.0.1" port="26760"/>
+    </Input>
+    <EmulatedUsbDevices>
+        <EmulateSkylanderPortal>false</EmulateSkylanderPortal>
+        <EmulateInfinityBase>false</EmulateInfinityBase>
+        <EmulateDimensionsToypad>false</EmulateDimensionsToypad>
+    </EmulatedUsbDevices>
+</content>

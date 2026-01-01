@@ -67,6 +67,15 @@ toolbarbutton[open="true"] {
   padding: 1px 1px 0px 1px !important;
 }
 
+.findbar-container .tabbable {
+  padding: var(--pad-default) !important;
+  margin: var(--gap-small) 0px 0px 5px !important;
+}
+.findbar-container .tabbable {
+  padding: var(--pad-active) !important;
+  margin: 0px 0px 0px 4px !important;
+}
+
 /* hover / active states for tab-close and toolbarbutton */
 :where(toolbarbutton:not([disabled="true"])):hover:not(:active) {
   color: var(--base01) !important; /*Ex: tab number badge, menu labels*/
@@ -170,7 +179,25 @@ toolbarbutton.subviewbutton:active {
 .urlbar-page-action {
   width: var(--sz-min-w) !important;
 }
-:where(#tracking-protection-icon-container, .identity-box-button.urlbar-page-action):hover {
+/* Go button during search engine search */
+.urlbar-go-button,
+.urlbar-revert-button {
+  box-sizing: content-box !important;
+  width: 16px !important;
+  margin: var(--gap-small) 0 0 var(--gap-small) !important;
+  margin-inline-end: var(--urlbar-searchmodeswitcher-margin-inline-end) !important;
+  padding: 8px 9px 9px 8px !important;
+  transition-duration: var(--transition-duration) !important;
+  transition-property: var(--transition-props) !important;
+}
+:is(.urlbar-go-button.urlbar-revert-button):is(:active, active:hover) {
+  margin: 0px !important;
+  padding: 9px !important;
+  background-color: transparent !important;
+  box-shadow: var(--shadow-inset) !important;
+  fill: var(--base0D) !important;
+}
+:where(#tracking-protection-icon-container, .identity-box-button.urlbar-page-action, .urlbar-go-button, .urlbar-revert-button):hover {
   background-color: var(--base0D) !important;
   box-shadow: var(--shadow-thin-base0D) !important;
   fill: var(--base01) !important;

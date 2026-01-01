@@ -49,6 +49,7 @@ in {
         bind =
           [
             "${mod}, W, exec, [workspace 1] uwsm app -- ${config.hm.browsers.defaultBrowser}"
+            "${mod}, D, exec, [workspace 9] uwsm app -- vesktop"
             "${mod}, F, exec, uwsm app -- alacritty -T Yazi -e yazi"
             "${mod}, E, exec, uwsm app -- alacritty"
             "${mod}, C, exec, uwsm app -- alacritty -T NVIM -e nvim"

@@ -8,18 +8,33 @@ input[type="checkbox"],
 checkbox:not(.treenode-checkbox) > .checkbox-check {
   width: 20px !important;
   height: 20px !important;
+}
+menuitem[type="checkbox"] > .menu-icon {
+  box-sizing: content-box !important;
+  width: 14px !important;
+  height: 14px !important;
+  padding: 3px !important;
+}
+input[type="checkbox"],
+checkbox:not(.treenode-checkbox) > .checkbox-check,
+menuitem[type="checkbox"] > .menu-icon {
   border: 0 !important;
   border-radius: 6px !important;
-
   appearance: none !important;
 }
 input[type="checkbox"]:not(:checked),
-checkbox:not(.treenode-checkbox) > .checkbox-check:not([checked]) {
+checkbox:not(.treenode-checkbox) > .checkbox-check:not([checked]),
+menuitem[type="checkbox"] > .menu-icon {
   background-color: transparent !important;
   box-shadow: var(--shadow-inset-thin-base01);
 }
+menuitem[type="checkbox"][checked="false"]:hover:not(:active) > .menu-icon {
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-inset-thin-base0D) !important;
+}
 input[type="checkbox"]:checked,
-checkbox:not(.treenode-checkbox) > .checkbox-check[checked] {
+checkbox:not(.treenode-checkbox) > .checkbox-check[checked],
+menuitem[type="checkbox"][checked="true"] > .menu-icon {
   background-color: var(--base0D) !important;
   /* NOTE: var(--gnome-icon-select-symbolic) doesn't load in modal dialogs */
   background-image: url("../icons/custom/select-fixed-symbolic.svg") !important;
@@ -36,27 +51,44 @@ checkbox:not(.treenode-checkbox) > .checkbox-check[checked] {
 /* Radio */
 input[type="radio"],
 radio > .radio-check {
-  appearance: none !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+input[type="radio"],
+radio > .radio-check,
+menuitem[type="radio"] > .menu-icon {
+  padding: 3px !important;
   border: 0 !important;
   border-radius: 50% !important;
-  height: 20px !important;
-  padding: 3px !important;
-  width: 20px !important;
+  appearance: none !important;
+}
+menuitem[type="radio"] > .menu-icon {
+  box-sizing: content-box !important;
+  width: 14px !important;
+  height: 14px !important;
 }
 input[type="radio"][aria-checked="false"],
-radio > .radio-check:not([selected]) {
+radio > .radio-check:not([selected]),
+menuitem[type="radio"] > .menu-icon {
   background-color: transparent !important;
   box-shadow: var(--shadow-inset-thin-base01);
 }
+menuitem[type="radio"][checked="false"]:hover:not(:active) > .menu-icon {
+  background-color: var(--base0D) !important;
+  box-shadow: var(--shadow-inset-thin-base0D) !important;
+}
 input[type="radio"][aria-checked="true"],
-radio > .radio-check[selected] {
+radio > .radio-check[selected],
+menuitem[type="radio"][checked="true"] > .menu-icon {
   background-color: var(--base0D) !important;
   /* NOTE: var(--gnome-icon-bullet-symbolic) doesn't load in modal dialogs */
   background-image: url("../icons/custom/bullet-fixed-symbolic.svg") !important;
   background-repeat: no-repeat;
   background-position: center;
   box-shadow: var(--shadow-inset-thin-base0D) !important;
+
   fill: var(--base01) !important;
+
   -moz-context-properties: fill;
 }
 

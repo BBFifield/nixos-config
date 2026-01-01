@@ -59,13 +59,13 @@
 
     tabs = {
       active = {
-        bg = "darkgray";
-        fg = "lightmagenta";
+        bg = "cyan";
+        fg = "black";
       };
 
       inactive = {
         bg = "reset";
-        fg = "darkgray";
+        fg = "cyan";
       };
       sep_outer = {
         open = "";

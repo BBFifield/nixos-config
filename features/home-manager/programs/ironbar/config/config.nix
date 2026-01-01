@@ -42,7 +42,7 @@ in ''
     }
 
     $clock = { type = "clock" format = "<span font-size='13pt'></span> %d-%h-%Y <span font-size='16pt' font-family='DS-Digital'>%I:%M%P</span>" }
-    $tray = { type = "tray" icon_size = 32 ${isEnabled "tray-revealer" ''show_if = "#show_tray"''} }
+    $tray = { type = "tray" icon_size = 24 ${isEnabled "tray-revealer" ''show_if = "#show_tray"''} }
 
     $bluetooth = {
       type = "bluetooth"

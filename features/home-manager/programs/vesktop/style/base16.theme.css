@@ -6,13 +6,14 @@
  */
 
 /* import theme modules */
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono");
 @import url("https://refact0r.github.io/midnight-discord/build/midnight.css");
 @import url("colors.css");
 
 body {
   /* font options */
-  --font: "figtree"; /* change to '' for default discord font */
-  --code-font: ""; /* change to '' for default discord font */
+  --font: "JetBrains Mono"; /* change to '' for default discord font */
+  --code-font: "JetBrains Mono"; /* change to '' for default discord font */
   font-weight: 400; /* normal text font weight. DOES NOT AFFECT BOLD TEXT */
 
   /* sizes */
@@ -37,7 +38,7 @@ body {
   --window-control-size: 14px; /* size of custom window controls */
 
   /* dms button options */
-  --custom-dms-icon: custom; /* off: use default discord icon, hide: remove icon entirely, custom: use custom icon */
+  --custom-dms-icon: off; /* off: use default discord icon, hide: remove icon entirely, custom: use custom icon */
   --dms-icon-svg-url: url("https://refact0r.github.io/midnight-discord/assets/Font_Awesome_5_solid_moon.svg"); /* icon svg url. MUST BE A SVG. */
   --dms-icon-svg-size: 90%; /* size of the svg (css mask-size property) */
   --dms-icon-color-before: var(--icon-secondary); /* normal icon color */
@@ -64,7 +65,7 @@ body {
   --chatbar-height: 47px; /* height of the chatbar (56px by default, 47px to align with user panel, 56px recommended for separated) */
 
   /* other options */
-  --small-user-panel: on; /* off: default user panel, on: smaller user panel like in old discord */
+  --small-user-panel: off; /* off: default user panel, on: smaller user panel like in old discord */
 }
 
 /* Base16 palette and derived variables */
@@ -90,7 +91,7 @@ body {
   --hover: color-mix(in srgb, var(--base0D) 10%, transparent 90%); /* channels and buttons when hovered */
   --active: color-mix(in srgb, var(--base0D) 18%, transparent 82%); /* channels and buttons when clicked or selected */
   --active-2: color-mix(in srgb, var(--base0D) 26%, transparent 74%); /* extra state for transparent buttons */
-  --message-hover: color-mix(in srgb, var(--base00) 88%, transparent 12%); /* messages when hovered */
+  --message-hover: color-mix(in srgb, var(--base0D) 10%, transparent 90%); /* messages when hovered */
 
   /* accent colors */
   --accent-1: var(--base0C); /* links and other accent text */

@@ -2,6 +2,7 @@
   $theme_info_module = {
     type = "box"
     orientation = "vertical"
+    on_click_right = "alacritty -e btop"
     widgets = [
       {
         type = "button"

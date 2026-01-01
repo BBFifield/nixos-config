@@ -1,0 +1,569 @@
+[
+    {
+        "parserType": "Glob",
+        "configTitle": "Nintendo 64 - Rosalie's Mupen GUI",
+        "steamDirectory": "${steamdirglobal}",
+        "romDirectory": "/run/media/brandon/EAEC2CF7EC2CBFA5/backups/roms/64",
+        "steamCategories": [
+            "N64"
+        ],
+        "executableArgs": "--fullscreen --nogui --quit-after-emulation \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
+        "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
+        "steamInputEnabled": "1",
+        "imageProviders": [
+            "sgdb"
+        ],
+        "onlineImageQueries": [
+            "${fuzzyTitle}"
+        ],
+        "imagePool": "${fuzzyTitle}",
+        "drmProtect": false,
+        "userAccounts": {
+            "specifiedAccounts": [
+                "Global"
+            ]
+        },
+        "parserInputs": {
+            "glob": "{*,*/*}/${title}@(.7z|.7Z|.n64|.N64|.v64|.V64|.z64|.Z64|.zip|.ZIP)"
+        },
+        "executable": {
+            "path": "/etc/profiles/per-user/brandon/bin/RMG",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
+        },
+        "titleFromVariable": {
+            "limitToGroups": [],
+            "caseInsensitiveVariables": false,
+            "skipFileIfVariableWasNotFound": false
+        },
+        "fuzzyMatch": {
+            "replaceDiacritics": true,
+            "removeCharacters": true,
+            "removeBrackets": true
+        },
+        "controllers": {
+            "ps4": null,
+            "ps5": null,
+            "ps5_edge": null,
+            "xbox360": null,
+            "xboxone": null,
+            "xboxelite": null,
+            "switch_joycon_left": null,
+            "switch_joycon_right": null,
+            "switch_pro": null,
+            "neptune": null,
+            "steamcontroller_gordon": null
+        },
+        "imageProviderAPIs": {
+            "sgdb": {
+                "nsfw": false,
+                "humor": false,
+                "styles": [],
+                "stylesHero": [],
+                "stylesLogo": [],
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ],
+                "sizes": [],
+                "sizesHero": [],
+                "sizesIcon": []
+            }
+        },
+        "defaultImage": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "localImages": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "parserId": "176706369430252116",
+        "version": 25
+    },
+    {
+        "parserType": "Glob",
+        "configTitle": "Nintendo GameCube - Dolphin",
+        "steamDirectory": "${steamdirglobal}",
+        "romDirectory": "/run/media/brandon/EAEC2CF7EC2CBFA5/backups/roms/gamecube",
+        "steamCategories": [
+            "GameCube"
+        ],
+        "executableArgs": "-b -e \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
+        "startInDirectory": "",
+        "titleModifier": "${/( *\\(.*\\).*)*(\\.nkit)*$/|${fuzzyTitle}|}",
+        "steamInputEnabled": "1",
+        "imageProviders": [
+            "sgdb"
+        ],
+        "onlineImageQueries": [
+            "${fuzzyTitle}"
+        ],
+        "imagePool": "${fuzzyTitle}",
+        "drmProtect": false,
+        "userAccounts": {
+            "specifiedAccounts": [
+                "Global"
+            ]
+        },
+        "parserInputs": {
+            "glob": "{*,*/*}/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA)"
+        },
+        "executable": {
+            "path": "/etc/profiles/per-user/brandon/bin/dolphin-emu",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
+        },
+        "titleFromVariable": {
+            "limitToGroups": [],
+            "caseInsensitiveVariables": false,
+            "skipFileIfVariableWasNotFound": false
+        },
+        "fuzzyMatch": {
+            "replaceDiacritics": true,
+            "removeCharacters": true,
+            "removeBrackets": true
+        },
+        "controllers": {
+            "ps4": null,
+            "ps5": null,
+            "ps5_edge": null,
+            "xbox360": null,
+            "xboxone": null,
+            "xboxelite": null,
+            "switch_joycon_left": null,
+            "switch_joycon_right": null,
+            "switch_pro": {
+                "title": "Gamepad",
+                "mappingId": "controller_switch_pro_gamepad_joystick.vdf",
+                "profileType": "template"
+            },
+            "neptune": null,
+            "steamcontroller_gordon": null
+        },
+        "imageProviderAPIs": {
+            "sgdb": {
+                "nsfw": false,
+                "humor": false,
+                "styles": [],
+                "stylesHero": [],
+                "stylesLogo": [],
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ],
+                "sizes": [],
+                "sizesHero": [],
+                "sizesIcon": []
+            }
+        },
+        "defaultImage": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "localImages": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "parserId": "176706481773410719",
+        "version": 25
+    },
+    {
+        "parserType": "Glob",
+        "configTitle": "Nintendo Wii - Dolphin",
+        "steamDirectory": "${steamdirglobal}",
+        "romDirectory": "/run/media/brandon/EAEC2CF7EC2CBFA5/backups/roms/wii",
+        "steamCategories": [
+            "Wii"
+        ],
+        "executableArgs": "-b -e \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
+        "startInDirectory": "",
+        "titleModifier": "${/( *\\(.*\\).*)*(\\.nkit)*$/|${fuzzyTitle}|}",
+        "steamInputEnabled": "1",
+        "imageProviders": [
+            "sgdb"
+        ],
+        "onlineImageQueries": [
+            "${fuzzyTitle}"
+        ],
+        "imagePool": "${fuzzyTitle}",
+        "drmProtect": false,
+        "userAccounts": {
+            "specifiedAccounts": [
+                "Global"
+            ]
+        },
+        "parserInputs": {
+            "glob": "{*,*/*}/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcz|.GCZ|.iso|.ISO|.rvz|.RVZ|.wad|.WAD|.wbfs|.WBFS|.wia|.WIA)"
+        },
+        "executable": {
+            "path": "/etc/profiles/per-user/brandon/bin/dolphin-emu",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
+        },
+        "titleFromVariable": {
+            "limitToGroups": [],
+            "caseInsensitiveVariables": false,
+            "skipFileIfVariableWasNotFound": false
+        },
+        "fuzzyMatch": {
+            "replaceDiacritics": true,
+            "removeCharacters": true,
+            "removeBrackets": true
+        },
+        "controllers": {
+            "ps4": null,
+            "ps5": null,
+            "ps5_edge": null,
+            "xbox360": null,
+            "xboxone": null,
+            "xboxelite": null,
+            "switch_joycon_left": null,
+            "switch_joycon_right": null,
+            "switch_pro": {
+                "title": "Gamepad",
+                "mappingId": "controller_switch_pro_gamepad_joystick.vdf",
+                "profileType": "template"
+            },
+            "neptune": null,
+            "steamcontroller_gordon": null
+        },
+        "imageProviderAPIs": {
+            "sgdb": {
+                "nsfw": false,
+                "humor": false,
+                "styles": [],
+                "stylesHero": [],
+                "stylesLogo": [],
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ],
+                "sizes": [],
+                "sizesHero": [],
+                "sizesIcon": []
+            }
+        },
+        "defaultImage": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "localImages": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "parserId": "176706494524555308",
+        "version": 25
+    },
+    {
+        "parserType": "Glob",
+        "configTitle": "Nintendo WiiU - Cemu (RPX - Installed)",
+        "steamDirectory": "${steamdirglobal}",
+        "romDirectory": "/run/media/brandon/EAEC2CF7EC2CBFA5/backups/Applications/Cemu2/mlc01/usr/title",
+        "steamCategories": [
+            "Wii U"
+        ],
+        "executableArgs": "-f -g \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
+        "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
+        "steamInputEnabled": "1",
+        "imageProviders": [
+            "sgdb"
+        ],
+        "onlineImageQueries": [
+            "${fuzzyTitle}"
+        ],
+        "imagePool": "${fuzzyTitle}",
+        "drmProtect": false,
+        "userAccounts": {
+            "specifiedAccounts": [
+                "Global"
+            ]
+        },
+        "parserInputs": {
+            "glob": "{*,*/*}/${title}/*/*@(.rpx|.RPX)"
+        },
+        "executable": {
+            "path": "/etc/profiles/per-user/brandon/bin/cemu",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
+        },
+        "titleFromVariable": {
+            "limitToGroups": [
+                "WIIU"
+            ],
+            "caseInsensitiveVariables": true,
+            "skipFileIfVariableWasNotFound": false
+        },
+        "fuzzyMatch": {
+            "replaceDiacritics": true,
+            "removeCharacters": true,
+            "removeBrackets": true
+        },
+        "controllers": {
+            "ps4": null,
+            "ps5": null,
+            "ps5_edge": null,
+            "xbox360": null,
+            "xboxone": null,
+            "xboxelite": null,
+            "switch_joycon_left": null,
+            "switch_joycon_right": null,
+            "switch_pro": {
+                "title": "Gamepad",
+                "mappingId": "controller_switch_pro_gamepad_joystick.vdf",
+                "profileType": "template"
+            },
+            "neptune": null,
+            "steamcontroller_gordon": null
+        },
+        "imageProviderAPIs": {
+            "sgdb": {
+                "nsfw": false,
+                "humor": false,
+                "styles": [],
+                "stylesHero": [],
+                "stylesLogo": [],
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ],
+                "sizes": [],
+                "sizesHero": [],
+                "sizesIcon": []
+            }
+        },
+        "defaultImage": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "localImages": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": "${dir}/../*${/\\[.*?\\]/g|${title}|}*/meta/iconTex.tga"
+        },
+        "parserId": "176706515525328148",
+        "version": 25
+    },
+    {
+        "parserType": "Glob",
+        "configTitle": "Nintendo Switch - Ryujinx",
+        "steamDirectory": "${steamdirglobal}",
+        "romDirectory": "/run/media/brandon/EAEC2CF7EC2CBFA5/backups/roms/switch/baseGames",
+        "steamCategories": [
+            "Switch"
+        ],
+        "executableArgs": "--fullscreen \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
+        "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
+        "steamInputEnabled": "1",
+        "imageProviders": [
+            "sgdb"
+        ],
+        "onlineImageQueries": [
+            "${fuzzyTitle}"
+        ],
+        "imagePool": "${fuzzyTitle}",
+        "drmProtect": false,
+        "userAccounts": {
+            "specifiedAccounts": [
+                "Global"
+            ]
+        },
+        "parserInputs": {
+            "glob": "{*,*/*}/${title}@(.nca|.NCA|.nro|.NRO|.nso|.NSO|.nsp|.NSP|.xci|.XCI)"
+        },
+        "executable": {
+            "path": "/etc/profiles/per-user/brandon/bin/ryujinx",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
+        },
+        "titleFromVariable": {
+            "limitToGroups": [],
+            "caseInsensitiveVariables": false,
+            "skipFileIfVariableWasNotFound": false
+        },
+        "fuzzyMatch": {
+            "replaceDiacritics": true,
+            "removeCharacters": true,
+            "removeBrackets": true
+        },
+        "controllers": {
+            "ps4": null,
+            "ps5": null,
+            "ps5_edge": null,
+            "xbox360": null,
+            "xboxone": null,
+            "xboxelite": null,
+            "switch_joycon_left": null,
+            "switch_joycon_right": null,
+            "switch_pro": {
+                "title": "Gamepad",
+                "mappingId": "controller_switch_pro_gamepad_joystick.vdf",
+                "profileType": "template"
+            },
+            "neptune": null,
+            "steamcontroller_gordon": null
+        },
+        "imageProviderAPIs": {
+            "sgdb": {
+                "nsfw": false,
+                "humor": false,
+                "styles": [],
+                "stylesHero": [],
+                "stylesLogo": [],
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ],
+                "sizes": [],
+                "sizesHero": [],
+                "sizesIcon": []
+            }
+        },
+        "defaultImage": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "localImages": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "parserId": "1767124130158315",
+        "version": 25
+    },
+    {
+        "parserType": "Glob",
+        "configTitle": "Sony PlayStation 3 - RPCS3 (Extracted ISO)",
+        "steamDirectory": "${steamdirglobal}",
+        "romDirectory": "/run/media/brandon/EAEC2CF7EC2CBFA5/backups/roms/ps3",
+        "steamCategories": [
+            "PS3"
+        ],
+        "executableArgs": "--no-gui \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
+        "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
+        "fetchControllerTemplatesButton": null,
+        "removeControllersButton": null,
+        "steamInputEnabled": "1",
+        "imageProviders": [
+            "sgdb"
+        ],
+        "onlineImageQueries": [
+            "${fuzzyTitle}"
+        ],
+        "imagePool": "${fuzzyTitle}",
+        "drmProtect": false,
+        "userAccounts": {
+            "specifiedAccounts": [
+                "Global"
+            ]
+        },
+        "parserInputs": {
+            "glob": "${title}/PS3_GAME/USRDIR/@(eboot.bin|EBOOT.BIN)"
+        },
+        "executable": {
+            "path": "/etc/profiles/per-user/brandon/bin/rpcs3",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
+        },
+        "titleFromVariable": {
+            "limitToGroups": [
+                "PS3"
+            ],
+            "caseInsensitiveVariables": false,
+            "skipFileIfVariableWasNotFound": false
+        },
+        "fuzzyMatch": {
+            "replaceDiacritics": true,
+            "removeCharacters": true,
+            "removeBrackets": true
+        },
+        "controllers": {
+            "ps4": null,
+            "ps5": null,
+            "ps5_edge": null,
+            "xbox360": null,
+            "xboxone": null,
+            "xboxelite": null,
+            "switch_joycon_left": null,
+            "switch_joycon_right": null,
+            "switch_pro": {
+                "title": "Gamepad",
+                "mappingId": "controller_switch_pro_gamepad_joystick.vdf",
+                "profileType": "template"
+            },
+            "neptune": null,
+            "steamcontroller_gordon": null
+        },
+        "imageProviderAPIs": {
+            "sgdb": {
+                "nsfw": false,
+                "humor": false,
+                "styles": [],
+                "stylesHero": [],
+                "stylesLogo": [],
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ],
+                "sizes": [],
+                "sizesHero": [],
+                "sizesTall": null,
+                "sizesIcon": []
+            }
+        },
+        "defaultImage": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "localImages": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "parserId": "176713912657458281",
+        "version": 25
+    }
+]

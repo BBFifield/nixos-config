@@ -1,0 +1,85 @@
+{
+	"titles": {
+		"The Legend of Zelda Breath of the Wild ${id:2667661604}": {
+			"newTitle": "",
+			"searchTitle": "",
+			"timeStamp": 1767138976945,
+			"commandLineArguments": "",
+			"exclude": true,
+			"excludeArtwork": false
+		},
+		"Yoshi’s Woolly World™ ${id:2172227113}": {
+			"newTitle": "",
+			"searchTitle": "",
+			"timeStamp": 1767138976945,
+			"commandLineArguments": "",
+			"exclude": true,
+			"excludeArtwork": false
+		},
+		"Super Smash Bros.™ for Wii U ${id:2177722141}": {
+			"newTitle": "",
+			"searchTitle": "",
+			"timeStamp": 1767138976945,
+			"commandLineArguments": "",
+			"exclude": true,
+			"excludeArtwork": false
+		},
+		"Mario Kart™ 8 ${id:3427865421}": {
+			"newTitle": "",
+			"searchTitle": "",
+			"timeStamp": 1767138976945,
+			"commandLineArguments": "",
+			"exclude": true,
+			"excludeArtwork": false
+		},
+		"Mario Party™ 10 ${id:2549167417}": {
+			"newTitle": "",
+			"searchTitle": "",
+			"timeStamp": 1767138976945,
+			"commandLineArguments": "",
+			"exclude": true,
+			"excludeArtwork": false
+		},
+		"Mario Tennis™: Ultra Smash ${id:2282025787}": {
+			"newTitle": "",
+			"searchTitle": "",
+			"timeStamp": 1767138976945,
+			"commandLineArguments": "",
+			"exclude": true,
+			"excludeArtwork": false
+		},
+		"Paper Mario ${id:3829576650}": {
+			"newTitle": "",
+			"searchTitle": "",
+			"timeStamp": 1767138976945,
+			"commandLineArguments": "",
+			"exclude": true,
+			"excludeArtwork": false
+		},
+		"The Legend of Zelda - Ocarina of Time (USA) (Rev 2) ${id:4286205479}": {
+			"newTitle": "The Legend of Zelda: Ocarina of Time",
+			"searchTitle": "${gameid:21202}",
+			"commandLineArguments": "",
+			"excludeArtwork": false,
+			"exclude": false,
+			"timeStamp": 1767138976945
+		},
+		"Paper Mario The Thousand Year Door ${id:2427550640}": {
+			"newTitle": "Paper Mario: The Thousand-Year Door",
+			"searchTitle": "${gameid:5452664}",
+			"commandLineArguments": "",
+			"excludeArtwork": false,
+			"exclude": false,
+			"timeStamp": 1767138976945
+		},
+		"Pokemon Legends Arceus [01001F5010DFA000][v0] (6.01 GB) ${id:3835968728}": {
+			"newTitle": "Pokémon Legends: Arceus",
+			"searchTitle": "${gameid:5286404}",
+			"commandLineArguments": "",
+			"excludeArtwork": false,
+			"exclude": false,
+			"timeStamp": 1767139783971
+		}
+	},
+	"exceptionsVersion": 2
+}

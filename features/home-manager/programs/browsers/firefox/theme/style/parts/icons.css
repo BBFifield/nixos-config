@@ -388,8 +388,21 @@ moz-button.close {
 #context-bookmarkpage {
   --menuitem-icon: var(--gnome-icon-non-starred-symbolic) !important;
 }
-.urlbar-page-action:is(:hover:not(:active), :hover:not(:active)[open="true"]) > #star-button[starred] {
+.urlbar-page-action:is(:hover:not(:active), :hover:not(:active)[open="true"]) > :is(#star-button[starred], #translations-button-icon) {
   fill: var(--base01) !important;
+}
+#translations-button > #translations-button-locale {
+  margin-left: -17px !important;
+}
+#translations-button > #translations-button-circle-arrows {
+  margin-left: -15px !important;
+}
+#translations-button:hover > #translations-button-locale {
+  background-color: var(--base01) !important;
+  color: var(--base0D) !important;
+}
+#translations-button:is([data-l10n-id="urlbar-translations-button-loading"], [translationsactive="true"]) > #translations-button-icon {
+  fill: transparent !important;
 }
 
 /* Picture-in-picture */
@@ -469,7 +482,13 @@ moz-button.close {
 #downloads-indicator-icon {
   list-style-image: var(--gnome-icon-folder-download-symbolic) !important;
 }
+#downloads-button[attention="success"]:hover:not(:active) > .toolbarbutton-badge-stack > #downloads-indicator-anchor > #downloads-indicator-icon {
+  fill: var(--base01) !important;
+}
 /* Info */
+.panel-info-button {
+  padding: 3px !important;
+}
 .panel-info-button:not(.translations-panel-settings-gear-icon) > image,
 #identity-icon {
   list-style-image: var(--gnome-icon-info-outline-symbolic) !important;

@@ -51,7 +51,7 @@
         live.enable = true;
         templateSrc = {
           url = "https://github.com/tinted-theming/base16-qutebrowser.git";
-          rev = "6253558595c15c29689b4343de6303f6743f5831";
+          rev = "304e39f3789ebfdd40e51a63bd58fbd4c54b001b";
           ref = "main";
         };
         path = ".config/qutebrowser";
@@ -206,20 +206,20 @@
         schemeFilename = "user-stylesheet";
         schemeExtension = "scss";
       };
-      btop = {
-        enable = true;
-        live = {
-          enable = true;
-        };
-        templateSrc = {
-          url = "https://git.sr.ht/~blueingreen/base16-btop";
-          rev = "69fd5f822cb3b144f6e4563c55422df81ef44733";
-          ref = "main";
-        };
-        templateName = "body";
-        path = ".config/btop/themes";
-        schemeExtension = "theme";
-      };
+      # btop = {
+      #   enable = true;
+      #   live = {
+      #     enable = true;
+      #   };
+      #   templateSrc = {
+      #     url = "https://git.sr.ht/~blueingreen/base16-btop";
+      #     rev = "69fd5f822cb3b144f6e4563c55422df81ef44733";
+      #     ref = "main";
+      #   };
+      #   templateName = "body";
+      #   path = ".config/btop/themes";
+      #   schemeExtension = "theme";
+      # };
       shell = {
         enable = true;
         live = {

@@ -1,0 +1,44 @@
+{
+	"fuzzyMatcher": {
+		"timestamps": {
+			"check": 1767117887581,
+			"download": 1767117887581
+		},
+		"verbose": false,
+		"filterProviders": true
+	},
+	"environmentVariables": {
+		"steamDirectory": "/home/brandon/.local/share/Steam",
+		"userAccounts": [
+			"newfiebullet16"
+		],
+		"romsDirectory": "/run/media/brandon/EAEC2CF7EC2CBFA5/backups/roms",
+		"retroarchPath": "",
+		"raCoresDirectory": "",
+		"localImagesDirectory": ""
+	},
+	"previewSettings": {
+		"retrieveCurrentSteamImages": true,
+		"disableCategories": false,
+		"deleteDisabledShortcuts": false,
+		"imageZoomPercentage": 30,
+		"imageLoadStrategy": "loadLazy",
+		"hideUserAccount": false
+	},
+	"enabledProviders": [
+		"sgdb",
+		"steamCDN"
+	],
+	"batchDownloadSize": 50,
+	"dnsServers": [],
+	"language": "en-US",
+	"theme": "Deck",
+	"emudeckInstall": false,
+	"autoUpdate": false,
+	"offlineMode": false,
+	"navigationWidth": 225,
+	"clearLogOnTest": false,
+	"autoKillSteam": true,
+	"autoRestartSteam": true,
+	"version": 10
+}
