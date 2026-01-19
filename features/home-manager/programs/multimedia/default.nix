@@ -7,6 +7,7 @@
     ./mpv
     ./tauon
     ./fragments
+    ./recording
     ./satty
   ];
   config = {

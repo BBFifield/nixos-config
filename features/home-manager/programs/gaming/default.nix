@@ -7,13 +7,12 @@
   imports = [
     ./emulators
     ./launchers
-    # ./sm64ex
+    ./n64ports
   ];
 
   config = {
     home.packages = with pkgs; [
       cartridges
-      shipwright
     ];
 
     programs.lutris.enable = true;

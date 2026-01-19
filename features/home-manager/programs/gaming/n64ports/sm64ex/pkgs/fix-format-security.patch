@@ -1,0 +1,17 @@
+diff --git a/data/dynos.cpp.h b/data/dynos.cpp.h
+index 187dc87a..a0681662 100644
+--- a/data/dynos.cpp.h
++++ b/data/dynos.cpp.h
+@@ -583,7 +583,11 @@ void PrintNoNewLine(const char *aFmt, Args... aArgs) {
+ 
+ template <typename... Args>
+ void Print(const char *aFmt, Args... aArgs) {
+-    printf(aFmt, aArgs...);
++    if constexpr (sizeof...(aArgs) == 0) {
++      fputs(aFmt, stdout);
++    } else {
++      printf(aFmt, aArgs...);
++    }
+     printf("\r\n");
+     fflush(stdout);
+ }

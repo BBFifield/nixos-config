@@ -57,5 +57,6 @@
     inputs.alacritty-theme.overlays.default
     inputs.tintednix.overlays.default
     inputs.hyprland-contrib.overlays.default
+    inputs.vs-overlay.overlay
   ];
 }

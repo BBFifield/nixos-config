@@ -528,6 +528,7 @@
         "plasma-manager": "plasma-manager",
         "sops-nix": "sops-nix",
         "tintednix": "tintednix",
+        "vs-overlay": "vs-overlay",
         "walker": "walker"
       }
     },
@@ -592,17 +593,37 @@
         ]
       },
       "locked": {
-        "lastModified": 1767240496,
-        "narHash": "sha256-vqo4VPPydb/Amr0dNFOV5n60cKVsVlTYUUUiFCPp9PM=",
+        "lastModified": 1767928242,
+        "narHash": "sha256-3smhgwTmpuqPW9XmhUS5oxcIADpb3vNYRkuhUZwHfIA=",
         "ref": "refs/heads/master",
-        "rev": "f71eabfa2c5571eba5efb18a3eba01372199a006",
-        "revCount": 103,
+        "rev": "e5f545c20a8d1f0baa9bc7ff44e07879388f77ec",
+        "revCount": 104,
         "type": "git",
         "url": "file:///home/brandon/tintednix"
       },
       "original": {
         "type": "git",
         "url": "file:///home/brandon/tintednix"
+      }
+    },
+    "vs-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720127654,
+        "narHash": "sha256-3X5RgLH8qg2DDqEfvoLwoR/fmy9mpXC+VP0tVEijwzw=",
+        "owner": "nix-community",
+        "repo": "vs-overlay",
+        "rev": "b93f03cb833a76f28f6e76c8f520d12e59255e80",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "vs-overlay",
+        "type": "github"
       }
     },
     "walker": {

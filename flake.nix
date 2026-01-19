@@ -60,6 +60,11 @@
       url = "github:GnRlLeclerc/firefox-native-base16";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    vs-overlay = {
+      url = "github:nix-community/vs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {

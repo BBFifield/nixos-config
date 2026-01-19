@@ -1,4 +1,11 @@
-{pkgs, ...}: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  mkWriteable = import ../../../../utils/mkWriteable.nix {inherit pkgs;};
+in {
   config = {
     home.packages = with pkgs; [
       dolphin-emu
@@ -8,12 +15,13 @@
       ".config/dolphin-emu/" = {
         source = ./config;
         recursive = true;
-      };
-      ".local/share/dolphin-emu" = {
-        source = ./local;
-        recursive = true;
         force = true;
       };
+    };
+    home.activation = {
+      mkDolphinConfigWriteable = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        ${mkWriteable} "${./local}" "${config.home.homeDirectory}/.local/share/dolphin-emu"
+      '';
     };
 
     # Need QT_SCALE_FACTOR to only apply to specific apps

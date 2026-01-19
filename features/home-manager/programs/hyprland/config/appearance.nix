@@ -144,7 +144,7 @@ in {
           "workspace 8, initialClass:^(page.kramo.Cartridges)$"
           "workspace 8, initialClass:^(steam-rom-manager)$"
           "workspace 8, initialClass:^(net.lutris.Lutris)$"
-          "workspace 8, initialClass:^(sm64ex)$"
+          "workspace 8, initialClass:^(render96ex)$"
           "workspace 7, initialClass:^(mpv)$"
           "workspace 6, initialClass:^(com.saivert.pwvucontrol)$"
           "workspace 6, initialClass:^(tauonmb)$"
