@@ -9,8 +9,11 @@
   '';
 
   vsplugins = with pkgs; [
-    (callPackage ./pkgs/lsmashsource.nix {})
     (callPackage ./pkgs/eedi3.nix {})
+    (callPackage ./pkgs/lsmashsource.nix {})
+    (callPackage ./pkgs/fft3d.nix {})
+    vapoursynthPlugins.fmtconv
+    vapoursynthPlugins.removegrain
     vapoursynth-nnedi3
     vapoursynth-znedi3
     vapoursynth-mvtools

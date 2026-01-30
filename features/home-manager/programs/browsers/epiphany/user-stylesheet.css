@@ -1,0 +1,49 @@
+@import url("file:///home/brandon/.config/gtk-4.0/colors.css");
+
+@keyframes ripple-out {
+  from {
+    background-image: radial-gradient(circle farthest-corner at center, alpha(currentColor, 1) 0%, transparent 0%);
+  }
+  to {
+    background-image: radial-gradient(circle farthest-corner at center, alpha(currentColor, 1) 100%, transparent 0%);
+  }
+}
+
+@keyframes ripple-in {
+  from {
+    background-image: radial-gradient(circle farthest-corner at center, alpha(currentColor, 1) 100%, transparent 0%);
+  }
+  to {
+    background-image: radial-gradient(circle farthest-corner at center, alpha(currentColor, 1) 0%, transparent 0%);
+  }
+}
+
+#overview {
+  position: fixed !important;
+
+  min-width: 100% !important;
+  max-width: 100% !important;
+  min-height: 100% !important;
+  max-height: 100% !important;
+
+  background-color: var(--base01) !important;
+}
+
+#overview .overview-title {
+  color: var(--base0D) !important;
+}
+
+.overview-close-button {
+  color: var(--base08);
+
+  background-color: color-mix(in oklab, var(--base08) 60%, black) !important;
+  box-shadow: var(--shadow-thin-base08-dull) !important;
+
+  transition:
+    background-color 0.2s cubic-bezier(0, 0, 0.2, 1),
+    box-shadow 0.2s cubic-bezier(0, 0, 0.2, 1);
+  animation: ripple-in 200ms cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+.overview-close-button:hover {
+  box-shadow: var(--shadow-thin-base08) !important;
+}

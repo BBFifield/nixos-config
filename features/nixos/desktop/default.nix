@@ -9,7 +9,7 @@ in {
   imports = [
     ./session.nix
     ./display-manager.nix
-    ./theme.nix
+    ./look-and-feel
   ];
 
   config = lib.mkMerge [

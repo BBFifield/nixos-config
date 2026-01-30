@@ -155,6 +155,7 @@ in
     libraryPath = lib.makeLibraryPath [
       pipewire
       python313Packages.vapoursynth
+      vapoursynthWithPlugins
     ];
 
     binPath = lib.makeBinPath [
